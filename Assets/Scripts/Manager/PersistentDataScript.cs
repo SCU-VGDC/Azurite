@@ -21,4 +21,15 @@ public class PersistentDataScript : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
     }
+    //Just in case added effects are wanted later.
+    public void setRoomState(int x) 
+    {
+        worldState = x;
+        return;
+    }
+    //Just in case added effects or variables are needed when checked.
+    public int getRoomState() 
+    {
+        return worldState;
+    }
 }
