@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] Rigidbody2D PlayerRigidBody;
-    [SerializeField] float playerSpeed = 10;
+    [SerializeField] float playerSpeed = 50;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +29,5 @@ public class Movement : MonoBehaviour
 
         //transform.Translate(movement);
         PlayerRigidBody.velocity = movement;
-        Debug.Log(PlayerRigidBody.velocity);
     }
 }
