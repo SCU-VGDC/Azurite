@@ -10,7 +10,10 @@ public class PersistentDataScript : MonoBehaviour
 
     public int worldState; //Sets the world state. All rooms should call this to determine their state.
     //0 - Default World State
+    [SerializeField] public ItemData[] ITEM_LIST;
+    public InventoryManager PlayerInventory;
     // Start is called before the first frame update
+
     private void Awake()
     {
         if (instance != null)
@@ -21,7 +24,7 @@ public class PersistentDataScript : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-
+        PlayerInventory = new InventoryManager();
     }
     //Just in case added effects are wanted later.
     public void setRoomState(int x)
