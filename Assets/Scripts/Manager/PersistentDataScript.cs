@@ -6,12 +6,12 @@ public class PersistentDataScript : MonoBehaviour
 {
     public static PersistentDataScript instance;
     //Destination coords passed in when teleporter is activated. These will be used to determine player's starting location within each scene.
-    public float[] destinationCoords = new float[2];
+    private float[] destinationCoords = new float[2];
 
     public int worldState; //Sets the world state. All rooms should call this to determine their state.
     //0 - Default World State
     [SerializeField] public ItemData[] ITEM_LIST;
-    public InventoryManager PlayerInventory;
+    [HideInInspector] public InventoryManager PlayerInventory;
     // Start is called before the first frame update
 
     private void Awake()
