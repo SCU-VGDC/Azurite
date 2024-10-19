@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersistentDataScript : MonoBehaviour
 {
     public static PersistentDataScript instance;
-
+    //Destination coords passed in when teleporter is activated. These will be used to determine player's starting location within each scene.
     public float[] destinationCoords = new float[2];
 
     public int worldState; //Sets the world state. All rooms should call this to determine their state.
@@ -16,7 +16,7 @@ public class PersistentDataScript : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null) //Prevents duplicate instances of persistent data.
         {
             Destroy(this.gameObject);
             return;
@@ -26,17 +26,18 @@ public class PersistentDataScript : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         PlayerInventory = new InventoryManager();
     }
-    //Just in case added effects are wanted later.
+    //Just in case added effects are wanted later (visual effects, sound, etc.)
     public void setRoomState(int x)
     {
         worldState = x;
         return;
     }
-    //Just in case added effects or variables are needed when checked.
+    //Just in case added effects or variables are needed when checked (UI or anything else).
     public int getRoomState()
     {
         return worldState;
     }
+    //Used to set destination coordinates for teleporation.
     public void setDestinationCoordinates(float x, float y)
     {
         destinationCoords[0] = x;
