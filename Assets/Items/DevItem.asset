@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33a8b90077628048836ad15afa05829, type: 3}
+  m_Name: DevItem
+  m_EditorClassIdentifier: 
+  ItemName: blue Flowers
+  ItemIcon: {fileID: 21300000, guid: 958e633dce29c7f45a7cabe4ba161131, type: 3}
+  ItemDescription: 'lmoa dev '
+  ItemID: 0
