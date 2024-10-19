@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     [SerializeField] Rigidbody2D PlayerRigidBody;
-    [SerializeField] float playerSpeed;
+    [SerializeField] float playerSpeed = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -21,17 +20,15 @@ public class Movement : MonoBehaviour
     {
         inputX  = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
-
-        
-
     }
+
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(playerSpeed * inputX, playerSpeed * inputY, 0);
-
+        Vector2 movement = new(playerSpeed * inputX, playerSpeed * inputY);
         movement *= Time.deltaTime;
 
         //transform.Translate(movement);
         PlayerRigidBody.velocity = movement;
+        Debug.Log(PlayerRigidBody.velocity);
     }
 }
