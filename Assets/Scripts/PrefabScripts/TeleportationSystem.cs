@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TeleportationSystem : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform destination;
+    public string destinationScene;
+    public float[] destinationCoords = new float[2]; //X and Y
     void Start()
     {
 
     }
-    public void onTriggerEnter2D(Collider2D victim)
+    public void OnTriggerEnter2D()
     {
-        victim.transform.position = destination.transform.position;
+        Debug.Log("Teleport Collide");
+        PersistentDataScript.instance.setDestinationCoordinates(destinationCoords[0], destinationCoords[1]);
+        SceneManager.LoadScene(destinationScene);
 
     }
     // Update is called once per frame
