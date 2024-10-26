@@ -15,7 +15,7 @@ public class TeleportationSystem : MonoBehaviour
     public void OnTriggerEnter2D()
     {
         Debug.Log("Teleport Collide");
-        PersistentDataScript.instance.setDestinationCoordinates(destinationCoords[0], destinationCoords[1]);
+        PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords[0], destinationCoords[1]);
         SceneManager.LoadScene(destinationScene);
 
     }
