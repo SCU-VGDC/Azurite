@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
 
-    bool paused;
+    public bool paused;
 
     // Start is called before the first frame update
     void Start()
