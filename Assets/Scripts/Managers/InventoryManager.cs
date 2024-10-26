@@ -5,13 +5,8 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
-    private bool menuActivated;
+    private bool menuActivated = false;
     [SerializeField] private KeyCode triggerKey = KeyCode.I;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
