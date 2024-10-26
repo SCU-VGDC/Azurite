@@ -18,14 +18,14 @@ public class Pause : MonoBehaviour
     {
         if (paused == false)
         {
-            print("Paused");
+            Debug.Log("Paused");
             Time.timeScale = 0f;
             paused = true;
         }
 
         else if (paused == true)
         {
-            print("Resume");
+            Debug.Log("Resume");
             Time.timeScale = 1;
             paused = false;
         }
