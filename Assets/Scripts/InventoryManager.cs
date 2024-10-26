@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager 
 {
     int MaxInventorySize = 6;
     
@@ -17,13 +17,16 @@ public class InventoryManager : MonoBehaviour
             inventory[i] = null;
         }
     }
+
+
+    // Searches the ITEM_LIST for ItemID, and adds it to slot if slot is empty
     public void addItem(int ItemID, int slot)
     {
 
         if (inventory[slot] == null)
         {
             inventory[slot] = PersistentDataScript.instance.ITEM_LIST[ItemID];
-            Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
+            //Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
             return;
         }
 

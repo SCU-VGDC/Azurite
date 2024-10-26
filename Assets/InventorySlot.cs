@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour
         {
             this.gameObject.GetComponent<Image>().sprite = item.getSprite();
         }
-        Debug.Log("Drawing");
+        //Debug.Log("Drawing");
 
     }
 }

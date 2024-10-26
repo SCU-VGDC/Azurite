@@ -8,10 +8,10 @@ using UnityEngine;
 
 public class ItemData : ScriptableObject
 {
-    [SerializeField] private string ItemName;
-    [SerializeField] private Sprite ItemIcon;
-    [SerializeField] private string ItemDescription;
-    [SerializeField] private int ItemID;
+    [SerializeField] private string ItemName; // Name Displayed to Player
+    [SerializeField] private Sprite ItemIcon; // Image of item
+    [SerializeField] private string ItemDescription; // Description of Item for the Player
+    [SerializeField] private int ItemID; // Place in ITEM_LIST in persistant Data
 
     public string getName()
     {
