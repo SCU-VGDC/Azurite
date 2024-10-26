@@ -14,10 +14,14 @@ public class TeleportationSystem : MonoBehaviour
     }
     public void OnTriggerEnter2D()
     {
+        
+
+    }
+    public void Warp()
+    {
         Debug.Log("Teleport Collide");
         PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords[0], destinationCoords[1]);
         SceneManager.LoadScene(destinationScene);
-
     }
     // Update is called once per frame
     void Update()
