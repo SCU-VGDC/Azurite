@@ -11,7 +11,6 @@ public class InventoryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("script is running\n");
     }
 
     // Update is called once per frame
