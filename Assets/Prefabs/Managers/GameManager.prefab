@@ -97,4 +97,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldState: 0
   ITEM_LIST:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 099d21f71640fce4cb9b896b78a99197, type: 2}

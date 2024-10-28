@@ -6,8 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public bool paused;
     public GameObject InventoryMenu;
-    private bool menuActivated = false;
-    [SerializeField] private KeyCode triggerKey = KeyCode.I;
+    [SerializeField] private bool inventoryMenuActivated = false;
 
     void Start()
     {
@@ -16,12 +15,15 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(triggerKey) && menuActivated) {
+        if(Input.GetButtonDown("Inventory") && inventoryMenuActivated) {
             InventoryMenu.SetActive(false);
-            menuActivated = false;
-        } else if(Input.GetKeyDown(triggerKey) && !menuActivated) {
+
+            inventoryMenuActivated = false;
+        } else if(Input.GetButtonDown("Inventory") && !inventoryMenuActivated) {
             InventoryMenu.SetActive(true);
-            menuActivated = true;
+            InventoryMenu.GetComponent<InventoryScreen>().UpdateSlots();
+
+            inventoryMenuActivated = true;
         }
     }
 

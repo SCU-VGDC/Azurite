@@ -12,9 +12,6 @@ public class tempInput : MonoBehaviour
     // Very bad, very temp input manager REMOVE LATER
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I)){
-            inv.GetComponent<InventoryScreen>().ToggleInventory();
-        } 
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             PersistentDataScript.instance.PlayerInventory.addItem(0,0);
