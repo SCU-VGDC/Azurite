@@ -5,7 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager inst;
-    public GameObject player;
+    [System.NonSerialized] public GameObject player;
+
+    // game states
+    public bool paused;
+
+    void Start()
+    {
+        paused = false;
+    }
+
 
     void Awake()
     {

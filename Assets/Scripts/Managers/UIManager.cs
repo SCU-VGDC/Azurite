@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public bool paused;
     public GameObject InventoryMenu;
     [SerializeField] private bool inventoryMenuActivated = false;
 
     void Start()
     {
-        paused = false;
+
     }
 
     void Update()
@@ -29,18 +28,20 @@ public class UIManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (paused == false)
+        if (GameManager.inst.paused == false)
         {
             Debug.Log("Paused");
             Time.timeScale = 0f;
-            paused = true;
+            
+            GameManager.inst.paused = true;
         }
 
-        else if (paused == true)
+        else if (GameManager.inst.paused == true)
         {
             Debug.Log("Resume");
             Time.timeScale = 1;
-            paused = false;
+
+            GameManager.inst.paused = false;
         }
     }
 }
