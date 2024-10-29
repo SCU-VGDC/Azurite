@@ -6,19 +6,12 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] Rigidbody2D PlayerRigidBody;
-    Vector2 speed = new(0, 0);
-    Vector2 input = new(0,0);
+    Vector2 speed;
+    Vector2 input;
     //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
     [SerializeField] [Range(1, 20)] float deceleration = 0.1f;
     [SerializeField] [Range(1, 50)] float playerMaxSpeed = 50;
     [SerializeField] [Range(1f, 10)] float acceleration = 1f;
-    
-
-    //Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     //Update is called once per frame
     void Update()

@@ -671,6 +671,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6035725717918060973, guid: eb09a3c15a5f2b34183c2d2a0a7ce878, type: 3}
   m_PrefabInstance: {fileID: 1590031903}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1590031905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3150441731751807960, guid: eb09a3c15a5f2b34183c2d2a0a7ce878, type: 3}
+  m_PrefabInstance: {fileID: 1590031903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404401283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0adba45575a9443b9265694b0a0f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1637141572
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +896,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -924,8 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b028cbc9ba0a36c49b44190753ea09c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paused: 0
-  InventoryMenu: {fileID: 1404401283}
+  InventoryMenu: {fileID: 1590031905}
   inventoryMenuActivated: 0
 --- !u!1001 &2089508309
 PrefabInstance:

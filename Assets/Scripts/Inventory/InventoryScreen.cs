@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class InventoryScreen : MonoBehaviour
 {
-    [SerializeField] GameObject[] inventorySlots;
+    [SerializeField] InventorySlot[] inventorySlots;
 
     public void UpdateSlots()
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            inventorySlots[i].GetComponent<InventorySlot>().DrawSlot(i); //Persistant Data > Inventory
+            inventorySlots[i].DrawSlot(i); //Persistant Data > Inventory
         }
     }
 }
-

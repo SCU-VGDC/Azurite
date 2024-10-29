@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject InventoryMenu;
+    public InventoryScreen InventoryMenu;
     [SerializeField] private bool inventoryMenuActivated = false;
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
-        if(Input.GetButtonDown("Inventory") && inventoryMenuActivated) {
-            InventoryMenu.SetActive(false);
-
+        if (Input.GetButtonDown("Inventory") && inventoryMenuActivated) {
+            InventoryMenu.gameObject.SetActive(false);
             inventoryMenuActivated = false;
-        } else if(Input.GetButtonDown("Inventory") && !inventoryMenuActivated) {
-            InventoryMenu.SetActive(true);
-            InventoryMenu.GetComponent<InventoryScreen>().UpdateSlots();
-
+        } else if (Input.GetButtonDown("Inventory") && !inventoryMenuActivated) {
+            InventoryMenu.gameObject.SetActive(true);
+            InventoryMenu.UpdateSlots();
             inventoryMenuActivated = true;
         }
     }
