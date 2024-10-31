@@ -45,16 +45,16 @@ public class PersistentDataScript : MonoBehaviour
         DestCoords = x;
         return;
     }
-    void IncrementRoomState(void)
+    public void IncrementRoomState()
     {
         ActionThreshold += ActionThresholdIncrease[worldState];
         worldState++;
         return;
     }
-    void IncrementAction(int x)
+    public void IncrementAction(int x)
     {
         ActionCounter += x;
-        if (ActionCounter => ActionThreshold)
+        if (ActionCounter >= ActionThreshold)
         {
             IncrementRoomState();
         }
