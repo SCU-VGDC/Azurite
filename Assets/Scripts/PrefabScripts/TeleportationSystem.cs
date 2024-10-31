@@ -7,7 +7,8 @@ public class TeleportationSystem : MonoBehaviour
 {
     // Start is called before the first frame update
     public string destinationScene;
-    public float[] destinationCoords = new float[2]; //X and Y
+    //public float[] destinationCoords = new float[2]; //X and Y
+    public Vector2 destinationCoords;
     void Start()
     {
 
@@ -15,7 +16,7 @@ public class TeleportationSystem : MonoBehaviour
     public void OnTriggerEnter2D()
     {
         Debug.Log("Teleport Collide");
-        PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords[0], destinationCoords[1]);
+        PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords);
         SceneManager.LoadScene(destinationScene);
 
     }
