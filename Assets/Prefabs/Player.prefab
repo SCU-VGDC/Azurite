@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 4709445212938500889}
   - component: {fileID: 2739696300557453047}
   - component: {fileID: 582771286570949965}
+  - component: {fileID: 5550802333865018488}
   - component: {fileID: 835712758962395608}
   - component: {fileID: -7312073395819072158}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,8 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
-    type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,9 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 835712758962395608}
-  deceleration: 15
-  playerMaxSpeed: 3
-  acceleration: 10
+  playerSpeed: 50
 --- !u!50 &835712758962395608
 Rigidbody2D:
   serializedVersion: 4

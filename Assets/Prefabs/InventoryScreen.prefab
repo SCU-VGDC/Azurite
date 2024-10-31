@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1626991888584611355}
   - component: {fileID: 1313541551861104456}
   - component: {fileID: 5449967396470054105}
-  - component: {fileID: 3597875928786237350}
+  - component: {fileID: 1687697362700686677}
   m_Layer: 5
   m_Name: ItemSlot (3)
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3597875928786237350
+--- !u!114 &1687697362700686677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8171430068094564709}
   - component: {fileID: 7760506010376982022}
   - component: {fileID: 4534761391777189916}
-  - component: {fileID: 1093092709925984960}
+  - component: {fileID: 6277591646938080588}
   m_Layer: 5
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1093092709925984960
+--- !u!114 &6277591646938080588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 5551029589116381864}
   - component: {fileID: 8376002552665243290}
   - component: {fileID: 1273846953248392761}
-  - component: {fileID: 7435346880298665462}
+  - component: {fileID: 1333052961357421792}
   m_Layer: 5
   m_Name: ItemSlot (1)
   m_TagString: Untagged
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7435346880298665462
+--- !u!114 &1333052961357421792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 8376562678456826173}
   - component: {fileID: 3119149437179702890}
   - component: {fileID: 1474979471222801120}
-  - component: {fileID: 817803069693475589}
+  - component: {fileID: 5304176366380570858}
   m_Layer: 5
   m_Name: ItemSlot (5)
   m_TagString: Untagged
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &817803069693475589
+--- !u!114 &5304176366380570858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 8388889514415237300}
   - component: {fileID: 8601677371887300157}
   - component: {fileID: 5839643201192393616}
-  - component: {fileID: 1895497621661793561}
+  - component: {fileID: 3680926430555647247}
   m_Layer: 5
   m_Name: ItemSlot (4)
   m_TagString: Untagged
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1895497621661793561
+--- !u!114 &3680926430555647247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6035725717918060973
 RectTransform:
   m_ObjectHideFlags: 0
@@ -534,13 +534,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0adba45575a9443b9265694b0a0f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpen: 0
   inventorySlots:
-  - {fileID: 1093092709925984960}
-  - {fileID: 7435346880298665462}
-  - {fileID: 4246095632661432316}
-  - {fileID: 3597875928786237350}
-  - {fileID: 1895497621661793561}
-  - {fileID: 817803069693475589}
+  - {fileID: 587177218061469068}
+  - {fileID: 845099147283467689}
+  - {fileID: 8774547595252433347}
+  - {fileID: 317148984077377508}
+  - {fileID: 1925412835282030431}
+  - {fileID: 1492658835512053808}
 --- !u!1 &8774547595252433347
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ GameObject:
   - component: {fileID: 3634824418137554430}
   - component: {fileID: 770770185548726890}
   - component: {fileID: 5781654179529602796}
-  - component: {fileID: 4246095632661432316}
+  - component: {fileID: 1851820337827722951}
   m_Layer: 5
   m_Name: ItemSlot (2)
   m_TagString: Untagged
@@ -617,7 +618,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4246095632661432316
+--- !u!114 &1851820337827722951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

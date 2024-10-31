@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateSceneTest.unity
+    path: Assets/Scenes/roomStateSceneTest.unity
     guid: 06e90a0c372da4940b9579348daa8896
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateDebug_2.unity
+    path: Assets/Scenes/roomStateDebug_2.unity
     guid: a4a84f8a493594b4d8d8a61859aacfd5
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateDebug_1.unity
+    path: Assets/Scenes/roomStateDebug_1.unity
     guid: ba0e2a3e94bed5e4caab8403c5e345aa
   m_configObjects: {}

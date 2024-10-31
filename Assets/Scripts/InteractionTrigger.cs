@@ -8,7 +8,7 @@ public class InteractionTrigger : MonoBehaviour
     public delegate void InteractTriggerHandler();
     public event InteractTriggerHandler OnInteract;
     public float interactionDistance = 3;
-    private Transform playerTransform;
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
 
     private bool awaitingKeyUp;
@@ -16,7 +16,7 @@ public class InteractionTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = GameManager.inst.player.transform;
+        
     }
 
     // Update is called once per frame
