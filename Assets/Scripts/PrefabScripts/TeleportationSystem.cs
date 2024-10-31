@@ -16,11 +16,21 @@ public class TeleportationSystem : MonoBehaviour
     }
     public void Teleport()
     {
-        Debug.Log("Teleporting player within the same scene.");
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+        if (string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)
         {
-            player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
+            Debug.Log("Teleporting player within the same scene.");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
+            }
+
+        }
+        else
+        {
+            Debug.Log("Teleport Collide");
+            PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords);
+            SceneManager.LoadScene(destinationScene);
         }
 
     }

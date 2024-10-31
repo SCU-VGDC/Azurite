@@ -335,6 +335,10 @@ PrefabInstance:
       propertyPath: interaction
       value: 
       objectReference: {fileID: 2091428219}
+    - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
+      propertyPath: destinationScene
+      value: roomStateDebug_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
