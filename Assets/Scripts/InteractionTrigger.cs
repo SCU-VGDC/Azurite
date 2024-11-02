@@ -10,7 +10,7 @@ public class InteractionTrigger : MonoBehaviour
     public float interactionDistance = 3;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
-    [SerializeField] private Collider2D collider;
+    //[SerializeField] private Collider2D collider;
 
     //Stuff I added +++
     public GameObject targetObject;

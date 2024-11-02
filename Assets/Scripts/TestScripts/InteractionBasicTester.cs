@@ -8,7 +8,7 @@ public class InteractionBasicTester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        interaction.OnInteract += testTrigger;
+        //interaction.OnInteract += testTrigger;
     }
 
     // Update is called once per frame
