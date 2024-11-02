@@ -350,6 +350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionDistance: 3
   triggerKey: 101
+  targetObject: {fileID: 1653651644}
+  interactionRange: 3
 --- !u!212 &1653651647
 SpriteRenderer:
   m_ObjectHideFlags: 0
