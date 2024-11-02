@@ -10,11 +10,11 @@ public class PersistentDataScript : MonoBehaviour
     //Destination coords passed in when teleporter is activated. These will be used to determine player's starting location within each scene.
     private float[] destinationCoords = new float[2];
     private Vector2 DestCoords;
-    public int worldState; //Sets the world state. All rooms should call this to determine their state.
+    private int worldState; //Sets the world state. All rooms should call this to determine their state.
     //0 - Default World State
-    public int ActionCounter = 0;
-    public int ActionThreshold = 10;
-    static public int[] ActionThresholdIncrease = new int[] { 10, 5, 1, 1, 1 }; //Adds to threshold limit. 
+    private int ActionCounter = 0;
+    private int ActionThreshold = 10;
+    static private int[] ActionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 }; //Adds to threshold limit. 
     private int WorldStateMax = ActionThresholdIncrease.Length;
     [SerializeField] public ItemData[] ITEM_LIST;
     [HideInInspector] public InventoryManager PlayerInventory;
@@ -52,15 +52,16 @@ public class PersistentDataScript : MonoBehaviour
         if(worldState != WorldStateMax)
         {
             ActionThreshold += x;
+            Debug.Log(ActionThreshold);
         }
     }
-    public void IncrementRoomState()
+    private void IncrementRoomState()
     {
         if (ActionCounter >= ActionThreshold && (worldState + 1) <= (WorldStateMax))
-        {
-            Debug.Log(WorldStateMax);
+        {   
             ActionThreshold += ActionThresholdIncrease[worldState];
             worldState++;
+            Debug.Log(worldState);
             IncrementRoomState();
         }
         return;
@@ -70,6 +71,7 @@ public class PersistentDataScript : MonoBehaviour
         if(worldState + 1 <= WorldStateMax)
         {
             ActionCounter += x;
+            Debug.Log(ActionCounter);
             IncrementRoomState();
             return;
         }
