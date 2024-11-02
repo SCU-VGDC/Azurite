@@ -17,8 +17,8 @@ public class InteractionBasicTester : MonoBehaviour
         
     }
 
-    private void testTrigger()
-    {
-        Debug.Log("Interaction pressed");
-    }
+    //private void testTrigger()
+    // {
+    //     Debug.Log("Interaction pressed");
+    // }
 }
