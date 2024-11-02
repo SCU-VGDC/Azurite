@@ -384,6 +384,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8303061053685391312, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
+      propertyPath: WorldStateMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303061053685391312, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
+      propertyPath: ActionThresholdIncrease.Array.data[0]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303061053685391312, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
+      propertyPath: ActionThresholdIncrease.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303061053685391312, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
+      propertyPath: ActionThresholdIncrease.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303061053685391312, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
+      propertyPath: ActionThresholdIncrease.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303061053685391312, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
+      propertyPath: ActionThresholdIncrease.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8616724055452764017, guid: ad9e90bd00376d44d8fcc0e3edc9ed25, type: 3}
       propertyPath: m_Name
       value: PersistentData

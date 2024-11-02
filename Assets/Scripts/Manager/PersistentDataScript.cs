@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PersistentDataScript : MonoBehaviour
 {
     public static PersistentDataScript instance;
@@ -10,9 +12,10 @@ public class PersistentDataScript : MonoBehaviour
     private Vector2 DestCoords;
     public int worldState; //Sets the world state. All rooms should call this to determine their state.
     //0 - Default World State
-    private int ActionCounter = 0;
+    public int ActionCounter = 0;
     public int ActionThreshold = 10;
-    public int[] ActionThresholdIncrease = new int[5];
+    static public int[] ActionThresholdIncrease = new int[] { 10, 5, 1, 1, 1 }; //Adds to threshold limit. 
+    private int WorldStateMax = ActionThresholdIncrease.Length;
     [SerializeField] public ItemData[] ITEM_LIST;
     [HideInInspector] public InventoryManager PlayerInventory;
     // Start is called before the first frame update
@@ -45,20 +48,31 @@ public class PersistentDataScript : MonoBehaviour
         DestCoords = x;
         return;
     }
+    public void IncrementThreshold(int x){
+        if(worldState != WorldStateMax)
+        {
+            ActionThreshold += x;
+        }
+    }
     public void IncrementRoomState()
     {
-        ActionThreshold += ActionThresholdIncrease[worldState];
-        worldState++;
+        if (ActionCounter >= ActionThreshold && (worldState + 1) <= (WorldStateMax))
+        {
+            Debug.Log(WorldStateMax);
+            ActionThreshold += ActionThresholdIncrease[worldState];
+            worldState++;
+            IncrementRoomState();
+        }
         return;
     }
     public void IncrementAction(int x)
     {
-        ActionCounter += x;
-        if (ActionCounter >= ActionThreshold)
+        if(worldState + 1 <= WorldStateMax)
         {
+            ActionCounter += x;
             IncrementRoomState();
+            return;
         }
-        return;
 
     }
 }
