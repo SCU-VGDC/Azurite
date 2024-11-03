@@ -5,20 +5,15 @@ using UnityEngine;
 public class InteractionBasicTester : MonoBehaviour
 {
     [SerializeField] private InteractionTrigger interaction;
+
     // Start is called before the first frame update
     void Start()
     {
-        //interaction.OnInteract += testTrigger;
+        interaction.OnInteract = TestTrigger;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void TestTrigger()
     {
-        
+        Debug.Log("Interaction pressed");
     }
-
-    //private void testTrigger()
-    // {
-    //     Debug.Log("Interaction pressed");
-    // }
 }
