@@ -18,16 +18,19 @@ public class InteractionTrigger : MonoBehaviour
 
     private bool awaitingKeyUp;
 
+    Renderer ren;
+
+
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(triggerKey))
         {
             if (awaitingKeyUp || Vector3.Distance(playerTransform.position, transform.position) > interactionDistance)
@@ -45,6 +48,9 @@ public class InteractionTrigger : MonoBehaviour
 
         if (distance <= interactionRange)
         {
+            ren=GetComponent<Renderer>();
+            ren.material.color=Color.yellow;
+
             Debug.Log("Player is within range of the interactable object.");
             //Trigger interaction
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -60,7 +66,11 @@ public class InteractionTrigger : MonoBehaviour
 
         else
         {
+            ren=GetComponent<Renderer>();
+            ren.material.color=Color.white;
         }
 
     }
 }
+
+
