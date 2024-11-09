@@ -16,10 +16,14 @@ public class InteractionTrigger : MonoBehaviour
 
     private bool awaitingKeyUp;
 
+    public GameObject textPopUp;
+
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = GameManager.inst.player.transform;
+
+        textPopUp.SetActive(false);
     }
 
 
@@ -30,6 +34,8 @@ public class InteractionTrigger : MonoBehaviour
         
         if (distance <= interactionRange)
         {
+            toggleTextPopup(true);
+
             if (Input.GetKeyDown(triggerKey))
             {
                 if (awaitingKeyUp || distance > interactionRange)
@@ -51,6 +57,18 @@ public class InteractionTrigger : MonoBehaviour
             {
                 OnInteract?.Invoke();
             }
+        }
+        else
+        {
+            toggleTextPopup(false);
+        }
+    }
+
+    void toggleTextPopup(bool value)
+    {
+        if (transform.gameObject.tag != "Player")
+        {
+            textPopUp.SetActive(value);
         }
     }
 }
