@@ -40,10 +40,9 @@ public class PersistentDataScript : MonoBehaviour
     }
 
     //Used to set destination coordinates for teleporation.
-    public void SetDestinationCoordinates(float x, float y)
+    public void SetDestinationCoordinates(Vector2 destination)
     {
-        destinationCoords.x = x;
-        destinationCoords.y = y;
-        return;
+        destinationCoords.x = destination.x;
+        destinationCoords.y = destination.y;
     }
 }
