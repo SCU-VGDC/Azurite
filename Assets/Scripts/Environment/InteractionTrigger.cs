@@ -8,7 +8,6 @@ using UnityEngine;
 public class InteractionTrigger : MonoBehaviour
 {
     public Action OnInteract;
-    public float interactionDistance = 3;
     private Transform playerTransform;
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
 
@@ -33,7 +32,7 @@ public class InteractionTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(triggerKey))
             {
-                if (awaitingKeyUp || distance > interactionDistance)
+                if (awaitingKeyUp || distance > interactionRange)
                     return;
 
                 awaitingKeyUp = true;
