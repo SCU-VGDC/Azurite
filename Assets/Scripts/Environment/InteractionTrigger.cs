@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+[RequireComponent(typeof(Collider2D))]
 
 public class InteractionTrigger : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class InteractionTrigger : MonoBehaviour
     private Transform playerTransform;
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
 
-    public GameObject targetObject;
+    //public GameObject targetObject;
     public float interactionRange = 3f;
 
     private bool awaitingKeyUp;
@@ -47,7 +48,7 @@ public class InteractionTrigger : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, look, 100);
 
-            if (hit.collider != null && hit.collider.gameObject == targetObject && Input.GetMouseButtonDown(0))
+            if (hit.collider != null && hit.collider.gameObject == GetComponent<Collider2D>() && Input.GetMouseButtonDown(0))
             {
                 OnInteract?.Invoke();
             }
