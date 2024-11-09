@@ -91,9 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2467b513c60dbca4fa72d24de4a3a3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationScene: 
-  destinationCoords: {x: 0, y: 0}
-  interaction: {fileID: -7312073395819072158, guid: c81d2fb9930201742931997ce04f1017, type: 3}
+  destinationScene: roomStateDebug_2
+  destinationCoords:
+  - 1000
+  - 1000
 --- !u!1 &6941238502100762872
 GameObject:
   m_ObjectHideFlags: 0

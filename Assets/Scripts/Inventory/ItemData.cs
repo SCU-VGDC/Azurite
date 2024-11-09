@@ -13,22 +13,20 @@ public class ItemData : ScriptableObject
     [SerializeField] private string ItemDescription; // Description of Item for the Player
     [SerializeField] private int ItemID; // Place in ITEM_LIST in persistant Data
 
-    public string getName()
+    public string GetName()
     {
         return ItemName;
     }
-    public Sprite getSprite()
+    public Sprite GetSprite()
     {
         return ItemIcon;
     }
-    public string getItemDescription()
+    public string GetItemDescription()
     {
         return ItemDescription;
     }
-    public int getItemID()
+    public int GetItemID()
     {
         return ItemID;
     }
-
-
 }
