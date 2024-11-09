@@ -9,34 +9,26 @@ public class ButtonScript : MonoBehaviour
     bool IsOn;
     int buttonNumber;
     GameObject buttonScreen;
-    
-    
+
+    Sprite Icon;
+
     // Start is called before the first frame update
 
 
-    public void setUp(int bnum, GameObject screen, ButtonScreenScript.ButtonState bs)
+    public void setUp(int bnum, GameObject screen, bool StartOn, bool Glass, ButtonSprites S)
     {
         buttonNumber = bnum;
         buttonScreen = screen;
-        switch(bs)
+        if (StartOn)
         {
-            case ButtonScreenScript.ButtonState.OffNoGlass:
-                SetOff();
-                IsGlass= false;
-                break;
-            case ButtonScreenScript.ButtonState.OffWithGlass:
-                SetOff();
-                IsGlass= true;
-                break;
-            case ButtonScreenScript.ButtonState.OnNoGlass:
-                SetOn();
-                IsGlass= false;
-                break;
-            case ButtonScreenScript.ButtonState.OnWithGlass: 
-                SetOn();
-                IsGlass= true;
-                break;
+            SetOn();
         }
+        else
+        {
+            SetOff();
+        }
+        IsGlass = Glass;
+        
     }
 
     public void Clicked()
@@ -79,12 +71,8 @@ public class ButtonScript : MonoBehaviour
         return IsOn;
     }
 
+    public enum ButtonSprites { 
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Default
     }
 }
