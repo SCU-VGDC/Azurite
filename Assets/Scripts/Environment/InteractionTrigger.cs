@@ -14,7 +14,10 @@ public class InteractionTrigger : MonoBehaviour
     //public GameObject targetObject;
     public float interactionRange = 3f;
 
+    public static HashSet<InteractionTrigger> interactSet = new HashSet<InteractionTrigger>();
+
     private bool awaitingKeyUp;
+    private float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +29,17 @@ public class InteractionTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(playerTransform.transform.position, transform.position);
+        distance = Vector3.Distance(playerTransform.transform.position, transform.position);
         
         if (distance <= interactionRange)
-        {
+        {   
+            interactSet.Add(this);
+            
+            foreach(InteractionTrigger intTrig in interactSet) {
+                if(this.distance < intTrig.getDistance())
+                    return;
+            }
+
             if (Input.GetKeyDown(triggerKey))
             {
                 if (awaitingKeyUp || distance > interactionRange)
@@ -51,6 +61,13 @@ public class InteractionTrigger : MonoBehaviour
             {
                 OnInteract?.Invoke();
             }
+        } else // if player is out of item's range
+        {
+            interactSet.Remove(this);  // rmv from hash of possible interactable objects
         }
+    }
+
+    float getDistance() {
+        return distance;
     }
 }
