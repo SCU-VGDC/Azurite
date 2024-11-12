@@ -33,4 +33,23 @@ public class InventoryManager
         inventory[slot] = null;
     }
 
+    /* Finds item given the item's ItemID, assumes items are added into first open slot in inventory. 
+     * returns slotID (the index in the inventory array) if found
+     * returns -1 if not found
+     */
+    public int FindItem(int ItemID) {
+        int i = 0;
+        while (inventory[i] != null) {
+            if (inventory[i].GetItemID() == ItemID) return i;
+            i++;
+        }
+        return -1;
+    }
+
+    /* Checks that item exists in inventory given the item's ItemID. Returns true or false.*/
+    public bool CheckForItem(int ItemID) {
+        if (FindItem(ItemID) >= 0) return true;
+        return false;
+    }
+
 }

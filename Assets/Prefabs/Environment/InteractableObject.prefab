@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionDistance: 3
-  playerTransform: {fileID: 0}
   triggerKey: 101
+  interactionRange: 3
+  textPopUp: {fileID: 0}
 --- !u!114 &3994287562650608574
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,35 +1,74 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+[RequireComponent(typeof(Collider2D))]
 
 public class InteractionTrigger : MonoBehaviour
 {
-    public delegate void InteractTriggerHandler();
-    public event InteractTriggerHandler OnInteract;
-    public float interactionDistance = 3;
+    public Action OnInteract;
     private Transform playerTransform;
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
 
+    //public GameObject targetObject;
+    public float interactionRange = 3f;
+
     private bool awaitingKeyUp;
+
+    public GameObject textPopUp;
 
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = GameManager.inst.player.transform;
+
+        textPopUp.SetActive(false);
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(triggerKey))
+        float distance = Vector3.Distance(playerTransform.transform.position, transform.position);
+        
+        if (distance <= interactionRange)
         {
-            if (awaitingKeyUp || Vector3.Distance(playerTransform.position, transform.position) > interactionDistance)
-                return;
-            awaitingKeyUp = true;
-            OnInteract?.Invoke();
+            toggleTextPopup(true);
+
+            if (Input.GetKeyDown(triggerKey))
+            {
+                if (awaitingKeyUp || distance > interactionRange)
+                    return;
+
+                awaitingKeyUp = true;
+                OnInteract?.Invoke();
+            }
+            else
+                awaitingKeyUp = false;
+
+            //Trigger interaction
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 look = Camera.main.transform.forward;
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, look, 100);
+
+            if (hit.collider != null && hit.collider.gameObject == GetComponent<Collider2D>() && Input.GetMouseButtonDown(0))
+            {
+                OnInteract?.Invoke();
+            }
         }
         else
-            awaitingKeyUp = false;
+        {
+            toggleTextPopup(false);
+        }
+    }
+
+    void toggleTextPopup(bool value)
+    {
+        if (transform.gameObject.tag != "Player")
+        {
+            textPopUp.SetActive(value);
+        }
     }
 }
