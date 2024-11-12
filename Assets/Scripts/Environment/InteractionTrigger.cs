@@ -10,8 +10,6 @@ public class InteractionTrigger : MonoBehaviour
     public Action OnInteract;
     private Transform playerTransform;
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
-
-    //public GameObject targetObject;
     public float interactionRange = 3f;
 
     public static HashSet<InteractionTrigger> interactSet = new HashSet<InteractionTrigger>();
