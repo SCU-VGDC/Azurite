@@ -5,13 +5,16 @@ using UnityEngine;
 public class ButtonScreenScript : MonoBehaviour
 {
     
-    [SerializeField] int width, height;
+    int width, height;
     int WidthOffset = 100;
     int HeightOffset = 100;
     [SerializeField] GameObject buttonPrefab;
     GameObject[] buttons;
     [SerializeField] bool toggleNearby;
     [SerializeField] bool SolutionIsAllOn;
+
+    [SerializeField] bool LoadPuzzleFromPuzzles;
+    [SerializeField] Puzzles puzzle;
     public enum ButtonState
     {
         OffNoGlass,
@@ -26,14 +29,21 @@ public class ButtonScreenScript : MonoBehaviour
         On,
     }
 
-    [SerializeField] ButtonState[] LoadButtons;
-    [SerializeField] SolutionState[] Solution;
+    bool[] Solution;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (LoadPuzzleFromPuzzles)
+        {
+            loadPuzzle(puzzle);
+            return;
+        }
+        /*
         int buttonCounter = 0;
-        buttons= new GameObject[width * height];
+
+        buttons = new GameObject[width * height];
+
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++) 
@@ -48,6 +58,7 @@ public class ButtonScreenScript : MonoBehaviour
 
             }
         }
+        */
     }   
 
     public void updateButtons(int bnum)
@@ -95,16 +106,8 @@ public class ButtonScreenScript : MonoBehaviour
     {
         for (int i = 0; i < buttons.Length; i++)
         {
-            SolutionState button; //Solution[i % Solution.Length];
-            if (buttons[i].GetComponent<ButtonScript>().CheckStatus())
-            {
-                button = SolutionState.On;
-            }
-            else
-            {
-                button = SolutionState.Off;
-            }
-            if (button != Solution[i % Solution.Length])
+            bool buttonState = buttons[i].GetComponent<ButtonScript>().CheckStatus(); 
+            if (buttonState != Solution[i % Solution.Length])
             {
                 return false;
             }
@@ -136,13 +139,40 @@ public class ButtonScreenScript : MonoBehaviour
                 Debug.Log("Correct");
 
             }
-            Debug.Log("Wrong");
+            else
+            {
+                Debug.Log("Wrong");
+            }
 
         }
 
     }
 
+    public void loadPuzzle(Puzzles p)
+    {
+        int buttonCounter = 0;
+        Solution = new bool[p.ButtonCount];
+        height = p.height;
+        width= p.width;
+        buttons = new GameObject[p.ButtonCount];
 
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                Vector3 buttonPos = this.transform.position;
+                buttonPos.x += (75 * j) - WidthOffset;
+                buttonPos.y -= (75 * i) - HeightOffset;
+                Debug.Log("Set up button number" + (width * i + j));
+                buttons[width * i + j] = Instantiate(buttonPrefab, buttonPos, this.transform.rotation, this.transform);
+                buttons[width * i + j].GetComponent<ButtonScript>().setUp(width * i + j, this.gameObject, p.StartOn[width * i + j], p.IsLocked[width * i + j], p.ButtonIcons[width * i + j]);
+                Solution[buttonCounter] = p.SolutionIsOn[buttonCounter];
+                buttonCounter++;
+
+            }
+        }
+        toggleNearby = p.ToggleNearby;
+    }
     public void OpenScreen()
     {
         this.gameObject.SetActive(true);
