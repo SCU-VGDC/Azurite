@@ -34,7 +34,7 @@ public class InteractionTrigger : MonoBehaviour
             interactSet.Add(this);
             
             foreach(InteractionTrigger intTrig in interactSet) {
-                if(this.distance < intTrig.getDistance())
+                if(this.distance > intTrig.getDistance())
                     return;
             }
 
