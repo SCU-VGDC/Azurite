@@ -71,16 +71,13 @@ public class InteractionTrigger : MonoBehaviour
         } else // if player is out of item's range
         {
             interactSet.Remove(this);  // rmv from hash of possible interactable objects
-        }
-        else
-        {
             toggleTextPopup(false);
         }
     }
 
     void toggleTextPopup(bool value)
     {
-        if (transform.gameObject.tag != "Player")
+        if (!transform.gameObject.CompareTag("Player"))
         {
             textPopUp.SetActive(value);
         }
