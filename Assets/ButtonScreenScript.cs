@@ -7,7 +7,8 @@ public class ButtonScreenScript : MonoBehaviour
     
     int width, height;
     int WidthOffset = 100;
-    int HeightOffset = 100;
+    int HeightOffset = 200;
+    GameObject intObect;
     [SerializeField] GameObject buttonPrefab;
     GameObject[] buttons;
     [SerializeField] bool toggleNearby;
@@ -37,6 +38,7 @@ public class ButtonScreenScript : MonoBehaviour
         if (LoadPuzzleFromPuzzles)
         {
             loadPuzzle(puzzle);
+            
             return;
         }
         /*
@@ -60,7 +62,7 @@ public class ButtonScreenScript : MonoBehaviour
         }
         */
     }   
-
+    
     public void updateButtons(int bnum)
     {
         buttons[bnum].GetComponent<ButtonScript>().ToggleState();
@@ -118,35 +120,53 @@ public class ButtonScreenScript : MonoBehaviour
         return true;
     }
 
-    public void TestSolution()
+
+
+    public bool TestSolution()
     {
         if (SolutionIsAllOn)
         {
             if (isAllOn())
             {
+
                 Debug.Log("Correct");
+                
+                return true;
             }
             else
             {
+
                 Debug.Log("Wrong");
+                return false;
             }
-            return;
+
+
         }
         else
         {
             if (CheckSolution())
             {
                 Debug.Log("Correct");
+                //intObect.GetComponent<InteractableObject>().Correct();
+                return true;
 
             }
             else
             {
+
                 Debug.Log("Wrong");
+                return false;
             }
 
         }
 
     }
+    
+    public void SetInteractable(GameObject inter)
+    {
+        intObect = inter;
+    }
+
 
     public void loadPuzzle(Puzzles p)
     {
@@ -158,15 +178,20 @@ public class ButtonScreenScript : MonoBehaviour
 
         for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < width; j++) 
             {
+
+
+
                 Vector3 buttonPos = this.transform.position;
-                buttonPos.x += (75 * j) - WidthOffset;
-                buttonPos.y -= (75 * i) - HeightOffset;
+                buttonPos.x += (50 * j) * (10 / height) - (25 * width) * (10 / height);
+                buttonPos.y -= (50 * i) * (10 / height) - (25 * height) * (10 / height); 
                 Debug.Log("Set up button number" + (width * i + j));
                 buttons[width * i + j] = Instantiate(buttonPrefab, buttonPos, this.transform.rotation, this.transform);
                 buttons[width * i + j].GetComponent<ButtonScript>().setUp(width * i + j, this.gameObject, p.StartOn[width * i + j], p.IsLocked[width * i + j], p.ButtonIcons[width * i + j]);
+                buttons[width * i + j].gameObject.transform.localScale= Vector3.one * (10 / height);
                 Solution[buttonCounter] = p.SolutionIsOn[buttonCounter];
+
                 buttonCounter++;
 
             }
