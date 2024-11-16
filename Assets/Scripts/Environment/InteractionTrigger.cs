@@ -4,82 +4,41 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class InteractionTrigger : MonoBehaviour
+public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 {
     public Action OnInteract;
-    private Transform playerTransform;
-    [SerializeField] private KeyCode triggerKey = KeyCode.E;
-    public float interactionRange = 3f;
+    public KeyCode triggerKey = KeyCode.E;
+    public TextMeshProUGUI textPopUp;
 
-    public static HashSet<InteractionTrigger> interactSet = new();
-
-    private bool awaitingKeyUp;
-    private float distance;
-
-    [SerializeField] public TextMeshProUGUI textPopUp;
+    public int CompareTo(InteractionTrigger other)
+    {
+        Transform plrTransform = GameManager.inst.player.transform;
+        float myDist = Vector2.Distance(transform.position, plrTransform.position);
+        float otherDist = Vector2.Distance(other.transform.position, plrTransform.position);
+        return MathF.Sign(myDist - otherDist);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         textPopUp.GetComponentInParent<Canvas>().worldCamera = Camera.main;
-        playerTransform = GameManager.inst.player.transform;
-        ToggleTextPopup(false);
         textPopUp.text = triggerKey.ToString();
+        ToggleTextPopup(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Trigger()
     {
-        distance = Vector3.Distance(playerTransform.transform.position, transform.position);
-        
-        if (distance <= interactionRange)
-        {   
-            interactSet.Add(this);
-            
-            foreach (InteractionTrigger intTrig in interactSet) {
-                if (this.distance > intTrig.GetDistance())
-                {
-                    ToggleTextPopup(false);
-                    return;
-                }
-            }
-            
-            ToggleTextPopup(true);
-
-            if (Input.GetKeyDown(triggerKey))
-            {
-                if (awaitingKeyUp || distance > interactionRange)
-                    return;
-
-                awaitingKeyUp = true;
-                OnInteract?.Invoke();
-            }
-            else
-                awaitingKeyUp = false;
-
-            //Trigger interaction
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 look = Camera.main.transform.forward;
-
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, look, 100);
-
-            if (hit.collider != null && hit.collider.gameObject == GetComponent<Collider2D>() && Input.GetMouseButtonDown(0))
-            {
-                OnInteract?.Invoke();
-            }
-        } else // if player is out of item's range
-        {
-            interactSet.Remove(this);  // rmv from hash of possible interactable objects
-            ToggleTextPopup(false);
-        }
+        OnInteract?.Invoke();
     }
 
-    void ToggleTextPopup(bool value)
+    public void ToggleTextPopup(bool value)
     {
-        textPopUp.gameObject.SetActive(value);
+        textPopUp.GetComponentInParent<Canvas>(true).gameObject.SetActive(value);
     }
 
+    /*
     float GetDistance() {
         return distance;
     }
+    */
 }
