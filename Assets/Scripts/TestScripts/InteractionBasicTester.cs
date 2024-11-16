@@ -14,6 +14,6 @@ public class InteractionBasicTester : MonoBehaviour
 
     private void TestTrigger()
     {
-        Debug.Log("Interaction pressed");
+        Debug.Log($"Interaction pressed {gameObject.name}");
     }
 }
