@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour
@@ -16,15 +17,15 @@ public class InteractionTrigger : MonoBehaviour
     private bool awaitingKeyUp;
     private float distance;
 
-    [SerializeField] public TextMeshProUGUI textPopUp;
+    [SerializeField] public GameObject textPopUp;
 
     // Start is called before the first frame update
     void Start()
     {
-        textPopUp.GetComponentInParent<Canvas>().worldCamera = Camera.main;
         playerTransform = GameManager.inst.player.transform;
+
         ToggleTextPopup(false);
-        textPopUp.text = triggerKey.ToString();
+        textPopUp.GetComponent<TextMesh>().text = triggerKey.ToString();
     }
 
     // Update is called once per frame
