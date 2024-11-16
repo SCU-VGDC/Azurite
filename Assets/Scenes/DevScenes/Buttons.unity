@@ -211,13 +211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb018aec44a4f7449f9565b94990c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 5
-  height: 4
   buttonPrefab: {fileID: 4387002389305139367, guid: 047ab3ae85afab64eb863e215b00e6d1, type: 3}
-  toggleNearby: 1
-  SolutionIsAllOn: 1
-  LoadButtons: 0000000001000000
-  Solution: 0100000000000000
+  toggleNearby: 0
+  SolutionIsAllOn: 0
+  LoadPuzzleFromPuzzles: 1
+  puzzle: {fileID: 11400000, guid: 75dc64c8c4a049645b02000dfa2595cc, type: 2}
 --- !u!1 &145727776
 GameObject:
   m_ObjectHideFlags: 0

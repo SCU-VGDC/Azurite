@@ -17,10 +17,14 @@ public class InteractionTrigger : MonoBehaviour
     private bool awaitingKeyUp;
     private float distance;
 
+    public GameObject textPopUp;
+
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = GameManager.inst.player.transform;
+
+        textPopUp.SetActive(false);
     }
 
 
@@ -33,10 +37,15 @@ public class InteractionTrigger : MonoBehaviour
         {   
             interactSet.Add(this);
             
-            foreach(InteractionTrigger intTrig in interactSet) {
-                if(this.distance > intTrig.getDistance())
+            foreach (InteractionTrigger intTrig in interactSet) {
+                if (this.distance > intTrig.getDistance())
+                {
+                    toggleTextPopup(false);
                     return;
+                }
             }
+            
+            toggleTextPopup(true);
 
             if (Input.GetKeyDown(triggerKey))
             {
@@ -62,6 +71,18 @@ public class InteractionTrigger : MonoBehaviour
         } else // if player is out of item's range
         {
             interactSet.Remove(this);  // rmv from hash of possible interactable objects
+        }
+        else
+        {
+            toggleTextPopup(false);
+        }
+    }
+
+    void toggleTextPopup(bool value)
+    {
+        if (transform.gameObject.tag != "Player")
+        {
+            textPopUp.SetActive(value);
         }
     }
 
