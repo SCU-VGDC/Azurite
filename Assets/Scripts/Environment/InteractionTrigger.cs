@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using TMPro;
 using UnityEngine;
-[RequireComponent(typeof(Collider2D))]
 
+[RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour
 {
     public Action OnInteract;
@@ -12,21 +11,21 @@ public class InteractionTrigger : MonoBehaviour
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
     public float interactionRange = 3f;
 
-    public static HashSet<InteractionTrigger> interactSet = new HashSet<InteractionTrigger>();
+    public static HashSet<InteractionTrigger> interactSet = new();
 
     private bool awaitingKeyUp;
     private float distance;
 
-    public GameObject textPopUp;
+    [SerializeField] public TextMeshProUGUI textPopUp;
 
     // Start is called before the first frame update
     void Start()
     {
+        textPopUp.GetComponentInParent<Canvas>().worldCamera = Camera.main;
         playerTransform = GameManager.inst.player.transform;
-
-        textPopUp.SetActive(false);
+        ToggleTextPopup(false);
+        textPopUp.text = triggerKey.ToString();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -38,14 +37,14 @@ public class InteractionTrigger : MonoBehaviour
             interactSet.Add(this);
             
             foreach (InteractionTrigger intTrig in interactSet) {
-                if (this.distance > intTrig.getDistance())
+                if (this.distance > intTrig.GetDistance())
                 {
-                    toggleTextPopup(false);
+                    ToggleTextPopup(false);
                     return;
                 }
             }
             
-            toggleTextPopup(true);
+            ToggleTextPopup(true);
 
             if (Input.GetKeyDown(triggerKey))
             {
@@ -71,19 +70,16 @@ public class InteractionTrigger : MonoBehaviour
         } else // if player is out of item's range
         {
             interactSet.Remove(this);  // rmv from hash of possible interactable objects
-            toggleTextPopup(false);
+            ToggleTextPopup(false);
         }
     }
 
-    void toggleTextPopup(bool value)
+    void ToggleTextPopup(bool value)
     {
-        if (!transform.gameObject.CompareTag("Player"))
-        {
-            textPopUp.SetActive(value);
-        }
+        textPopUp.gameObject.SetActive(value);
     }
 
-    float getDistance() {
+    float GetDistance() {
         return distance;
     }
 }

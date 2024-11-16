@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 260710464042178517}
   - component: {fileID: 3838181656129955612}
   - component: {fileID: 554456252167468186}
-  - component: {fileID: 4299151743346836693}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -173,21 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 3838181656129955612}
-  deceleration: 1
+  deceleration: 20
   playerMaxSpeed: 50
-  acceleration: 1
---- !u!114 &4299151743346836693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8629497072332039666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDistance: 3
-  triggerKey: 101
-  interactionRange: 3
+  acceleration: 10
