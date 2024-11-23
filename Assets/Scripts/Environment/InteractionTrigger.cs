@@ -26,6 +26,7 @@ public class InteractionTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerTransform = GameManager.inst.player.transform;
         float distance = Vector3.Distance(playerTransform.transform.position, transform.position);
         
         if (distance <= interactionRange)
