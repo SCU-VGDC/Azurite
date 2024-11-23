@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     Vector2 speed;
     Vector2 input;
     //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-    [SerializeField] [Range(1, 20)] float deceleration = 0.1f;
+    [SerializeField] [Range(1, 100000000000)] float deceleration = 100000000000;
     [SerializeField] [Range(1, 50)] float playerMaxSpeed = 50;
     [SerializeField] [Range(1f, 10)] float acceleration = 1f;
 
@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
         input = input.normalized;
 
         //Friction code to have player come to stop when no key pressed
-        float decelNow = Time.deltaTime * deceleration;
+        float decelNow = Time.deltaTime * deceleration * speed.magnitude;
         if (speed.magnitude > decelNow)
             speed += decelNow * new Vector2(input.x == 0 ? -MathF.Sign(speed.x) : 0, input.y == 0 ? -MathF.Sign(speed.y) : 0).normalized;
         else if (input.magnitude == 0)
