@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     Vector2 speed;
     Vector2 input;
     //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-    [SerializeField] [Range(1, 100000000000)] float deceleration = 100000000000;
+    [SerializeField] [Range(1, 1000)] float deceleration = 1000;
     [SerializeField] [Range(1, 50)] float playerMaxSpeed = 50;
     [SerializeField] [Range(1f, 10)] float acceleration = 1f;
 
