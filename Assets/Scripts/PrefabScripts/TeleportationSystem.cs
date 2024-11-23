@@ -7,11 +7,14 @@ public class TeleportationSystem : MonoBehaviour
 {
     // Start is called before the first frame update
     public string destinationScene;
-    public Vector2 destinationCoords;
+    public GameObject destinationObject;
+    private Vector2 destinationCoords;
     [SerializeField] private InteractionTrigger interaction;
     void Start()
     {
         interaction.OnInteract += Teleport;
+
+        destinationCoords = destinationObject.transform.position;
 
     }
     public void Teleport()
