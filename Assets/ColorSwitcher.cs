@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class ColorSwitcher : MonoBehaviour
 {
@@ -13,18 +14,34 @@ public class ColorSwitcher : MonoBehaviour
     GameObject Combustible;// = GameObject.Find("Combustible");
     GameObject Corrosive;// = GameObject.Find("Corrosive");
     GameObject Pretty;// = GameObject.Find("Pretty");
+    SpriteRenderer colorRenderer;
     [SerializeField] private InteractionTrigger interaction;
-    int colorState;
+    int colorState = 0;
+    public List<GameObject> childObject;
+    Color[] redLightColors = new Color[] { Color.black, Color.black, Color.red, Color.red, Color.red, Color.red, Color.red, Color.red };
+    Color[] greenLightColors = new Color[] { Color.blue, Color.blue, Color.green, Color.green, Color.green, Color.green, Color.green, Color.green };
+    Color[] yellowLightColors = new Color[] { Color.red, Color.red, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow };
     // Start is called before the first frame update
 
     void Start()
     {
+        Transform[] childTransforms = this.GetComponentsInChildren<Transform>();
+        foreach (Transform child in childTransforms)
+        {
+            if (child.GetComponent<SpriteRenderer>() != null)
+                childObject.Add(child.gameObject);
+        }
+        colorRenderer = GetComponentInChildren<SpriteRenderer>();
         interaction.OnInteract += ColorSwitch;
     }
 
     void GreenLight()
     {
-        GetComponentInChildren<SpriteRenderer>().material.color = Color.green;
+        colorRenderer.material.color = Color.green;
+        for (int i = 1; i < childObject.Count; i++)
+        {
+            childObject[i].GetComponent<SpriteRenderer>().material.color = greenLightColors[i];
+        }
         /*Growth.GetComponent<SpriteRenderer>().material.color = Color.green;
         Rigid.GetComponent<SpriteRenderer>().material.color = Color.green;
         Sticky.GetComponent<SpriteRenderer>().material.color = Color.green;
@@ -35,7 +52,11 @@ public class ColorSwitcher : MonoBehaviour
     }
     void RedLight()
     {
-        GetComponentInChildren<SpriteRenderer>().material.color = Color.red;
+        colorRenderer.material.color = Color.red;
+        for (int i = 1; i < childObject.Count; i++)
+        {
+            childObject[i].GetComponent<SpriteRenderer>().material.color = redLightColors[i];
+        }
         /*Growth.GetComponent<SpriteRenderer>().material.color = Color.red;
         Rigid.GetComponent<SpriteRenderer>().material.color = Color.red;
         Sticky.GetComponent<SpriteRenderer>().material.color = Color.red;
@@ -46,7 +67,11 @@ public class ColorSwitcher : MonoBehaviour
     }
     void YellowLight()
     {
-        GetComponentInChildren<SpriteRenderer>().material.color = Color.yellow;
+        colorRenderer.material.color = Color.yellow;
+        for (int i = 1; i < childObject.Count; i++)
+        {
+            childObject[i].GetComponent<SpriteRenderer>().material.color = yellowLightColors[i];
+        }
         /*Growth.GetComponent<SpriteRenderer>().material.color = Color.yellow;
         Rigid.GetComponent<SpriteRenderer>().material.color = Color.yellow;
         Sticky.GetComponent<SpriteRenderer>().material.color = Color.yellow;
@@ -58,7 +83,10 @@ public class ColorSwitcher : MonoBehaviour
     
     void ColorSwitch()
     {
-        colorState = colorState++ % 3;
+        colorState++;
+        colorState = colorState % 3;
+        Debug.Log("Color Switch");
+        Debug.Log(colorState);
         switch (colorState)
         {
             case 0:
