@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using static UnityEngine.UI.Image;
 
 public class ColorSwitcher : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class ColorSwitcher : MonoBehaviour
                 childObject.Add(child.gameObject);
         }
         colorRenderer = GetComponentInChildren<SpriteRenderer>();
+        Instantiate(childObject[1]);
+
         interaction.OnInteract += ColorSwitch;
     }
 
@@ -40,7 +43,10 @@ public class ColorSwitcher : MonoBehaviour
         colorRenderer.material.color = Color.green;
         for (int i = 1; i < childObject.Count; i++)
         {
-            childObject[i].GetComponent<SpriteRenderer>().material.color = greenLightColors[i];
+            if (childObject[i] != null)
+            {
+                childObject[i].GetComponent<SpriteRenderer>().material.color = greenLightColors[i];
+            }
         }
         /*Growth.GetComponent<SpriteRenderer>().material.color = Color.green;
         Rigid.GetComponent<SpriteRenderer>().material.color = Color.green;
@@ -55,7 +61,10 @@ public class ColorSwitcher : MonoBehaviour
         colorRenderer.material.color = Color.red;
         for (int i = 1; i < childObject.Count; i++)
         {
-            childObject[i].GetComponent<SpriteRenderer>().material.color = redLightColors[i];
+            if (childObject[i] != null) 
+            { 
+                childObject[i].GetComponent<SpriteRenderer>().material.color = redLightColors[i]; 
+            }
         }
         /*Growth.GetComponent<SpriteRenderer>().material.color = Color.red;
         Rigid.GetComponent<SpriteRenderer>().material.color = Color.red;
@@ -70,7 +79,10 @@ public class ColorSwitcher : MonoBehaviour
         colorRenderer.material.color = Color.yellow;
         for (int i = 1; i < childObject.Count; i++)
         {
-            childObject[i].GetComponent<SpriteRenderer>().material.color = yellowLightColors[i];
+            if (childObject[i] != null)
+            {
+                childObject[i].GetComponent<SpriteRenderer>().material.color = yellowLightColors[i];
+            }
         }
         /*Growth.GetComponent<SpriteRenderer>().material.color = Color.yellow;
         Rigid.GetComponent<SpriteRenderer>().material.color = Color.yellow;

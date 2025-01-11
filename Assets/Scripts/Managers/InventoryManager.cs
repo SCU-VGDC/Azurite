@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class InventoryManager 
 {
     public const int MaxInventorySize = 6;
@@ -17,6 +21,33 @@ public class InventoryManager
             inventory[slot] = PersistentDataScript.instance.ITEM_LIST[ItemID];
             //Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
             return;
+        }
+    }
+
+    public void TryAddItem(int ItemID, out bool success)
+    {
+        success = false;
+        int inventorySlot = 0;
+        while(success == false)
+        {
+            if(inventorySlot == MaxInventorySize)
+            {
+                success = false;
+                return;
+            }
+            if (inventory[inventorySlot] == null)
+            {
+                inventory[inventorySlot] = PersistentDataScript.instance.ITEM_LIST[ItemID];
+                //Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
+                Debug.Log(inventorySlot);
+                success = true;
+                return;
+            }
+            else
+            {
+                inventorySlot++;
+                Debug.Log(inventorySlot);
+            }
         }
     }
 
