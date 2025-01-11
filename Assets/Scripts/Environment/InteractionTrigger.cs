@@ -22,7 +22,9 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     // Start is called before the first frame update
     void Start()
     {
-        textPopUp.GetComponentInParent<Canvas>(true).worldCamera = Camera.main;
+        Canvas canvas = textPopUp.GetComponentInParent<Canvas>(true);
+        canvas.transform.localPosition = new Vector3(0, 1, 0);
+        canvas.worldCamera = Camera.main;
         textPopUp.text = triggerKey.ToString();
         ToggleTextPopup(false);
     }
