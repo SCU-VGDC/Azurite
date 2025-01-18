@@ -36,7 +36,7 @@ public class DialogueSequence : MonoBehaviour
 
         foreach (DialogueStep step in dialogueSteps)
         {
-            dialogueUI.DisplayText(step.text, subjectName);
+            dialogueUI.DisplayText(step.text, subjectName, step.choices);
             yield return dialogueUI.WaitForPlayerChoice();
             yield return new WaitForEndOfFrame();
             step.continueCallback?.Invoke(dialogueUI.CurrentChoice);

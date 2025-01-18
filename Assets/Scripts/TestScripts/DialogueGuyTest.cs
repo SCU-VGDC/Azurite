@@ -13,4 +13,13 @@ public class DialogueGuyTest : MonoBehaviour
         DialogueSequence sequence = GetComponent<DialogueSequence>();
         GetComponent<InteractionTrigger>().OnInteract += () => StartCoroutine(sequence.StartSequence());
     }
+
+    public void ProcessPlayerResponse(string choice)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (choice == "me")
+            spriteRenderer.color = Color.green;
+        else
+            spriteRenderer.color = Color.red;
+    }
 }
