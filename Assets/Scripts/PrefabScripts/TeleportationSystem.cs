@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,8 @@ public class TeleportationSystem : MonoBehaviour
     public GameObject destinationObject;
     private Vector2 destinationCoords;
     [SerializeField] private InteractionTrigger interaction;
+    [SerializeField] private Collider2D destinationCameraBorder;
+
     void Start()
     {
         interaction.OnInteract += Teleport;
@@ -25,7 +28,11 @@ public class TeleportationSystem : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
+                // teleport the player!
                 player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
+
+                // change camera's border
+                GameObject.FindGameObjectWithTag("Virtual Camera").GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = destinationCameraBorder;
             }
 
         }
