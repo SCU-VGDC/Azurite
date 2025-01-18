@@ -6,36 +6,25 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] Rigidbody2D PlayerRigidBody;
-    Vector2 speed;
-    Vector2 input;
+    Vector2 playerInput;
     //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-    [SerializeField] [Range(1, 1000)] float deceleration = 1000;
-    [SerializeField] [Range(1, 50)] float playerMaxSpeed = 50;
-    [SerializeField] [Range(1f, 10)] float acceleration = 1f;
+    [SerializeField] [Range(0, 10)] float playerSpeed = 1.0f;
+    [SerializeField] [Range(0, 1)] float playerMaxSpeed = 0.7f;
 
     //Update is called once per frame
     void Update()
     {
-        input.x  = Input.GetAxis("Horizontal");
-        input.y = Input.GetAxis("Vertical");
+        playerInput.x  = Input.GetAxisRaw("Horizontal");
+        playerInput.y = Input.GetAxisRaw("Vertical");
     }
 
     void FixedUpdate()
     {
-        input = input.normalized;
+        // prevents player from moving faster diagonally by forcing them to go at 70% the normal speed instead
+        if (playerInput.x != 0 && playerInput.y != 0) {
+            playerInput *= playerMaxSpeed;
+        }
 
-        //Friction code to have player come to stop when no key pressed
-        float decelNow = Time.deltaTime * deceleration * speed.magnitude;
-        if (speed.magnitude > decelNow)
-            speed += decelNow * new Vector2(input.x == 0 ? -MathF.Sign(speed.x) : 0, input.y == 0 ? -MathF.Sign(speed.y) : 0).normalized;
-        else if (input.magnitude == 0)
-            //At certian point zeroing out player movement is not noticable to the player's eye
-            speed = Vector2.zero;
-
-        //applies force to player if they are not moving faster than whatever playerMaxSpeed is set to
-        speed += Time.deltaTime * acceleration * input;
-        speed = speed.normalized * MathF.Min(speed.magnitude, playerMaxSpeed);
-
-        PlayerRigidBody.velocity = speed;
+        PlayerRigidBody.velocity = playerInput * playerSpeed; // without this line, player cannot move. at all.
     }
 }
