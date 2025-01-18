@@ -4681,18 +4681,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 554456252167468186, guid: c81d2fb9930201742931997ce04f1017, type: 3}
-      propertyPath: veloc
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 554456252167468186, guid: c81d2fb9930201742931997ce04f1017, type: 3}
-      propertyPath: deceleration
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 554456252167468186, guid: c81d2fb9930201742931997ce04f1017, type: 3}
-      propertyPath: playerMaxSpeed
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 6182467762062465167, guid: c81d2fb9930201742931997ce04f1017, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
