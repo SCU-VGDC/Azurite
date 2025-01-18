@@ -19,9 +19,9 @@ public class ColorSwitcher : MonoBehaviour
     [SerializeField] private InteractionTrigger interaction;
     int colorState = 0;
     public List<GameObject> childObject;
-    Color[] redLightColors = new Color[] { Color.black, Color.black, Color.red, Color.red, Color.red, Color.red, Color.red, Color.red };
-    Color[] greenLightColors = new Color[] { Color.blue, Color.blue, Color.green, Color.green, Color.green, Color.green, Color.green, Color.green };
-    Color[] yellowLightColors = new Color[] { Color.red, Color.red, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow };
+    Color[] redLightColors = new Color[] { Color.red, Color.black, Color.black, Color.red, Color.red, Color.red, Color.red, Color.red, Color.red };
+    Color[] greenLightColors = new Color[] { Color.green, Color.blue, Color.blue, Color.green, Color.green, Color.green, Color.green, Color.green, Color.green };
+    Color[] yellowLightColors = new Color[] { Color.yellow, Color.red, Color.red, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow };
     // Start is called before the first frame update
 
     void Start()
@@ -92,6 +92,17 @@ public class ColorSwitcher : MonoBehaviour
         Corrosive.GetComponent<SpriteRenderer>().material.color = Color.yellow;
         Pretty.GetComponent<SpriteRenderer>().material.color = Color.yellow;*/
     }
+
+    void ChangeAll(Color[] color)
+    {
+        for (int i = 0; i < childObject.Count; i++)
+        {
+            if (childObject[i] != null)
+            {
+                childObject[i].GetComponent<SpriteRenderer>().material.color = color[i];
+            }
+        }
+    }
     
     void ColorSwitch()
     {
@@ -102,13 +113,13 @@ public class ColorSwitcher : MonoBehaviour
         switch (colorState)
         {
             case 0:
-                GreenLight();
+                ChangeAll(greenLightColors);
                 break;
             case 1:
-                YellowLight();
+                ChangeAll(yellowLightColors);
                 break;
             case 2:
-                RedLight();
+                ChangeAll(redLightColors);
                 break;
             default:
                 break;
