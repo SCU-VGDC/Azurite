@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogueSequence : MonoBehaviour
 {
+    [Serializable]
     public struct DialogueStep
     {
         public string text;
-        public Action<string> continueCallback;
+        public UnityEvent<string> continueCallback;
         public List<string> choices;
     }
 

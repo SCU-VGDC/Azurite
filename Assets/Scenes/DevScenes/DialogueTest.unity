@@ -385,6 +385,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 1248695205}
+  dialogueSteps:
+  - text: 19 dollar Fortnite card
+    continueCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    choices: []
+  - text: Who wants it?
+    continueCallback:
+      m_PersistentCalls:
+        m_Calls: []
+    choices: []
   subjectName: John Azurite
 --- !u!1 &1248695199
 GameObject:
