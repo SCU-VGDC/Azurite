@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: demo_lazer_sprites_0
+  m_Name: demo_laser_sprites_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1716171339, guid: 461ed96b6d81c0d4e9d7e09ea811661c, type: 3}
+  m_Sprite: {fileID: -761008649, guid: c2fa4eed10d1b074e9596853674f2502, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -85,10 +85,11 @@ public class LaserPuzzle : MonoBehaviour
         Vector3Int cursorPos = (Vector3Int) sourcePos + (Vector3Int) sourceDir;
         Vector3Int cursorDir = (Vector3Int) sourceDir;
         bool stopLaser = false;
+        Debug.Log(sourceDir);
         while (tileMap.GetTile(cursorPos) != null && !stopLaser)
         {
             Debug.Log(cursorPos);
-            
+
             // draw laser
             Instantiate(laserObject, cursorPos, Quaternion.identity);
 

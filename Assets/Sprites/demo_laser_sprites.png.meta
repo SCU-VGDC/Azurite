@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 461ed96b6d81c0d4e9d7e09ea811661c
+guid: c2fa4eed10d1b074e9596853674f2502
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: demo_lazer_sprites_0
+      name: demo_laser_sprites_0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d9ce6347082f26408c73c0391c8857e
-      internalID: 1716171339
+      spriteID: ef51897cfd5821246af35f7d09f1b1be
+      internalID: -761008649
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demo_lazer_sprites_1
+      name: demo_laser_sprites_1
       rect:
         serializedVersion: 2
         x: 64
@@ -171,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fab67c2bdcdd237419e6661767fe1894
-      internalID: 782471021
+      spriteID: a14e82285de7984429a693e9e5de35dc
+      internalID: -1442616853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demo_lazer_sprites_2
+      name: demo_laser_sprites_2
       rect:
         serializedVersion: 2
         x: 128
@@ -192,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbe1b3a7e185258409891144a1271cca
-      internalID: 1157770408
+      spriteID: db2f6fc49d3ff9f40b85f00ae117d5c3
+      internalID: -2058459218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demo_lazer_sprites_3
+      name: demo_laser_sprites_3
       rect:
         serializedVersion: 2
         x: 192
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e27408f308a396642b81498f28c9408f
-      internalID: 50387710
+      spriteID: f531a2116b0286341922d802ea26012b
+      internalID: 311388510
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demo_lazer_sprites_4
+      name: demo_laser_sprites_4
       rect:
         serializedVersion: 2
         x: 256
@@ -234,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f20bbf61f7022e0469bd26363b633f25
-      internalID: 491860353
+      spriteID: ada0bf297b1813545b91bca2d5680172
+      internalID: -1871335143
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demo_lazer_sprites_5
+      name: demo_laser_sprites_5
       rect:
         serializedVersion: 2
         x: 320
@@ -255,8 +255,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e39021a4d6e798f4fa0ae9d7ba5806dd
-      internalID: -1640888373
+      spriteID: 9a9e2a3b47860b341a359c4c66b4d4ba
+      internalID: 1947232570
       vertices: []
       indices: 
       edges: []
@@ -272,12 +272,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      demo_lazer_sprites_0: 1716171339
-      demo_lazer_sprites_1: 782471021
-      demo_lazer_sprites_2: 1157770408
-      demo_lazer_sprites_3: 50387710
-      demo_lazer_sprites_4: 491860353
-      demo_lazer_sprites_5: -1640888373
+      demo_laser_sprites_0: -761008649
+      demo_laser_sprites_1: -1442616853
+      demo_laser_sprites_2: -2058459218
+      demo_laser_sprites_3: 311388510
+      demo_laser_sprites_4: -1871335143
+      demo_laser_sprites_5: 1947232570
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
