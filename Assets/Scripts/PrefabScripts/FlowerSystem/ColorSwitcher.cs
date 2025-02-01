@@ -28,12 +28,6 @@ public class ColorSwitcher : MonoBehaviour
 
     void Start()
     {
-        /*Transform[] childTransforms = this.GetComponentsInChildren<Transform>();
-        foreach (Transform child in childTransforms)
-        {
-            if (child.GetComponent<SpriteRenderer>() != null)
-                childObject.Add(child.gameObject);
-        }*/
         colorRenderer = GetComponentInChildren<SpriteRenderer>();
         RandomlyPlaceChildObjects();
 
@@ -97,6 +91,7 @@ public class ColorSwitcher : MonoBehaviour
 
     void ChangeAll(Color[] color)
     {
+        GetComponent<ColorStore>().ColorChange(colorState);
         for (int i = 0; i < childObject.Count; i++)
         {
             if (childObject[i] != null)
