@@ -1459,6 +1459,7 @@ GameObject:
   - component: {fileID: 6684937834367015520}
   - component: {fileID: 8262293766405489320}
   - component: {fileID: 1303558497640123171}
+  - component: {fileID: 7142616947038039529}
   - component: {fileID: 3969808832676014367}
   m_Layer: 0
   m_Name: Rigid
@@ -1584,6 +1585,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerKey: 101
   textPopUp: {fileID: 4732388879051354751}
+--- !u!114 &7142616947038039529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9218133914101721937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemID: 0
+  DestroyOnPickup: 0
 --- !u!114 &3969808832676014367
 MonoBehaviour:
   m_ObjectHideFlags: 0
