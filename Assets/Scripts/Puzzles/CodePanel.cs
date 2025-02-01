@@ -15,7 +15,8 @@ public class CodePanel : MonoBehaviour
     public string allowedChars = string.Empty;
     private string currentInput = string.Empty;
     private bool _visible = false;
-    private bool awaitingCloseFade = false;
+    private Image inputDisplayBackground;
+    private Sequence currentTweenSequence;
     [SerializeField] private Transform buttonContainer;
     [SerializeField] private Button clearButton;
     [SerializeField] private Button enterButton;
@@ -28,13 +29,13 @@ public class CodePanel : MonoBehaviour
         get => _visible;
         set
         {
-            if (awaitingCloseFade) return;
+            currentTweenSequence?.Kill();
+            currentTweenSequence = null;
 
             if (value)
             {
-                currentInput = string.Empty;
-                inputDisplay.text = string.Empty;
-                inputDisplay.GetComponentInParent<Image>().color = Color.black;
+                ClearInput();
+                inputDisplayBackground.color = Color.black;
                 inputDisplay.color = Color.green;
             }
 
@@ -48,6 +49,8 @@ public class CodePanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inputDisplayBackground = inputDisplay.GetComponentInParent<Image>();
+
         foreach (char c in allowedChars)
         {
             GameObject buttonGO = Instantiate(buttonPrefab);
@@ -55,40 +58,53 @@ public class CodePanel : MonoBehaviour
             buttonGO.GetComponentInChildren<TextMeshProUGUI>().text = c.ToString();
             Button button = buttonGO.GetComponent<Button>();
             button.onClick.AddListener(() => {
-                if (_visible && !awaitingCloseFade) AppendToInput(c);
+                if (_visible && !CheckTweenRunning()) AppendToInput(c);
             });
         }
 
         clearButton.onClick.AddListener(ClearInput);
-        enterButton.onClick.AddListener(() => StartCoroutine(CheckSolution()));
+        enterButton.onClick.AddListener(CheckSolution);
+    }
+
+    private bool CheckTweenRunning()
+    {
+        return currentTweenSequence != null && currentTweenSequence.IsActive();
     }
 
     private void Update()
     {
-        if (!_visible || awaitingCloseFade) return;
+        if (!_visible || CheckTweenRunning()) return;
         foreach (char c in Input.inputString)
             if (allowedChars.Contains(c))
                 AppendToInput(c);
         if (Input.GetButtonDown("Submit"))
-            StartCoroutine(CheckSolution());
+            CheckSolution();
     }
 
-    private IEnumerator CheckSolution()
+    private void CheckSolution()
     {
+        currentTweenSequence?.Kill();
+
         if (currentInput != solution)
         {
-            onIncorrectCode.Invoke();
-            ClearInput();
-            yield break;
+            currentTweenSequence = DOTween.Sequence()
+                .Append(inputDisplay.DOColor(Color.black, 0.2f).SetEase(Ease.InCubic))
+                .Join(inputDisplayBackground.DOColor(Color.red, 0.2f).SetEase(Ease.InCubic))
+                .AppendInterval(0.3f)
+                .AppendCallback(ClearInput)
+                .Append(inputDisplay.DOColor(Color.green, 0.2f).SetEase(Ease.OutCubic))
+                .Join(inputDisplayBackground.DOColor(Color.black, 0.2f).SetEase(Ease.OutCubic))
+                .AppendCallback(onIncorrectCode.Invoke);
+
+            return;
         }
 
-        onCorrectCode.Invoke();
-        inputDisplay.GetComponentInParent<Image>().DOColor(Color.green, 0.2f);
-        inputDisplay.DOColor(Color.black, 0.2f);
-        awaitingCloseFade = true;
-        yield return new WaitForSeconds(0.7f);
-        awaitingCloseFade = false;
-        Visible = false;
+        currentTweenSequence = DOTween.Sequence()
+            .Append(inputDisplayBackground.DOColor(Color.green, 0.2f))
+            .Join(inputDisplay.DOColor(Color.black, 0.2f))
+            .AppendInterval(0.8f)
+            .AppendCallback(onCorrectCode.Invoke)
+            .AppendCallback(() => Visible = false);
     }
 
     private void ClearInput()
