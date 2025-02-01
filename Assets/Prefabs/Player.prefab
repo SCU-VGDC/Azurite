@@ -254,6 +254,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 3838181656129955612}
-  deceleration: 20
-  playerMaxSpeed: 50
-  acceleration: 10
+  playerSpeed: 10

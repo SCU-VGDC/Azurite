@@ -11,19 +11,15 @@ public class DialogueGuyTest : MonoBehaviour
     void Start()
     {
         DialogueSequence sequence = GetComponent<DialogueSequence>();
-
-        sequence.SetDialogueSteps(new List<DialogueSequence.DialogueStep>
-            {
-            new() {
-                text = "19 dollar fortnite card."
-            },
-            new()
-            {
-                text = "Who wants it?"
-            }
-            }
-        );
-
         GetComponent<InteractionTrigger>().OnInteract += () => StartCoroutine(sequence.StartSequence());
+    }
+
+    public void ProcessPlayerResponse(string choice)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (choice == "me")
+            spriteRenderer.color = Color.green;
+        else
+            spriteRenderer.color = Color.red;
     }
 }
