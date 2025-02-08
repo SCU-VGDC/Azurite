@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager 
 {
     public const int MaxInventorySize = 6;
-    private readonly ItemData[] inventory;   
+    private readonly ItemData[] inventory;
 
     public InventoryManager()
     {
@@ -24,31 +22,30 @@ public class InventoryManager
         }
     }
 
-    public void TryAddItem(int ItemID, out bool success)
+    /*
+     * Adds the item of the given ItemID to the first empty inventory slot.
+     * Returns true if a slot was found, otherwise returns false with slotNum = -1.
+     */
+    public bool TryAddItem(int ItemID, out int slotNum)
     {
-        success = false;
-        int inventorySlot = 0;
-        while(success == false)
+        slotNum = 0;
+
+        while(slotNum < MaxInventorySize)
         {
-            if(inventorySlot == MaxInventorySize)
+            if (inventory[slotNum] == null)
             {
-                success = false;
-                return;
-            }
-            if (inventory[inventorySlot] == null)
-            {
-                inventory[inventorySlot] = PersistentDataScript.instance.ITEM_LIST[ItemID];
-                //Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
-                Debug.Log(inventorySlot);
-                success = true;
-                return;
+                inventory[slotNum] = PersistentDataScript.instance.ITEM_LIST[ItemID];
+                Debug.Log(slotNum);
+                return true;
             }
             else
             {
-                inventorySlot++;
-                Debug.Log(inventorySlot);
+                ++slotNum;
             }
         }
+
+        slotNum = -1;
+        return false;
     }
 
     public ItemData GetItem(int SlotID) {
@@ -82,5 +79,4 @@ public class InventoryManager
         if (FindItem(ItemID) >= 0) return true;
         return false;
     }
-
 }

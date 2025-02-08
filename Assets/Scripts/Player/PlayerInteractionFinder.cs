@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -24,9 +23,9 @@ public class PlayerInteractionFinder : MonoBehaviour
         InteractionDistance = _interactionDist;
     }
 
-    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
+        if (collision.TryGetComponent(out InteractionTrigger interaction))
         {
             if (!triggers.ContainsKey(interaction.triggerKey))
             {
@@ -36,9 +35,9 @@ public class PlayerInteractionFinder : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(UnityEngine.Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
+        if (collision.TryGetComponent(out InteractionTrigger interaction))
         {
             if (triggers.TryGetValue(interaction.triggerKey, out var ilist))
             {

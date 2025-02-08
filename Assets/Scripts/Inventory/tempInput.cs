@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class tempInput : MonoBehaviour
+public class TempInput : MonoBehaviour
 {
     [SerializeField] ItemData tempItem;
 
@@ -51,6 +49,5 @@ public class tempInput : MonoBehaviour
             //Debug.Log(PersistentDataScript.instance.ITEM_LIST[0].name);
 
         }
-
     }
 }

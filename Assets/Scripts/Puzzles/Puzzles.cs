@@ -1,25 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
 [Serializable]
 public class Puzzles : ScriptableObject
 {
-    [SerializeField] public int ButtonCount;
-    [SerializeField] public int width;
-    [SerializeField] public int height;
+    public int ButtonCount;
+    public int width;
+    public int height;
 
-    [SerializeField] public bool ToggleNearby;
-
-
-    [SerializeField] public bool[] StartOn;
-    [SerializeField] public bool[] SolutionIsOn;
-
-    [SerializeField] public bool[] IsLocked;
-
-    [SerializeField] public ButtonScript.ButtonSprites[] ButtonIcons;
+    public bool ToggleNearby;
 
 
+    public bool[] StartOn;
+    public bool[] SolutionIsOn;
+
+    public bool[] IsLocked;
+
+    public ButtonScript.ButtonSprites[] ButtonIcons;
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +8,8 @@ public class ButtonScript : MonoBehaviour
     int buttonNumber;
     GameObject buttonScreen;
 
-    Sprite Icon;
-
     // Start is called before the first frame update
-
-
-    public void setUp(int bnum, GameObject screen, bool StartOn, bool Glass, ButtonSprites S)
+    public void SetUp(int bnum, GameObject screen, bool StartOn, bool Glass, ButtonSprites S)
     {
         buttonNumber = bnum;
         buttonScreen = screen;
@@ -28,15 +22,13 @@ public class ButtonScript : MonoBehaviour
             SetOff();
         }
         IsGlass = Glass;
-        
     }
 
     public void Clicked()
     {
         if(!IsGlass)
         {
-            buttonScreen.GetComponent<ButtonScreenScript>().updateButtons(buttonNumber);
-
+            buttonScreen.GetComponent<ButtonScreenScript>().UpdateButtons(buttonNumber);
         }
     }
 
@@ -51,20 +43,17 @@ public class ButtonScript : MonoBehaviour
         {
             SetOn();
         }
-    
     }
 
     public void SetOn()
     {
-        this.gameObject.GetComponent<Image>().color = Color.blue;
-        IsOn= true;
-
+        gameObject.GetComponent<Image>().color = Color.blue;
+        IsOn = true;
     }
     public void SetOff()
     {
-        this.gameObject.GetComponent<Image>().color = Color.black;
-        IsOn= false;
-
+        gameObject.GetComponent<Image>().color = Color.black;
+        IsOn = false;
     }
     public bool CheckStatus()
     {
@@ -72,7 +61,6 @@ public class ButtonScript : MonoBehaviour
     }
 
     public enum ButtonSprites { 
-
         Default
     }
 }

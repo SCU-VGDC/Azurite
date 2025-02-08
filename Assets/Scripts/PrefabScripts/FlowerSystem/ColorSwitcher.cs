@@ -10,24 +10,21 @@ public class ColorSwitcher : MonoBehaviour
 {
     [SerializeField] private List<GameObject> Placements;
 
-    SpriteRenderer colorRenderer;
     [SerializeField] private InteractionTrigger interaction;
     private int colorState = 0;
     public List<GameObject> childObject;
-    int maxLightColor = 3; //Number of different colors for the lights.
+    private readonly int maxLightColor = 3; //Number of different colors for the lights.
     // Start is called before the first frame update
 
     void Start()
     {
-        colorRenderer = GetComponentInChildren<SpriteRenderer>(); //Gets the sprite renderer of switch. Used to change color.
         RandomlyPlaceChildObjects(); //Randomly assigns the child objects to the placement game objects.
-
         interaction.OnInteract += ColorSwitch;
     }
 
     void RandomlyPlaceChildObjects()
     {
-        List<int> availableIndices = new List<int>(); //List of available slots for a child object to be placed.
+        List<int> availableIndices = new(); //List of available slots for a child object to be placed.
         for (int i = 0; i < childObject.Count; i++)
         {
             availableIndices.Add(i); //One available index for every child object.
@@ -58,7 +55,7 @@ public class ColorSwitcher : MonoBehaviour
     void ColorSwitch() //Switches color of room light.
     {
         colorState++;
-        colorState = colorState % maxLightColor;
+        colorState %= maxLightColor;
         ChangeAll(); //Switches color of children dependent on current lighting.
     }
 }

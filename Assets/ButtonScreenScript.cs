@@ -6,7 +6,7 @@ public class ButtonScreenScript : MonoBehaviour
 {
     
     int width, height;
-    GameObject intObect;
+    GameObject intObject;
     [SerializeField] GameObject buttonPrefab;
     GameObject[] buttons;
     [SerializeField] bool toggleNearby;
@@ -35,7 +35,7 @@ public class ButtonScreenScript : MonoBehaviour
     {
         if (LoadPuzzleFromPuzzles)
         {
-            loadPuzzle(puzzle);
+            LoadPuzzle(puzzle);
             
             return;
         }
@@ -61,7 +61,7 @@ public class ButtonScreenScript : MonoBehaviour
         */
     }   
     
-    public void updateButtons(int bnum)
+    public void UpdateButtons(int bnum)
     {
         buttons[bnum].GetComponent<ButtonScript>().ToggleState();
         if (toggleNearby)
@@ -81,14 +81,11 @@ public class ButtonScreenScript : MonoBehaviour
             }
             if ((bnum % width) + 1 < width){
                 buttons[bnum + 1].GetComponent<ButtonScript>().ToggleState();
-
-
             }
-            
         }
     }
 
-    public bool isAllOn()
+    public bool IsAllOn()
     {
         
         for (int i = 0; i < buttons.Length; i++)
@@ -114,31 +111,23 @@ public class ButtonScreenScript : MonoBehaviour
 
         }
 
-
         return true;
     }
-
-
 
     public bool TestSolution()
     {
         if (SolutionIsAllOn)
         {
-            if (isAllOn())
+            if (IsAllOn())
             {
-
                 Debug.Log("Correct");
-                
                 return true;
             }
             else
             {
-
                 Debug.Log("Wrong");
                 return false;
             }
-
-
         }
         else
         {
@@ -147,11 +136,9 @@ public class ButtonScreenScript : MonoBehaviour
                 Debug.Log("Correct");
                 //intObect.GetComponent<InteractableObject>().Correct();
                 return true;
-
             }
             else
             {
-
                 Debug.Log("Wrong");
                 return false;
             }
@@ -162,11 +149,11 @@ public class ButtonScreenScript : MonoBehaviour
     
     public void SetInteractable(GameObject inter)
     {
-        intObect = inter;
+        intObject = inter;
     }
 
 
-    public void loadPuzzle(Puzzles p)
+    public void LoadPuzzle(Puzzles p)
     {
         int buttonCounter = 0;
         Solution = new bool[p.ButtonCount];
@@ -178,30 +165,26 @@ public class ButtonScreenScript : MonoBehaviour
         {
             for (int j = 0; j < width; j++) 
             {
-
-
-
-                Vector3 buttonPos = this.transform.position;
+                Vector3 buttonPos = transform.position;
                 buttonPos.x += (50 * j) * (10 / height) - (25 * width) * (10 / height);
                 buttonPos.y -= (50 * i) * (10 / height) - (25 * height) * (10 / height); 
                 Debug.Log("Set up button number" + (width * i + j));
-                buttons[width * i + j] = Instantiate(buttonPrefab, buttonPos, this.transform.rotation, this.transform);
-                buttons[width * i + j].GetComponent<ButtonScript>().setUp(width * i + j, this.gameObject, p.StartOn[width * i + j], p.IsLocked[width * i + j], p.ButtonIcons[width * i + j]);
-                buttons[width * i + j].gameObject.transform.localScale= Vector3.one * (10 / height);
+                buttons[width * i + j] = Instantiate(buttonPrefab, buttonPos, transform.rotation, transform);
+                buttons[width * i + j].GetComponent<ButtonScript>().SetUp(width * i + j, gameObject, p.StartOn[width * i + j], p.IsLocked[width * i + j], p.ButtonIcons[width * i + j]);
+                buttons[width * i + j].transform.localScale= Vector3.one * (10 / height);
                 Solution[buttonCounter] = p.SolutionIsOn[buttonCounter];
 
                 buttonCounter++;
-
             }
         }
         toggleNearby = p.ToggleNearby;
     }
     public void OpenScreen()
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
     public void CloseScreen()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
