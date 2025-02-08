@@ -24,8 +24,8 @@ public class ItemPickup : MonoBehaviour
     void Pickup()
     {
         bool success;
-        PersistentDataScript.instance.PlayerInventory.TryAddItem(ItemID, out success);
-        if (success && DestroyOnPickup)
+        PersistentDataScript.instance.PlayerInventory.TryAddItem(ItemID, out success); //Tries to add item ID to player inventory
+        if (success && DestroyOnPickup) //If item is marked for destruction and the item is picked up, destroy the item picked up.
         {
             Destroy(gameObject);
         }

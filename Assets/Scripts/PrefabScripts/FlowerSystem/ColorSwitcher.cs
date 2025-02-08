@@ -10,123 +10,55 @@ public class ColorSwitcher : MonoBehaviour
 {
     [SerializeField] private List<GameObject> Placements;
 
-    GameObject Growth;// = GameObject.Find("Growth");
-    GameObject Rigid;// = GameObject.Find("Rigid");
-    GameObject Sticky;// = GameObject.Find("Sticky");
-    GameObject Slippery;// = GameObject.Find("Slippery");
-    GameObject Combustible;// = GameObject.Find("Combustible");
-    GameObject Corrosive;// = GameObject.Find("Corrosive");
-    GameObject Pretty;// = GameObject.Find("Pretty");
     SpriteRenderer colorRenderer;
     [SerializeField] private InteractionTrigger interaction;
-    int colorState = 0;
+    private int colorState = 0;
     public List<GameObject> childObject;
-    Color[] redLightColors = new Color[] { Color.red, Color.black, Color.black, Color.red, Color.red, Color.red, Color.red, Color.red, Color.red };
-    Color[] greenLightColors = new Color[] { Color.green, Color.blue, Color.blue, Color.green, Color.green, Color.green, Color.green, Color.green, Color.green };
-    Color[] yellowLightColors = new Color[] { Color.yellow, Color.red, Color.red, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow, Color.yellow };
+    int maxLightColor = 3; //Number of different colors for the lights.
     // Start is called before the first frame update
 
     void Start()
     {
-        colorRenderer = GetComponentInChildren<SpriteRenderer>();
-        RandomlyPlaceChildObjects();
+        colorRenderer = GetComponentInChildren<SpriteRenderer>(); //Gets the sprite renderer of switch. Used to change color.
+        RandomlyPlaceChildObjects(); //Randomly assigns the child objects to the placement game objects.
 
         interaction.OnInteract += ColorSwitch;
     }
 
     void RandomlyPlaceChildObjects()
     {
-        List<int> availableIndices = new List<int>();
+        List<int> availableIndices = new List<int>(); //List of available slots for a child object to be placed.
         for (int i = 0; i < childObject.Count; i++)
         {
-            availableIndices.Add(i);
-            Debug.Log("Added: " + i);
+            availableIndices.Add(i); //One available index for every child object.
         }
 
         for (int i = 0; i < childObject.Count; i++)
         {
+            //This code randomly selects from the available indices, places a game object at placement, and removes that placement from the available indices.
             int randomIndex = UnityEngine.Random.Range(0, availableIndices.Count);
-            Debug.Log("Random Index at " + randomIndex);
             int childIndex = availableIndices[randomIndex];
-            Debug.Log("Random Index of " + childIndex);
             availableIndices.RemoveAt(randomIndex);
             childObject[i].transform.position = Placements[childIndex].transform.position;
-            Debug.Log("Placing Child Object " + i + " At Placement " +  childIndex);
         }
     }
 
-    void GreenLight()
+    void ChangeAll()
     {
-        colorRenderer.material.color = Color.green;
-        for (int i = 1; i < childObject.Count; i++)
-        {
-            if (childObject[i] != null)
-            {
-                childObject[i].GetComponent<SpriteRenderer>().material.color = greenLightColors[i];
-            }
-        }
-    }
-    void RedLight()
-    {
-        colorRenderer.material.color = Color.red;
-        for (int i = 1; i < childObject.Count; i++)
-        {
-            if (childObject[i] != null) 
-            { 
-                childObject[i].GetComponent<SpriteRenderer>().material.color = redLightColors[i]; 
-            }
-        }
-    }
-    void YellowLight()
-    {
-        colorRenderer.material.color = Color.yellow;
-        for (int i = 1; i < childObject.Count; i++)
-        {
-            if (childObject[i] != null)
-            {
-                childObject[i].GetComponent<SpriteRenderer>().material.color = yellowLightColors[i];
-            }
-        }
-    }
-
-    void ChangeAll(Color[] color)
-    {
-        GetComponent<ColorStore>().ColorChange(colorState);
+        GetComponent<ColorStore>().ColorChange(colorState); //Changes switch color
         for (int i = 0; i < childObject.Count; i++)
         {
             if (childObject[i] != null)
             {
-                childObject[i].GetComponent<ColorStore>().ColorChange(colorState);
-                //childObject[i].GetComponent<SpriteRenderer>().material.color = color[i];
+                childObject[i].GetComponent<ColorStore>().ColorChange(colorState); //Changes the color of every child object. (All child objects require color store)
             }
         }
     }
     
-    void ColorSwitch()
+    void ColorSwitch() //Switches color of room light.
     {
         colorState++;
-        colorState = colorState % 3;
-        Debug.Log("Color Switch");
-        Debug.Log(colorState);
-        switch (colorState)
-        {
-            case 0:
-                ChangeAll(greenLightColors);
-                break;
-            case 1:
-                ChangeAll(yellowLightColors);
-                break;
-            case 2:
-                ChangeAll(redLightColors);
-                break;
-            default:
-                break;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        colorState = colorState % maxLightColor;
+        ChangeAll(); //Switches color of children dependent on current lighting.
     }
 }
