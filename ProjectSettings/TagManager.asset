@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - Virtual Camera
   layers:
   - Default
   - TransparentFX
