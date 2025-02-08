@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class ColorStore : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -19,12 +20,5 @@ public class ColorStore : MonoBehaviour
     public void ColorChange(int state)
     {
         ColorRenderer.color = colors[state]; //Changes the color of the sprite based on the current lighting of the room.
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

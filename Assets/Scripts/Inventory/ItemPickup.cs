@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InteractionTrigger))]
 public class ItemPickup : MonoBehaviour
 {
     private InteractionTrigger interaction;
@@ -23,17 +24,10 @@ public class ItemPickup : MonoBehaviour
     }
     void Pickup()
     {
-        bool success;
-        PersistentDataScript.instance.PlayerInventory.TryAddItem(ItemID, out success); //Tries to add item ID to player inventory
+        PersistentDataScript.instance.PlayerInventory.TryAddItem(ItemID, out bool success); //Tries to add item ID to player inventory
         if (success && DestroyOnPickup) //If item is marked for destruction and the item is picked up, destroy the item picked up.
         {
             Destroy(gameObject);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

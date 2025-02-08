@@ -4633,7 +4633,6 @@ GameObject:
   - component: {fileID: 1921944466}
   - component: {fileID: 1921944465}
   - component: {fileID: 1921944469}
-  - component: {fileID: 1921944470}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4739,20 +4738,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryMenu: {fileID: 1590031905}
   inventoryMenuActivated: 0
---- !u!114 &1921944470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921944463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!1 &1957396094
 GameObject:
   m_ObjectHideFlags: 0
