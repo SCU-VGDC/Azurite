@@ -4077,7 +4077,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3527234101113035146, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1829154428}
   m_SourcePrefab: {fileID: 100100000, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
 --- !u!1001 &1630534894
 PrefabInstance:
@@ -4596,6 +4599,27 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 0
+--- !u!1 &1829154423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3527234101113035146, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+  m_PrefabInstance: {fileID: 1627053484}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1829154428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829154423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27367b29b0faac74f91c49d113603efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0, g: 0.9960785, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0.9960785, a: 1}
+  - {r: 0.9960785, g: 0, b: 0, a: 1}
 --- !u!1 &1921944463
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,7 +4633,6 @@ GameObject:
   - component: {fileID: 1921944466}
   - component: {fileID: 1921944465}
   - component: {fileID: 1921944469}
-  - component: {fileID: 1921944470}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4715,20 +4738,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryMenu: {fileID: 1590031905}
   inventoryMenuActivated: 0
---- !u!114 &1921944470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921944463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
-  ItemID: 0
 --- !u!1 &1957396094
 GameObject:
   m_ObjectHideFlags: 0
