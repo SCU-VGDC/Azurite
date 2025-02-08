@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 1961083103326665864}
   - component: {fileID: 5372166065380142195}
   - component: {fileID: 5008240071813848862}
+  - component: {fileID: 2337613072301158985}
   m_Layer: 0
   m_Name: FlowerSystem
   m_TagString: Untagged
@@ -485,6 +486,22 @@ MonoBehaviour:
   triggerKey: 101
   textPopUp: {fileID: 1776885446889709434}
 --- !u!114 &5008240071813848862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527234101113035146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27367b29b0faac74f91c49d113603efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0, g: 0.9960785, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0.9960785, a: 1}
+  - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &2337613072301158985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
