@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class persistenceDebug : MonoBehaviour
+public class PersistenceDebug : MonoBehaviour
 {
     // Start is called before the first frame update
     SpriteRenderer m_SpriteRenderer;

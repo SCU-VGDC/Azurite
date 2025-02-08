@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateSceneTest.unity
+    path: Assets/Scenes/DevScenes/Archived/roomStateSceneTest.unity
     guid: 06e90a0c372da4940b9579348daa8896
   - enabled: 1
-    path: Assets/Scenes/DevScenes/SameRoomTeleport.unity
+    path: Assets/Scenes/DevScenes/Archived/SameRoomTeleport.unity
     guid: 63efc407464b50d4f86dae843a554d33
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateDebug_2.unity
+    path: Assets/Scenes/DevScenes/Archived/roomStateDebug_2.unity
     guid: 076348b8ce9421941b5b6e6ea80ebfeb
   m_configObjects: {}
