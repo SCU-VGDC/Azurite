@@ -6,8 +6,8 @@ public class ButtonScreenScript : MonoBehaviour
 {
     
     int width, height;
-    int WidthOffset = 100;
-    int HeightOffset = 200;
+    //int WidthOffset = 100;
+    //int HeightOffset = 200;
     GameObject intObect;
     [SerializeField] GameObject buttonPrefab;
     GameObject[] buttons;
