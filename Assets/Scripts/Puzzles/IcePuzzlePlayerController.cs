@@ -33,7 +33,7 @@ public class IcePuzzlePlayerController : MonoBehaviour
 			return;
 		}
 
-		Vector2Int position = new Vector2Int((int) transform.position.x, (int) transform.position.y);
+		Vector2Int position = new Vector2Int((int) this.transform.position.x, (int) this.transform.position.y);
 		RaycastHit2D[] raycasts = null;
 
 		for(int i = 0; i < MaxScanDistance && (raycasts = Physics2D.LinecastAll(position, position + direction)).Length == 0; ++i)
@@ -51,6 +51,6 @@ public class IcePuzzlePlayerController : MonoBehaviour
 			}
 		}
 
-		transform.position = (Vector3Int) position;
+		this.transform.position = (Vector3Int) position;
     }
 }
