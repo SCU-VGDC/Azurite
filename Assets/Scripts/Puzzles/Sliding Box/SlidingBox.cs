@@ -5,52 +5,66 @@ using UnityEngine.Tilemaps;
 
 public class SlidingBox : MonoBehaviour
 {
-    public Tilemap puzzleTilemap; // Assign in Inspector
-    public TileBase emptyTile; // A blank tile for clearing spaces
-    public Vector2Int gridSize = new Vector2Int(6, 6); // Puzzle dimensions
+    public Tilemap gameTilemap;  // Assign in Inspector
+    public TileBase playerTile;  // Assign Player Tile in Inspector
+    public TileBase emptyTile;   // Assign an Empty Tile in Inspector
+    public float moveSpeed = 5f; // Adjust movement speed
 
-    private Vector3Int selectedTile;
-    private bool tileSelected = false;
+    private Vector3Int playerPosition;
+    private bool isMoving = false;
+
+    void Start()
+    {
+        playerPosition = gameTilemap.WorldToCell(transform.position);
+        gameTilemap.SetTile(playerPosition, playerTile);
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left Click
-        {
-            Vector3Int tilePos = GetTileAtMousePosition();
-            if (puzzleTilemap.HasTile(tilePos))
-            {
-                selectedTile = tilePos;
-                tileSelected = true;
-            }
-        }
+        if (isMoving) return; // Prevent movement spam while animating
 
-        if (tileSelected && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))) MoveTile(Vector3Int.up);
-        if (tileSelected && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))) MoveTile(Vector3Int.down);
-        if (tileSelected && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))) MoveTile(Vector3Int.left);
-        if (tileSelected && (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))) MoveTile(Vector3Int.right);
+        if (Input.GetKeyDown(KeyCode.W)) Move(Vector3Int.up);
+        if (Input.GetKeyDown(KeyCode.S)) Move(Vector3Int.down);
+        if (Input.GetKeyDown(KeyCode.A)) Move(Vector3Int.left);
+        if (Input.GetKeyDown(KeyCode.D)) Move(Vector3Int.right);
     }
 
-    Vector3Int GetTileAtMousePosition()
+    void Move(Vector3Int direction)
     {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return puzzleTilemap.WorldToCell(mouseWorldPos);
+        Vector3Int newPosition = playerPosition + direction;
+
+        // Check if the new position is within bounds
+        if (!gameTilemap.HasTile(newPosition)) return;
+
+        // Check for obstacles
+        TileBase targetTile = gameTilemap.GetTile(newPosition);
+        if (targetTile != null && targetTile.name == "WallTile") return;
+
+        // Update Tilemap before moving
+        gameTilemap.SetTile(playerPosition, emptyTile);
+        gameTilemap.SetTile(newPosition, playerTile);
+
+        // Start smooth movement
+        StartCoroutine(SmoothMove(transform.position, gameTilemap.GetCellCenterWorld(newPosition)));
+
+        // Update position
+        playerPosition = newPosition;
     }
 
-    void MoveTile(Vector3Int direction)
+    IEnumerator SmoothMove(Vector3 start, Vector3 end)
     {
-        Vector3Int newTilePos = selectedTile + direction;
+        isMoving = true;
+        float elapsedTime = 0f;
+        float duration = 1f / moveSpeed;
 
-        // Check if new position is within bounds
-        if (newTilePos.x < 0 || newTilePos.y < 0 || newTilePos.x >= gridSize.x || newTilePos.y >= gridSize.y) return;
-
-        // Check if the new position is empty
-        if (!puzzleTilemap.HasTile(newTilePos))
+        while (elapsedTime < duration)
         {
-            // Move the tile
-            TileBase movingTile = puzzleTilemap.GetTile(selectedTile);
-            puzzleTilemap.SetTile(newTilePos, movingTile);
-            puzzleTilemap.SetTile(selectedTile, emptyTile);
-            selectedTile = newTilePos; // Update selected tile's new position
+            transform.position = Vector3.Lerp(start, end, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        transform.position = end; // Ensure final position
+        isMoving = false; // Allow next movement
     }
 }
