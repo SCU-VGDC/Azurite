@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 424141897}
   - component: {fileID: 424141896}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Sliding Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
