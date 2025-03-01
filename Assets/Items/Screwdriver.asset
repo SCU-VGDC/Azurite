@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Screwdriver
   m_EditorClassIdentifier: 
   displayName: Screwdriver
-  description: I am an item!
+  description: I am an screwdriver!
   icon: {fileID: 21300000, guid: 3e88e30fd3cac48ce9b99d5544266204, type: 3}
   preview: {fileID: 21300000, guid: 3e88e30fd3cac48ce9b99d5544266204, type: 3}
   maxStackSize: 1

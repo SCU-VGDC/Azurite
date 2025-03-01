@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wrench
   m_EditorClassIdentifier: 
   displayName: Wrench
-  description: I am an item!
+  description: I am a wrench!
   icon: {fileID: 21300000, guid: 870b6addd572f4df9948786535edb693, type: 3}
   preview: {fileID: 21300000, guid: 870b6addd572f4df9948786535edb693, type: 3}
   maxStackSize: 1
