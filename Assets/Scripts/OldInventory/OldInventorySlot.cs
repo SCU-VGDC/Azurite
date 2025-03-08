@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class InventorySlot : MonoBehaviour
+public class OldInventorySlot : MonoBehaviour
 {
     // Start is called before the first frame update
 
     public void DrawSlot(int i)
     {
-        ItemData item = PersistentDataScript.instance.PlayerInventory.GetItem(i);
+        OldItemData item = PersistentDataScript.instance.PlayerInventory.GetItem(i);
         GetComponent<Image>().sprite = item != null ? item.GetSprite() : null;
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public class InventoryScreen : MonoBehaviour
+public class OldInventoryScreen : MonoBehaviour
 {
-    [SerializeField] InventorySlot[] inventorySlots;
+    [SerializeField] OldInventorySlot[] inventorySlots;
 
     public void UpdateSlots()
     {

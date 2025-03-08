@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu]
 [Serializable]
 
-public class ItemData : ScriptableObject
+public class OldItemData : ScriptableObject
 {
     [SerializeField] private string ItemName; // Name Displayed to Player
     [SerializeField] private Sprite ItemIcon; // Image of item

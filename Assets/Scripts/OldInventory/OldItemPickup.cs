@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractionTrigger))]
-public class ItemPickup : MonoBehaviour
+public class OldItemPickup : MonoBehaviour
 {
     private InteractionTrigger interaction;
     public int ItemID;
