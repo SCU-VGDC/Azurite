@@ -1,19 +1,18 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Tilemap))]
 public class SokobanHandler : MonoBehaviour
 {
+    public UnityEvent onSolved;
     [SerializeField] private SokobanFloorTile floorTile;
     [SerializeField] private SokobanBoxTile boxTile;
     [SerializeField] private SokobanPlayerTile playerTile;
     [SerializeField] private SokobanWallTile wallTile;
     [SerializeField] private SokobanGoalTile goalTile;
+    private bool solved = false;
     private Tilemap tilemap;
     private Vector3Int playerTilemapPos;
     private readonly List<Vector3Int> goalPositions = new();
@@ -49,6 +48,8 @@ public class SokobanHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (solved) return;
+
         Vector3Int moveDir = new()
         {
             x = Input.GetButtonDown("Horizontal") ? (int)Input.GetAxisRaw("Horizontal") : 0,
@@ -72,7 +73,7 @@ public class SokobanHandler : MonoBehaviour
             tilemap.SetTile(next2, boxTile);
         }
         tilemap.SetTile(next1, playerTile);
-        tilemap.SetTile(playerTilemapPos, floorTile);
+        tilemap.SetTile(playerTilemapPos, goalPositions.Contains(playerTilemapPos) ? goalTile : floorTile);
 
         playerTilemapPos = next1;
         tilemap.RefreshAllTiles();
@@ -80,6 +81,8 @@ public class SokobanHandler : MonoBehaviour
         if (CheckSolution())
         {
             Debug.Log("wow you did it");
+            solved = true;
+            onSolved.Invoke();
         }
     }
 

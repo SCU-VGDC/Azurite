@@ -28,6 +28,18 @@ public class SokobanWallTile : TileBase
         tileData.sprite = wallSprites[GetWallSpriteIndex(wallMask)];
     }
 
+    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    {
+        for (int x = -1; x <= 1; ++x)
+        {
+            for (int y = -1; y <= 1; ++y)
+            {
+                Vector3Int neighbor = position + new Vector3Int(x, y, position.z);
+                if (IsTileWall(neighbor, tilemap)) tilemap.RefreshTile(neighbor);
+            }
+        }
+    }
+
     private bool IsTileWall(Vector3Int position, ITilemap tilemap)
     {
         TileBase tile = tilemap.GetTile(position);
