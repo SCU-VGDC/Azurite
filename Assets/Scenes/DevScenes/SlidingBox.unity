@@ -681,7 +681,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c14be10ac854b428b8443bde80db55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 1
+  tileWidth: 1
+  tileHeight: 1
   restrictedTilemap: {fileID: 424141898}
   objectWidth: 2
   objectHeight: 1
@@ -796,7 +797,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1350938681
 GameObject:

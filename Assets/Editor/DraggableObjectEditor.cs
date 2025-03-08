@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(DraggableObject))]
@@ -27,4 +27,4 @@ public class DraggableObjectEditor : Editor
             obj.OnValidate(); // Call OnValidate() to update the collider size
         }
     }
-}
+}*/
