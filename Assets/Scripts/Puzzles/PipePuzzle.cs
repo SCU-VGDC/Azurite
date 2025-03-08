@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class PipePuzzle : MonoBehaviour
 {
+    private bool hasWon;
+    
     [SerializeField] private Tilemap tileMap;
 
     [SerializeField] private Sprite tileBackground;
@@ -43,6 +46,8 @@ public class PipePuzzle : MonoBehaviour
 
     void Start()
     {
+        hasWon = false;
+
         tileQuaternionToVector = new Dictionary<int, Vector3Int>() {
             {0, new Vector3Int(1, 0, 0)},
             {90, new Vector3Int(0, 1, 0)},
@@ -137,6 +142,15 @@ public class PipePuzzle : MonoBehaviour
         if (startPos != null)
         {
             DFS((Vector3Int) startPos);
+
+            if (hasWon)
+            {
+                Debug.Log("Won!");
+            }
+            else
+            {
+                Debug.Log("You lost :(");
+            }
         }
     }
 
@@ -155,6 +169,7 @@ public class PipePuzzle : MonoBehaviour
         }
 
         visitedPipes = new HashSet<Vector3Int>();
+        hasWon = false;
     }
 
     private void DFS(Vector3Int tilePos)
@@ -172,7 +187,7 @@ public class PipePuzzle : MonoBehaviour
             // check to see if won!
             if (tileSprite == tileEnd)
             {
-                Debug.Log("Won!");
+                hasWon = true;
             }
 
             // get tile transform matrix for rotation
