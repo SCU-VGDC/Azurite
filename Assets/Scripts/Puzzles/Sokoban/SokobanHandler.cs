@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
@@ -8,9 +9,14 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Tilemap))]
 public class SokobanHandler : MonoBehaviour
 {
+    [SerializeField] private SokobanFloorTile floorTile;
+    [SerializeField] private SokobanBoxTile boxTile;
+    [SerializeField] private SokobanPlayerTile playerTile;
+    [SerializeField] private SokobanWallTile wallTile;
+    [SerializeField] private SokobanGoalTile goalTile;
     private Tilemap tilemap;
-    public Sprite playerSprite;
-    public Vector3Int playerTilemapPos;
+    private Vector3Int playerTilemapPos;
+    private readonly List<Vector3Int> goalPositions = new();
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +29,19 @@ public class SokobanHandler : MonoBehaviour
         {
             for (int y = 0; y < bounds.size.y; ++y)
             {
-                Vector3Int pos = new(x, y);
+                Vector3Int pos = bounds.position + new Vector3Int(x, y);
                 if (!tilemap.HasTile(pos)) continue;
-                SokobanTile tile = (SokobanTile) tilemap.GetTile(pos);
-                if (tile.tileType != SokobanTile.TileType.Player) continue;
-                if (playerTilemapPos != Vector3Int.zero) Debug.LogError("Multiple player tiles found");
-                playerTilemapPos = pos;
+                TileBase tile = tilemap.GetTile(pos);
+
+                if (tile == playerTile)
+                {
+                    if (playerTilemapPos != Vector3Int.zero) Debug.LogError("Multiple player tiles found");
+                    playerTilemapPos = pos;
+                }
+                if (tile == goalTile)
+                {
+                    goalPositions.Add(pos);
+                }
             }
         }
     }
@@ -38,30 +51,44 @@ public class SokobanHandler : MonoBehaviour
     {
         Vector3Int moveDir = new()
         {
-            x = (Input.GetButtonDown("right") ? 1 : 0) + (Input.GetButtonDown("left") ? -1 : 0),
-            y = (Input.GetButtonDown("up") ? 1 : 0) + (Input.GetButtonDown("down") ? -1 : 0)
+            x = Input.GetButtonDown("Horizontal") ? (int)Input.GetAxisRaw("Horizontal") : 0,
+            y = Input.GetButtonDown("Vertical") ? (int)Input.GetAxisRaw("Vertical") : 0
         };
         // Don't allow diagonal movement
         if (moveDir == Vector3Int.zero || (moveDir.x != 0 && moveDir.y != 0)) return;
 
         Vector3Int next1 = playerTilemapPos + moveDir;
         Vector3Int next2 = next1 + moveDir;
-        SokobanTile nextTile1 = (SokobanTile)tilemap.GetTile(next1);
-        SokobanTile nextTile2 = (SokobanTile)tilemap.GetTile(next2);
-        SokobanTile playerTile = (SokobanTile)tilemap.GetTile(playerTilemapPos);
+        TileBase nextTile1 = tilemap.GetTile(next1);
+        TileBase nextTile2 = tilemap.GetTile(next2);
 
         // Situations where the player can't move dat way
         if (nextTile1 == null) return;
-        if (nextTile1.tileType == SokobanTile.TileType.Wall) return;
+        if (nextTile1 == wallTile) return;
 
-        if (nextTile1.tileType == SokobanTile.TileType.Box)
+        if (nextTile1 == boxTile)
         {
-            if (nextTile2 == null) return;
-            nextTile2.tileType = SokobanTile.TileType.Box;
+            if (nextTile2 == null || (nextTile2 != floorTile && nextTile2 != goalTile)) return;
+            tilemap.SetTile(next2, boxTile);
         }
-        nextTile1.tileType = SokobanTile.TileType.Player;
-        playerTile.tileType = SokobanTile.TileType.Floor;
+        tilemap.SetTile(next1, playerTile);
+        tilemap.SetTile(playerTilemapPos, floorTile);
 
+        playerTilemapPos = next1;
         tilemap.RefreshAllTiles();
+
+        if (CheckSolution())
+        {
+            Debug.Log("wow you did it");
+        }
+    }
+
+    private bool CheckSolution()
+    {
+        foreach (Vector3Int pos in goalPositions)
+        {
+            if (tilemap.GetTile(pos) != boxTile) return false;
+        }
+        return true;
     }
 }
