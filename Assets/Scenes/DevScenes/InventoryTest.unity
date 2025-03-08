@@ -541,7 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9804777479e94c688ae2df47c80db2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 211475819}
   inventory: {fileID: 1664140043}
   item: {fileID: 11400000, guid: b66909fa22adc4987b74f97aa1b73362, type: 2}
   amount: 1
@@ -589,13 +588,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: b9804777479e94c688ae2df47c80db2e, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 211475818}
+        m_TargetAssemblyTypeName: ChangeInventory, Assembly-CSharp
+        m_MethodName: AddItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -958,7 +957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9804777479e94c688ae2df47c80db2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 596493595}
   inventory: {fileID: 1664140043}
   item: {fileID: 11400000, guid: 2d0bdc49b1b2f46a898e19d9e49559b5, type: 2}
   amount: 1
@@ -1006,13 +1004,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: b9804777479e94c688ae2df47c80db2e, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 596493594}
+        m_TargetAssemblyTypeName: ChangeInventory, Assembly-CSharp
+        m_MethodName: AddItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1255,7 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1855,7 +1853,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857d26aa87365463a9291e5e8285ef63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changedEvent:
+  itemAddedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemRemovedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemChangedEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1664140044
@@ -1924,7 +1928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9804777479e94c688ae2df47c80db2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1682791317}
   inventory: {fileID: 1664140043}
   item: {fileID: 11400000, guid: 818e791a931364d28921e2a48732e5ad, type: 2}
   amount: 1
@@ -1972,13 +1975,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: b9804777479e94c688ae2df47c80db2e, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1682791316}
+        m_TargetAssemblyTypeName: ChangeInventory, Assembly-CSharp
+        m_MethodName: AddItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
