@@ -25,6 +25,7 @@ public class InventoryUIEntry : MonoBehaviour
 
 		this.inventory = associatedInventory;
 		this.item = inventoryItem;
+		this.itemIcon.sprite = this.item.GetIcon();
 
 		this.Refresh();
     }
