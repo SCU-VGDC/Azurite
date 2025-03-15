@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     Vector2 playerInput;
     //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
     [SerializeField] [Range(0, 10)] float playerSpeed = 1.0f;
+    public bool freezeMovement = false;
 
     //Update is called once per frame
     void Update()
@@ -19,6 +20,6 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        PlayerRigidBody.velocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
+        if (!freezeMovement) PlayerRigidBody.velocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
     }
 }

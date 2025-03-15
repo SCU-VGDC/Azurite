@@ -56,5 +56,9 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Azurite.sln"
+    "dotnet.defaultSolution": "Azurite.sln",
+    "cSpell.words": [
+        "Behaviour",
+        "Cinemachine"
+    ]
 }
