@@ -35,10 +35,9 @@ public class InventoryUI : MonoBehaviour
 		InventoryUIEntry entry = Instantiate(this.itemEntryPrefab);
 		entry.Init(this.inventory, item);
 		entry.transform.SetParent(itemList.transform);
+		entry.transform.localScale = Vector3.one;
 
-		Toggle toggle = entry.GetComponent<Toggle>();
-
-		if(toggle == null)
+		if (!entry.TryGetComponent(out Toggle toggle))
 		{
 			return;
 		}
