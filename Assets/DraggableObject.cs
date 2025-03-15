@@ -158,12 +158,12 @@ public class DraggableObject : MonoBehaviour
         if (objectWidth % 2 == 0)
         {
             // If moving right, offset to the left; if moving left, offset to the right.
-            offsetX = (direction.x > 0) ? -1 : 1;
+            offsetX = (direction.x > 0) ? -3 : 1;
         }
         if (objectHeight % 2 == 0)
         {
             // If moving up, offset downward; if moving down, offset upward.
-            offsetY = (direction.y > 0) ? -1 : 1;
+            offsetY = (direction.y > 0) ? -3 : 1;
         }
 
         // Calculate the bottom-left cell based on the object's dimensions and direction.
@@ -216,8 +216,8 @@ public class DraggableObject : MonoBehaviour
         );
 
         // Update the BoxCollider2D size to match the new object dimensions.
-        boxCollider.size = new Vector2(objectWidth * tileWidth, objectHeight * tileHeight);
-        boxCollider.offset = Vector2.zero;
+        //boxCollider.size = new Vector2(objectWidth * tileWidth, objectHeight * tileHeight);
+        //boxCollider.offset = Vector2.zero;
     }
 
     // Converts a world position to a tilemap cell position (as a Vector3 with integer x/y values).
