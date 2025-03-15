@@ -5,11 +5,11 @@ using UnityEngine;
 public class InventoryManager 
 {
     public const int MaxInventorySize = 6;
-    private readonly ItemData[] inventory;   
+    private readonly OldItemData[] inventory;   
 
     public InventoryManager()
     {
-        inventory = new ItemData[MaxInventorySize];
+        inventory = new OldItemData[MaxInventorySize];
         System.Array.Fill(inventory, null);
     }
 
@@ -51,7 +51,7 @@ public class InventoryManager
         }
     }
 
-    public ItemData GetItem(int SlotID) {
+    public OldItemData GetItem(int SlotID) {
         return inventory[SlotID];
     }
     

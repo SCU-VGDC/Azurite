@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tempInput : MonoBehaviour
+public class OldtempInput : MonoBehaviour
 {
-    [SerializeField] ItemData tempItem;
+    [SerializeField] OldItemData tempItem;
 
     // Very bad, very temp input manager REMOVE LATER
     void Update()

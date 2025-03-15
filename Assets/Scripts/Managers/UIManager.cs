@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public InventoryScreen InventoryMenu;
+    public OldInventoryScreen InventoryMenu;
     [SerializeField] private bool inventoryMenuActivated = false;
 
     void Update()
