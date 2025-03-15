@@ -532,9 +532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d8a289294594d6e98f27b75e175883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxScanDistance: 10
-  GoalCollider: {fileID: 577859001}
-  PuzzleComplete: 0
+  maxScanDistance: 25
+  goalCollider: {fileID: 577859001}
+  puzzleComplete: 0
+  slideDuration: 0.125
 --- !u!1 &1133577938
 GameObject:
   m_ObjectHideFlags: 0
