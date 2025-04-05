@@ -9,14 +9,14 @@ public class PuzzleInteraction : MonoBehaviour
     [SerializeField] private InteractionTrigger interaction;
 
     [SerializeField] private GameObject puzzlePrefab;
-    [SerializeField] private Vector3 puzzleLocation = new Vector3(100, 0, 0);
+    private Vector3 puzzleLocation = new Vector3(100, 0, 0);
 
     [SerializeField] private CinemachineVirtualCamera mainCamera; 
     public CinemachineVirtualCamera puzzleCamera;
 
     void Start()
     {
-        mainCamera = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
+        mainCamera = (CinemachineVirtualCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         playerMovement = GameManager.inst.player.GetComponent<Movement>();
 
         interaction.OnInteract += StartGame;
@@ -32,11 +32,26 @@ public class PuzzleInteraction : MonoBehaviour
 
         // create new camera at puzzle
         puzzleCamera = new GameObject("TempVirtualCamera").AddComponent<CinemachineVirtualCamera>();
-        Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera
+        puzzleCamera.m_Lens.OrthographicSize = 5;
+        puzzleCamera.transform.localPosition = puzzleLocation;
+        puzzleCamera.Priority = 10;
+
+        // turn "off" main camera
+        mainCamera.Priority = 0;
     }
 
     public void EndGame()
     {
         playerMovement.freezeMovement = false;
+
+        // turn "on" main camera
+        mainCamera.Priority = 10;
+
+        // remove puzzle camera
+        puzzleCamera.Priority = 0;
+        Destroy(puzzleCamera);
+
+        // remove puzzle prefab
+        Destroy(puzzlePrefab);
     }
 }
