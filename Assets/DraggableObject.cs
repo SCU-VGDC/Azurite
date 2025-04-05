@@ -7,8 +7,8 @@ public class DraggableObject : MonoBehaviour
     // Define the size of each tile in grid units.
     private int TileWidth = 1;
     private int TileHeight = 1;
-    //public Tilemap RestrictedTilemap;
-    private Tilemap RestrictedTilemap;
+    public Tilemap RestrictedTilemap;
+    //private Tilemap RestrictedTilemap;
     public int ObjectWidth = 1;
     public int ObjectHeight = 1;
     public bool DoesSnap = true;
@@ -24,10 +24,11 @@ public class DraggableObject : MonoBehaviour
     void Awake()
     {
         //Allocates tilemap for ease of use. Keeps players from having to specify which tilemap their object interacts with
-        /*if (RestrictedTilemap == null)
+        if (RestrictedTilemap == null)
         {
+            Debug.Log("No Tile Map Found, Choosing First Available");
             RestrictedTilemap = FindObjectOfType<Tilemap>();
-        }*/
+        }
         //Allocates BoxCollider
         if (BoxCollider == null)
         {
