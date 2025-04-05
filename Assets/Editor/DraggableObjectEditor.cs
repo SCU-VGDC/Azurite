@@ -9,7 +9,7 @@ public class DraggableObjectEditor : Editor
     {
         DraggableObject obj = (DraggableObject)target;
 
-        if (obj.snapToGrid)
+        if (obj.DoesSnap)
         {
             Undo.RecordObject(obj, "Snap to Grid");
             obj.transform.position = obj.TilemapToWorld(obj.SnapToGrid(obj.WorldToTilemap(obj.transform.position)));
