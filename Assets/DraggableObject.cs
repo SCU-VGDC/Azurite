@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
 
 public class DraggableObject : MonoBehaviour
 {
@@ -12,14 +14,19 @@ public class DraggableObject : MonoBehaviour
     public int ObjectWidth = 1;
     public int ObjectHeight = 1;
     public bool DoesSnap = true;
+    public float Duration = 0.05f;
     //Axis Lock: Keeps dragging restricted to a single plane of movement
-    public enum AxisLock { None, X, Y }
+    public enum AxisLock { None, X, Y, Dynamic }
     public AxisLock DirectionLock = AxisLock.None;
+    private AxisLock _currentDynamicLock = AxisLock.None;
     private Camera mainCamera;
     private bool IsDragging = false;
     // Using Vector3 for positions but ensuring x/y are rounded when needed.
     private Vector3 TargetPosition;
     private BoxCollider2D BoxCollider;
+    private float UpdateTimer;
+    public float UpdateCooldown;
+    public float MoveTolerance = 0.3f;
     
     void Awake()
     {
@@ -65,11 +72,67 @@ public class DraggableObject : MonoBehaviour
             //Breaks the control if the mouse is no longer dragging the box
             return;
         }
+        UpdateTimer -= Time.deltaTime;
+        if (UpdateTimer > 0f)
+        {
+            return;
+        }
+
+        UpdateTimer = UpdateCooldown;
+
         //Gets coordinates of the mouse to drag box to position
-        Vector3 mouseTilePos = WorldToTilemap(GetMouseWorldPosition());
-        mouseTilePos = new Vector3(Mathf.RoundToInt(mouseTilePos.x), Mathf.RoundToInt(mouseTilePos.y), 0);
+        Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition());
+        Vector3 mouseTilePos = new Vector3(Mathf.RoundToInt(rawMouseTilePos.x), Mathf.RoundToInt(rawMouseTilePos.y), 0);
+        
+        // Use the raw position for a tolerance check
+        if (Vector3.Distance(rawMouseTilePos, TargetPosition) < MoveTolerance)
+        {
+            // The mouse hasn't moved enough – no update.
+            return;
+        }
         // Apply axis locking:
-        if (DirectionLock == AxisLock.X)
+        if (DirectionLock == AxisLock.Dynamic)
+        {
+            // If no axis is chosen yet, pick one based on which delta is greater.
+            if (_currentDynamicLock == AxisLock.None)
+            {
+                float deltaX = Mathf.Abs(mouseTilePos.x - TargetPosition.x);
+                float deltaY = Mathf.Abs(mouseTilePos.y - TargetPosition.y);
+                _currentDynamicLock = (deltaX > deltaY) ? AxisLock.X : AxisLock.Y;
+            }
+
+            // Now use the cached dynamic lock to clamp movement.
+            // If the mouse is not "over" the box on the locked axis, keep the lock.
+            if (_currentDynamicLock == AxisLock.X)
+            {
+                // For axis X locked, we fix Y.
+                // Check whether the raw mouse Y is within half the object's height.
+                if (Mathf.Abs(rawMouseTilePos.y - TargetPosition.y) < (ObjectHeight / 2f))
+                {
+                    // Mouse is hovering over the block's vertical extent – reset the dynamic lock.
+                    _currentDynamicLock = AxisLock.None;
+                }
+                else
+                {
+                    mouseTilePos.y = TargetPosition.y;
+                }
+            }
+            else if (_currentDynamicLock == AxisLock.Y)
+            {
+                // For axis Y locked, we fix X.
+                // Check whether the raw mouse X is within half the object's width.
+                if (Mathf.Abs(rawMouseTilePos.x - TargetPosition.x) < (ObjectWidth / 2f))
+                {
+                    // Mouse is hovering over the block's horizontal extent – reset the dynamic lock.
+                    _currentDynamicLock = AxisLock.None;
+                }
+                else
+                {
+                    mouseTilePos.x = TargetPosition.x;
+                }
+            }
+        }
+        else if (DirectionLock == AxisLock.X)
         {
             // Lock the Y position so only X changes
             mouseTilePos.y = TargetPosition.y;
@@ -148,7 +211,8 @@ public class DraggableObject : MonoBehaviour
             }
 
             // Move smoothly to the target position.
-            yield return StartCoroutine(MoveSmoothly(targetWorldPos, 0.05f)); // Adjust duration as needed
+            yield return transform.DOMove(targetWorldPos, Duration).WaitForCompletion();
+            //yield return StartCoroutine(MoveSmoothly(targetWorldPos, 0.05f)); // Adjust duration as needed
             currentTile = nextStep;
         }
 
@@ -225,7 +289,13 @@ public class DraggableObject : MonoBehaviour
 
         return true;
     }
-
+    void OnMouseEnter()
+    {
+        if (IsDragging && DirectionLock == AxisLock.Dynamic)
+        {
+            _currentDynamicLock = AxisLock.None;
+        }
+    }
     public void OnValidate()
     {
         //Updates size of game object every time a change to the object is made
