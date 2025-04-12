@@ -12,8 +12,8 @@ public class PuzzleInteraction : MonoBehaviour
     private GameObject instantiatePuzzlePrefab;
     private Vector3 puzzleLocation = new Vector3(100, 0, 0);
 
-    [SerializeField] private CinemachineVirtualCamera mainCamera; 
-    public CinemachineVirtualCamera puzzleCamera;
+    private CinemachineVirtualCamera mainCamera; 
+    private CinemachineVirtualCamera puzzleCamera;
 
     void Start()
     {
@@ -27,6 +27,7 @@ public class PuzzleInteraction : MonoBehaviour
     {
         // freeze the player
         playerMovement.freezeMovement = true;
+        GameManager.inst.paused = true;
 
         // instantiate puzzle
         instantiatePuzzlePrefab = Instantiate(puzzlePrefab, puzzleLocation, Quaternion.identity);
@@ -46,6 +47,7 @@ public class PuzzleInteraction : MonoBehaviour
     public void EndGame()
     {
         playerMovement.freezeMovement = false;
+        GameManager.inst.paused = false;
 
         // turn "on" main camera
         mainCamera.Priority = 10;

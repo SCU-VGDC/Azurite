@@ -31,7 +31,10 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public void Trigger()
     {
-        OnInteract?.Invoke();
+        if (!GameManager.inst.paused)
+        {
+            OnInteract?.Invoke();
+        }
     }
 
     public void ToggleTextPopup(bool value)

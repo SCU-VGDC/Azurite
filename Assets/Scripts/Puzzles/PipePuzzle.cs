@@ -146,6 +146,8 @@ public class PipePuzzle : MonoBehaviour
             if (hasWon)
             {
                 Debug.Log("Won!");
+
+                StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
             }
             else
             {
