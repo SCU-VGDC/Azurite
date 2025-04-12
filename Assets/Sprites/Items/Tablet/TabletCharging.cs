@@ -1,21 +1,26 @@
 using UnityEngine;
-using UnityEngine.UI; // Or use TMPro if you're using TextMeshPro
-using TMPro; // Make sure to include this if you're using TextMeshPro
+using TMPro;
 
 public class TabletCharging : MonoBehaviour
 {
-    [SerializeField] private TMP_Text myText; // Drag your UI Text here
-    [SerializeField] private float duration = 2f; // Time to reach 100%
+    [SerializeField] private TMP_Text myText;
+    [SerializeField] private float duration = 2f;
 
     private float currentPercent = 0f;
+    private bool isCharging = false;
 
-    void Start()
+    void Update()
     {
-        StartCoroutine(GrowPercentage());
+        if (Input.GetKeyDown(KeyCode.E) && !isCharging)
+        {
+            Debug.Log("Starting charging process...");
+            StartCoroutine(GrowPercentage());
+        }
     }
 
     private System.Collections.IEnumerator GrowPercentage()
     {
+        isCharging = true;
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -23,11 +28,13 @@ public class TabletCharging : MonoBehaviour
             elapsed += Time.deltaTime;
             currentPercent = Mathf.Clamp01(elapsed / duration) * 100f;
 
+            Debug.Log("Current Percent: " + currentPercent);
             myText.text = Mathf.RoundToInt(currentPercent) + "%";
 
             yield return null;
         }
 
-        myText.text = "100%"; // Make sure we end at 100%
+        myText.text = "100%";
+        isCharging = false;
     }
 }
