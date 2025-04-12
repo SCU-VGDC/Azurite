@@ -22,6 +22,8 @@ public class LaserPuzzle : MonoBehaviour
     private MirrorInfo twoMirrorInfo;
     private Quaternion[] splitterSides;
 
+    private List<GameObject> laserPrefabs;
+
     private class LaserCursor
     {
         public LaserCursor(Vector3Int cursorPos, Vector3Int cursorDir)
@@ -61,6 +63,8 @@ public class LaserPuzzle : MonoBehaviour
               new Tuple<Quaternion, Quaternion>(Quaternion.Euler(0f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f))});
 
         splitterSides = new Quaternion[3] {Quaternion.Euler(0f, 0f, -180f), Quaternion.Euler(0f, 0f, -270f), Quaternion.Euler(0f, 0f, -90f)};
+    
+        laserPrefabs = new List<GameObject>();
     }
 
     void Update()
@@ -96,6 +100,9 @@ public class LaserPuzzle : MonoBehaviour
     // run to see if player won!
     public void RunGame()
     {
+        // destroy laser prefabs (if needed)
+        DestroyLaserPrefabs();
+
         // find laser source
         Vector3Int? sourcePos = null;
         Vector3Int? sourceDir = null;
@@ -115,7 +122,7 @@ public class LaserPuzzle : MonoBehaviour
                     
                     // rotated source to the left 90 degrees because the art display the laser exiting to the left
                     Quaternion rotateBy = Quaternion.Euler(0f, 0, -180f);
-                    sourceDir = getDir(tileMap.GetTransformMatrix(tilePos).rotation * rotateBy);
+                    sourceDir = GetDir(tileMap.GetTransformMatrix(tilePos).rotation * rotateBy);
 
                     break;
                 }
@@ -147,7 +154,8 @@ public class LaserPuzzle : MonoBehaviour
             }
 
             // draw laser
-            Instantiate(laserObject, laserQueue.Peek().CursorPos + new Vector3(0.5f, 0.5f, 1f), Quaternion.identity);
+            GameObject laserPrefab = Instantiate(laserObject, laserQueue.Peek().CursorPos + new Vector3(0.5f, 0.5f, 1f) + tileMap.transform.position, Quaternion.identity);
+            laserPrefabs.Add(laserPrefab);
 
             tile = tileMap.GetTile(laserQueue.Peek().CursorPos);
             char tileID = tile.name[tile.name.Length - 1];
@@ -171,8 +179,8 @@ public class LaserPuzzle : MonoBehaviour
                     foreach (var pair in currentMirrorInfo.SidePairs)
                     {
                         // check to see if laser hits the correct sides of the mirror
-                        Vector3Int mirrorDir1 = getDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item1);
-                        Vector3Int mirrorDir2 = getDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item2);
+                        Vector3Int mirrorDir1 = GetDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item1);
+                        Vector3Int mirrorDir2 = GetDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item2);
 
                         if (laserQueue.Peek().CursorDir + mirrorDir1 == Vector3Int.zero)
                         {
@@ -208,8 +216,8 @@ public class LaserPuzzle : MonoBehaviour
                     foreach (var pair in currentMirrorInfo.SidePairs)
                     {
                         // check to see if laser hits the correct sides of the mirror
-                        Vector3Int mirrorDir1 = getDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item1);
-                        Vector3Int mirrorDir2 = getDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item2);
+                        Vector3Int mirrorDir1 = GetDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item1);
+                        Vector3Int mirrorDir2 = GetDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * pair.Item2);
 
                         if (laserQueue.Peek().CursorDir + mirrorDir1 == Vector3Int.zero)
                         {
@@ -243,7 +251,7 @@ public class LaserPuzzle : MonoBehaviour
 
                     for (int i = 0; i < splitterSides.Length; i++)
                     {
-                        Vector3Int splitterDir = getDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * splitterSides[i]);
+                        Vector3Int splitterDir = GetDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * splitterSides[i]);
 
                         if (laserQueue.Peek().CursorDir + splitterDir == Vector3Int.zero)
                         {
@@ -254,7 +262,7 @@ public class LaserPuzzle : MonoBehaviour
                             {
                                 if (j != i)
                                 {
-                                    Vector3Int newCursorDir = getDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * splitterSides[j]);
+                                    Vector3Int newCursorDir = GetDir(tileMap.GetTransformMatrix(laserQueue.Peek().CursorPos).rotation * splitterSides[j]);
 
                                     laserQueue.Enqueue(new LaserCursor(laserQueue.Peek().CursorPos + newCursorDir, newCursorDir));
                                 }
@@ -277,6 +285,13 @@ public class LaserPuzzle : MonoBehaviour
                 case tileLaserEnd:
                     // you won!
                     Debug.Log("you won!");
+
+                    StartCoroutine(GameManager.inst.Sleep(1.0f, () => 
+                    {
+                        DestroyLaserPrefabs(); 
+
+                        GameManager.inst.EndCurrentPuzzle();
+                    }));
                     
                     laserQueue.Dequeue();
 
@@ -285,10 +300,18 @@ public class LaserPuzzle : MonoBehaviour
         }
     }
 
-    private Vector3Int getDir(Quaternion quaternion)
+    private Vector3Int GetDir(Quaternion quaternion)
     {
         int roundToNearestTen = ((int)Math.Round(quaternion.eulerAngles.z / 10.0)) * 10;
 
         return tileQuaternionToVector[roundToNearestTen];
+    }
+
+    private void DestroyLaserPrefabs()
+    {
+        foreach (GameObject laserPrefab in laserPrefabs)
+        {
+            Destroy(laserPrefab);
+        }
     }
 }

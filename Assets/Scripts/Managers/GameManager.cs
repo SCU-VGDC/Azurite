@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,11 @@ public class GameManager : MonoBehaviour
     public static GameManager inst;
     [System.NonSerialized] public GameObject player;
 
-    // game states
+    // Game States:
     public bool paused;
+
+    // Puzzles:
+    public Action currentEndGameAction;
 
     void Start()
     {
@@ -33,5 +37,19 @@ public class GameManager : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+
+    public IEnumerator Sleep(float seconds, Action action)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        action?.Invoke();
+    }
+
+
+    public void EndCurrentPuzzle()
+    {
+        currentEndGameAction?.Invoke();
     }
 }
