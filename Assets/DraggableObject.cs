@@ -1,11 +1,13 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
 public class DraggableObject : MonoBehaviour
 {
+    public static List<DraggableObject> AllDraggables = new List<DraggableObject>();
     // Define the size of each tile in grid units.
     private int TileWidth = 1;
     private int TileHeight = 1;
@@ -30,6 +32,7 @@ public class DraggableObject : MonoBehaviour
     
     void Awake()
     {
+        AllDraggables.Add(this);
         //Allocates tilemap for ease of use. Keeps players from having to specify which tilemap their object interacts with
         if (RestrictedTilemap == null)
         {
@@ -51,9 +54,9 @@ public class DraggableObject : MonoBehaviour
         if (DoesSnap)
         {
             // Convert the world position to a tile position, snap it, then convert back.
-            Vector3 tilePos = WorldToTilemap(transform.position);
-            tilePos = SnapToGrid(tilePos);
-            transform.position = TilemapToWorld(tilePos);
+            //Vector3 tilePos = WorldToTilemap(transform.position);
+            //tilePos = SnapToGrid(tilePos);
+            //transform.position = TilemapToWorld(tilePos);
         }
     }
 
@@ -234,7 +237,11 @@ public class DraggableObject : MonoBehaviour
         int snappedY = Mathf.RoundToInt(tilePosition.y / (float)TileHeight) * TileHeight;
         return new Vector3(snappedX, snappedY, tilePosition.z);
     }
+    bool IsMoveValidRaycast(Vector3 tilePosition, Vector3 direction)
+    {
 
+        return true;
+    }
     bool IsMoveValid(Vector3 tilePosition, Vector3 direction)
     {
         if (RestrictedTilemap == null) return true;
@@ -247,6 +254,7 @@ public class DraggableObject : MonoBehaviour
         int offsetX = 0;
         int offsetY = 0;
         
+        //DO NOT CHANGE the -3:1 ratio. I'm unsure of the exact math, but changing it in any way breaks everything here.
         if (ObjectWidth % 2 == 0)
         {
             // If moving right, offset to the left; if moving left, offset to the right.
@@ -262,19 +270,28 @@ public class DraggableObject : MonoBehaviour
         int bottomLeftCellX = centerCellX - ((ObjectWidth - 1) / 2) + (offsetX / 2);
         int bottomLeftCellY = centerCellY - ((ObjectHeight - 1) / 2) + (offsetY / 2);
 
-        // Loop through the object's tiles.
+        BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
+        if (myCollider == null)
+        {
+            Debug.LogWarning("No BoxCollider2D attached!");
+            return true;
+        }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] interactables = GameObject.FindGameObjectsWithTag("Draggable Object");
         for (int x = 0; x < ObjectWidth; x++)
         {
             for (int y = 0; y < ObjectHeight; y++)
             {
-                Vector3Int cellToCheck = new Vector3Int(bottomLeftCellX + x, bottomLeftCellY + y, 0);
-                if (RestrictedTilemap.GetTile(cellToCheck) != null)
-                {
-                    return false; // Prevents movement into restricted tiles.
-                }
 
-                // Also check for any players occupying this cell.
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                Vector3Int cellToCheck = new Vector3Int(bottomLeftCellX + x, bottomLeftCellY + y, 0);
+                Vector3 cellCenter = RestrictedTilemap.GetCellCenterWorld(cellToCheck);
+                Vector2 cellSize = new Vector2(TileWidth, TileHeight) * 0.9f; // Slightly smaller box, done to allow boxes to actually touch and move after touching
+                Collider2D hitCollider = Physics2D.OverlapBox(cellCenter, cellSize, 0f);
+                // Ignore the collider if it's this object
+                if (hitCollider != null && hitCollider.gameObject != gameObject)
+                {
+                    return false; // A collider is detected.
+                }
                 //Makes sure there is no collision with any player objects
                 foreach (GameObject player in players)
                 {
@@ -286,6 +303,63 @@ public class DraggableObject : MonoBehaviour
                 }
             }
         }
+
+        // Loop through the object's tiles.
+        /*for (int x = 0; x < ObjectWidth; x++)
+        {
+            for (int y = 0; y < ObjectHeight; y++)
+            {
+                Vector3Int cellToCheck = new Vector3Int(bottomLeftCellX + x, bottomLeftCellY + y, 0);
+                if (RestrictedTilemap.GetTile(cellToCheck) != null)
+                {
+                    return false; // Prevents movement into restricted tiles.
+                }
+
+                // Also check for any players occupying this cell.
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                GameObject[] interactables = GameObject.FindGameObjectsWithTag("Draggable Object");
+                //Makes sure there is no collision with any player objects
+                foreach (GameObject player in players)
+                {
+                    Vector3Int playerCell = RestrictedTilemap.WorldToCell(player.transform.position);
+                    if (cellToCheck == playerCell)
+                    {
+                        return false;
+                    }
+                }
+                foreach (GameObject interactable in interactables)
+                {
+                    if (interactable == this.gameObject)
+                        continue;
+
+                    // Get the BoxCollider2D component from the interactable.
+                    BoxCollider2D interactableCollider = interactable.GetComponent<BoxCollider2D>();
+                    if (interactableCollider == null)
+                        continue; // Skip if no collider exists.
+
+                    // Get distance information.
+                    ColliderDistance2D contact = myCollider.Distance(interactableCollider);
+
+                    // Check if the colliders are overlapping.
+                    if (contact.distance < 0)
+                    {
+                        return false;
+                    }
+                }
+                /*foreach (GameObject interactable in interactables)
+                {
+                    if(interactable == this.gameObject)
+                    {
+                        continue;
+                    }
+                    Vector3Int interactableCell = RestrictedTilemap.WorldToCell(interactable.transform.position);
+                    if (cellToCheck == interactableCell)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }*/
 
         return true;
     }
@@ -305,6 +379,14 @@ public class DraggableObject : MonoBehaviour
             tilePos = SnapToGrid(tilePos);
             transform.position = TilemapToWorld(tilePos);
         }*/
+        if (ObjectHeight > ObjectWidth)
+        {
+            DirectionLock = AxisLock.Y;
+        }
+        else if (ObjectWidth > ObjectHeight) 
+        {
+            DirectionLock = AxisLock.X;
+        }
         UpdateColliderSize();
     }
 
