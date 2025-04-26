@@ -23,7 +23,13 @@ public class IcePuzzlePlayerController : MonoBehaviour
 	/// <summary>The animation progress from 0 to 1.</summary>
 	private float animationTime = 1;
 
-	void Update()
+    void Start()
+    {
+        // snap the player to the grid! round, not truncate
+		transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
+    }
+
+    void Update()
 	{
 		// Play the slide animation.
 		if(this.animationTime < 1)
