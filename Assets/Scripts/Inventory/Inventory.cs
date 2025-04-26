@@ -20,6 +20,12 @@ public class Inventory : MonoBehaviour
 		return this.items.ContainsKey(item);
 	}
 
+	public struct ItemStack
+	{
+		Item item;
+		int count;
+	}
+
 	/// <summary>
 	/// Gets the amount of this item stored in the inventory.
 	/// </summary>
