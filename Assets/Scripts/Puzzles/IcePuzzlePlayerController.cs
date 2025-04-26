@@ -11,6 +11,7 @@ public class IcePuzzlePlayerController : MonoBehaviour
 	/// <summary>Whether or not the puzzle has been completed.</summary>
 	[Tooltip("Whether or not the puzzle has been completed.")]
 	public bool puzzleComplete = false;
+	public bool runOnceFlag = false;
 	/// <summary>The duration of the slide animation in seconds.</summary>
 	[Tooltip("The duration of the slide animation in seconds.")]
 	public float slideDuration = 0.5f;
@@ -47,7 +48,12 @@ public class IcePuzzlePlayerController : MonoBehaviour
 		// Stop further processing if the puzzle has been completed
 		if(this.puzzleComplete)
 		{
-            StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
+			if (!runOnceFlag)
+			{
+            	StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
+
+				runOnceFlag = true;
+			}
 
 			return;
 		}
