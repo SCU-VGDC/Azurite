@@ -304,63 +304,6 @@ public class DraggableObject : MonoBehaviour
             }
         }
 
-        // Loop through the object's tiles.
-        /*for (int x = 0; x < ObjectWidth; x++)
-        {
-            for (int y = 0; y < ObjectHeight; y++)
-            {
-                Vector3Int cellToCheck = new Vector3Int(bottomLeftCellX + x, bottomLeftCellY + y, 0);
-                if (RestrictedTilemap.GetTile(cellToCheck) != null)
-                {
-                    return false; // Prevents movement into restricted tiles.
-                }
-
-                // Also check for any players occupying this cell.
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                GameObject[] interactables = GameObject.FindGameObjectsWithTag("Draggable Object");
-                //Makes sure there is no collision with any player objects
-                foreach (GameObject player in players)
-                {
-                    Vector3Int playerCell = RestrictedTilemap.WorldToCell(player.transform.position);
-                    if (cellToCheck == playerCell)
-                    {
-                        return false;
-                    }
-                }
-                foreach (GameObject interactable in interactables)
-                {
-                    if (interactable == this.gameObject)
-                        continue;
-
-                    // Get the BoxCollider2D component from the interactable.
-                    BoxCollider2D interactableCollider = interactable.GetComponent<BoxCollider2D>();
-                    if (interactableCollider == null)
-                        continue; // Skip if no collider exists.
-
-                    // Get distance information.
-                    ColliderDistance2D contact = myCollider.Distance(interactableCollider);
-
-                    // Check if the colliders are overlapping.
-                    if (contact.distance < 0)
-                    {
-                        return false;
-                    }
-                }
-                /*foreach (GameObject interactable in interactables)
-                {
-                    if(interactable == this.gameObject)
-                    {
-                        continue;
-                    }
-                    Vector3Int interactableCell = RestrictedTilemap.WorldToCell(interactable.transform.position);
-                    if (cellToCheck == interactableCell)
-                    {
-                        return false;
-                    }
-                }
-            }
-        }*/
-
         return true;
     }
     void OnMouseEnter()
