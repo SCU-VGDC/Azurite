@@ -47,6 +47,8 @@ public class IcePuzzlePlayerController : MonoBehaviour
 		// Stop further processing if the puzzle has been completed
 		if(this.puzzleComplete)
 		{
+            StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
+
 			return;
 		}
 		

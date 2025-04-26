@@ -2956,7 +2956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: {fileID: 1201269247}
-  puzzlePrefab: {fileID: 516433285536891297, guid: 201704946911cac47b344aee26c9d46a, type: 3}
+  puzzlePrefab: {fileID: 6503111807856674784, guid: bf0ac5747e032f84580fc913d6eac7f9, type: 3}
 --- !u!1 &1213410587 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
