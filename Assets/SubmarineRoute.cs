@@ -32,7 +32,7 @@ public class SubmarineRoute : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PersistentDataScript.Instance.ChangeSubmarineState("name");
+        
         PersistentDataScript.Instance.ChangeSubmarineState("name");
 
     }
@@ -46,7 +46,7 @@ public class SubmarineRoute : MonoBehaviour
     public string TryMoveNext(out bool success, string DestName = "ThisIsABlankResponse") 
     {
         success = false;
-        if (Route.IsPlaying())
+        if (Route != null && Route.IsPlaying())
         {
             return "";
         }
