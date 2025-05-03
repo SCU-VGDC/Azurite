@@ -15,7 +15,7 @@ public class TeleportationSystem : MonoBehaviour
 
     void Start()
     {
-        interaction.OnInteract += Teleport;
+        interaction.onInteract.AddListener(this.Teleport);
 
         destinationCoords = destinationObject.transform.position;
 

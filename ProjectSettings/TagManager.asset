@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Virtual Camera
+  - Main Canvas
   layers:
   - Default
   - TransparentFX
