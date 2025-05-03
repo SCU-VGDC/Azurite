@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class PersistentDataScript : MonoBehaviour
 {
     public static PersistentDataScript Instance;
@@ -18,8 +16,6 @@ public class PersistentDataScript : MonoBehaviour
     private int WorldStateMax = ActionThresholdIncrease.Length;
     [SerializeField] private SubmarineRoute Submarine;
     [SerializeField] private string SubmarineInRoom;
-    [SerializeField] public OldItemData[] ITEM_LIST;
-    [HideInInspector] public InventoryManager PlayerInventory;
     // Start is called before the first frame update
     private void Awake()
     {
