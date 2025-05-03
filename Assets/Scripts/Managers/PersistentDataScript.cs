@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class PersistentDataScript : MonoBehaviour
 {
-    public static PersistentDataScript instance;
+    public static PersistentDataScript Instance;
     //Destination coords passed in when teleporter is activated. These will be used to determine player's starting location within each scene.
     private float[] destinationCoords = new float[2];
     private Vector2 DestCoords;
@@ -16,16 +14,18 @@ public class PersistentDataScript : MonoBehaviour
     private int ActionThreshold = 10;
     static private int[] ActionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 }; //Adds to threshold limit. 
     private int WorldStateMax = ActionThresholdIncrease.Length;
+    [SerializeField] private SubmarineRoute Submarine;
+    [SerializeField] private string SubmarineInRoom;
     // Start is called before the first frame update
     private void Awake()
     {
-        if (instance != null) //Prevents duplicate instances of persistent data.
+        if (Instance != null) //Prevents duplicate instances of persistent data.
         {
             Destroy(this.gameObject);
             return;
 
         }
-        instance = this;
+        Instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
     //For DEBUG Only
@@ -74,5 +74,20 @@ public class PersistentDataScript : MonoBehaviour
             return;
         }
 
+    }
+    public void ChangeSubmarineState(string name)
+    {
+        if (Submarine != null)
+        {
+            string potentialName = Submarine.TryMoveNext(out var successSub, name);
+            if (successSub == true)
+            {
+                SubmarineInRoom = potentialName;
+            }
+        }
+    }
+    public string GetSubmarineName() 
+    {
+        return SubmarineInRoom;
     }
 }
