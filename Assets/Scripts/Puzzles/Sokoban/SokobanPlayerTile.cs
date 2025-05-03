@@ -6,10 +6,11 @@ using UnityEngine.Tilemaps;
 [Serializable]
 public class SokobanPlayerTile : TileBase
 {
-    public Sprite playerSprite;
+    public Sprite editorSprite;
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        tileData.sprite = playerSprite;
+        if (!Application.isPlaying)
+            tileData.sprite = editorSprite;
     }
 }
