@@ -51,6 +51,7 @@ public class SubmarineRoute : MonoBehaviour
             return "";
         }
         Route = DOTween.Sequence();
+        Route.OnKill(() => Route = null);
         int Iterations = 100;
         while (Pathing[Index].Name != DestName)
         {
