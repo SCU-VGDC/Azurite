@@ -90,7 +90,7 @@ public class SokobanHandler : MonoBehaviour
 
         if (boxPositions.Contains(next1))
         {
-            if (nextTile2 == null || (nextTile2 != floorTile && nextTile2 != goalTile)) return;
+            if (nextTile2 == null || boxPositions.Contains(next2) || (nextTile2 != floorTile && nextTile2 != goalTile)) return;
             int i = boxPositions.FindIndex(p => p == next1);
             boxSprites[i].DOMove(GetTileWorldPos(next2), 0.1f);
             boxPositions[i] = next2;
