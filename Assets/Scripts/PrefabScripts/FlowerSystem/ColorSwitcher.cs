@@ -22,7 +22,7 @@ public class ColorSwitcher : MonoBehaviour
         colorRenderer = GetComponentInChildren<SpriteRenderer>(); //Gets the sprite renderer of switch. Used to change color.
         RandomlyPlaceChildObjects(); //Randomly assigns the child objects to the placement game objects.
 
-        interaction.OnInteract += ColorSwitch;
+        interaction.onInteract.AddListener(ColorSwitch);
     }
 
     void RandomlyPlaceChildObjects()

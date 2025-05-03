@@ -16,8 +16,6 @@ public class PersistentDataScript : MonoBehaviour
     private int ActionThreshold = 10;
     static private int[] ActionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 }; //Adds to threshold limit. 
     private int WorldStateMax = ActionThresholdIncrease.Length;
-    [SerializeField] public OldItemData[] ITEM_LIST;
-    [HideInInspector] public InventoryManager PlayerInventory;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -29,7 +27,6 @@ public class PersistentDataScript : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-        PlayerInventory = new InventoryManager();
     }
     //For DEBUG Only
     public void SetRoomState(int x)
