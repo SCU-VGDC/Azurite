@@ -13,13 +13,13 @@ public class persistenceDebug : MonoBehaviour
     void Start()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
-        PersistentDataScript.instance.SetRoomState(2);
+        PersistentDataScript.Instance.SetRoomState(2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PersistentDataScript.instance.GetRoomState() == 2)
+        if (PersistentDataScript.Instance.GetRoomState() == 2)
         {
             m_SpriteRenderer.color = Color.green;
         }

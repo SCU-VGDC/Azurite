@@ -39,7 +39,7 @@ public class TeleportationSystem : MonoBehaviour
         else
         {
             Debug.Log("Teleport Collide");
-            PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords);
+            PersistentDataScript.Instance.SetDestinationCoordinates(destinationCoords);
             SceneManager.LoadScene(destinationScene);
         }
 
@@ -51,7 +51,7 @@ public class TeleportationSystem : MonoBehaviour
     public void Warp()
     {
         Debug.Log("Teleport Collide");
-        PersistentDataScript.instance.SetDestinationCoordinates(destinationCoords);
+        PersistentDataScript.Instance.SetDestinationCoordinates(destinationCoords);
         SceneManager.LoadScene(destinationScene);
     }
     // Update is called once per frame
