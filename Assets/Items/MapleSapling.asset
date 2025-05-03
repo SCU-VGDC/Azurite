@@ -18,4 +18,4 @@ MonoBehaviour:
   preview: {fileID: 21300000, guid: a5b28dd0a5e6c44f69dfd93b376226f7, type: 3}
   maxStackSize: 99
   inspectUIPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 
+  categories: 00000000

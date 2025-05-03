@@ -15,7 +15,7 @@ public class ShowNote : MonoBehaviour
     {
         noteImage.GetComponentInParent<Canvas>(true).worldCamera = Camera.main;
         noteText.GetComponentInParent<Canvas>(true).worldCamera = Camera.main;
-        interaction.OnInteract += Read;
+        interaction.onInteract.AddListener(this.Read);
         TogglePopup(noteShown);
     }
 
