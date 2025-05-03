@@ -10,7 +10,7 @@ public class OldInventorySlot : MonoBehaviour
 
     public void DrawSlot(int i)
     {
-        OldItemData item = PersistentDataScript.instance.PlayerInventory.GetItem(i);
+        OldItemData item = PersistentDataScript.Instance.PlayerInventory.GetItem(i);
         GetComponent<Image>().sprite = item != null ? item.GetSprite() : null;
     }
 }

@@ -18,8 +18,8 @@ public class InventoryManager
     {
         if (inventory[slot] == null)
         {
-            inventory[slot] = PersistentDataScript.instance.ITEM_LIST[ItemID];
-            //Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
+            inventory[slot] = PersistentDataScript.Instance.ITEM_LIST[ItemID];
+            //Debug.Log(PersistentDataScript.Instance.ITEM_LIST[ItemID].getName());
             return;
         }
     }
@@ -37,8 +37,8 @@ public class InventoryManager
             }
             if (inventory[inventorySlot] == null)
             {
-                inventory[inventorySlot] = PersistentDataScript.instance.ITEM_LIST[ItemID];
-                //Debug.Log(PersistentDataScript.instance.ITEM_LIST[ItemID].getName());
+                inventory[inventorySlot] = PersistentDataScript.Instance.ITEM_LIST[ItemID];
+                //Debug.Log(PersistentDataScript.Instance.ITEM_LIST[ItemID].getName());
                 Debug.Log(inventorySlot);
                 success = true;
                 return;

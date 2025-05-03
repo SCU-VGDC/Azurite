@@ -24,7 +24,7 @@ public class OldItemPickup : MonoBehaviour
     }
     void Pickup()
     {
-        PersistentDataScript.instance.PlayerInventory.TryAddItem(ItemID, out bool success); //Tries to add item ID to player inventory
+        PersistentDataScript.Instance.PlayerInventory.TryAddItem(ItemID, out bool success); //Tries to add item ID to player inventory
         if (success && DestroyOnPickup) //If item is marked for destruction and the item is picked up, destroy the item picked up.
         {
             Destroy(gameObject);
