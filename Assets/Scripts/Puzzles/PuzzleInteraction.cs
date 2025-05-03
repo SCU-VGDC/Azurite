@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
+using UnityEditor;
 
 public class PuzzleInteraction : MonoBehaviour
 {
@@ -25,6 +27,9 @@ public class PuzzleInteraction : MonoBehaviour
 
     public void StartGame()
     {
+        // set puzzleLocation to player's loc! for overlay
+        puzzleLocation = GameManager.inst.player.transform.position;
+
         // freeze the player
         playerMovement.freezeMovement = true;
         GameManager.inst.paused = true;
