@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
+  m_Name: AzuriteLabsNDA
+  m_EditorClassIdentifier: 
+  displayName: Azurite Labs NDA
+  description: Hey there, valued subject. This NDA might not sound like the ones
+    you have seen before, but it holds the same value. Here at Azurite Labs, we pride
+    ourselves on creating the next generation of medical technology through groundbreaking
+    research at our various underwater research labs. You, as a janitor, should always
+    avoid interacting with test subjects and the scientists, exclusively working
+    to ensure the research station stays clean. If you see anything that you may
+    have a moral objection to, keep on doing your job. You signed up for this, bucko.
+    Lastly, your contract with Azurite Labs terminates at the end of this calendar
+    year. Thank you for helping us work toward humanity's salvation. Thank Azul for
+    what he has started.
+  icon: {fileID: 21300000, guid: ed0aa124670f94668a37679cae1933fb, type: 3}
+  preview: {fileID: 21300000, guid: ed0aa124670f94668a37679cae1933fb, type: 3}
+  maxStackSize: 1
+  inspectUIPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
+  categories: 

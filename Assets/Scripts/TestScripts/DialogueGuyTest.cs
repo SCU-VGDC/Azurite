@@ -11,7 +11,7 @@ public class DialogueGuyTest : MonoBehaviour
     void Start()
     {
         DialogueSequence sequence = GetComponent<DialogueSequence>();
-        GetComponent<InteractionTrigger>().OnInteract += () => StartCoroutine(sequence.StartSequence());
+        GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(sequence.StartSequence()));
     }
 
     public void ProcessPlayerResponse(string choice)

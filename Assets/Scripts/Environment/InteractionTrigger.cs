@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 {
-    public Action OnInteract;
+    public UnityEvent onInteract;
     public KeyCode triggerKey = KeyCode.E;
     public TextMeshProUGUI textPopUp;
 
@@ -31,17 +32,11 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public void Trigger()
     {
-        OnInteract?.Invoke();
+        this.onInteract.Invoke();
     }
 
     public void ToggleTextPopup(bool value)
     {
         textPopUp.GetComponentInParent<Canvas>(true).gameObject.SetActive(value);
     }
-
-    /*
-    float GetDistance() {
-        return distance;
-    }
-    */
 }

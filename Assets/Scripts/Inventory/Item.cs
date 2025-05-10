@@ -3,18 +3,46 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Azurite Objects/Item")]
 public class Item : ScriptableObject
 {
+	public enum Category
+	{
+		TOOL,
+		FLOWER,
+		MONSTER
+	}
+
+	/// <summary>The item's display name.</summary>
+	[Tooltip("The item's display name'.")]
 	[SerializeField] private string displayName = "New Item";
+
+	/// <summary>The item's description/lore.</summary>
+	[Tooltip("The item's description/lore.")]
 	[SerializeField] private string description = "I am an item!";
+
+	/// <summary>The item's icon.</summary>
+	[Tooltip("The item's icon.")]
 	[SerializeField] private Sprite icon = null;
+
+	/// <summary>The item's preview image for the inspect UI.</summary>
+	[Tooltip("The item's description/lore.")]
 	[SerializeField] private Sprite preview = null;
+
+	/// <summary>The item's max stack size.</summary>
+	[Tooltip("The item's max stack size.")]
 	[SerializeField] private int maxStackSize = 99;
-	[SerializeField] private bool trashable = true;
+
+	/// <summary>A prefab of the item's inspect UI.</summary>
+	[Tooltip("A prefab of the item's inspect UI.")]
+	[SerializeField] private InspectUIBase inspectUIPrefab = null;
+
+	/// <summary>The item's categories. Used for showing relevant items during interactions.</summary>
+	[Tooltip("The item's categories. Used for showing relevant items during interactions.")]
+	[SerializeField] private Category[] categories = null;
 
 	/// <summary>
 	/// Gets the item's display name.
 	/// </summary>
 	/// <returns>The item's display name.</returns>
-	public string getDisplayName()
+	public string GetDisplayName()
 	{
 		return this.displayName;
 	}
@@ -23,7 +51,7 @@ public class Item : ScriptableObject
 	/// Gets the item's description.
 	/// </summary>
 	/// <returns>The item's description.</returns>
-	public string getDescription()
+	public string GetDescription()
 	{
 		return this.description;
 	}
@@ -56,12 +84,20 @@ public class Item : ScriptableObject
 	}
 
 	/// <summary>
-	/// Gets whether or not the item is trashable. This is typically 
-	/// false for key items and true for non-vital items.
+	/// Get the item's inspect UI prefab.
 	/// </summary>
-	/// <returns>True if the item is trashable, false otherwise.</returns>
-	public bool IsTrashable()
+	/// <returns>The item's inspect UI prefab.</returns>
+	public InspectUIBase GetInspectUIPrefab()
 	{
-		return this.trashable;
+		return this.inspectUIPrefab;
+	}
+
+	/// <summary>
+	/// Gets the item's categories.
+	/// </summary>
+	/// <returns>The items categories.</returns>
+	public Category[] GetCategories()
+	{
+		return this.categories;
 	}
 }
