@@ -873,6 +873,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 2092161751}
+  ActionCount: 0
 --- !u!1 &323640500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1562,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 177057005}
+  ActionCount: 0
 --- !u!1 &596366866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,34 +1761,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 107213012}
   dialogueSteps:
-  - text: 19 dollar Fortnite card
-    continueCallback:
-      m_PersistentCalls:
-        m_Calls: []
+  - text: An oddly tablet-shaped tablet.
     choices: []
-  - text: Who wants it?
-    continueCallback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 649186098}
-          m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
-          m_MethodName: ProcessPlayerResponse
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  - text: Pick it up?
     choices:
-    - me
-    - not me
+    - choiceText: No
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeGreen
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: '"Red"'
+              m_BoolArgument: 0
+            m_CallState: 2
+    - choiceText: Yes
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeRed
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: Blue
+              m_BoolArgument: 0
+            m_CallState: 2
   - text: ok
-    continueCallback:
-      m_PersistentCalls:
-        m_Calls: []
     choices: []
   subjectName: John Azurite
 --- !u!114 &649186098
@@ -1858,8 +1869,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 649186097}
+        m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+        m_MethodName: DialogueStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 2115411983}
+  ActionCount: 0
 --- !u!212 &649186101
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2042,6 +2069,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 1743346493}
+  ActionCount: 0
 --- !u!1001 &684297193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2151,6 +2179,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 1392714870}
+  ActionCount: 0
 --- !u!4 &749148719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -2441,6 +2470,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 151420537}
+  ActionCount: 0
 --- !u!1001 &828782634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2968,6 +2998,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &933187752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933187753}
+  - component: {fileID: 933187754}
+  m_Layer: 0
+  m_Name: DialogueTree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933187753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933187752}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &933187754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933187752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSteps: []
 --- !u!1 &1046075562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -2995,6 +3070,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 284824353}
+  ActionCount: 0
 --- !u!1 &1104312214
 GameObject:
   m_ObjectHideFlags: 0
@@ -3266,6 +3342,154 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1137404526
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 185577181481681107, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 352071568008107886, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1209382c08ec2744b4e002850c0db71, type: 3}
+    - target: {fileID: 407866766450593129, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Dandelion
+      objectReference: {fileID: 0}
+    - target: {fileID: 605138183786407095, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 1303558497640123171, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 1387776517281051733, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 28e1af6c3fac91845832b4cdd5e8a053, type: 3}
+    - target: {fileID: 2211067008856217695, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 3227256332832962609, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5c785da788fb9c84cbe857842b38e06a, type: 3}
+    - target: {fileID: 3527234101113035146, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: FlowerSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3675353166506555863, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 3814892828840369484, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 05ccbb11b0b137042a8b55d040b1b6f2, type: 3}
+    - target: {fileID: 3845955909527660364, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Sundew
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947997025108131922, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Pitcher Plant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144417008690965971, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0ef0ab8898a69834fa230a12af2a0d75, type: 3}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.84183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.361662
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.031015588
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624827531332076091, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Rose
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620350539453948547, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f4728ba2a01c87842982d7566069bc13, type: 3}
+    - target: {fileID: 6684937834367015520, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eb1b12a73ed7a3d40b93590703b8dc93, type: 3}
+    - target: {fileID: 6859063404029396568, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Nightshade
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022056287086066648, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2089508311}
+    - target: {fileID: 8333056017705856652, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Weed
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218133914101721937, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: m_Name
+      value: Infected Bamboo
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7776992138708423782, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    - {fileID: 7142616947038039529, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    - {fileID: 305253310649218168, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    - {fileID: 7260593755768293973, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    - {fileID: 8782750149901674547, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    - {fileID: 1207639950755996926, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    - {fileID: 6741387619214922337, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
 --- !u!1001 &1201269245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3350,6 +3574,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 894679776}
+  ActionCount: 0
 --- !u!1 &1227925428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4360,6 +4585,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 887028557}
+  ActionCount: 0
 --- !u!1 &1694390717
 GameObject:
   m_ObjectHideFlags: 0
@@ -4766,63 +4992,6 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 0
---- !u!1001 &1853618998
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3527234101113035146, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_Name
-      value: FlowerSystem
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 27.565586
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 15.334738
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.031015588
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
 --- !u!1 &1921944463
 GameObject:
   m_ObjectHideFlags: 0
@@ -5217,6 +5386,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 81714170}
+  ActionCount: 0
 --- !u!1 &2075804556
 GameObject:
   m_ObjectHideFlags: 0
@@ -5820,6 +5990,7 @@ MonoBehaviour:
       m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 1119494091}
+  ActionCount: 0
 --- !u!1 &2115411982
 GameObject:
   m_ObjectHideFlags: 0
@@ -6261,6 +6432,7 @@ SceneRoots:
   - {fileID: 596366868}
   - {fileID: 1694390719}
   - {fileID: 1104312216}
-  - {fileID: 1853618998}
   - {fileID: 107213013}
   - {fileID: 649186102}
+  - {fileID: 1137404526}
+  - {fileID: 933187753}

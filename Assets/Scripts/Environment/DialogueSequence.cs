@@ -3,17 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
-public class DialogueSequence : MonoBehaviour
+using Dialogue.Data;
+namespace Dialogue.Data 
 {
     [Serializable]
     public struct DialogueStep
     {
         public string text;
-        public UnityEvent<string> continueCallback;
-        public List<string> choices;
+        int nextDialogue;
+        //public UnityEvent<string> continueCallback;
+        //public List<string> choices;
+        public List<DialogueChoice> choices;
     }
+    [Serializable]
+    public struct DialogueChoice
+    {
+        public string choiceText;
+        public UnityEvent<string> choiceCallback;
+    }
+}
 
+public class DialogueSequence : MonoBehaviour
+{
+    
     private bool dialogueRunning = false;
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private List<DialogueStep> dialogueSteps;
@@ -28,18 +40,23 @@ public class DialogueSequence : MonoBehaviour
     {
         dialogueSteps = steps;
     }
-
-    public IEnumerator StartSequence()
+    public void DialogueStart()
     {
+        GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(StartSequence()));
+    }
+    private IEnumerator StartSequence()
+    {
+
         if (dialogueRunning) yield break;
         dialogueRunning = true;
 
         foreach (DialogueStep step in dialogueSteps)
         {
             dialogueUI.DisplayText(step.text, subjectName, step.choices);
+            //dialogueUI.DisplayText(step.text, subjectName);
             yield return dialogueUI.WaitForPlayerChoice();
             yield return new WaitForEndOfFrame();
-            step.continueCallback?.Invoke(dialogueUI.CurrentChoice);
+            //step.continueCallback?.Invoke(dialogueUI.CurrentChoice);
         }
         dialogueUI.FadeOut();
         dialogueRunning = false;
