@@ -29,8 +29,14 @@ public class DialogueSequence : MonoBehaviour
     private bool dialogueRunning = false;
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private List<DialogueStep> dialogueSteps;
+    [SerializeField] private bool nextSteps;
+    public GameObject dialogueChunk;
     public string subjectName = "<NAME>";
-
+    private void Start()
+    {
+        GameObject tempObject = Instantiate(dialogueChunk);
+        dialogueSteps = tempObject.GetComponent<DialogueHolder>().ReturnList();
+    }
     public void AddDialogueStep(DialogueStep step)
     {
         dialogueSteps.Add(step);
@@ -42,7 +48,15 @@ public class DialogueSequence : MonoBehaviour
     }
     public void DialogueStart()
     {
-        GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(StartSequence()));
+        //GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(StartSequence()));
+        StartCoroutine(StartSequence());
+    }
+    public void UpdateDialogue(GameObject nextDialogueSequence)
+    {
+        GameObject tempGameObject = Instantiate(nextDialogueSequence);
+        dialogueSteps = tempGameObject.GetComponent<DialogueHolder>().ReturnList();
+        nextSteps = true;
+        Destroy(tempGameObject);
     }
     private IEnumerator StartSequence()
     {
@@ -50,7 +64,9 @@ public class DialogueSequence : MonoBehaviour
         if (dialogueRunning) yield break;
         dialogueRunning = true;
 
-        foreach (DialogueStep step in dialogueSteps)
+        List<DialogueStep> nextDialogue = dialogueSteps;
+
+        foreach (DialogueStep step in nextDialogue)
         {
             dialogueUI.DisplayText(step.text, subjectName, step.choices);
             //dialogueUI.DisplayText(step.text, subjectName);
@@ -60,5 +76,11 @@ public class DialogueSequence : MonoBehaviour
         }
         dialogueUI.FadeOut();
         dialogueRunning = false;
+        if (nextSteps == true)
+        {
+            nextSteps = false;
+            Debug.Log("Next Step Detected");
+            yield return StartCoroutine(StartSequence());
+        }
     }
 }

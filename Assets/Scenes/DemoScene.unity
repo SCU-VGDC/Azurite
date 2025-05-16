@@ -957,7 +957,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1921944469}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: PauseGame
         m_Mode: 1
@@ -1091,6 +1091,133 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &370492600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 370492602}
+  - component: {fileID: 370492601}
+  m_Layer: 0
+  m_Name: TabletPt1.5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &370492601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370492600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - text: Despite your best efforts, the tablet proved too shiny.
+    choices:
+    - choiceText: Pick it up
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeGreen
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186103}
+            m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+            m_MethodName: AddTo
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2089508311}
+              m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186097}
+            m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+            m_MethodName: UpdateDialogue
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2138038396}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - choiceText: Pick it up
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeGreen
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186103}
+            m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+            m_MethodName: AddTo
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2089508311}
+              m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186097}
+            m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+            m_MethodName: UpdateDialogue
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2138038396}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+--- !u!4 &370492602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370492600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399880074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1840,7 @@ GameObject:
   - component: {fileID: 649186098}
   - component: {fileID: 649186097}
   - component: {fileID: 649186096}
+  - component: {fileID: 649186103}
   m_Layer: 0
   m_Name: DebugPerson
   m_TagString: Untagged
@@ -1760,45 +1888,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 107213012}
-  dialogueSteps:
-  - text: An oddly tablet-shaped tablet.
-    choices: []
-  - text: Pick it up?
-    choices:
-    - choiceText: No
-      choiceCallback:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 649186098}
-            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
-            m_MethodName: ChangeGreen
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: '"Red"'
-              m_BoolArgument: 0
-            m_CallState: 2
-    - choiceText: Yes
-      choiceCallback:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 649186098}
-            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
-            m_MethodName: ChangeRed
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Blue
-              m_BoolArgument: 0
-            m_CallState: 2
-  - text: ok
-    choices: []
+  dialogueSteps: []
+  nextSteps: 0
+  dialogueChunk: {fileID: 933187752}
   subjectName: John Azurite
 --- !u!114 &649186098
 MonoBehaviour:
@@ -1955,6 +2047,20 @@ Transform:
   - {fileID: 852993408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &649186103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649186095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: f08a912ac80824e15935b7e4796fd69a, type: 2}
+  count: 1
 --- !u!1001 &651098120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3009,7 +3115,7 @@ GameObject:
   - component: {fileID: 933187753}
   - component: {fileID: 933187754}
   m_Layer: 0
-  m_Name: DialogueTree
+  m_Name: TabletPt1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3042,7 +3148,119 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueSteps: []
+  dialogueSteps:
+  - text: On the ground you see a unpowered tablet
+    choices: []
+  - text: Pick it up?
+    choices:
+    - choiceText: Yes
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeGreen
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186103}
+            m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+            m_MethodName: AddTo
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2089508311}
+              m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186097}
+            m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+            m_MethodName: UpdateDialogue
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2138038396}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - choiceText: Yes
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeGreen
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2089508311}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186103}
+            m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+            m_MethodName: AddTo
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2089508311}
+              m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186097}
+            m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+            m_MethodName: UpdateDialogue
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 2138038396}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - choiceText: No
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeRed
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 649186097}
+            m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+            m_MethodName: UpdateDialogue
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 370492600}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!1 &1046075562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -5004,7 +5222,6 @@ GameObject:
   - component: {fileID: 1921944467}
   - component: {fileID: 1921944466}
   - component: {fileID: 1921944465}
-  - component: {fileID: 1921944469}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Main Canvas
@@ -5095,18 +5312,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1921944469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921944463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b028cbc9ba0a36c49b44190753ea09c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1957396094
 GameObject:
   m_ObjectHideFlags: 0
@@ -6127,6 +6332,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2138038396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138038398}
+  - component: {fileID: 2138038397}
+  m_Layer: 0
+  m_Name: TabletPt2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2138038397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138038396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - text: Having picked up the tablet, you see special about this patch of ground.
+    choices: []
+--- !u!4 &2138038398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138038396}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2144955189
 GameObject:
   m_ObjectHideFlags: 0
@@ -6436,3 +6688,5 @@ SceneRoots:
   - {fileID: 649186102}
   - {fileID: 1137404526}
   - {fileID: 933187753}
+  - {fileID: 370492602}
+  - {fileID: 2138038398}

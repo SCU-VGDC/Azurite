@@ -4,11 +4,15 @@ using UnityEngine;
 using Dialogue.Data;
 public class DialogueHolder : MonoBehaviour
 {
-    [SerializeField] private List<DialogueStep> dialogueSteps;
+    public List<DialogueStep> dialogueSteps;
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+    public List<DialogueStep> ReturnList()
+    {
+        return dialogueSteps;
     }
 
     // Update is called once per frame
