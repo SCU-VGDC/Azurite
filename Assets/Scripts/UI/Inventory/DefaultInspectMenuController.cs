@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InspectUIController : InspectUIBase
+public class DefaultInspectMenuController : InspectMenuBase
 {
 	/// <summary>The item name text box.</summary>
 	[Tooltip("The item name text box.")]
@@ -16,28 +16,23 @@ public class InspectUIController : InspectUIBase
 	[Tooltip("The item preview image.")]
 	[SerializeField] private Image preview = null;
 
-	/// <summary>The previous UI.</summary>
-	private MonoBehaviour prevUI = null;
-
-	public override void Init(Item item, MonoBehaviour previousUI)
+	public override InspectMenuBase Init(Item item)
 	{
 		// Fill in the menu with item information.
 		this.title.SetText(item.GetDisplayName());
 		this.descripiton.SetText(item.GetDescription());
 		this.preview.sprite = item.GetPreview();
-
-		// Disable the previous UI.
-		this.prevUI = previousUI;
-		this.prevUI.gameObject.SetActive(false);
+		return this;
 	}
 
-	public void Update()
+	public override void Update()
 	{
-		// Enable the previous UI and delete self when Space is pressed.
+		base.Update();
+
+		// Go back to the inventory when space is pressed.
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			this.prevUI.gameObject.SetActive(true);
-			Destroy(this.gameObject);
+			this.Back();
 		}
 	}
 }

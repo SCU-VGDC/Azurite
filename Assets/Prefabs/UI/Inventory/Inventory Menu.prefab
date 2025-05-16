@@ -161,8 +161,9 @@ GameObject:
   - component: {fileID: 645258697098649461}
   - component: {fileID: 7747845197157062084}
   - component: {fileID: 344100902533872232}
+  - component: {fileID: 6598360802340770815}
   m_Layer: 5
-  m_Name: Inventory UI
+  m_Name: Inventory Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.33333334}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -240,10 +241,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba32b0fa677a4001acf0786017b8cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animations:
+  - {fileID: 6524094306866738139}
+  - {fileID: 2489345025830927364}
+  - {fileID: 6598360802340770815}
+  - {fileID: 6404549265521030815}
   inventory: {fileID: 0}
   itemStackPrefab: {fileID: 7415169227755619130, guid: fd60349386f4b40ee838845f16d90f8b, type: 3}
   itemList: {fileID: 6607535181916610307}
   itemName: {fileID: 4289038871130666165}
+--- !u!114 &6598360802340770815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637139246085363424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a932f9c9e6a114c01be17b7fce3b261c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 0
+  animationScale: 8
+  startAlpha: 0
 --- !u!1 &2435763631774814949
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +278,7 @@ GameObject:
   - component: {fileID: 1914890444409570527}
   - component: {fileID: 6215509057352523567}
   - component: {fileID: 8636788702977105864}
+  - component: {fileID: 2489345025830927364}
   m_Layer: 5
   m_Name: Item Name Panel
   m_TagString: Untagged
@@ -363,6 +385,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &2489345025830927364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2435763631774814949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 3
+  animationScale: 8
+  startMinAnchor: {x: 0.5, y: 1}
+  startMaxAnchor: {x: 0.5, y: 1}
 --- !u!1 &4137059596029370892
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +563,7 @@ GameObject:
   - component: {fileID: 6648760916489104717}
   - component: {fileID: 2259747909147063430}
   - component: {fileID: 6607535181916610307}
+  - component: {fileID: 6524094306866738139}
   m_Layer: 5
   m_Name: Item List Panel
   m_TagString: Untagged
@@ -626,6 +665,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
+--- !u!114 &6524094306866738139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497582851191774937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 3
+  animationScale: 8
+  startMinAnchor: {x: 0, y: 0}
+  startMaxAnchor: {x: 1, y: 0}
 --- !u!1 &8819007799520314246
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +692,7 @@ GameObject:
   - component: {fileID: 6025035135315471544}
   - component: {fileID: 8538054175999683763}
   - component: {fileID: 7163906986460816267}
+  - component: {fileID: 6404549265521030815}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -760,3 +816,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6404549265521030815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819007799520314246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 3
+  animationScale: 8
+  startMinAnchor: {x: 0, y: 0}
+  startMaxAnchor: {x: 1, y: 1}
