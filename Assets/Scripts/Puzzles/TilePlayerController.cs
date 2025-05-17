@@ -65,7 +65,10 @@ public class TilePlayerController : MonoBehaviour
             moveDirection = Vector2Int.zero;
         }
     }
-
+    void GoalComplete()
+    {
+        Debug.Log("Goal Completed!");
+    }
     private void Move(Vector2Int direction)
     {
         if (this.animationTime < 1) return;
@@ -84,6 +87,7 @@ public class TilePlayerController : MonoBehaviour
             {
                 this.puzzleComplete = true;
                 position += direction;
+                GoalComplete();
                 break;
             }
         }
