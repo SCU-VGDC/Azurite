@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61eb5904da11394abc9aaabf34bf0ba, type: 3}
   m_Name: PlayerTile
   m_EditorClassIdentifier: 
-  playerSprite: {fileID: 21300000, guid: 53ae7e5a001caba4abb59790460d4018, type: 3}
+  editorSprite: {fileID: 21300000, guid: 53ae7e5a001caba4abb59790460d4018, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 2ea1873c968c7794e90d54df60bb38e0, type: 3}

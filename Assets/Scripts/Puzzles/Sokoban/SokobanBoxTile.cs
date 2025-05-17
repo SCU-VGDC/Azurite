@@ -10,6 +10,7 @@ public class SokobanBoxTile : TileBase
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        tileData.sprite = boxSprite;
+        if (!Application.isPlaying)
+            tileData.sprite = boxSprite;
     }
 }

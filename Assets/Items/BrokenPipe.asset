@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: BrokenPipe
   m_EditorClassIdentifier: 
   displayName: Broken Pipe
-  description: I am an item!
+  description: "What could I do with this? I went to trade school but I\u2019m no
+    mechanic."
   icon: {fileID: 21300000, guid: 45730695e4e4f4938b0793333210a75e, type: 3}
   preview: {fileID: 21300000, guid: 45730695e4e4f4938b0793333210a75e, type: 3}
   maxStackSize: 1
-  trashable: 0
+  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
+  categories: 

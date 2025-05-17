@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: FixedPipe
   m_EditorClassIdentifier: 
   displayName: Fixed Pipe
-  description: I am an item!
+  description: Now, this is something I can work with.
   icon: {fileID: 21300000, guid: 530fd047828c444d09a18b7238879587, type: 3}
   preview: {fileID: 21300000, guid: 530fd047828c444d09a18b7238879587, type: 3}
   maxStackSize: 1
-  trashable: 0
+  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
+  categories: 00000000
