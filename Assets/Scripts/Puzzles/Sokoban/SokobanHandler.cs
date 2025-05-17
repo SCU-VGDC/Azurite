@@ -2,26 +2,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
+using DG.Tweening;
 
 [RequireComponent(typeof(Tilemap))]
 public class SokobanHandler : MonoBehaviour
 {
-    public UnityEvent onSolved;
     [SerializeField] private SokobanFloorTile floorTile;
     [SerializeField] private SokobanBoxTile boxTile;
     [SerializeField] private SokobanPlayerTile playerTile;
     [SerializeField] private SokobanWallTile wallTile;
     [SerializeField] private SokobanGoalTile goalTile;
+    [SerializeField] private GameObject playerFloatSpritePrefab;
+    [SerializeField] private GameObject boxFloatSpritePrefab;
+
+    public UnityEvent onSolved;
+    private Transform playerFloatSprite;
+    private Grid tileGrid;
     private bool solved = false;
     private Tilemap tilemap;
     private Vector3Int playerTilemapPos;
     private readonly List<Vector3Int> goalPositions = new();
+    private readonly List<Vector3Int> boxPositions = new();
+    private readonly List<Transform> boxSprites = new();
 
     // Start is called before the first frame update
     void Start()
     {
         // Find player's initial pos
         tilemap = GetComponent<Tilemap>();
+        tileGrid = GetComponentInParent<Grid>();
+        playerFloatSprite = Instantiate(playerFloatSpritePrefab, transform).transform;
         BoundsInt bounds = tilemap.cellBounds;
         
         for (int x = 0; x < bounds.size.x; ++x)
@@ -41,8 +51,19 @@ public class SokobanHandler : MonoBehaviour
                 {
                     goalPositions.Add(pos);
                 }
+                if (tile == boxTile)
+                {
+                    Transform boxFloatSprite = Instantiate(boxFloatSpritePrefab, transform).transform;
+                    boxFloatSprite.position = GetTileWorldPos(pos);
+                    boxPositions.Add(pos);
+                    boxSprites.Add(boxFloatSprite);
+                    tilemap.SetTile(pos, floorTile);
+                }
             }
         }
+
+        playerFloatSprite.position = GetTileWorldPos(playerTilemapPos);
+        tilemap.SetTile(playerTilemapPos, floorTile);
     }
 
     // Update is called once per frame
@@ -67,16 +88,17 @@ public class SokobanHandler : MonoBehaviour
         if (nextTile1 == null) return;
         if (nextTile1 == wallTile) return;
 
-        if (nextTile1 == boxTile)
+        if (boxPositions.Contains(next1))
         {
-            if (nextTile2 == null || (nextTile2 != floorTile && nextTile2 != goalTile)) return;
-            tilemap.SetTile(next2, boxTile);
+            if (nextTile2 == null || boxPositions.Contains(next2) || (nextTile2 != floorTile && nextTile2 != goalTile)) return;
+            int i = boxPositions.FindIndex(p => p == next1);
+            boxSprites[i].DOMove(GetTileWorldPos(next2), 0.1f);
+            boxPositions[i] = next2;
         }
-        tilemap.SetTile(next1, playerTile);
-        tilemap.SetTile(playerTilemapPos, goalPositions.Contains(playerTilemapPos) ? goalTile : floorTile);
 
         playerTilemapPos = next1;
         tilemap.RefreshAllTiles();
+        playerFloatSprite.DOMove(GetTileWorldPos(playerTilemapPos), 0.1f);
 
         if (CheckSolution())
         {
@@ -87,6 +109,11 @@ public class SokobanHandler : MonoBehaviour
             // TODO: add to onSolved
             StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
         }
+    }
+
+    private Vector3 GetTileWorldPos(Vector3Int cell)
+    {
+        return tileGrid.CellToWorld(cell) + tileGrid.cellSize / 2 + Vector3.forward;
     }
 
     private bool CheckSolution()

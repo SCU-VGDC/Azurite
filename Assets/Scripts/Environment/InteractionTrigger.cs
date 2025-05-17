@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 {
-    public Action OnInteract;
+    public UnityEvent onInteract;
     public KeyCode triggerKey = KeyCode.E;
     public TextMeshProUGUI textPopUp;
 
@@ -33,7 +34,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     {
         if (!GameManager.inst.paused)
         {
-            OnInteract?.Invoke();
+            this.OnInteract?.Invoke();
         }
     }
 
@@ -41,10 +42,4 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     {
         textPopUp.GetComponentInParent<Canvas>(true).gameObject.SetActive(value);
     }
-
-    /*
-    float GetDistance() {
-        return distance;
-    }
-    */
 }

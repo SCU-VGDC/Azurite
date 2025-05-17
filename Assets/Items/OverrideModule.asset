@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: OverrideModule
   m_EditorClassIdentifier: 
   displayName: Override Module
-  description: I am an item!
+  description: Brings me back to High School Spanish. Got caught a couple of times
+    but ended up with a B regardless.
   icon: {fileID: 21300000, guid: 4676cd6d9d1a849c19453b2af87f97c6, type: 3}
   preview: {fileID: 21300000, guid: 4676cd6d9d1a849c19453b2af87f97c6, type: 3}
   maxStackSize: 9
-  trashable: 1
+  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
+  categories: 
