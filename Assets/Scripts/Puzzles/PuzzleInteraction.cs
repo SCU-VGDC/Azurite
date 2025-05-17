@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.UI;
-using UnityEditor;
 using UnityEngine.Rendering.Universal;
 
 public class PuzzleInteraction : MonoBehaviour
