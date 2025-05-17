@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PuzzleInteraction : MonoBehaviour
 {
-    private Movement playerMovement;
+    private Player playerScript;
     [SerializeField] private InteractionTrigger interaction;
 
     [SerializeField] private GameObject puzzlePrefab;
@@ -21,15 +21,15 @@ public class PuzzleInteraction : MonoBehaviour
         mainCamera = Camera.main;
         mainCameraUniversalAdditionalCameraData = Camera.main.GetUniversalAdditionalCameraData();
         mainVirtualCamera = (CinemachineVirtualCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
-        playerMovement = GameManager.inst.player.GetComponent<Movement>();
+        playerScript = GameManager.inst.player.GetComponent<Player>();
 
-        interaction.OnInteract += StartGame;
+        interaction.onInteract.AddListener(this.StartGame);
     }
 
     public void StartGame()
     {
         // freeze the player
-        playerMovement.freezeMovement = true;
+        playerScript.freezeMovement = true;
         GameManager.inst.paused = true;
 
         // instantiate puzzle
@@ -67,7 +67,7 @@ public class PuzzleInteraction : MonoBehaviour
         Destroy(instantiatePuzzlePrefab);
 
         // resume player
-        playerMovement.freezeMovement = false;
+        playerScript.freezeMovement = false;
         GameManager.inst.paused = false;
     }
 }

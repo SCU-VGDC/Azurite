@@ -34,7 +34,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     {
         if (!GameManager.inst.paused)
         {
-            this.OnInteract?.Invoke();
+            this.onInteract?.Invoke();
         }
     }
 

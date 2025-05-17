@@ -20,22 +20,25 @@ public class Player : MonoBehaviour
 
 	/// <summary>The player's currently opened UI.</summary>
 	private MenuBase activeUI = null;
+	
+	public bool freezeMovement = false;
+
 
 	public void Start()
 	{
 		// Retrieve the main canvas.
 		this.canvas = GameObject.FindGameObjectWithTag("Main Canvas");
 
-		if(this.canvas == null)
+		if (this.canvas == null)
 		{
 			Debug.LogError("Failed to find the main canvas.");
 			return;
 		}
 
 		this.inventory = this.GetComponent<Inventory>();
-		
+
 		// Get the player's inventory.
-		if(this.inventory == null)
+		if (this.inventory == null)
 		{
 			Debug.LogError("Failed to find the player inventory.");
 			return;
@@ -87,6 +90,7 @@ public class Player : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		PlayerRigidBody.velocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
+		if (!freezeMovement) PlayerRigidBody.velocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
+        else PlayerRigidBody.velocity = new Vector2(0,0);
 	}
 }
