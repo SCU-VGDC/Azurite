@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 260710464042178517}
   - component: {fileID: 3838181656129955612}
   - component: {fileID: 554456252167468186}
+  - component: {fileID: 8671582116560466506}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -255,3 +256,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 3838181656129955612}
   playerSpeed: 10
+  inventoryPrefab: {fileID: 344100902533872232, guid: 26f44a2f4a2994223be87a7d8db617a4, type: 3}
+--- !u!114 &8671582116560466506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629497072332039666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857d26aa87365463a9291e5e8285ef63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemAddedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemRemovedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
