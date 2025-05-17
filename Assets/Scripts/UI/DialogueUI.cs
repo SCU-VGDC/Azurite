@@ -27,6 +27,7 @@ public class DialogueUI : MonoBehaviour
         canvasGroup.alpha = 0;
     }
 
+
     public void DisplayText(string text, string subjectName, List<DialogueChoice> choices = null)
     {
         CurrentChoice = string.Empty;
@@ -51,7 +52,11 @@ public class DialogueUI : MonoBehaviour
                             newButton.GetComponent<TextMeshProUGUI>().text = "► " + choice.choiceText;
                             newButton.transform.SetParent(choiceListCanvasGroup.transform, false);
                             //newButton.GetComponent<Button>().onClick.AddListener(() => CurrentChoice = choice);
-                            newButton.GetComponent<Button>().onClick.AddListener(() =>{CurrentChoice = choice.choiceText; choice.choiceCallback.Invoke(choice.choiceText);});
+                            newButton.GetComponent<Button>().onClick.AddListener(() =>{CurrentChoice = choice.choiceText; choice.choiceCallback.Invoke(choice.choiceText); foreach (var btn in choiceListCanvasGroup.GetComponentsInChildren<Button>())
+                                {
+                                    btn.onClick.RemoveAllListeners();
+                                }
+                            });
                         }
                     }
                 }
