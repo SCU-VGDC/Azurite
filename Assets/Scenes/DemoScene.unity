@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 236554089}
   - component: {fileID: 236554088}
   m_Layer: 0
-  m_Name: Untitled_Artwork-8 2
+  m_Name: Switches
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 322158273}
   - component: {fileID: 322158272}
   m_Layer: 0
-  m_Name: Untitled_Artwork-9 2
+  m_Name: Desk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2641,7 +2641,7 @@ GameObject:
   - component: {fileID: 819149008}
   - component: {fileID: 819149007}
   m_Layer: 0
-  m_Name: Untitled_Artwork-4 5
+  m_Name: Combiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3524,7 +3524,7 @@ GameObject:
   - component: {fileID: 1042001455}
   - component: {fileID: 1042001454}
   m_Layer: 0
-  m_Name: Untitled_Artwork-3 6
+  m_Name: Pods
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3591,7 +3591,7 @@ Transform:
   m_GameObject: {fileID: 1042001453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 20, z: 0}
+  m_LocalPosition: {x: 40, y: 20, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4339,7 +4339,7 @@ GameObject:
   - component: {fileID: 1319734016}
   - component: {fileID: 1319734015}
   m_Layer: 0
-  m_Name: Untitled_Artwork-1 5
+  m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4865,7 +4865,7 @@ GameObject:
   - component: {fileID: 1529087441}
   - component: {fileID: 1529087440}
   m_Layer: 0
-  m_Name: Untitled_Artwork-11 2
+  m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5542,7 +5542,7 @@ GameObject:
   - component: {fileID: 1739868494}
   - component: {fileID: 1739868493}
   m_Layer: 0
-  m_Name: Untitled_Artwork-10 2
+  m_Name: Notebook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5609,7 +5609,7 @@ Transform:
   m_GameObject: {fileID: 1739868492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 20, z: 0}
+  m_LocalPosition: {x: 40, y: 20, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6083,7 +6083,7 @@ GameObject:
   - component: {fileID: 1978196248}
   - component: {fileID: 1978196247}
   m_Layer: 0
-  m_Name: Untitled_Artwork-6 4
+  m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6497,7 +6497,7 @@ GameObject:
   - component: {fileID: 2088444984}
   - component: {fileID: 2088444983}
   m_Layer: 0
-  m_Name: Untitled_Artwork-2 6
+  m_Name: Wires
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6600,11 +6600,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e076f44bab9bf8748832923c91cce0b8, type: 3}
     - target: {fileID: 6182467762062465167, guid: c81d2fb9930201742931997ce04f1017, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6182467762062465167, guid: c81d2fb9930201742931997ce04f1017, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6182467762062465167, guid: c81d2fb9930201742931997ce04f1017, type: 3}
       propertyPath: m_LocalPosition.x
