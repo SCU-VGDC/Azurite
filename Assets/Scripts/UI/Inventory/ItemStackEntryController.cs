@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemStackUIController : MonoBehaviour
+public class ItemStackEntryController : MonoBehaviour
 {
 	/// <summary>The inventory the item is associated with.</summary>
 	[Tooltip("The inventory the item is associated with.")]
@@ -26,12 +26,12 @@ public class ItemStackUIController : MonoBehaviour
 	/// </summary>
 	/// <param name="associatedInventory">The inventory that this entry is associated with.</param>
 	/// <param name="inventoryItem">The item to show from the inventory.</param>
-    public void Init(Inventory associatedInventory, Item inventoryItem)
-    {
+	public ItemStackEntryController Init(Inventory associatedInventory, Item inventoryItem)
+	{
 		// Return immediately if this has already been run.
-        if(this.inventory != null)
+		if (this.inventory != null)
 		{
-			return;
+			return this;
 		}
 
 		this.inventory = associatedInventory;
@@ -39,6 +39,7 @@ public class ItemStackUIController : MonoBehaviour
 		this.icon.sprite = this.item.GetIcon();
 
 		this.Refresh();
+		return this;
     }
 
 	/// <summary>
