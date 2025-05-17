@@ -30,6 +30,7 @@ public class DialogueUI : MonoBehaviour
     {
         CurrentChoice = string.Empty;
         choiceAvailable = choices != null && choices.Count > 0;
+        gameObject.SetActive(true);
 
         currentFadeSequence?.Kill();
         currentFadeSequence = DOTween.Sequence()
@@ -81,6 +82,7 @@ public class DialogueUI : MonoBehaviour
 
     public void FadeIn()
     {
+        gameObject.SetActive(true);
         FadeGroup(1f);
     }
 
@@ -88,6 +90,7 @@ public class DialogueUI : MonoBehaviour
     {
         FadeGroup(0f);
         currentFadeSequence.AppendCallback(ClearChoiceButtons);
+        currentFadeSequence.JoinCallback(() => gameObject.SetActive(false));
     }
 
     public IEnumerator WaitForPlayerChoice()

@@ -45,6 +45,7 @@ public class ScribeInteraction : MonoBehaviour
     private void DoNextQuestion()
     {
         currentQuestion++;
+        Debug.Log($"Question {currentQuestion}");
         quizPaper.SetQuestion(questionGenerators[currentQuestion]());
     }
 
@@ -73,7 +74,7 @@ public class ScribeInteraction : MonoBehaviour
         return new QuestionInfo
         {
             question = "I want to remember how cramped these living quarters are. How many bunk beds are in this room?",
-            answers = {
+            answers = new(){
                 "1",
                 "2",
                 "4",

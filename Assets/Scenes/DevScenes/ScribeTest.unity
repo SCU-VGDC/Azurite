@@ -575,7 +575,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 232.8, y: 0}
-  m_SizeDelta: {x: 465.6, y: 0}
+  m_SizeDelta: {x: 465.6, y: 187.93}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &637252798
 MonoBehaviour:
@@ -1458,7 +1458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   failSequence: {fileID: 0}
   successSequence: {fileID: 0}
-  quizPaper: {fileID: 0}
+  quizPaper: {fileID: 1689199360}
 --- !u!1 &1248695199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1248695200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1781,7 +1781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1689199355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d876e047ea21ae4b85a5e7786e54238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answerPrefab: {fileID: 0}
+  answerPrefab: {fileID: 6701228207477323564, guid: f3fbda877c050dd4fba585f3ff5fdc00, type: 3}
   questionText: {fileID: 637252798}
   submitButton: {fileID: 0}
   verticalLayout: {fileID: 1994242551}

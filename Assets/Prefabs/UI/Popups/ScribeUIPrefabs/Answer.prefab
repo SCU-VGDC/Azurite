@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7372221447671216057}
   - component: {fileID: 8175763818539259637}
   - component: {fileID: 2771640638591220657}
-  - component: {fileID: 2043892045837746236}
   - component: {fileID: 559140942257737027}
   m_Layer: 5
   m_Name: Answer
@@ -37,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 232.8, y: -239.92}
-  m_SizeDelta: {x: 465.6, y: 0}
+  m_SizeDelta: {x: 465.6, y: 51.99}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8175763818539259637
 CanvasRenderer:
@@ -136,20 +135,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2043892045837746236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6701228207477323564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
 --- !u!114 &559140942257737027
 MonoBehaviour:
   m_ObjectHideFlags: 0
