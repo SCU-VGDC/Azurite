@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Virtual Camera
+  - Draggable Object
   - Main Canvas
   layers:
   - Default
