@@ -1742,7 +1742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3877643217725814268}
   m_Layer: 0
-  m_Name: Lazer Puzzle
+  m_Name: Laser Puzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
