@@ -21,5 +21,6 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         if (!freezeMovement) PlayerRigidBody.velocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
+        else PlayerRigidBody.velocity = new Vector2(0,0);
     }
 }

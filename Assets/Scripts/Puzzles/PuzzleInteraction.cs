@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.Rendering.Universal;
 
 public class PuzzleInteraction : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class PuzzleInteraction : MonoBehaviour
     private GameObject instantiatePuzzlePrefab;
     private Vector3 puzzleLocation = new Vector3(100, 0, 0);
 
-    private CinemachineVirtualCamera mainCamera; 
-    private CinemachineVirtualCamera puzzleCamera;
+    private Camera mainCamera; 
+    private CinemachineVirtualCamera mainVirtualCamera;
+    private UniversalAdditionalCameraData mainCameraUniversalAdditionalCameraData;
+    private Camera puzzleCamera;
 
     void Start()
     {
-        mainCamera = (CinemachineVirtualCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
+        mainCamera = Camera.main;
+        mainCameraUniversalAdditionalCameraData = Camera.main.GetUniversalAdditionalCameraData();
+        mainVirtualCamera = (CinemachineVirtualCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         playerMovement = GameManager.inst.player.GetComponent<Movement>();
 
         interaction.OnInteract += StartGame;
@@ -27,9 +32,6 @@ public class PuzzleInteraction : MonoBehaviour
 
     public void StartGame()
     {
-        // set puzzleLocation to player's loc! for overlay
-        puzzleLocation = GameManager.inst.player.transform.position;
-
         // freeze the player
         playerMovement.freezeMovement = true;
         GameManager.inst.paused = true;
@@ -38,30 +40,38 @@ public class PuzzleInteraction : MonoBehaviour
         instantiatePuzzlePrefab = Instantiate(puzzlePrefab, puzzleLocation, Quaternion.identity);
 
         // create new camera at puzzle
-        puzzleCamera = new GameObject("TempVirtualCamera").AddComponent<CinemachineVirtualCamera>();
-        puzzleCamera.m_Lens.OrthographicSize = 5;
-        puzzleCamera.transform.localPosition = puzzleLocation + new Vector3(0, 0, mainCamera.transform.position.z);
-        puzzleCamera.Priority = 10;
+        puzzleCamera = new GameObject("TempCamera").AddComponent<Camera>();
+        puzzleCamera.enabled = false;
 
-        // turn "off" main camera
-        mainCamera.Priority = 0;
+        // copy same settings from main camera
+        puzzleCamera.CopyFrom(mainCamera);
+
+        // set puzzle camera to an overlay render
+        puzzleCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
+
+        // move puzzle camera to the puzzle
+        puzzleCamera.transform.localPosition = puzzleLocation + new Vector3(0, 0, mainVirtualCamera.transform.position.z);
+
+        // stack main camera into puzzle camera
+        mainCameraUniversalAdditionalCameraData.cameraStack.Add(puzzleCamera);
+
+        // turn on puzzle camera
+        puzzleCamera.enabled = true;
 
         GameManager.inst.currentEndGameAction = EndGame;
     }
 
     public void EndGame()
     {
-        playerMovement.freezeMovement = false;
-        GameManager.inst.paused = false;
-
-        // turn "on" main camera
-        mainCamera.Priority = 10;
-
         // remove puzzle camera
-        puzzleCamera.Priority = 0;
+        mainCameraUniversalAdditionalCameraData.cameraStack.Remove(puzzleCamera);
         Destroy(puzzleCamera.gameObject);
 
         // remove puzzle prefab
         Destroy(instantiatePuzzlePrefab);
+
+        // resume player
+        playerMovement.freezeMovement = false;
+        GameManager.inst.paused = false;
     }
 }
