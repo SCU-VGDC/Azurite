@@ -14,16 +14,16 @@ public class ScribeInteraction : MonoBehaviour
         public int correctIndex;
     }
 
-    private DialogueSequence startSequence;
-    [SerializeField] private DialogueSequence failSequence;
-    [SerializeField] private DialogueSequence successSequence;
+    private DialogueSequence dialogue;
+    [SerializeField] private DialogueHolder failSequence;
+    [SerializeField] private DialogueHolder successSequence;
     [SerializeField] private ScribeQuizPaper quizPaper;
     private int currentQuestion = -1;
     private Func<QuestionInfo>[] questionGenerators;
 
     void Awake()
     {
-        startSequence = GetComponent<DialogueSequence>();
+        dialogue = GetComponent<DialogueSequence>();
         questionGenerators = new Func<QuestionInfo>[] {
             GetBedQuestion
         };
@@ -31,7 +31,7 @@ public class ScribeInteraction : MonoBehaviour
 
     public void OnInteract()
     {
-        StartCoroutine(startSequence.StartSequence());
+        dialogue.DialogueStart();
     }
 
     public void ShowQuestionsUI(string playerChoice)
@@ -51,13 +51,15 @@ public class ScribeInteraction : MonoBehaviour
 
     private void OnQuizSuccess()
     {
-        StartCoroutine(successSequence.StartSequence());
+        dialogue.SetDialogueSteps(successSequence.ReturnList());
+        dialogue.DialogueStart();
     }
 
     public void OnIncorrect()
     {
         currentQuestion = -1;
-        StartCoroutine(failSequence.StartSequence());
+        dialogue.SetDialogueSteps(failSequence.ReturnList());
+        dialogue.DialogueStart();
         quizPaper.Hide();
     }
 

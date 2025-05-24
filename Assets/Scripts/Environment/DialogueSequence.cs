@@ -28,7 +28,7 @@ public class DialogueSequence : MonoBehaviour
     
     private bool dialogueRunning = false;
     [SerializeField] private DialogueUI dialogueUI;
-    [SerializeField] private List<DialogueStep> dialogueSteps;
+    private List<DialogueStep> dialogueSteps;
     [SerializeField] private bool nextSteps;
     public GameObject dialogueChunk;
     public string subjectName = "<NAME>";
@@ -51,12 +51,12 @@ public class DialogueSequence : MonoBehaviour
         //GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(StartSequence()));
         StartCoroutine(StartSequence());
     }
-    public void UpdateDialogue(GameObject nextDialogueSequence)
+    public void UpdateDialogue(DialogueHolder nextDialogueSequence)
     {
-        GameObject tempGameObject = Instantiate(nextDialogueSequence);
-        dialogueSteps = tempGameObject.GetComponent<DialogueHolder>().ReturnList();
+        //GameObject tempGameObject = Instantiate(nextDialogueSequence);
+        dialogueSteps = nextDialogueSequence.ReturnList();
         nextSteps = true;
-        Destroy(tempGameObject);
+        //Destroy(tempGameObject);
     }
     private IEnumerator StartSequence()
     {

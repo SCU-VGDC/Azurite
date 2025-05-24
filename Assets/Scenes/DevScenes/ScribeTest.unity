@@ -1284,6 +1284,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1060930363271444564}
+  - {fileID: 1826128309}
+  - {fileID: 1927523404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1144647448
@@ -1360,6 +1362,7 @@ MonoBehaviour:
         m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 1940223598047454170}
+  ActionCount: 0
 --- !u!114 &1144647451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1373,49 +1376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 1248695205}
-  dialogueSteps:
-  - text: Before the other side of this bridge you see, you must answer my riddles
-      three.
-    continueCallback:
-      m_PersistentCalls:
-        m_Calls: []
-    choices: []
-  - text: i mean four actually
-    continueCallback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1144647453}
-          m_TargetAssemblyTypeName: ScribeInteraction, Assembly-CSharp
-          m_MethodName: ShowQuestionsUI
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    choices: []
-  - text: Please insert the Scooby Doo game disc.
-    continueCallback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1144647453}
-          m_TargetAssemblyTypeName: ScribeInteraction, Assembly-CSharp
-          m_MethodName: ShowQuestionsUI
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    choices:
-    - Yes
-    - No
+  nextSteps: 0
+  dialogueChunk: {fileID: 1826128308}
   subjectName: The Scribe
 --- !u!50 &1144647452
 Rigidbody2D:
@@ -1456,7 +1418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aecb637f1f9dcd4cb1da7eebdc38c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  failSequence: {fileID: 0}
+  failSequence: {fileID: 1927523405}
   successSequence: {fileID: 0}
   quizPaper: {fileID: 1689199360}
 --- !u!1 &1248695199
@@ -1891,9 +1853,141 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   answerPrefab: {fileID: 6701228207477323564, guid: f3fbda877c050dd4fba585f3ff5fdc00, type: 3}
   questionText: {fileID: 637252798}
-  submitButton: {fileID: 0}
   verticalLayout: {fileID: 1994242551}
   scribe: {fileID: 1144647453}
+--- !u!1 &1826128308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826128309}
+  - component: {fileID: 1826128310}
+  m_Layer: 0
+  m_Name: StartSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1826128309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826128308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1144647447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1826128310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826128308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - text: Before the other side of this bridge you see, you must answer my riddles
+      three.
+    choices: []
+  - text: actually it's four
+    choices: []
+  - text: Please insert the Scooby Doo Game disc.
+    choices:
+    - choiceText: Yes
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1144647453}
+            m_TargetAssemblyTypeName: ScribeInteraction, Assembly-CSharp
+            m_MethodName: ShowQuestionsUI
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - choiceText: No
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1144647453}
+            m_TargetAssemblyTypeName: ScribeInteraction, Assembly-CSharp
+            m_MethodName: ShowQuestionsUI
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+--- !u!1 &1927523403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927523404}
+  - component: {fileID: 1927523405}
+  m_Layer: 0
+  m_Name: FailSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1927523404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927523403}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1144647447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1927523405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927523403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - text: WRONG
+    choices: []
+  - text: thats WRONG
+    choices: []
 --- !u!1 &1983250515
 GameObject:
   m_ObjectHideFlags: 0
