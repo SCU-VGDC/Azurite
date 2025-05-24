@@ -51,13 +51,6 @@ public class DraggableObject : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        if (DoesSnap)
-        {
-            // Convert the world position to a tile position, snap it, then convert back.
-            //Vector3 tilePos = WorldToTilemap(transform.position);
-            //tilePos = SnapToGrid(tilePos);
-            //transform.position = TilemapToWorld(tilePos);
-        }
     }
 
     void OnMouseDown()
@@ -84,7 +77,7 @@ public class DraggableObject : MonoBehaviour
         UpdateTimer = UpdateCooldown;
 
         //Gets coordinates of the mouse to drag box to position
-        Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition());
+        Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition()) + PuzzleInteraction.puzzleLocation; // need to offset by the puzzle's grid location
         Vector3 mouseTilePos = new Vector3(Mathf.RoundToInt(rawMouseTilePos.x), Mathf.RoundToInt(rawMouseTilePos.y), 0);
         // Use the raw position for a tolerance check
         if (Vector3.Distance(rawMouseTilePos, TargetPosition) < MoveTolerance)

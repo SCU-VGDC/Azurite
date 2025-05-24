@@ -9,7 +9,7 @@ public class PuzzleInteraction : MonoBehaviour
 
     [SerializeField] private GameObject puzzlePrefab;
     private GameObject instantiatePuzzlePrefab;
-    private Vector3 puzzleLocation = new Vector3(100, 0, 0);
+    static public Vector3 puzzleLocation = new Vector3(100, 0, 0);
 
     private Camera mainCamera; 
     private CinemachineVirtualCamera mainVirtualCamera;
