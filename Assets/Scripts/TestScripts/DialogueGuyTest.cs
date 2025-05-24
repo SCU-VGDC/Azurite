@@ -11,7 +11,7 @@ public class DialogueGuyTest : MonoBehaviour
     void Start()
     {
         DialogueSequence sequence = GetComponent<DialogueSequence>();
-        GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(sequence.StartSequence()));
+        //GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(sequence.StartSequence()));
     }
 
     public void ProcessPlayerResponse(string choice)
@@ -21,5 +21,15 @@ public class DialogueGuyTest : MonoBehaviour
             spriteRenderer.color = Color.green;
         else
             spriteRenderer.color = Color.red;
+    }
+    public void ChangeGreen(string choice)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.green;
+    }
+    public void ChangeRed(string choice)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.red;
     }
 }

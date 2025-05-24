@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Dialogue.Data;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class DialogueUI : MonoBehaviour
         canvasGroup.alpha = 0;
     }
 
-    public void DisplayText(string text, string subjectName, List<string> choices = null)
+
+    public void DisplayText(string text, string subjectName, List<DialogueChoice> choices = null)
     {
         CurrentChoice = string.Empty;
         choiceAvailable = choices != null && choices.Count > 0;
@@ -48,9 +50,14 @@ public class DialogueUI : MonoBehaviour
                         foreach (var choice in choices)
                         {
                             GameObject newButton = Instantiate(choiceTextButtonPrefab);
-                            newButton.GetComponent<TextMeshProUGUI>().text = "► " + choice;
+                            newButton.GetComponent<TextMeshProUGUI>().text = "► " + choice.choiceText;
                             newButton.transform.SetParent(choiceListCanvasGroup.transform, false);
-                            newButton.GetComponent<Button>().onClick.AddListener(() => CurrentChoice = choice);
+                            //newButton.GetComponent<Button>().onClick.AddListener(() => CurrentChoice = choice);
+                            newButton.GetComponent<Button>().onClick.AddListener(() =>{CurrentChoice = choice.choiceText; choice.choiceCallback.Invoke(choice.choiceText); foreach (var btn in choiceListCanvasGroup.GetComponentsInChildren<Button>())
+                                {
+                                    btn.onClick.RemoveAllListeners();
+                                }
+                            });
                         }
                     }
                 }
