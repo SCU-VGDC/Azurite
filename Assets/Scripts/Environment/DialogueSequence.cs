@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Dialogue.Data;
+using static UnityEngine.Rendering.DebugUI.Table;
 namespace Dialogue.Data 
 {
     [Serializable]
@@ -14,6 +15,7 @@ namespace Dialogue.Data
         //public UnityEvent<string> continueCallback;
         //public List<string> choices;
         public List<DialogueChoice> choices;
+        public UnityEvent endCallback;
     }
     [Serializable]
     public struct DialogueChoice
@@ -34,8 +36,7 @@ public class DialogueSequence : MonoBehaviour
     public string subjectName = "<NAME>";
     private void Start()
     {
-        GameObject tempObject = Instantiate(dialogueChunk);
-        dialogueSteps = tempObject.GetComponent<DialogueHolder>().ReturnList();
+        dialogueSteps = dialogueChunk.GetComponent<DialogueHolder>().ReturnList();
     }
     public void AddDialogueStep(DialogueStep step)
     {
@@ -48,15 +49,44 @@ public class DialogueSequence : MonoBehaviour
     }
     public void DialogueStart()
     {
-        //GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(StartSequence()));
         StartCoroutine(StartSequence());
+    }
+    public void LoadNextDialogue(GameObject nextDialogueSequence)
+    {
+        dialogueChunk = nextDialogueSequence;
+        dialogueSteps = nextDialogueSequence.GetComponent<DialogueHolder>().ReturnList();
     }
     public void UpdateDialogue(GameObject nextDialogueSequence)
     {
-        GameObject tempGameObject = Instantiate(nextDialogueSequence);
-        dialogueSteps = tempGameObject.GetComponent<DialogueHolder>().ReturnList();
+        dialogueChunk = nextDialogueSequence;
+        dialogueSteps = nextDialogueSequence.GetComponent<DialogueHolder>().ReturnList();
         nextSteps = true;
-        Destroy(tempGameObject);
+    }
+    public List<GameObject> GetChildren(GameObject parent)
+    {
+        var result = new List<GameObject>();
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            result.Add(parent.transform.GetChild(i).gameObject);
+        }
+        return result;
+    }
+
+    public List<GameObject> GetChildNames(GameObject parent)
+    {
+        var children = new List<GameObject>();
+        foreach (Transform child in parent.transform)
+        {
+            children.Add(child.gameObject);
+        }
+        return children;
+    }
+    private void LogAllChildNames()
+    {
+        foreach (Transform child in transform)
+        {
+            Debug.Log($"Child: {child.gameObject.name}");
+        }
     }
     private IEnumerator StartSequence()
     {
@@ -72,6 +102,30 @@ public class DialogueSequence : MonoBehaviour
             //dialogueUI.DisplayText(step.text, subjectName);
             yield return dialogueUI.WaitForPlayerChoice();
             yield return new WaitForEndOfFrame();
+            string chosenText = dialogueUI.CurrentChoice;
+            if (string.IsNullOrEmpty(chosenText))
+            {
+                Debug.LogWarning("No choice text was set! Skipping lookup.");
+            }
+            else
+            {
+                Debug.Log("Player picked: " + chosenText);
+                Transform found = dialogueChunk.transform.Find(chosenText);
+                if (found == null)
+                {
+                    LogAllChildNames();
+                    Debug.LogWarning($"No child named '{chosenText}' under {dialogueChunk.name}. Skipping UpdateDialogue.");
+                }
+                else
+                {
+                    Debug.Log(chosenText);
+                    UpdateDialogue(found.gameObject);
+                }
+            }
+            step.endCallback.Invoke();
+            
+            
+
             //step.continueCallback?.Invoke(dialogueUI.CurrentChoice);
         }
         dialogueUI.FadeOut();

@@ -22,13 +22,15 @@ public class DialogueGuyTest : MonoBehaviour
         else
             spriteRenderer.color = Color.red;
     }
-    public void ChangeGreen(string choice)
+    public void ChangeGreen()
     {
+        Debug.Log("Color Change");
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.green;
     }
-    public void ChangeRed(string choice)
+    public void ChangeRed()
     {
+        Debug.Log("Color Change");
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.red;
     }

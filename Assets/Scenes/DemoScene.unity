@@ -1203,6 +1203,9 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+    endCallback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &370492602
 Transform:
   m_ObjectHideFlags: 0
@@ -1211,12 +1214,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370492600}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 933187753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399880074
 GameObject:
@@ -2748,6 +2751,80 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &879716986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879716987}
+  - component: {fileID: 879716988}
+  m_Layer: 0
+  m_Name: Supercalifragilisticexpialidocious
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879716987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879716986}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.1135254, y: 4.39728, z: -0.015499547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 933187753}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879716988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879716986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865f511a2f301c848aff5653c9b42a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSteps:
+  - text: Well, I'm not sure what you were expecting to find.
+    choices: []
+    endCallback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 649186097}
+          m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
+          m_MethodName: LoadNextDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 933187752}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 649186098}
+          m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+          m_MethodName: ChangeRed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &881723444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3133,7 +3210,10 @@ Transform:
   m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 879716987}
+  - {fileID: 370492602}
+  - {fileID: 2138038398}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &933187754
@@ -3151,6 +3231,9 @@ MonoBehaviour:
   dialogueSteps:
   - text: On the ground you see a unpowered tablet
     choices: []
+    endCallback:
+      m_PersistentCalls:
+        m_Calls: []
   - text: Pick it up?
     choices:
     - choiceText: Yes
@@ -3261,6 +3344,25 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+    - choiceText: Supercalifragilisticexpialidocious
+      choiceCallback:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 649186098}
+            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
+            m_MethodName: ChangeRed
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    endCallback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &1046075562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -6362,8 +6464,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueSteps:
-  - text: Having picked up the tablet, you see special about this patch of ground.
+  - text: Having picked up the tablet, you see nothing special about this patch of
+      ground.
     choices: []
+    endCallback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &2138038398
 Transform:
   m_ObjectHideFlags: 0
@@ -6372,12 +6478,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138038396}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 933187753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2144955189
 GameObject:
@@ -6688,5 +6794,3 @@ SceneRoots:
   - {fileID: 649186102}
   - {fileID: 1137404526}
   - {fileID: 933187753}
-  - {fileID: 370492602}
-  - {fileID: 2138038398}
