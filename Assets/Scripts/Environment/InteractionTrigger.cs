@@ -11,6 +11,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     public UnityEvent onInteract;
     public KeyCode triggerKey = KeyCode.E;
     public TextMeshProUGUI textPopUp;
+    public int ActionCount = 0;
 
     public int CompareTo(InteractionTrigger other)
     {
@@ -33,6 +34,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     public void Trigger()
     {
         this.onInteract.Invoke();
+        PersistentDataScript.Instance.IncrementAction(ActionCount);
     }
 
     public void ToggleTextPopup(bool value)

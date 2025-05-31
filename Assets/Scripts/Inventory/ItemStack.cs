@@ -8,7 +8,7 @@ public class ItemStack : MonoBehaviour
 
 	/// <summary>The quantity of the item.</summary>
 	[Tooltip("The quantity of the item.")]
-	[SerializeField] private int count = 0;
+	[SerializeField] private int count = 1;
 
 	/// <summary>
 	/// Add the item stack to the specified inventory.
