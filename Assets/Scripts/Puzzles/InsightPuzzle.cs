@@ -109,5 +109,7 @@ public class InsightPuzzle : MonoBehaviour
     public void WonGame()
     {
         Debug.Log("wooo you won!");
+
+        StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
     }
 }
