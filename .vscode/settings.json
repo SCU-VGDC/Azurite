@@ -59,6 +59,8 @@
     "dotnet.defaultSolution": "Azurite.sln",
     "cSpell.words": [
         "Behaviour",
-        "Cinemachine"
+        "Cinemachine",
+        "Scriptable",
+        "Toggleable"
     ]
 }
