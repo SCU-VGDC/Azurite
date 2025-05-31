@@ -51,11 +51,13 @@ public class DialogueSequence : MonoBehaviour
     {
         StartCoroutine(StartSequence());
     }
+    //Loads the next dialogue sequence, queuing it without actively transferring to it once the data has been entered.
     public void LoadNextDialogue(GameObject nextDialogueSequence)
     {
         dialogueChunk = nextDialogueSequence;
         dialogueSteps = nextDialogueSequence.GetComponent<DialogueHolder>().ReturnList();
     }
+    //Loads the next dialogue sequence, queuing it up and loading it in as the next dialogue chunk.
     public void UpdateDialogue(GameObject nextDialogueSequence)
     {
         dialogueChunk = nextDialogueSequence;
