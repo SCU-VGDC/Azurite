@@ -1130,7 +1130,7 @@ MonoBehaviour:
           - m_Target: {fileID: 649186098}
             m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
             m_MethodName: ChangeGreen
-            m_Mode: 5
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1153,11 +1153,11 @@ MonoBehaviour:
             m_CallState: 2
           - m_Target: {fileID: 649186097}
             m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
-            m_MethodName: UpdateDialogue
+            m_MethodName: QueueDialogueHolder
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 2138038396}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_ObjectArgument: {fileID: 2138038397}
+              m_ObjectArgumentAssemblyTypeName: DialogueHolder, Assembly-CSharp
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -1170,7 +1170,7 @@ MonoBehaviour:
           - m_Target: {fileID: 649186098}
             m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
             m_MethodName: ChangeGreen
-            m_Mode: 5
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1193,11 +1193,11 @@ MonoBehaviour:
             m_CallState: 2
           - m_Target: {fileID: 649186097}
             m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
-            m_MethodName: UpdateDialogue
+            m_MethodName: QueueDialogueHolder
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 2138038396}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_ObjectArgument: {fileID: 2138038397}
+              m_ObjectArgumentAssemblyTypeName: DialogueHolder, Assembly-CSharp
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -1891,9 +1891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 107213012}
-  dialogueSteps: []
-  nextSteps: 0
-  dialogueChunk: {fileID: 933187752}
+  currentDialogueHolder: {fileID: 933187754}
   subjectName: John Azurite
 --- !u!114 &649186098
 MonoBehaviour:
@@ -2048,6 +2046,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 852993408}
+  - {fileID: 933187753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &649186103
@@ -2803,11 +2802,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 649186097}
           m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
-          m_MethodName: LoadNextDialogue
+          m_MethodName: SetDialogueHolder
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 933187752}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_ObjectArgument: {fileID: 933187754}
+            m_ObjectArgumentAssemblyTypeName: DialogueHolder, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -3206,15 +3205,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933187752}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8803117, y: 0.93319666, z: -0.08482166}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.880312, y: 1.4331967, z: -0.08482166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 879716987}
   - {fileID: 370492602}
   - {fileID: 2138038398}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 649186102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &933187754
 MonoBehaviour:
@@ -3243,7 +3242,7 @@ MonoBehaviour:
           - m_Target: {fileID: 649186098}
             m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
             m_MethodName: ChangeGreen
-            m_Mode: 5
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3266,11 +3265,11 @@ MonoBehaviour:
             m_CallState: 2
           - m_Target: {fileID: 649186097}
             m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
-            m_MethodName: UpdateDialogue
+            m_MethodName: QueueDialogueHolder
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 2138038396}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_ObjectArgument: {fileID: 2138038397}
+              m_ObjectArgumentAssemblyTypeName: DialogueHolder, Assembly-CSharp
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -3283,9 +3282,9 @@ MonoBehaviour:
           - m_Target: {fileID: 649186098}
             m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
             m_MethodName: ChangeGreen
-            m_Mode: 0
+            m_Mode: 1
             m_Arguments:
-              m_ObjectArgument: {fileID: 2089508311}
+              m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -3306,11 +3305,11 @@ MonoBehaviour:
             m_CallState: 2
           - m_Target: {fileID: 649186097}
             m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
-            m_MethodName: UpdateDialogue
+            m_MethodName: QueueDialogueHolder
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 2138038396}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_ObjectArgument: {fileID: 2138038397}
+              m_ObjectArgumentAssemblyTypeName: DialogueHolder, Assembly-CSharp
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -3323,7 +3322,7 @@ MonoBehaviour:
           - m_Target: {fileID: 649186098}
             m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
             m_MethodName: ChangeRed
-            m_Mode: 5
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3334,11 +3333,11 @@ MonoBehaviour:
             m_CallState: 2
           - m_Target: {fileID: 649186097}
             m_TargetAssemblyTypeName: DialogueSequence, Assembly-CSharp
-            m_MethodName: UpdateDialogue
+            m_MethodName: QueueDialogueHolder
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 370492600}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+              m_ObjectArgument: {fileID: 370492601}
+              m_ObjectArgumentAssemblyTypeName: DialogueHolder, Assembly-CSharp
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
@@ -3347,19 +3346,7 @@ MonoBehaviour:
     - choiceText: Supercalifragilisticexpialidocious
       choiceCallback:
         m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 649186098}
-            m_TargetAssemblyTypeName: DialogueGuyTest, Assembly-CSharp
-            m_MethodName: ChangeRed
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+          m_Calls: []
     endCallback:
       m_PersistentCalls:
         m_Calls: []
@@ -6793,4 +6780,3 @@ SceneRoots:
   - {fileID: 107213013}
   - {fileID: 649186102}
   - {fileID: 1137404526}
-  - {fileID: 933187753}
