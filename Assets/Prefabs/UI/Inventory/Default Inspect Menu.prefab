@@ -379,6 +379,7 @@ GameObject:
   - component: {fileID: 7871435189292791557}
   - component: {fileID: 5175653366847824210}
   - component: {fileID: 3537105298597211647}
+  - component: {fileID: 5225094791868703902}
   m_Layer: 5
   m_Name: Exit Message
   m_TagString: Untagged
@@ -502,6 +503,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5225094791868703902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3588684617744574247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 3
+  animationScale: 8
+  startMinAnchor: {x: -0.6, y: 1}
+  startMaxAnchor: {x: 0.4, y: 1}
 --- !u!1 &3878201638241769960
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +566,7 @@ GameObject:
   - component: {fileID: 8798350190339367823}
   - component: {fileID: 1127983619843917844}
   - component: {fileID: 1717769563641233535}
+  - component: {fileID: 5840389749401597851}
   m_Layer: 5
   m_Name: Description Panel
   m_TagString: Untagged
@@ -615,6 +633,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5840389749401597851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070112805196655354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 3
+  animationScale: 8
+  startMinAnchor: {x: 1, y: 0}
+  startMaxAnchor: {x: 1.4, y: 1}
 --- !u!1 &4899933200823164857
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,8 +661,9 @@ GameObject:
   - component: {fileID: 7222378615702886652}
   - component: {fileID: 8115886110698998287}
   - component: {fileID: 4999652605848861478}
+  - component: {fileID: 6221214436001991715}
   m_Layer: 5
-  m_Name: Inspect UI
+  m_Name: Default Inspect Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.33333334}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -706,9 +741,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffed459022bf84445827bc9e904185d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animations:
+  - {fileID: 5840389749401597851}
+  - {fileID: 5225094791868703902}
+  - {fileID: 6221214436001991715}
+  - {fileID: 7864257807050951654}
   title: {fileID: 8128180390446175243}
   descripiton: {fileID: 3735652949880066555}
   preview: {fileID: 7425489611254601054}
+--- !u!114 &6221214436001991715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899933200823164857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a932f9c9e6a114c01be17b7fce3b261c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 0
+  animationScale: 8
+  startAlpha: 0
 --- !u!1 &5262139490333504485
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 103146449656305965}
+  - component: {fileID: 7864257807050951654}
   m_Layer: 5
   m_Name: Item Panel
   m_TagString: Untagged
@@ -835,6 +891,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7864257807050951654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465155280180982659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 3
+  animationScale: 8
+  startMinAnchor: {x: -0.5, y: 0.1}
+  startMaxAnchor: {x: -0.1, y: 0.9}
 --- !u!1 &7552640606611973551
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,49 +8,59 @@ public class Player : MonoBehaviour
 	//Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
 	[SerializeField] [Range(0, 10)] float playerSpeed = 1.0f;
 
-	/// <summary>The inventory UI controller prefab.</summary>
-	[Tooltip("The inventory UI controller prefab.")]
-	[SerializeField] private InventoryUIController inventoryPrefab = null;
+	/// <summary>The inventory menu controller prefab.</summary>
+	[Tooltip("The inventory menu controller prefab.")]
+	[SerializeField] private InventoryMenuController inventoryPrefab = null;
 
-	/// <summary>The player's inventory UI.</summary>
-	private InventoryUIController inventory = null;
+	/// <summary>The player's inventory.</summary>
+	private Inventory inventory = null;
+
+	/// <summary>The main canvas.</summary>
+	private GameObject canvas = null;
+
+	/// <summary>The player's currently opened UI.</summary>
+	private MenuBase activeUI = null;
 
 	public void Start()
 	{
 		// Retrieve the main canvas.
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
+		this.canvas = GameObject.FindGameObjectWithTag("Main Canvas");
 
-		if(canvas == null)
+		if(this.canvas == null)
 		{
 			Debug.LogError("Failed to find the main canvas.");
 			return;
 		}
+
+		this.inventory = this.GetComponent<Inventory>();
 		
 		// Get the player's inventory.
-		if(!this.TryGetComponent(out Inventory inv))
+		if(this.inventory == null)
 		{
 			Debug.LogError("Failed to find the player inventory.");
 			return;
 		}
-
-		// Create the inventory UI.
-		this.inventory = Instantiate(this.inventoryPrefab, canvas.transform);
-		this.inventory.Init(inv);
-		this.inventory.Close();
 	}
 
 	void Update()
 	{
-		// Toggle the inventory when "inventory" is pressed.
-		if(Input.GetButtonDown("Inventory"))
+		// Wait until the inventory's animation is done playing before destroying.
+		if(this.activeUI != null && this.activeUI.IsHidden())
 		{
-			if(this.inventory.IsOpen())
+			this.activeUI.Destroy();
+			this.activeUI = null;
+		}
+		// Toggle the inventory when "inventory" is pressed.
+		else if(Input.GetButtonDown("Inventory"))
+		{
+			if(this.activeUI != null)
 			{
-				this.inventory.Close();
+				this.activeUI.Hide();
 			}
 			else
 			{
-				this.inventory.Open();
+				this.activeUI = Instantiate(this.inventoryPrefab, this.canvas.transform).Init(this.inventory);
+				this.activeUI.Show();
 			}
 		}
 
@@ -59,11 +69,11 @@ public class Player : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.U))
 		{
 			ItemStack stack = this.GetComponent<ItemStack>();
-			stack.AddTo(this.inventory.GetInventory());
+			stack.AddTo(this.inventory);
 		}
 
 		// Only allow player movement when the inventory is closed.
-		if(!this.inventory.IsOpen())
+		if(this.activeUI == null)
 		{
 			playerInput.x = Input.GetAxisRaw("Horizontal");
 			playerInput.y = Input.GetAxisRaw("Vertical");

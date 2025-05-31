@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUIController : MonoBehaviour
+public class InventoryMenuController : MenuBase
 {
 	/// <summary>The inventory to display.</summary>
 	[Tooltip("The inventory to display.")]
@@ -11,7 +11,7 @@ public class InventoryUIController : MonoBehaviour
 
 	/// <summary>The item stack prefab.</summary>
 	[Tooltip("The item stack prefab.")]
-	[SerializeField] protected ItemStackUIController itemStackPrefab = null;
+	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
 
 	/// <summary>The toggle group containing the item stacks.</summary>
 	[Tooltip("The toggle group containing the item stacks.")]
@@ -21,10 +21,13 @@ public class InventoryUIController : MonoBehaviour
 	[Tooltip("The item name text box.")]
 	[SerializeField] protected TextMeshProUGUI itemName = null;
 
-	/// <summary>The currently open inspect menu.</summary>
-	private InspectUIBase inspectUI = null;
-
-	public void Init(Inventory associatedInventory)
+	/// <summary>
+	/// Initialize the inventory menu controller with an inventory. This will generate all 
+	/// the itemstacks and register events with the inventory to automatically update.
+	/// </summary>
+	/// <param name="associatedInventory">The inventory to display.</param>
+	/// <returns>The post-initialized menu controller.</returns>
+	public InventoryMenuController Init(Inventory associatedInventory)
 	{
 		this.inventory = associatedInventory;
 
@@ -32,10 +35,22 @@ public class InventoryUIController : MonoBehaviour
 		this.inventory.itemAddedEvent.AddListener(this.AddItem);
 		this.inventory.itemRemovedEvent.AddListener(this.RemoveItem);
 		this.inventory.itemChangedEvent.AddListener(this.UpdateItem);
+
+		// Generate the item stacks.
+		Item[] items = this.inventory.GetItems();
+
+		for(int i = 0; i < items.Length; ++i)
+		{
+			this.AddItem(items[i]);
+		}
+
+		return this;
 	}
 
-	public void Update()
+	public override void Update()
 	{
+		base.Update();
+
 		// Handle inventory traversal with WASD or arrow keys.
 		if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
 		{
@@ -58,7 +73,7 @@ public class InventoryUIController : MonoBehaviour
 		}
 
 		// Open the inspect menu when space is pressed.
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(Input.GetKeyDown(KeyCode.Space) && !this.HasSubMenu())
 		{
 			Item selected = this.GetSelectedItem();
 
@@ -66,63 +81,30 @@ public class InventoryUIController : MonoBehaviour
 			{
 				return;
 			}
-
-			this.inspectUI = Instantiate(this.GetSelectedItem().GetInspectUIPrefab(), this.transform.parent);
-			this.inspectUI.Init(selected, this);
+			
+			this.Open(Instantiate(selected.GetInspectMenuPrefab(), this.transform.parent).Init(selected));
 		}
 	}
 
 	/// <summary>
-	/// Open the inventory.
+	/// Get the inventory associated with this menu.
 	/// </summary>
-	public void Open()
-	{
-		this.gameObject.SetActive(true);
-	}
-
-	/// <summary>
-	/// Close the inventory. This will also destroy any open inspect menus.
-	/// </summary>
-	public void Close()
-	{
-		if(this.inspectUI != null)
-		{
-			Destroy(this.inspectUI.gameObject);
-			this.inspectUI = null;
-		}
-		
-		this.gameObject.SetActive(false);
-	}
-
-	/// <summary>
-	/// Check whether or not the inventory is open. This includes the inspect menu UI.
-	/// </summary>
-	/// <returns>True if the inventory is open, false otherwise.</returns>
-	public bool IsOpen()
-	{
-		return this.isActiveAndEnabled || this.inspectUI != null;
-	}
-
-	/// <summary>
-	/// Get the inventory associated with this UI.
-	/// </summary>
-	/// <returns>The inventory associated with this UI.</returns>
+	/// <returns>The inventory associated with this menu.</returns>
 	public Inventory GetInventory()
 	{
 		return this.inventory;
 	}
 
 	/// <summary>
-	/// Add an item stack to to the inventory UI. This does not actually 
+	/// Add an item stack to to the inventory menu. This does not actually 
 	/// add an item to the underlying inventory and is used only for 
-	/// updating the UI.
+	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to add.</param>
 	protected virtual void AddItem(Item item)
 	{
 		// Create a new item stack controller
-		ItemStackUIController stack = Instantiate(this.itemStackPrefab, this.itemList.transform);
-		stack.Init(this.inventory, item);
+		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(this.inventory, item);
 
 		// Add the stack to the item list toggle group.
 		if(stack.TryGetComponent(out Toggle toggle))
@@ -138,14 +120,14 @@ public class InventoryUIController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Remove an item stack from the inventory UI. This does not actually 
+	/// Remove an item stack from the inventory menu. This does not actually 
 	/// remove an item from the underlying inventory and is only used for 
-	/// updating the UI.
+	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to remove.</param>
 	protected virtual void RemoveItem(Item item)
 	{
-		ItemStackUIController stack = this.GetItemStack(item);
+		ItemStackEntryController stack = this.GetItemStack(item);
 
 		if(stack != null)
 		{
@@ -154,13 +136,13 @@ public class InventoryUIController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Update an item stack in the inventory UI. This refreshes the item 
+	/// Update an item stack in the inventory menu. This refreshes the item 
 	/// stack's stack count label.
 	/// </summary>
 	/// <param name="item">The item to update.</param>
 	protected virtual void UpdateItem(Item item)
 	{
-		ItemStackUIController stack = this.GetItemStack(item);
+		ItemStackEntryController stack = this.GetItemStack(item);
 
 		if(stack != null)
 		{
@@ -174,6 +156,11 @@ public class InventoryUIController : MonoBehaviour
 	/// <param name="_">Unused.</param>
 	protected virtual void UpdateItemName(bool _)
 	{
+		if(this.itemName == null)
+		{
+			return;
+		}
+
 		Item selected = this.GetSelectedItem();
 
 		if(selected != null)
@@ -193,13 +180,13 @@ public class InventoryUIController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Gets the currently selected item stack UI component.
+	/// Gets the currently selected item stack menu component.
 	/// </summary>
-	/// <returns>The currently selected item stack UI component or null if none exists.</returns>
-	public ItemStackUIController GetSelectedStack()
+	/// <returns>The currently selected item stack menu component or null if none exists.</returns>
+	public ItemStackEntryController GetSelectedStack()
 	{
 		Toggle selected = this.itemList.GetFirstActiveToggle();
-		return selected != null ? selected.gameObject.GetComponent<ItemStackUIController>() : null;
+		return selected != null ? selected.gameObject.GetComponent<ItemStackEntryController>() : null;
 	}
 
 	/// <summary>
@@ -208,21 +195,21 @@ public class InventoryUIController : MonoBehaviour
 	/// <returns>The currently selected item or null if none exists.</returns>
 	public Item GetSelectedItem()
 	{
-		ItemStackUIController selectedStack = this.GetSelectedStack();
+		ItemStackEntryController selectedStack = this.GetSelectedStack();
 		return selectedStack != null ? selectedStack.GetItem() : null;
 	}
 
 	/// <summary>
-	/// Gets the item stack UI component associated with the specified item.
+	/// Gets the item stack menu component associated with the specified item.
 	/// </summary>
 	/// <param name="item">The item to search for.</param>
-	/// <returns>The item stack UI component associated with the specified item or null if none exists.</returns>
-	public ItemStackUIController GetItemStack(Item item)
+	/// <returns>The item stack menu component associated with the specified item or null if none exists.</returns>
+	public ItemStackEntryController GetItemStack(Item item)
 	{
 		// Iterate through the item list's children and find the item.
 		foreach(Transform child in this.itemList.transform)
 		{
-    		ItemStackUIController stack = child.gameObject.GetComponent<ItemStackUIController>();
+    		ItemStackEntryController stack = child.gameObject.GetComponent<ItemStackEntryController>();
 
 			if(stack != null && item == stack.GetItem())
 			{
@@ -251,17 +238,17 @@ public class InventoryUIController : MonoBehaviour
 		Vector2Int selectedPos = this.GetSelectedPosition();
 
 		// Change the bounds if the current selection is on the incomplete row.
-		int lastRowWidth = ((this.itemList.transform.childCount - 1) % grid.x) + 1;
+		int lastRowWidth =((this.itemList.transform.childCount - 1) % grid.x) + 1;
 		int width = selectedPos.y == grid.y - 1 ? lastRowWidth : grid.x;
 		int height = selectedPos.x >= lastRowWidth ? grid.y - 1 : grid.y;
 
 		// Move the selection.
 		selectedPos += offset;
-		selectedPos.x = selectedPos.x < 0 ? width - (Math.Abs(selectedPos.x + 1) % width) - 1 : selectedPos.x % width;
-		selectedPos.y = selectedPos.y < 0 ? height - (Math.Abs(selectedPos.y + 1) % height) - 1 : selectedPos.y % height;
+		selectedPos.x = selectedPos.x < 0 ? width -(Math.Abs(selectedPos.x + 1) % width) - 1 : selectedPos.x % width;
+		selectedPos.y = selectedPos.y < 0 ? height -(Math.Abs(selectedPos.y + 1) % height) - 1 : selectedPos.y % height;
 
 		// Translate the coordinates to an index.
-		int index = (selectedPos.y * grid.x + selectedPos.x) % this.itemList.transform.childCount;
+		int index =(selectedPos.y * grid.x + selectedPos.x) % this.itemList.transform.childCount;
 
 		// Toggle the new selected stack.
 		if(this.itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
@@ -285,7 +272,7 @@ public class InventoryUIController : MonoBehaviour
 			return grid;
 		}
 
-		ItemStackUIController selected = this.GetSelectedStack();
+		ItemStackEntryController selected = this.GetSelectedStack();
 		
 		// Return if no stack is selected.
 		if(selected == null)
@@ -332,7 +319,7 @@ public class InventoryUIController : MonoBehaviour
 			// Find the width by iterating through the item stack's until a wrap around is detected.
 			for(int i = 0; i < this.itemList.transform.childCount; ++i)
 			{
-				float x = ((RectTransform) grid.transform.GetChild(i)).anchoredPosition.x;
+				float x =((RectTransform) grid.transform.GetChild(i)).anchoredPosition.x;
 
 				if(x <= prevX)
 				{
