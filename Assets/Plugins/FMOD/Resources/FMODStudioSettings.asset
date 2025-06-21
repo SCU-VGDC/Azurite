@@ -451,10 +451,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 1
-  HasPlatforms: 1
+  HasSourceProject: 0
+  HasPlatforms: 0
   sourceProjectPath: 
-  sourceBankPath: 
+  sourceBankPath: Assets/FMOD Banks/Desktop
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -492,18 +492,18 @@ MonoBehaviour:
   HideSetupWizard: 0
   LastEventReferenceScanVersion: 131847
   Platforms:
-  - {fileID: -2048634360087413568}
-  - {fileID: 7206677779160030381}
-  - {fileID: -985487160671545897}
-  - {fileID: -8331306047178860971}
-  - {fileID: 4587647479209449111}
-  - {fileID: 2970408392936599318}
-  - {fileID: -5112236193160037929}
-  - {fileID: -604126187142233381}
-  - {fileID: 4757691718201442787}
-  - {fileID: -2041629457938305474}
-  - {fileID: 3273949657015274433}
   - {fileID: 2561106581161138663}
+  - {fileID: 3273949657015274433}
+  - {fileID: -2041629457938305474}
+  - {fileID: 4757691718201442787}
+  - {fileID: -604126187142233381}
+  - {fileID: -5112236193160037929}
+  - {fileID: 2970408392936599318}
+  - {fileID: 4587647479209449111}
+  - {fileID: -8331306047178860971}
+  - {fileID: -985487160671545897}
+  - {fileID: 7206677779160030381}
+  - {fileID: -2048634360087413568}
   MigratedPlatforms: 09000000080000000b0000000a00000012000000060000000c0000000500000000000000150000000200000001000000
 --- !u!114 &2561106581161138663
 MonoBehaviour:
@@ -721,16 +721,16 @@ MonoBehaviour:
     HasValue: 0
   displaySortOrder: 0
   childIdentifiers:
-  - 52eb9df5db46521439908db3a29a1bbb
-  - 2c5177b11d81d824dbb064f9ac8527da
-  - 0f8eb3f400726694eb47beb1a9f94ce8
-  - b7716510a1f36934c87976f3a81dbf3d
-  - e7a046c753c3c3d4aacc91f6597f310d
-  - c88d16e5272a4e241b0ef0ac2e53b73d
-  - 2fea114e74ecf3c4f920e1d5cc1c4c40
-  - fd7c55dab0fce234b8c25f6ffca523c1
-  - de700ef3f37a49b58a57ae3addf01ad9
   - 46fbfdf3fc43db0458918377fd40293e
+  - de700ef3f37a49b58a57ae3addf01ad9
+  - fd7c55dab0fce234b8c25f6ffca523c1
+  - 2fea114e74ecf3c4f920e1d5cc1c4c40
+  - c88d16e5272a4e241b0ef0ac2e53b73d
+  - e7a046c753c3c3d4aacc91f6597f310d
+  - b7716510a1f36934c87976f3a81dbf3d
+  - 0f8eb3f400726694eb47beb1a9f94ce8
+  - 2c5177b11d81d824dbb064f9ac8527da
+  - 52eb9df5db46521439908db3a29a1bbb
   codecChannels:
     Value: []
     HasValue: 0
