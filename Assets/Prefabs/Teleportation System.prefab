@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2883432510080611362}
   - component: {fileID: 8412426636613033858}
   - component: {fileID: 6329623679212241615}
+  - component: {fileID: 913262010621652998}
   m_Layer: 0
   m_Name: Teleportation System
   m_TagString: Untagged
@@ -92,9 +93,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationScene: roomStateDebug_2
-  destinationCoords:
-  - 1000
-  - 1000
+  destinationObject: {fileID: 0}
+  interaction: {fileID: 0}
+  destinationCameraBorder: {fileID: 0}
+--- !u!114 &913262010621652998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4005820831130061488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b481625690ad1478ce777f593ccfbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorOpenEvent:
+    Guid:
+      Data1: 1688318303
+      Data2: 1308891262
+      Data3: -1160326260
+      Data4: -1159485128
+    Path: event:/Rooms/General Room Sounds/Door Open
 --- !u!1 &6941238502100762872
 GameObject:
   m_ObjectHideFlags: 0

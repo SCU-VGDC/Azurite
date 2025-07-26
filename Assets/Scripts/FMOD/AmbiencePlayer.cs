@@ -22,4 +22,4 @@ public class AmbiencePlayer : MonoBehaviour
     {
         AmbienceInst.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
-} // end
+} 
