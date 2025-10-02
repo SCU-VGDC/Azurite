@@ -2880,6 +2880,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4904842969408939200, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8235323031347732995, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
       propertyPath: m_Name
       value: InteractableObject
@@ -2921,7 +2925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: {fileID: 1201269247}
-  puzzlePrefab: {fileID: 6919333298790818422, guid: ccff4574f2a507c4381eb2b5c263558d, type: 3}
+  puzzlePrefab: {fileID: 5396934457855858258, guid: c54879784622cab439f9b317c990bee7, type: 3}
 --- !u!1 &1213410587 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}

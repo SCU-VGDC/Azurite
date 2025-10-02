@@ -14,6 +14,7 @@ public class PuzzleInteraction : MonoBehaviour
     private Camera mainCamera; 
     private CinemachineVirtualCamera mainVirtualCamera;
     private UniversalAdditionalCameraData mainCameraUniversalAdditionalCameraData;
+    private int mainVirtualCameraPriority;
     private Camera puzzleCamera;
 
     void Start()
@@ -21,6 +22,7 @@ public class PuzzleInteraction : MonoBehaviour
         mainCamera = Camera.main;
         mainCameraUniversalAdditionalCameraData = Camera.main.GetUniversalAdditionalCameraData();
         mainVirtualCamera = (CinemachineVirtualCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
+        mainVirtualCameraPriority = mainVirtualCamera.Priority;
         playerScript = GameManager.inst.player.GetComponent<Player>();
 
         interaction.onInteract.AddListener(this.StartGame);
@@ -53,12 +55,15 @@ public class PuzzleInteraction : MonoBehaviour
 
         // turn on puzzle camera
         puzzleCamera.enabled = true;
+        mainVirtualCamera.Priority = -1;
 
         GameManager.inst.currentEndGameAction = EndGame;
     }
 
     public void EndGame()
     {
+        mainVirtualCamera.Priority = mainVirtualCameraPriority;
+
         // remove puzzle camera
         mainCameraUniversalAdditionalCameraData.cameraStack.Remove(puzzleCamera);
         Destroy(puzzleCamera.gameObject);
