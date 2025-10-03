@@ -17,9 +17,12 @@ public class TeleportationSystem : MonoBehaviour
     {
         interaction.onInteract.AddListener(this.Teleport);
 
-        destinationCoords = destinationObject.transform.position;
-
+        if (destinationObject != null)
+        {
+            destinationCoords = destinationObject.transform.position;
+        }
     }
+    
     public void Teleport()
     {
         if (string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)

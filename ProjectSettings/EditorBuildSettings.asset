@@ -6,12 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateSceneTest.unity
-    guid: 06e90a0c372da4940b9579348daa8896
+    path: Assets/Scenes/RoomScenes/MainHubRoomScene.unity
+    guid: 53a0213b6b64d9b45a19f4fa37a40fa1
   - enabled: 1
-    path: Assets/Scenes/DevScenes/SameRoomTeleport.unity
-    guid: 63efc407464b50d4f86dae843a554d33
+    path: Assets/Scenes/RoomScenes/GreenHouseRoomScene.unity
+    guid: 3c5a5123ff44ed84fb804c10c9b9b409
   - enabled: 1
-    path: Assets/Scenes/DevScenes/roomStateDebug_2.unity
-    guid: 076348b8ce9421941b5b6e6ea80ebfeb
+    path: Assets/Scenes/RoomScenes/JanitorClosetRoomScene.unity
+    guid: c9f3cccfc37db7c4da354d3b5797558b
+  - enabled: 1
+    path: Assets/Scenes/RoomScenes/LivingQuartersRoomScene.unity
+    guid: 7e7ce302afc8b214e9097aaa4a4122d0
+  - enabled: 1
+    path: Assets/Scenes/RoomScenes/MechanicalRoomScene.unity
+    guid: 2e314637c7025374bb3bce6cd1732a88
+  - enabled: 1
+    path: Assets/Scenes/RoomScenes/R&DRoomScene.unity
+    guid: b8e9ad031f3b85544b8a1dfc9ab5d3e8
   m_configObjects: {}
