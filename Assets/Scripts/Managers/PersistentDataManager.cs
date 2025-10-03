@@ -43,4 +43,9 @@ public class PersistentDataManager : MonoBehaviour
     {
         return persistentDict[key];
     }
+
+    public T Get<T>(string key)
+    {
+        return (T)persistentDict[key];
+    }
 }
