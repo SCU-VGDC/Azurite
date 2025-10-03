@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5048811088734708075}
   - component: {fileID: 4543223900686974291}
   - component: {fileID: 1712760210611694450}
+  - component: {fileID: 6981191577804046415}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -95,3 +96,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0533a5ddf0d9f6542ab207a60d6e0c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6981191577804046415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570050680939474994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3e4af94ddeaf943875b01071d7e447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  submarine: {fileID: 0}
+  submarineInRoom: 
