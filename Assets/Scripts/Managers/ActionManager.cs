@@ -46,15 +46,13 @@ public class ActionManager : MonoBehaviour
     // basic singleton pattern
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         Instance = this;
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
@@ -83,7 +81,6 @@ public class ActionManager : MonoBehaviour
         {
             actionCounter += x;
 
-            Debug.Log(actionCounter);
             IncrementRoomState();
         }
     }

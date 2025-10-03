@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private InventoryMenuController inventoryPrefab = null;
 
 	/// <summary>The player's inventory.</summary>
-	private Inventory inventory = null;
+	public Inventory Inventory { get; private set; }
 
 	/// <summary>The main canvas.</summary>
 	private GameObject canvas = null;
@@ -29,16 +29,14 @@ public class Player : MonoBehaviour
 		if(this.canvas == null)
 		{
 			Debug.LogError("Failed to find the main canvas.");
-			return;
 		}
 
-		this.inventory = this.GetComponent<Inventory>();
+		this.Inventory = this.GetComponent<Inventory>();
 		
 		// Get the player's inventory.
-		if(this.inventory == null)
+		if(this.Inventory == null)
 		{
 			Debug.LogError("Failed to find the player inventory.");
-			return;
 		}
 	}
 
@@ -59,7 +57,7 @@ public class Player : MonoBehaviour
 			}
 			else
 			{
-				this.activeUI = Instantiate(this.inventoryPrefab, this.canvas.transform).Init(this.inventory);
+				this.activeUI = Instantiate(this.inventoryPrefab, this.canvas.transform).Init(this.Inventory);
 				this.activeUI.Show();
 			}
 		}
@@ -69,7 +67,7 @@ public class Player : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.U))
 		{
 			ItemStack stack = this.GetComponent<ItemStack>();
-			stack.AddTo(this.inventory);
+			stack.AddTo(this.Inventory);
 		}
 
 		// Only allow player movement when the inventory is closed.

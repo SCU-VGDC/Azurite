@@ -12,8 +12,6 @@ public class UIManager : MonoBehaviour
         if (inst == null)
         {
             inst = this;
-
-            DontDestroyOnLoad(this);
         }
         else if (inst != this)
         {

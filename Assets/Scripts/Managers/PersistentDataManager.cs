@@ -11,16 +11,14 @@ public class PersistentDataManager : MonoBehaviour
     // basic singleton pattern
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
 
             return;
         }
 
         Instance = this;
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Start()
