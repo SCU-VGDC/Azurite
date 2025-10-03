@@ -49,7 +49,11 @@ public class DialogueUI : MonoBehaviour
                             newButton.GetComponent<TextMeshProUGUI>().text = "► " + choice.choiceText;
                             newButton.transform.SetParent(choiceListCanvasGroup.transform, false);
                             //newButton.GetComponent<Button>().onClick.AddListener(() => CurrentChoice = choice);
-                            newButton.GetComponent<Button>().onClick.AddListener(() =>{CurrentChoice = choice.choiceText; choice.choiceCallback.Invoke(choice.choiceText); foreach (var btn in choiceListCanvasGroup.GetComponentsInChildren<Button>())
+                            newButton.GetComponent<Button>().onClick.AddListener(() =>
+                            {
+                                CurrentChoice = choice.choiceText;
+                                choice.choiceCallback.Invoke(choice.choiceText);
+                                foreach (var btn in choiceListCanvasGroup.GetComponentsInChildren<Button>())
                                 {
                                     btn.onClick.RemoveAllListeners();
                                 }

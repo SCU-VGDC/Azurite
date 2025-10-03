@@ -8,6 +8,7 @@ TagManager:
   - Virtual Camera
   - Draggable Object
   - Main Canvas
+  - Camera Bounds
   layers:
   - Default
   - TransparentFX

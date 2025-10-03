@@ -28,7 +28,7 @@ public class ControlPanel : MonoBehaviour
 
     public void MoveToRoom(string roomName)
     {
-        PersistentDataScript.Instance.ChangeSubmarineState(roomName);
+        ActionManager.Instance.ChangeSubmarineState(roomName);
     }
 
     // Update is called once per frame

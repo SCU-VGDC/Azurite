@@ -18,4 +18,9 @@ public class DialogueGuyTest : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.red;
     }
+
+    public void GiveItem()
+    {
+        GetComponent<ItemStack>().AddTo(GameManager.inst.player.Inventory);
+    }
 }
