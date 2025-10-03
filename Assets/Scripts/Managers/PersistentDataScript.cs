@@ -5,9 +5,6 @@ using UnityEngine;
 public class PersistentDataScript : MonoBehaviour
 {
     public static PersistentDataScript Instance;
-    //Destination coords passed in when teleporter is activated. These will be used to determine player's starting location within each scene.
-    private float[] destinationCoords = new float[2];
-    private Vector2 DestCoords;
     private int worldState; //Sets the world state. All rooms should call this to determine their state.
     //0 - Default World State
     private int ActionCounter = 0;
@@ -38,12 +35,6 @@ public class PersistentDataScript : MonoBehaviour
     public int GetRoomState()
     {
         return worldState;
-    }
-    //Used to set destination coordinates for teleporation.
-    public void SetDestinationCoordinates(Vector2 x)
-    {
-        DestCoords = x;
-        return;
     }
     public void IncrementThreshold(int x)
     {
