@@ -44,6 +44,22 @@ public class PersistentDataManager : MonoBehaviour
 
     public T Get<T>(string key)
     {
-        return (T)persistentDict[key];
+        return (T)Get(key);
+    }
+
+    public bool TryGet(string key, out object value)
+    {
+        return persistentDict.TryGetValue(key, out value);
+    }
+
+    public bool TryGet<T>(string key, out T value)
+    {
+        if (persistentDict.TryGetValue(key, out object obj) && obj is T)
+        {
+            value = (T)obj;
+            return true;
+        }
+        value = default;
+        return false;
     }
 }
