@@ -93,7 +93,7 @@ public class PipePuzzle : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 worldPoint = PuzzleInteraction.puzzleCamera.ScreenToWorldPoint(Input.mousePosition);
 
             Vector3Int tilePos = tileMap.WorldToCell(worldPoint);
 

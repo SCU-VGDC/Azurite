@@ -11,11 +11,11 @@ public class PuzzleInteraction : MonoBehaviour
     private GameObject instantiatePuzzlePrefab;
     static public Vector3 puzzleLocation = new Vector3(100, 0, 0);
 
-    private Camera mainCamera; 
+    private Camera mainCamera;
     private CinemachineVirtualCamera mainVirtualCamera;
     private UniversalAdditionalCameraData mainCameraUniversalAdditionalCameraData;
     private int mainVirtualCameraPriority;
-    private Camera puzzleCamera;
+    static public Camera puzzleCamera;
 
     void Start()
     {
