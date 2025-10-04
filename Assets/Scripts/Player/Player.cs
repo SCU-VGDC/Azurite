@@ -34,10 +34,10 @@ public class Player : MonoBehaviour
 			Debug.LogError("Failed to find the main canvas.");
 		}
 
-		this.inventory = this.GetComponent<Inventory>();
+		this.Inventory = this.GetComponent<Inventory>();
 
 		// Get the player's inventory.
-		if (this.inventory == null)
+		if (this.Inventory == null)
 		{
 			Debug.LogError("Failed to find the player inventory.");
 		}

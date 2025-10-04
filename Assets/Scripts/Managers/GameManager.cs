@@ -1,7 +1,6 @@
 using Cinemachine;
 using System;
 using UnityEngine;
-using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
