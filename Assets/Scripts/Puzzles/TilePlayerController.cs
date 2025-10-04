@@ -68,6 +68,8 @@ public class TilePlayerController : MonoBehaviour
     void GoalComplete()
     {
         Debug.Log("Goal Completed!");
+
+        StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
     }
     private void Move(Vector2Int direction)
     {

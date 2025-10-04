@@ -51,13 +51,6 @@ public class DraggableObject : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        if (DoesSnap)
-        {
-            // Convert the world position to a tile position, snap it, then convert back.
-            //Vector3 tilePos = WorldToTilemap(transform.position);
-            //tilePos = SnapToGrid(tilePos);
-            //transform.position = TilemapToWorld(tilePos);
-        }
     }
 
     void OnMouseDown()
@@ -84,13 +77,12 @@ public class DraggableObject : MonoBehaviour
         UpdateTimer = UpdateCooldown;
 
         //Gets coordinates of the mouse to drag box to position
-        Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition());
+        Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition()) + PuzzleInteraction.puzzleLocation; // need to offset by the puzzle's grid location
         Vector3 mouseTilePos = new Vector3(Mathf.RoundToInt(rawMouseTilePos.x), Mathf.RoundToInt(rawMouseTilePos.y), 0);
-        
         // Use the raw position for a tolerance check
         if (Vector3.Distance(rawMouseTilePos, TargetPosition) < MoveTolerance)
         {
-            // The mouse hasn't moved enough – no update.
+            // The mouse hasn't moved enough ï¿½ no update.
             return;
         }
         // Apply axis locking:
@@ -112,7 +104,7 @@ public class DraggableObject : MonoBehaviour
                 // Check whether the raw mouse Y is within half the object's height.
                 if (Mathf.Abs(rawMouseTilePos.y - TargetPosition.y) < (ObjectHeight / 2f))
                 {
-                    // Mouse is hovering over the block's vertical extent – reset the dynamic lock.
+                    // Mouse is hovering over the block's vertical extent ï¿½ reset the dynamic lock.
                     _currentDynamicLock = AxisLock.None;
                 }
                 else
@@ -126,7 +118,7 @@ public class DraggableObject : MonoBehaviour
                 // Check whether the raw mouse X is within half the object's width.
                 if (Mathf.Abs(rawMouseTilePos.x - TargetPosition.x) < (ObjectWidth / 2f))
                 {
-                    // Mouse is hovering over the block's horizontal extent – reset the dynamic lock.
+                    // Mouse is hovering over the block's horizontal extent ï¿½ reset the dynamic lock.
                     _currentDynamicLock = AxisLock.None;
                 }
                 else
@@ -160,21 +152,6 @@ public class DraggableObject : MonoBehaviour
     void OnMouseUp()
     {
         IsDragging = false;
-    }
-
-    IEnumerator MoveSmoothly(Vector3 targetWorldPosition, float duration)
-    {
-        //Smooth movement for moving tile. Moves over a set period of time to look good.
-        Vector3 startPosition = transform.position;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            //Transforms the object to the end position
-            transform.position = Vector3.Lerp(startPosition, targetWorldPosition, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = targetWorldPosition;
     }
 
     IEnumerator MoveStepByStep(Vector3 finalTilePosition)
@@ -236,11 +213,6 @@ public class DraggableObject : MonoBehaviour
         int snappedX = Mathf.RoundToInt(tilePosition.x / (float)TileWidth) * TileWidth;
         int snappedY = Mathf.RoundToInt(tilePosition.y / (float)TileHeight) * TileHeight;
         return new Vector3(snappedX, snappedY, tilePosition.z);
-    }
-    bool IsMoveValidRaycast(Vector3 tilePosition, Vector3 direction)
-    {
-
-        return true;
     }
     bool IsMoveValid(Vector3 tilePosition, Vector3 direction)
     {

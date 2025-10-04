@@ -1,6 +1,7 @@
 using Cinemachine;
 using System;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     // game states
     [NonSerialized] public bool paused;
+
+    // Puzzles:
+    public Action currentEndGameAction;
 
     void Start()
     {
@@ -74,5 +78,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a PolygonCollider2D tagged as 'Camera Bounds'!");
         }
+    }
+
+
+    public IEnumerator Sleep(float seconds, Action action)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        action?.Invoke();
+    }
+
+
+    public void EndCurrentPuzzle()
+    {
+        currentEndGameAction?.Invoke();
     }
 }
