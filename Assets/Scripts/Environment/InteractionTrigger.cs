@@ -33,8 +33,11 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public void Trigger()
     {
-        this.onInteract.Invoke();
-        PersistentDataScript.Instance.IncrementAction(ActionCount);
+        if (!GameManager.inst.paused)
+        {
+            this.onInteract?.Invoke();
+            ActionManager.Instance.IncrementAction(ActionCount);
+        }        
     }
 
     public void ToggleTextPopup(bool value)

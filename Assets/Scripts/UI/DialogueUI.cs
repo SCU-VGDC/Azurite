@@ -1,11 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Dialogue.Data;
 
@@ -26,6 +23,7 @@ public class DialogueUI : MonoBehaviour
     {
         canvasGroup.alpha = 0;
     }
+
 
     public void DisplayText(string text, string subjectName, List<DialogueChoice> choices = null)
     {
@@ -51,7 +49,15 @@ public class DialogueUI : MonoBehaviour
                             newButton.GetComponent<TextMeshProUGUI>().text = "► " + choice.choiceText;
                             newButton.transform.SetParent(choiceListCanvasGroup.transform, false);
                             //newButton.GetComponent<Button>().onClick.AddListener(() => CurrentChoice = choice);
-                            newButton.GetComponent<Button>().onClick.AddListener(() =>{CurrentChoice = choice.choiceText; choice.choiceCallback.Invoke(choice.choiceText);});
+                            newButton.GetComponent<Button>().onClick.AddListener(() =>
+                            {
+                                CurrentChoice = choice.choiceText;
+                                choice.choiceCallback.Invoke(choice.choiceText);
+                                foreach (var btn in choiceListCanvasGroup.GetComponentsInChildren<Button>())
+                                {
+                                    btn.onClick.RemoveAllListeners();
+                                }
+                            });
                         }
                     }
                 }

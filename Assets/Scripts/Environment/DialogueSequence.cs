@@ -10,10 +10,8 @@ namespace Dialogue.Data
     public struct DialogueStep
     {
         public string text;
-        int nextDialogue;
-        //public UnityEvent<string> continueCallback;
-        //public List<string> choices;
         public List<DialogueChoice> choices;
+        public UnityEvent endCallback;
     }
     [Serializable]
     public struct DialogueChoice
@@ -28,58 +26,79 @@ public class DialogueSequence : MonoBehaviour
     
     private bool dialogueRunning = false;
     [SerializeField] private DialogueUI dialogueUI;
-    [SerializeField] private List<DialogueStep> dialogueSteps;
-    [SerializeField] private bool nextSteps;
-    public GameObject dialogueChunk;
+    [SerializeField] private DialogueHolder currentDialogueHolder;
+    private readonly Queue<DialogueHolder> dialogueHolderQueue = new();
+    private Coroutine runningCoroutine;
     public string subjectName = "<NAME>";
     private void Start()
     {
-        GameObject tempObject = Instantiate(dialogueChunk);
-        dialogueSteps = tempObject.GetComponent<DialogueHolder>().ReturnList();
-    }
-    public void AddDialogueStep(DialogueStep step)
-    {
-        dialogueSteps.Add(step);
+        SetDialogueHolder(currentDialogueHolder);
     }
 
-    public void SetDialogueSteps(List<DialogueStep> steps)
-    {
-        dialogueSteps = steps;
-    }
     public void DialogueStart()
     {
-        //GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(StartSequence()));
-        StartCoroutine(StartSequence());
+        runningCoroutine = StartCoroutine(StartSequence());
     }
-    public void UpdateDialogue(GameObject nextDialogueSequence)
+    public void DialogueStop()
     {
-        GameObject tempGameObject = Instantiate(nextDialogueSequence);
-        dialogueSteps = tempGameObject.GetComponent<DialogueHolder>().ReturnList();
-        nextSteps = true;
-        Destroy(tempGameObject);
+        if (runningCoroutine != null)
+        {
+            StopCoroutine(runningCoroutine);
+        }
+        dialogueUI.FadeOut();
+        dialogueRunning = false;
     }
+    // Loads the dialogue sequence, queuing it without actively transferring to it once the data has been entered.
+    public void SetDialogueHolder(DialogueHolder nextDialogueSequence)
+    {
+        currentDialogueHolder = nextDialogueSequence;
+    }
+    // Queues a dialogue sequence; the queue is checked when all dialogue steps are exhausted
+    public void QueueDialogueHolder(DialogueHolder nextDialogueSequence)
+    {
+        dialogueHolderQueue.Enqueue(nextDialogueSequence);
+    }
+    
     private IEnumerator StartSequence()
     {
 
         if (dialogueRunning) yield break;
         dialogueRunning = true;
 
-        List<DialogueStep> nextDialogue = dialogueSteps;
-
-        foreach (DialogueStep step in nextDialogue)
+        foreach (var step in currentDialogueHolder.dialogueSteps)
         {
             dialogueUI.DisplayText(step.text, subjectName, step.choices);
-            //dialogueUI.DisplayText(step.text, subjectName);
             yield return dialogueUI.WaitForPlayerChoice();
             yield return new WaitForEndOfFrame();
-            //step.continueCallback?.Invoke(dialogueUI.CurrentChoice);
+
+            string chosenText = dialogueUI.CurrentChoice;
+            if (string.IsNullOrEmpty(chosenText))
+            {
+                Debug.Log("No choice text was set! Skipping lookup.");
+            }
+            else
+            {
+                Debug.Log("Player picked: " + chosenText);
+                Transform found = currentDialogueHolder.transform.Find(chosenText);
+                if (found == null)
+                {
+                    Debug.Log($"No child named '{chosenText}' under {currentDialogueHolder.name}. Skipping UpdateDialogue.");
+                }
+                else
+                {
+                    Debug.Log($"found {chosenText}");
+                    QueueDialogueHolder(found.GetComponent<DialogueHolder>());
+                }
+            }
+            step.endCallback.Invoke();
         }
+
         dialogueUI.FadeOut();
         dialogueRunning = false;
-        if (nextSteps == true)
+
+        if (dialogueHolderQueue.TryDequeue(out var holder))
         {
-            nextSteps = false;
-            Debug.Log("Next Step Detected");
+            SetDialogueHolder(holder);
             yield return StartCoroutine(StartSequence());
         }
     }
