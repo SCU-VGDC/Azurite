@@ -21,6 +21,6 @@ public class DialogueGuyTest : MonoBehaviour
 
     public void GiveItem()
     {
-        GetComponent<ItemStack>().AddTo(GameManager.inst.player.Inventory);
+        GetComponent<ItemStack>().AddTo();
     }
 }

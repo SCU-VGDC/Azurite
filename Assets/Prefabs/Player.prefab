@@ -113,7 +113,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.7476441, y: -1.757007, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7943236365643826590}
@@ -203,7 +203,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05802536}
+  m_Offset: {x: 0, y: -1.8777946}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -214,7 +214,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.019621, y: 3.7447143}
+  m_Size: {x: 2.019621, y: 0.10527563}
   m_EdgeRadius: 0
 --- !u!50 &3838181656129955612
 Rigidbody2D:
@@ -256,8 +256,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 3838181656129955612}
+  spriteRenderer: {fileID: 1090874666289874137}
   playerSpeed: 10
   inventoryPrefab: {fileID: 344100902533872232, guid: 26f44a2f4a2994223be87a7d8db617a4, type: 3}
+  freezeMovement: 0
 --- !u!114 &6599850474268316214
 MonoBehaviour:
   m_ObjectHideFlags: 0

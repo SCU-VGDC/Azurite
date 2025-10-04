@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.U))
 		{
 			ItemStack stack = this.GetComponent<ItemStack>();
-			stack.AddTo(this.Inventory);
+			stack.AddTo();
 		}
 
 		// Only allow player movement when the inventory is closed.

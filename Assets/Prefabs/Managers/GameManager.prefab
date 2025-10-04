@@ -337,6 +337,7 @@ MonoBehaviour:
   startupScene: StartupScene
   playerPrefab: {fileID: 8629497072332039666, guid: c81d2fb9930201742931997ce04f1017, type: 3}
   mainCameraPrefab: {fileID: 7312083939552215652, guid: cce1c335f63f46843bf2c52953fe25ce, type: 3}
+  debugMode: 0
 --- !u!114 &1712760210611694450
 MonoBehaviour:
   m_ObjectHideFlags: 0
