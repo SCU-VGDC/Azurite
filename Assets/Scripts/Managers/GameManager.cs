@@ -1,14 +1,23 @@
+using Cinemachine;
+using System;
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager inst;
-    [System.NonSerialized] public GameObject player;
+    [SerializeField] private string firstGameScene;
+    [SerializeField] private string startupScene;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject mainCameraPrefab;
+    [NonSerialized] public static GameManager inst;
+    [NonSerialized] public Player player;
+    public Camera MainCamera { get; private set; } = null;
+    public string PreviousScene { get; private set; } = null;
 
-    // Game States:
-    public bool paused;
+    // game states
+    [NonSerialized] public bool paused;
 
     // Puzzles:
     public Action currentEndGameAction;
@@ -33,9 +42,43 @@ public class GameManager : MonoBehaviour
         {
             // Then this shouldn't exist, destroy it.
             Destroy(this);
+            return;
         }
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        DontDestroyOnLoad(gameObject);
+
+        var playerObj = Instantiate(playerPrefab);
+        DontDestroyOnLoad(playerObj);
+        player = playerObj.GetComponent<Player>();
+
+        var cameraObj = Instantiate(mainCameraPrefab);
+        DontDestroyOnLoad(cameraObj);
+        MainCamera = cameraObj.GetComponent<Camera>();
+        MainCamera.GetComponentInChildren<CinemachineVirtualCamera>().Follow = player.transform;
+
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadSceneAsync(firstGameScene, LoadSceneMode.Single);
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        PreviousScene = scene.name;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
+    {
+        if (scene.name == startupScene) return;
+
+        var bounds = GameObject.FindWithTag("Camera Bounds");
+        if (bounds != null && bounds.TryGetComponent<PolygonCollider2D>(out var collider))
+        {
+            MainCamera.GetComponentInChildren<CinemachineConfiner2D>().m_BoundingShape2D = collider;
+        }
+        else
+        {
+            Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a PolygonCollider2D tagged as 'Camera Bounds'!");
+        }
     }
 
 

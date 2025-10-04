@@ -33,7 +33,7 @@ public class SubmarineRoute : MonoBehaviour
     void Start()
     {
         
-        PersistentDataScript.Instance.ChangeSubmarineState("name");
+        ActionManager.Instance.ChangeSubmarineState("name");
 
     }
 

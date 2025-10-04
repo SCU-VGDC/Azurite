@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(InteractionTrigger))]
 [RequireComponent(typeof(DialogueSequence))]
 public class DialogueGuyTest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void ChangeGreen()
     {
-        DialogueSequence sequence = GetComponent<DialogueSequence>();
-        GetComponent<InteractionTrigger>().onInteract.AddListener(() => StartCoroutine(sequence.StartSequence()));
+        Debug.Log("Color Change");
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.green;
+    }
+    public void ChangeRed()
+    {
+        Debug.Log("Color Change");
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.red;
     }
 
-    public void ProcessPlayerResponse(string choice)
+    public void GiveItem()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (choice == "me")
-            spriteRenderer.color = Color.green;
-        else
-            spriteRenderer.color = Color.red;
+        GetComponent<ItemStack>().AddTo(GameManager.inst.player.Inventory);
     }
 }

@@ -50,10 +50,10 @@ GameObject:
   - component: {fileID: 4144417008690965971}
   - component: {fileID: 5662561932350020183}
   - component: {fileID: 185577181481681107}
-  - component: {fileID: 8782750149901674547}
   - component: {fileID: 4589657309038076152}
+  - component: {fileID: 1280110820353676496}
   m_Layer: 0
-  m_Name: Combustible
+  m_Name: Infected Dandelion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,22 +174,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1280110820353676496}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 3139249615064918060}
---- !u!114 &8782750149901674547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 407866766450593129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &4589657309038076152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +207,20 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &1280110820353676496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407866766450593129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 2d0bdc49b1b2f46a898e19d9e49559b5, type: 2}
+  count: 1
 --- !u!1 &2010056519146790881
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
   triggerKey: 101
   textPopUp: {fileID: 1776885446889709434}
 --- !u!114 &5008240071813848862
@@ -529,10 +547,10 @@ GameObject:
   - component: {fileID: 352071568008107886}
   - component: {fileID: 3881127155468296132}
   - component: {fileID: 2211067008856217695}
-  - component: {fileID: 305253310649218168}
   - component: {fileID: 3507285771698354383}
+  - component: {fileID: 2083126090617166576}
   m_Layer: 0
-  m_Name: Sticky
+  m_Name: Infected Sundew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -653,22 +671,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2083126090617166576}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 1436767954295849382}
---- !u!114 &305253310649218168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3845955909527660364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &3507285771698354383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,6 +704,20 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &2083126090617166576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845955909527660364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
+  count: 1
 --- !u!1 &3947997025108131922
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,10 +730,10 @@ GameObject:
   - component: {fileID: 6620350539453948547}
   - component: {fileID: 3441970724951606436}
   - component: {fileID: 3675353166506555863}
-  - component: {fileID: 7260593755768293973}
   - component: {fileID: 4035271436699499443}
+  - component: {fileID: 107796587256794792}
   m_Layer: 0
-  m_Name: Slippery
+  m_Name: Infected Pitcher Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,22 +854,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 107796587256794792}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 1387853315088622783}
---- !u!114 &7260593755768293973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3947997025108131922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &4035271436699499443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,6 +887,20 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &107796587256794792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3947997025108131922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: e545d49d9e10b4ff8b8676d68bc3dc53, type: 2}
+  count: 1
 --- !u!1 &4174940238516929752
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,10 +975,10 @@ GameObject:
   - component: {fileID: 3227256332832962609}
   - component: {fileID: 3363324755219963893}
   - component: {fileID: 1214072826258735228}
-  - component: {fileID: 6741387619214922337}
   - component: {fileID: 654830509644195739}
+  - component: {fileID: 8426171602254506548}
   m_Layer: 0
-  m_Name: Pretty
+  m_Name: Infected Rose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1051,22 +1099,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8426171602254506548}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 9171694628076769178}
---- !u!114 &6741387619214922337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5624827531332076091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &654830509644195739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,6 +1132,20 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &8426171602254506548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5624827531332076091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
+  count: 1
 --- !u!1 &5790414645555043982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,10 +1189,10 @@ GameObject:
   - component: {fileID: 1387776517281051733}
   - component: {fileID: 7747849166619902655}
   - component: {fileID: 605138183786407095}
-  - component: {fileID: 1207639950755996926}
   - component: {fileID: 5767954415960819498}
+  - component: {fileID: 3898913513855460555}
   m_Layer: 0
-  m_Name: Corrosive
+  m_Name: Infected Nightshade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1250,22 +1313,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3898913513855460555}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 335141800798283880}
---- !u!114 &1207639950755996926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859063404029396568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &5767954415960819498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1282,6 +1346,20 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &3898913513855460555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859063404029396568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 3616bda03ba1e40a6b7eb0f3a8917b6c, type: 2}
+  count: 1
 --- !u!1 &8196703693166564768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,10 +1403,10 @@ GameObject:
   - component: {fileID: 3814892828840369484}
   - component: {fileID: 5212770557190726204}
   - component: {fileID: 7022056287086066648}
-  - component: {fileID: 7776992138708423782}
   - component: {fileID: 6488402114922288309}
+  - component: {fileID: 2642034236117493004}
   m_Layer: 0
-  m_Name: Growth
+  m_Name: Infected Weed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,22 +1527,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2642034236117493004}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 183022018382755349}
---- !u!114 &7776992138708423782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8333056017705856652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &6488402114922288309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1481,6 +1560,20 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
+--- !u!114 &2642034236117493004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333056017705856652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 774901a7c00814eb697a08822eaa09fc, type: 2}
+  count: 1
 --- !u!1 &9218133914101721937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,10 +1586,10 @@ GameObject:
   - component: {fileID: 6684937834367015520}
   - component: {fileID: 8262293766405489320}
   - component: {fileID: 1303558497640123171}
-  - component: {fileID: 7142616947038039529}
   - component: {fileID: 3969808832676014367}
+  - component: {fileID: 8521191838337743385}
   m_Layer: 0
-  m_Name: Rigid
+  m_Name: Infected Bamboo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1617,22 +1710,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8521191838337743385}
+        m_TargetAssemblyTypeName: ItemStack, Assembly-CSharp
+        m_MethodName: AddTo
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: Inventory, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggerKey: 101
   textPopUp: {fileID: 4732388879051354751}
---- !u!114 &7142616947038039529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9218133914101721937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce8c4e3e748eaf4aa6f10c0dcc62d29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemID: 0
-  DestroyOnPickup: 0
 --- !u!114 &3969808832676014367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1649,6 +1743,20 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0.0047169924, g: 0.08420312, b: 1, a: 1}
   - {r: 0, g: 0.9253695, b: 1, a: 1}
+--- !u!114 &8521191838337743385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9218133914101721937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
+  count: 1
 --- !u!1001 &1345934932124618535
 PrefabInstance:
   m_ObjectHideFlags: 0

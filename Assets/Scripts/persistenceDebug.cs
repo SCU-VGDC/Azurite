@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class persistenceDebug : MonoBehaviour
 {
@@ -13,13 +14,13 @@ public class persistenceDebug : MonoBehaviour
     void Start()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
-        PersistentDataScript.Instance.SetRoomState(2);
+        PersistentDataManager.Instance.Set("worldState", 2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PersistentDataScript.Instance.GetRoomState() == 2)
+        if ((int)PersistentDataManager.Instance.Get("worldState") == 2)
         {
             m_SpriteRenderer.color = Color.green;
         }
