@@ -1,4 +1,4 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using System;
 using UnityEngine;
 using System.Collections;
@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainCameraPrefab;
     [NonSerialized] public static GameManager inst;
     [NonSerialized] public Player player;
-    public Camera MainCamera { get; private set; } = null;
+    public GameObject MainCameraContainer { get; private set; } = null;
     public string PreviousScene { get; private set; } = null;
 
     // game states
@@ -50,10 +50,15 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(playerObj);
         player = playerObj.GetComponent<Player>();
 
-        var cameraObj = Instantiate(mainCameraPrefab);
-        DontDestroyOnLoad(cameraObj);
-        MainCamera = cameraObj.GetComponent<Camera>();
-        MainCamera.GetComponentInChildren<CinemachineVirtualCamera>().Follow = player.transform;
+        MainCameraContainer = Instantiate(mainCameraPrefab);
+        DontDestroyOnLoad(MainCameraContainer);
+
+        var cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
+        cineCam.Target = new CameraTarget()
+        {
+            TrackingTarget = player.transform,
+            LookAtTarget = player.transform,
+        };
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -72,7 +77,7 @@ public class GameManager : MonoBehaviour
         var bounds = GameObject.FindWithTag("Camera Bounds");
         if (bounds != null && bounds.TryGetComponent<PolygonCollider2D>(out var collider))
         {
-            MainCamera.GetComponentInChildren<CinemachineConfiner2D>().m_BoundingShape2D = collider;
+            MainCameraContainer.GetComponentInChildren<CinemachineConfiner2D>().BoundingShape2D = collider;
         }
         else
         {

@@ -37,7 +37,7 @@ public class DraggableObject : MonoBehaviour
         if (RestrictedTilemap == null)
         {
             Debug.Log("No Tile Map Found, Choosing First Available");
-            RestrictedTilemap = FindObjectOfType<Tilemap>();
+            RestrictedTilemap = FindFirstObjectByType<Tilemap>();
         }
         //Allocates BoxCollider
         if (BoxCollider == null)
