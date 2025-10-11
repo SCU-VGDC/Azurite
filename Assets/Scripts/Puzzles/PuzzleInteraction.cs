@@ -1,5 +1,5 @@
 using UnityEngine;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine.Rendering.Universal;
 
 public class PuzzleInteraction : MonoBehaviour
@@ -9,10 +9,10 @@ public class PuzzleInteraction : MonoBehaviour
 
     [SerializeField] private GameObject puzzlePrefab;
     private GameObject instantiatePuzzlePrefab;
-    static public Vector3 puzzleLocation = new Vector3(100, 0, 0);
+    static public Vector3 puzzleLocation = new(100, 0, 0);
 
     private Camera mainCamera;
-    private CinemachineVirtualCamera mainVirtualCamera;
+    private CinemachineCamera mainVirtualCamera;
     private UniversalAdditionalCameraData mainCameraUniversalAdditionalCameraData;
     private int mainVirtualCameraPriority;
     static public Camera puzzleCamera;
@@ -21,7 +21,7 @@ public class PuzzleInteraction : MonoBehaviour
     {
         mainCamera = Camera.main;
         mainCameraUniversalAdditionalCameraData = Camera.main.GetUniversalAdditionalCameraData();
-        mainVirtualCamera = (CinemachineVirtualCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
+        mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
         playerScript = GameManager.inst.player.GetComponent<Player>();
 

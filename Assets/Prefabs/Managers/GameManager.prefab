@@ -108,15 +108,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
+  m_ActiveFontFeatures: 
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -336,8 +338,7 @@ MonoBehaviour:
   firstGameScene: MainHubRoomScene
   startupScene: StartupScene
   playerPrefab: {fileID: 8629497072332039666, guid: c81d2fb9930201742931997ce04f1017, type: 3}
-  mainCameraPrefab: {fileID: 7312083939552215652, guid: cce1c335f63f46843bf2c52953fe25ce, type: 3}
-  debugMode: 0
+  mainCameraPrefab: {fileID: 358754659124557754, guid: fd5b45d9e4f51cf47abf377881fa87cd, type: 3}
 --- !u!114 &1712760210611694450
 MonoBehaviour:
   m_ObjectHideFlags: 0

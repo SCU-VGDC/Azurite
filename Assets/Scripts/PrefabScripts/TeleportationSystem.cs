@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,7 @@ public class TeleportationSystem : MonoBehaviour
         if (!string.IsNullOrEmpty(destinationScene) && GameManager.inst.PreviousScene == destinationScene)
         {
             GameManager.inst.player.transform.position = transform.position;
+            GameManager.inst.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.inst.player.transform.position, Quaternion.identity);
         }
     }
     
@@ -33,6 +35,7 @@ public class TeleportationSystem : MonoBehaviour
             {
                 // teleport the player!
                 player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
+                GameManager.inst.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(player.transform.position, Quaternion.identity);
             }
         }
         else
