@@ -1,9 +1,13 @@
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
 	[SerializeField] Rigidbody2D PlayerRigidBody;
+	[SerializeField] SpriteRenderer spriteRenderer;
 	Vector2 playerInput;
 	//Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
 	[SerializeField] [Range(0, 10)] float playerSpeed = 1.0f;
@@ -70,7 +74,7 @@ public class Player : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.U))
 		{
 			ItemStack stack = this.GetComponent<ItemStack>();
-			stack.AddTo(this.Inventory);
+			stack.AddTo();
 		}
 
 		// Only allow player movement when the inventory is closed.
@@ -91,4 +95,8 @@ public class Player : MonoBehaviour
 		if (!freezeMovement) PlayerRigidBody.linearVelocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
         else PlayerRigidBody.linearVelocity = new Vector2(0,0);
 	}
+    void LateUpdate()
+    {
+        spriteRenderer.sortingOrder = Mathf.RoundToInt(-transform.position.y*100);
+    }
 }

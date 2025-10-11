@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainCameraPrefab;
     [NonSerialized] public static GameManager inst;
     [NonSerialized] public Player player;
+    public bool debugMode;
     public GameObject MainCameraContainer { get; private set; } = null;
     public string PreviousScene { get; private set; } = null;
 
@@ -62,7 +63,10 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadSceneAsync(firstGameScene, LoadSceneMode.Single);
+        if(!debugMode)
+        {
+            SceneManager.LoadSceneAsync(firstGameScene, LoadSceneMode.Single);
+        }
     }
 
     private void OnSceneUnloaded(Scene scene)
