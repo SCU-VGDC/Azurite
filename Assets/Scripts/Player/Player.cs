@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 {
 	[SerializeField] Rigidbody2D PlayerRigidBody;
 	[SerializeField] SpriteRenderer spriteRenderer;
-	private List<GameObject> YLevels;
 	Vector2 playerInput;
 	//Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
 	[SerializeField] [Range(0, 10)] float playerSpeed = 1.0f;
