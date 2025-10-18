@@ -9,7 +9,7 @@ public class ActionManager : MonoBehaviour
 
     private int actionCounter
     {
-        get { return (int)PersistentDataManager.Instance.Get("actionCounter"); }
+        get { return PersistentDataManager.Instance.Get<int>("actionCounter"); }
 
         set { PersistentDataManager.Instance.Set("actionCounter", value);  }
     }
@@ -41,7 +41,6 @@ public class ActionManager : MonoBehaviour
     }
 
     [SerializeField] private SubmarineRoute submarine;
-    [SerializeField] private string submarineInRoom;
 
     // basic singleton pattern
     private void Awake()
@@ -87,14 +86,9 @@ public class ActionManager : MonoBehaviour
 
     public void ChangeSubmarineState(string name)
     {
-        if (submarine != null)
-        {
-            string potentialName = submarine.TryMoveNext(out var successSub, name);
+       
+        PersistentDataManager.Instance.Set("submarineInRoom", name);
 
-            if (successSub == true)
-            {
-                submarineInRoom = potentialName;
-            }
-        }
+
     }
 }
