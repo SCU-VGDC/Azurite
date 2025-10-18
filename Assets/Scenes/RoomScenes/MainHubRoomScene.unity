@@ -1758,6 +1758,10 @@ PrefabInstance:
       propertyPath: debugMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4543223900686974291, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
+      propertyPath: submarinePrefab
+      value: 
+      objectReference: {fileID: 6425533110438311918, guid: 9b6d9cfd745dc2845b307e13525f1f0e, type: 3}
     - target: {fileID: 4570050680939474994, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -3085,6 +3089,22 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 1504986358567085480, guid: d6c17ad5730fbac42b3cc321d88c47b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 758387135}
+    - target: {fileID: 1504986358567085480, guid: d6c17ad5730fbac42b3cc321d88c47b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MoveToRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504986358567085480, guid: d6c17ad5730fbac42b3cc321d88c47b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504986358567085480, guid: d6c17ad5730fbac42b3cc321d88c47b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: GreenHouseRoomScene
+      objectReference: {fileID: 0}
     - target: {fileID: 2890975470019229940, guid: d6c17ad5730fbac42b3cc321d88c47b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.72165406
@@ -3186,7 +3206,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 886145431403555881, guid: 4fafd00f8e19c1545931632ea50b8356, type: 3}
       propertyPath: m_Name
-      value: Canvas (1)
+      value: InteractText
       objectReference: {fileID: 0}
     - target: {fileID: 6126305866219918994, guid: 4fafd00f8e19c1545931632ea50b8356, type: 3}
       propertyPath: m_Pivot.x

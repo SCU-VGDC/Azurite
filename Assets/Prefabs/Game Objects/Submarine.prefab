@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4727361964003517856}
   - component: {fileID: 7217138038993401698}
-  - component: {fileID: 7138399858742066046}
   m_Layer: 0
   m_Name: Submarine
   m_TagString: Untagged
@@ -50,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -85,26 +87,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7138399858742066046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425533110438311918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8945549902bf6e04faf4a79cee6cdb1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Pathing:
-  - Node: {fileID: 0}
-    Name: 
-    IsStopPoint: 0
-  - Node: {fileID: 0}
-    Name: 
-    IsStopPoint: 0
-  - Node: {fileID: 0}
-    Name: Banana
-    IsStopPoint: 1
-  Submarine: {fileID: 0}

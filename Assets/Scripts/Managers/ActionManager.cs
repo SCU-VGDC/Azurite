@@ -6,6 +6,7 @@ using UnityEngine;
 public class ActionManager : MonoBehaviour
 {
     public static ActionManager Instance;
+    [SerializeField] private String Location;
 
     private int actionCounter
     {
@@ -39,8 +40,6 @@ public class ActionManager : MonoBehaviour
     {
         get { return ((int[])PersistentDataManager.Instance.Get("actionThresholdIncrease")).Length; }
     }
-
-    [SerializeField] private SubmarineRoute submarine;
 
     // basic singleton pattern
     private void Awake()
@@ -86,9 +85,7 @@ public class ActionManager : MonoBehaviour
 
     public void ChangeSubmarineState(string name)
     {
-       
         PersistentDataManager.Instance.Set("submarineInRoom", name);
-
-
+        Location = name;
     }
 }
