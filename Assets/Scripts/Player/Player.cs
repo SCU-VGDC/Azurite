@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 	[SerializeField] SpriteRenderer spriteRenderer;
 	Vector2 playerInput;
 	//Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-	[SerializeField] [Range(0, 10)] float playerSpeed = 1.0f;
+	[SerializeField][Range(0, 10)] float playerSpeed = 1.0f;
 
 	/// <summary>The inventory menu controller prefab.</summary>
 	[Tooltip("The inventory menu controller prefab.")]
@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
 	private GameObject canvas = null;
 
 	/// <summary>The player's currently opened UI.</summary>
-	private MenuBase activeUI = null;
-	
+	private InventoryMenuController activeUI = null;
+
 	public bool freezeMovement = false;
 
 
@@ -49,36 +49,33 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
-		// Wait until the inventory's animation is done playing before destroying.
-		if(this.activeUI != null && this.activeUI.IsHidden())
+		if (Input.GetButtonDown("Inventory"))
 		{
-			this.activeUI.Destroy();
-			this.activeUI = null;
-		}
-		// Toggle the inventory when "inventory" is pressed.
-		else if(Input.GetButtonDown("Inventory"))
-		{
-			if(this.activeUI != null)
+			if (this.activeUI == null)
 			{
-				this.activeUI.Hide();
+				this.activeUI = Instantiate(this.inventoryPrefab, this.canvas.transform).Init(this.Inventory);
+				this.activeUI.onClose.AddListener(() => {
+                    Destroy(this.activeUI.gameObject);
+					this.activeUI = null;
+                });
+				this.activeUI.Open();
 			}
 			else
 			{
-				this.activeUI = Instantiate(this.inventoryPrefab, this.canvas.transform).Init(this.Inventory);
-				this.activeUI.Show();
+				this.activeUI.Close();
 			}
 		}
 
 		// FOR TESTING
 		// Add an item to the inventory when "U" is pressed.
-		if(Input.GetKeyDown(KeyCode.U))
+		if (Input.GetKeyDown(KeyCode.U))
 		{
 			ItemStack stack = this.GetComponent<ItemStack>();
 			stack.AddTo();
 		}
 
 		// Only allow player movement when the inventory is closed.
-		if(this.activeUI == null)
+		if (this.activeUI == null)
 		{
 			playerInput.x = Input.GetAxisRaw("Horizontal");
 			playerInput.y = Input.GetAxisRaw("Vertical");
@@ -93,7 +90,7 @@ public class Player : MonoBehaviour
 	void FixedUpdate()
 	{
 		if (!freezeMovement) PlayerRigidBody.linearVelocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
-        else PlayerRigidBody.linearVelocity = new Vector2(0,0);
+		else PlayerRigidBody.linearVelocity = new Vector2(0, 0);
 	}
     void LateUpdate()
     {

@@ -21,11 +21,6 @@ public class FadeAnimation : MenuAnimation
 
 	public override void Update()
 	{
-		if(this.progress == this.endPos)
-		{
-			return;
-		}
-		
 		base.Update();
 
 		// Set the alpha to the interpolated progress.
