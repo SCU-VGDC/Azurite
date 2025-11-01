@@ -201,6 +201,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1868414845}
     m_Modifications:
+    - target: {fileID: 1300724810230209961, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2344890542647780647, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.04569109
@@ -259,14 +263,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2344890542647780647, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 130686832}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8235323031347732995, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 17886991}
   m_SourcePrefab: {fileID: 100100000, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
 --- !u!4 &17886989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2344890542647780647, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
   m_PrefabInstance: {fileID: 17886988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &17886990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8235323031347732995, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+  m_PrefabInstance: {fileID: 17886988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &17886991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17886990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb6610c57751a84a8bb35e0d866ef43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueUI: {fileID: 0}
+  currentDialogueHolder: {fileID: 0}
+  subjectName: <NAME>
 --- !u!1001 &60648239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -341,6 +371,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2344890542647780647, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
   m_PrefabInstance: {fileID: 60648239}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &130686831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 130686832}
+  m_Layer: 0
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &130686832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130686831}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 17886989}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &402918500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2161,6 +2222,10 @@ PrefabInstance:
     - target: {fileID: 8235323031347732995, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
       propertyPath: m_Name
       value: Tablet Charging Station
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235323031347732995, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
