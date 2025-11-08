@@ -41,6 +41,7 @@ public class TeleportationSystem : MonoBehaviour
         else
         {
             SceneManager.LoadScene(destinationScene);
+            PersistentDataManager.Instance.Set("currentLocation", destinationScene);
         }
     }
 }

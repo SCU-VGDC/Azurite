@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string startupScene;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject mainCameraPrefab;
+    [SerializeField] private GameObject submarinePrefab;
     [NonSerialized] public static GameManager inst;
     [NonSerialized] public Player player;
     public bool debugMode;
@@ -77,6 +78,8 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
         if (scene.name == startupScene) return;
+        string SubmarineLocation;
+        string CurrentLocation;
 
         var bounds = GameObject.FindWithTag("Camera Bounds");
         if (bounds != null && bounds.TryGetComponent<PolygonCollider2D>(out var collider))
@@ -87,6 +90,35 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a PolygonCollider2D tagged as 'Camera Bounds'!");
         }
+        if (PersistentDataManager.Instance.TryGet<string>("submarineInRoom", out SubmarineLocation))
+        {
+            Debug.Log($"Current world state = {SubmarineLocation}");
+            if (PersistentDataManager.Instance.TryGet<string>("currentLocation", out CurrentLocation))
+            {
+                Debug.Log($"Current world state = {CurrentLocation}");
+                if (SubmarineLocation == CurrentLocation)
+                {
+                    GameObject location = GameObject.Find("SubmarineDock");
+                    if (location != null)
+                    {
+                        Debug.Log("Found Submarine!");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No object named Submarine found in scene!");
+                    }
+                    Instantiate(submarinePrefab, location.transform);
+                }
+            }
+            else
+            {
+                Debug.Log("Submarine location not found or wrong type");
+            }
+        }
+        else
+        {
+            Debug.Log("Current location not found or wrong type");
+        }        
     }
 
 

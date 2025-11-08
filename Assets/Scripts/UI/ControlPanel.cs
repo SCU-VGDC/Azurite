@@ -20,17 +20,6 @@ public class ControlPanel : MonoBehaviour
 
     }
 
-    public void Exit()
-    {
-        gameObject.SetActive(false);
-
-    }
-
-    public void MoveToRoom(string roomName)
-    {
-        ActionManager.Instance.ChangeSubmarineState(roomName);
-    }
-
     // Update is called once per frame
     void Update()
     {
