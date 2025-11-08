@@ -940,6 +940,18 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 3933811664790459942, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933811664790459942, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508342349060032938, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5048751067160161549, guid: 36a705ebf933d98498fbeed3af2e9e01, type: 3}
     - target: {fileID: 8235323031347732995, guid: 115ae6e9765cbc94499e5e1280e23ec9, type: 3}
       propertyPath: m_Name
       value: Mechanic Guy
