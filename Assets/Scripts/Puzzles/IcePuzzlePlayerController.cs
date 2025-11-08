@@ -11,6 +11,7 @@ public class IcePuzzlePlayerController : MonoBehaviour
 	/// <summary>Whether or not the puzzle has been completed.</summary>
 	[Tooltip("Whether or not the puzzle has been completed.")]
 	public bool puzzleComplete = false;
+	public bool runOnceFlag = false;
 	/// <summary>The duration of the slide animation in seconds.</summary>
 	[Tooltip("The duration of the slide animation in seconds.")]
 	public float slideDuration = 0.5f;
@@ -22,7 +23,13 @@ public class IcePuzzlePlayerController : MonoBehaviour
 	/// <summary>The animation progress from 0 to 1.</summary>
 	private float animationTime = 1;
 
-	void Update()
+    void Start()
+    {
+        // snap the player to the grid! round, not truncate
+		transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
+    }
+
+    void Update()
 	{
 		// Play the slide animation.
 		if(this.animationTime < 1)
@@ -47,6 +54,13 @@ public class IcePuzzlePlayerController : MonoBehaviour
 		// Stop further processing if the puzzle has been completed
 		if(this.puzzleComplete)
 		{
+			if (!runOnceFlag)
+			{
+            	StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
+
+				runOnceFlag = true;
+			}
+
 			return;
 		}
 		

@@ -94,7 +94,8 @@ GameObject:
   - component: {fileID: 260710464042178517}
   - component: {fileID: 3838181656129955612}
   - component: {fileID: 554456252167468186}
-  - component: {fileID: 8671582116560466506}
+  - component: {fileID: 6599850474268316214}
+  - component: {fileID: 8029251484623211219}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -202,7 +203,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05802536}
+  m_Offset: {x: 0, y: -1.8974761}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -213,7 +214,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.019621, y: 3.7447143}
+  m_Size: {x: 2.019621, y: 0.022942066}
   m_EdgeRadius: 0
 --- !u!50 &3838181656129955612
 Rigidbody2D:
@@ -238,9 +239,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &554456252167468186
 MonoBehaviour:
@@ -255,9 +256,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 3838181656129955612}
+  spriteRenderer: {fileID: 1090874666289874137}
   playerSpeed: 10
   inventoryPrefab: {fileID: 344100902533872232, guid: 26f44a2f4a2994223be87a7d8db617a4, type: 3}
---- !u!114 &8671582116560466506
+  freezeMovement: 0
+--- !u!114 &6599850474268316214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,3 +281,17 @@ MonoBehaviour:
   itemChangedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8029251484623211219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629497072332039666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
+  count: 1

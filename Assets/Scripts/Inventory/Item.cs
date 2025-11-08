@@ -32,7 +32,7 @@ public class Item : ScriptableObject
 
 	/// <summary>A prefab of the item's inspect UI.</summary>
 	[Tooltip("A prefab of the item's inspect UI.")]
-	[SerializeField] private InspectUIBase inspectUIPrefab = null;
+	[SerializeField] private InspectMenuBase inspectMenuPrefab = null;
 
 	/// <summary>The item's categories. Used for showing relevant items during interactions.</summary>
 	[Tooltip("The item's categories. Used for showing relevant items during interactions.")]
@@ -87,9 +87,9 @@ public class Item : ScriptableObject
 	/// Get the item's inspect UI prefab.
 	/// </summary>
 	/// <returns>The item's inspect UI prefab.</returns>
-	public InspectUIBase GetInspectUIPrefab()
+	public InspectMenuBase GetInspectMenuPrefab()
 	{
-		return this.inspectUIPrefab;
+		return this.inspectMenuPrefab;
 	}
 
 	/// <summary>

@@ -1,0 +1,91 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ActionManager : MonoBehaviour
+{
+    public static ActionManager Instance;
+    [SerializeField] private String Location;
+
+    private int actionCounter
+    {
+        get { return PersistentDataManager.Instance.Get<int>("actionCounter"); }
+
+        set { PersistentDataManager.Instance.Set("actionCounter", value);  }
+    }
+
+    private int actionThreshold
+    {
+        get { return (int)PersistentDataManager.Instance.Get("actionThreshold"); }
+
+        set { PersistentDataManager.Instance.Set("actionThreshold", value); }
+    }
+
+    private int[] actionThresholdIncrease
+    {
+        get { return PersistentDataManager.Instance.Get("actionThresholdIncrease") as int[]; }
+
+        set { PersistentDataManager.Instance.Set("actionThresholdIncrease", value);  }
+    }
+
+    private int worldState
+    {
+        get { return (int)PersistentDataManager.Instance.Get("worldState"); }
+
+        set { PersistentDataManager.Instance.Set("worldState", value); }
+    }
+
+    private int WorldStateMax
+    {
+        get { return ((int[])PersistentDataManager.Instance.Get("actionThresholdIncrease")).Length; }
+    }
+
+    // basic singleton pattern
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        // initialize persistent data
+        actionCounter = 0;
+        actionThreshold = 10;
+        actionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 };
+    }
+
+    private void IncrementRoomState()
+    {
+        if (actionCounter >= actionThreshold && (worldState + 1) <= WorldStateMax)
+        {
+            actionThreshold += actionThresholdIncrease[worldState];
+            worldState++;
+
+            Debug.Log(worldState);
+            IncrementRoomState();
+        }
+    }
+
+    public void IncrementAction(int x)
+    {
+        if (worldState + 1 <= WorldStateMax)
+        {
+            actionCounter += x;
+
+            IncrementRoomState();
+        }
+    }
+
+    public void ChangeSubmarineState(string name)
+    {
+        PersistentDataManager.Instance.Set("submarineInRoom", name);
+        Location = name;
+    }
+}

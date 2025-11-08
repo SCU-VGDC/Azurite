@@ -14,9 +14,9 @@ public class ItemStack : MonoBehaviour
 	/// Add the item stack to the specified inventory.
 	/// </summary>
 	/// <param name="inventory">The inventory to add to.</param>
-	public void AddTo(Inventory inventory)
+	public void AddTo()
 	{
-		inventory.AddItem(this.item, this.count);
+		GameManager.inst.player.Inventory.AddItem(this.item, this.count);
 	}
 
 	/// <summary>

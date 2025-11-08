@@ -105,6 +105,9 @@ public class SokobanHandler : MonoBehaviour
             Debug.Log("wow you did it");
             solved = true;
             onSolved.Invoke();
+
+            // TODO: add to onSolved
+            StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
         }
     }
 

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,55 +6,42 @@ public class TeleportationSystem : MonoBehaviour
 {
     // Start is called before the first frame update
     public string destinationScene;
-    public GameObject destinationObject;
     private Vector2 destinationCoords;
     [SerializeField] private InteractionTrigger interaction;
-    [SerializeField] private Collider2D destinationCameraBorder;
 
     void Start()
     {
-        interaction.onInteract.AddListener(this.Teleport);
+        interaction.onInteract.AddListener(Teleport);
 
-        destinationCoords = destinationObject.transform.position;
+        if (GameManager.inst == null)
+        {
+            Debug.LogWarning("GameManager didn't exist on scene startup!");
+            return;
+        }
 
+        if (!string.IsNullOrEmpty(destinationScene) && GameManager.inst.PreviousScene == destinationScene)
+        {
+            GameManager.inst.player.transform.position = transform.position;
+            GameManager.inst.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.inst.player.transform.position, Quaternion.identity);
+        }
     }
+    
     public void Teleport()
     {
         if (string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)
         {
-            Debug.Log("Teleporting player within the same scene.");
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Player player = GameManager.inst.player;
             if (player != null)
             {
                 // teleport the player!
                 player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
-
-                // change camera's border
-                GameObject.FindGameObjectWithTag("Virtual Camera").GetComponent<CinemachineConfiner2D>().m_BoundingShape2D = destinationCameraBorder;
+                GameManager.inst.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(player.transform.position, Quaternion.identity);
             }
-
         }
         else
         {
-            Debug.Log("Teleport Collide");
-            PersistentDataScript.Instance.SetDestinationCoordinates(destinationCoords);
             SceneManager.LoadScene(destinationScene);
+            PersistentDataManager.Instance.Set("currentLocation", destinationScene);
         }
-
-    }
-    public void OnTriggerEnter2D()
-    {
-
-    }
-    public void Warp()
-    {
-        Debug.Log("Teleport Collide");
-        PersistentDataScript.Instance.SetDestinationCoordinates(destinationCoords);
-        SceneManager.LoadScene(destinationScene);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

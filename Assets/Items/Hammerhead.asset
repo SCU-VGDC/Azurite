@@ -17,5 +17,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   preview: {fileID: 0}
   maxStackSize: 99
-  inspectUIPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
+  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
   categories: 02000000
