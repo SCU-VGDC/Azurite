@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 	private GameObject canvas = null;
 
 	/// <summary>The player's currently opened UI.</summary>
-	private InventoryMenuController activeUI = null;
+	private MenuBase activeUI = null;
 
 	public bool freezeMovement = false;
 
