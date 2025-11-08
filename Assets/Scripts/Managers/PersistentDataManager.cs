@@ -26,6 +26,9 @@ public class PersistentDataManager : MonoBehaviour
     {
         // Initialize any persistent data
         Instance.Set("worldState", 0);
+
+        // mechanical room
+        Instance.Set("mechanicalRoomDoorsOpen", new List<bool>() { false, false, false, false, false});
     }
 
     public void Set<T>(string key, T value)
