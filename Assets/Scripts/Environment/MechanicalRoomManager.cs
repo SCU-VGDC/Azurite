@@ -10,7 +10,13 @@ public class MechanicalRoomManager : MonoBehaviour
     /// <summary>
     /// 4 sets of puzzle prefabs, one set for each part of the mechanical room separated by doors.
     /// </summary>
-    [SerializeField] private List<List<GameObject>> puzzlePrefabSets;
+    [SerializeField] private List<GameObjectListWrapper> puzzlePrefabSets;
+    
+    [System.Serializable]
+    public class GameObjectListWrapper
+    {
+        public List<GameObject> puzzleSet;
+    }
 
     void Start()
     {
@@ -60,10 +66,10 @@ public class MechanicalRoomManager : MonoBehaviour
     /// <returns></returns>
     public GameObject GetAPuzzle(int setNumber)
     {
-        int randomPuzzleIndex = Random.Range(0, puzzlePrefabSets[setNumber].Count);
+        int randomPuzzleIndex = Random.Range(0, puzzlePrefabSets[setNumber].puzzleSet.Count);
 
-        GameObject puzzlePrefab = puzzlePrefabSets[setNumber][randomPuzzleIndex];
-        puzzlePrefabSets[setNumber].RemoveAt(randomPuzzleIndex);
+        GameObject puzzlePrefab = puzzlePrefabSets[setNumber].puzzleSet[randomPuzzleIndex];
+        puzzlePrefabSets[setNumber].puzzleSet.RemoveAt(randomPuzzleIndex);
 
         return puzzlePrefab;
     }
