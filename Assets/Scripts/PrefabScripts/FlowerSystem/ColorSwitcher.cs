@@ -40,6 +40,14 @@ public class ColorSwitcher : MonoBehaviour
             int childIndex = availableIndices[randomIndex];
             availableIndices.RemoveAt(randomIndex);
             childObject[i].transform.position = Placements[childIndex].transform.position;
+            if (childObject[i].transform.position.y > 0)
+            {
+                childObject[i].GetComponent<Renderer>().sortingOrder = -326;
+            }
+            else if (childObject[i].transform.position.y < 9)
+            {
+                childObject[i].GetComponent<Renderer>().sortingOrder = 708;
+            }
         }
     }
 
