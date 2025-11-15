@@ -1,13 +1,18 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 public class PuzzleInteraction : MonoBehaviour
 {
     private Player playerScript;
-    [SerializeField] private InteractionTrigger interaction;
+    [SerializeField] private MechanicalRoomManager mechanicalRoomManager;
+    [SerializeField] private int puzzleIndex;
 
-    [SerializeField] private GameObject puzzlePrefab;
+    /// <summary>
+    /// The index to grab a puzzle prefab from the MechanicalRoomManager's puzzlePrefabSets.
+    /// </summary>
+    [SerializeField] private int puzzleRoomSetIndex;
     private GameObject instantiatePuzzlePrefab;
     static public Vector3 puzzleLocation = new(100, 0, 0);
 
@@ -24,15 +29,23 @@ public class PuzzleInteraction : MonoBehaviour
         mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
         playerScript = GameManager.inst.player.GetComponent<Player>();
+    }
 
-        interaction.onInteract.AddListener(this.StartGame);
+    private bool PuzzleHasBeenCompletedCheck()
+    {
+        return PersistentDataManager.Instance.Get<List<List<bool>>>("mechanicalRoomPuzzlesCompleted")[puzzleRoomSetIndex][puzzleIndex];
     }
 
     public void StartGame()
     {
+        if (PuzzleHasBeenCompletedCheck()) return;
+
         // freeze the player
         playerScript.freezeMovement = true;
         GameManager.inst.paused = true;
+
+        // grab a puzzle prefab from the mechanical room manager
+        GameObject puzzlePrefab = mechanicalRoomManager.GetAPuzzle(puzzleRoomSetIndex);
 
         // instantiate puzzle
         instantiatePuzzlePrefab = Instantiate(puzzlePrefab, puzzleLocation, Quaternion.identity);
@@ -74,5 +87,11 @@ public class PuzzleInteraction : MonoBehaviour
         // resume player
         playerScript.freezeMovement = false;
         GameManager.inst.paused = false;
+
+        // update the persistent data so the puzzle cannot be completed again
+        List<List<bool>> puzzlesCompleted = PersistentDataManager.Instance.Get<List<List<bool>>>("mechanicalRoomPuzzlesCompleted");
+        puzzlesCompleted[puzzleRoomSetIndex][puzzleIndex] = true;
+        
+        PersistentDataManager.Instance.Set("mechanicalRoomPuzzlesCompleted", puzzlesCompleted);
     }
 }

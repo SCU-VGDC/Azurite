@@ -28,7 +28,12 @@ public class PersistentDataManager : MonoBehaviour
         Instance.Set("worldState", 0);
 
         // mechanical room
-        Instance.Set("mechanicalRoomDoorsOpen", new List<bool>() { false, false, false, false, false});
+        Instance.Set("mechanicalRoomPuzzlesCompleted", new List<List<bool>>() {
+            new List<bool> { false, false, false, false },
+            new List<bool> { false, false, false, false },
+            new List<bool> { false, false, false, false },
+            new List<bool> { false, false, false, false },
+        });
     }
 
     public void Set<T>(string key, T value)
