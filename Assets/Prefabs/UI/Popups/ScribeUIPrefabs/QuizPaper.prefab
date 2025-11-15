@@ -131,6 +131,20 @@ MonoBehaviour:
   answerPrefab: {fileID: 6701228207477323564, guid: f3fbda877c050dd4fba585f3ff5fdc00, type: 3}
   questionText: {fileID: 5739713180382611539}
   verticalLayout: {fileID: 5422743243503134747}
+  questions:
+  - question: What is the airspeed velocity of an unladen swallow?
+    answers:
+    - 11 m/s
+    - 12 m/s
+    - 13 m/s
+    - 14 m/s
+    correctIndex: 0
+  - question: What killed the health inspector?
+    answers:
+    - Krabby Patty
+    - Nasty Patty
+    - Pretty Patty
+    correctIndex: 1
   prevButton: {fileID: 2304719241261435490}
   nextButton: {fileID: 4231314944143827837}
 --- !u!1 &5604651060116896521
