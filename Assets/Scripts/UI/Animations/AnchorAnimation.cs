@@ -24,11 +24,6 @@ public class AnchorAnimation : MenuAnimation
 
 	public override void Update()
 	{
-		if(this.progress == this.endPos)
-		{
-			return;
-		}
-		
 		base.Update();
 
 		// Set the min and max anchors to the interpolated position.
