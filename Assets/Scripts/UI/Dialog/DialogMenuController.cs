@@ -1,7 +1,5 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DialogMenuController : MenuBase
@@ -20,19 +18,28 @@ public class DialogMenuController : MenuBase
 
 	private DialogController dialogTree = null;
 	private DialogEntry[] currentEntries = null;
+	private bool hasOptions = false;
 
 	public DialogMenuController Init(DialogController dialog)
 	{
 		this.dialogTree = dialog;
-		this.dialogTree.onEnd.AddListener(this.Close);
-		this.dialogTree.onOpenDialog.AddListener(this.SetDialog);
+		this.dialogTree.onDialogEnd.AddListener(this.Close);
+		this.dialogTree.onDialogChange.AddListener(this.SetDialog);
 		return this;
 	}
 
 	public override void Update()
 	{
+		base.Update();
+
 		if(!Input.GetKeyDown(KeyCode.Return))
 		{
+			return;
+		}
+		
+		if(!this.hasOptions)
+		{
+			this.dialogTree.Select(null);
 			return;
 		}
 
@@ -48,9 +55,9 @@ public class DialogMenuController : MenuBase
 		}
 	}
 
-	public void AddEntry(DialogEntry entry)
+	private void AddEntry(DialogEntry entry, bool useButtons)
 	{
-		if(entry.HasNext() || entry.IsForceSelectable())
+		if(useButtons && (entry.HasNext() || entry.IsForceSelectable()))
 		{
 			Button option = Instantiate(this.optionPrefab, this.content.transform);
 			TextMeshProUGUI prompt = option.GetComponentInChildren<TextMeshProUGUI>();
@@ -65,19 +72,34 @@ public class DialogMenuController : MenuBase
         dialog.SetText(entry.GetText());
 	}
 
-	public void SetDialog(string titleText, DialogEntry[] entries)
+	public void SetDialog(DialogController dialog)
 	{
-		this.currentEntries = entries;
-		this.title.SetText(titleText);
+		this.currentEntries = dialog.GetDialogEntries();
+		this.title.SetText(dialog.GetTitle());
 
 		for(int i = this.content.transform.childCount; --i >= 0;)
 		{
 			Destroy(this.content.transform.GetChild(i).gameObject);
 		}
 
-		foreach(DialogEntry dialog in this.currentEntries)
+		int selectableCount = 0;
+		
+		for(int i = this.currentEntries.Length; --i >= 0;)
 		{
-			this.AddEntry(dialog);
+			if(this.currentEntries[i].GetActual().transform.childCount > 0)
+			{
+				++selectableCount;
+			}
+			
+			if(this.hasOptions = (selectableCount == 2 || this.currentEntries[i].GetActual().IsForceSelectable()))
+			{
+				break;
+			}
+		}
+
+		foreach(DialogEntry entry in this.currentEntries)
+		{
+			this.AddEntry(entry, this.hasOptions);
 		}
 	}
 }

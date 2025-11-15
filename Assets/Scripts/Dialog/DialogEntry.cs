@@ -23,9 +23,9 @@ public class DialogEntry : MonoBehaviour
 		return (this.nextOverride != null && this.nextOverride.HasNext()) || this.transform.childCount > 0;
 	}
 
-	public DialogEntry Get()
+	public DialogEntry GetActual()
 	{
-		return this.nextOverride != null ? this.nextOverride.Get() : this;
+		return this.nextOverride != null ? this.nextOverride.GetActual() : this;
 	}
 	
 	public void Select()
@@ -48,8 +48,13 @@ public class DialogEntry : MonoBehaviour
 		return this.text;
 	}
 
-    public string GetTitleOverride()
-    {
-        return this.titleOverride;
-    }
+	public string GetTitleOverride()
+	{
+		return this.titleOverride;
+	}
+	
+	public DialogController GetController()
+	{
+		return this.GetComponentInParent<DialogController>();
+	}
 }

@@ -15,29 +15,14 @@ public class Player : MonoBehaviour
 	/// <summary>The player's inventory.</summary>
 	public Inventory Inventory { get; private set; }
 
-	/// <summary>The main canvas.</summary>
-	private GameObject canvas = null;
-
-	/// <summary>The player's currently opened UI.</summary>
-	private MenuBase activeUI = null;
-
 	public bool freezeMovement = false;
 
 
 	public void Start()
 	{
-		// Retrieve the main canvas.
-		this.canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-		if (this.canvas == null)
-		{
-			Debug.LogError("Failed to find the main canvas.");
-		}
-
 		this.Inventory = this.GetComponent<Inventory>();
 
-		// Get the player's inventory.
-		if (this.Inventory == null)
+		if(this.Inventory == null)
 		{
 			Debug.LogError("Failed to find the player inventory.");
 		}
@@ -45,41 +30,38 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonDown("Inventory"))
+		if(Input.GetButtonDown("Inventory"))
 		{
-			if (this.activeUI == null)
+			if(this.Inventory.IsMenuOpen())
 			{
-				this.activeUI = Instantiate(this.inventoryPrefab, this.canvas.transform).Init(this.Inventory);
-				this.activeUI.onClose.AddListener(() => {
-                    Destroy(this.activeUI.gameObject);
-					this.activeUI = null;
-                });
-				this.activeUI.Open();
+				this.Inventory.GetOpenMenu().Close();
 			}
 			else
 			{
-				this.activeUI.Close();
+				this.Inventory.OpenMenu();
 			}
 		}
 
 		// FOR TESTING
 		// Add an item to the inventory when "U" is pressed.
-		if (Input.GetKeyDown(KeyCode.U))
+		if(Input.GetKeyDown(KeyCode.U))
 		{
 			ItemStack stack = this.GetComponent<ItemStack>();
 			stack.AddTo(this.Inventory);
 		}
 
 		// Only allow player movement when the inventory is closed.
-		if (this.activeUI == null)
-		{
-			playerInput.x = Input.GetAxisRaw("Horizontal");
-			playerInput.y = Input.GetAxisRaw("Vertical");
-		}
-		else
+		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
+
+		if(canvas != null && canvas.GetComponentInChildren<MenuBase>() != null)
 		{
 			playerInput.x = 0;
 			playerInput.y = 0;
+		}
+		else
+		{
+			playerInput.x = Input.GetAxisRaw("Horizontal");
+			playerInput.y = Input.GetAxisRaw("Vertical");
 		}
 	}
 

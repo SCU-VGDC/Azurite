@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49865cbc6918d43588525fce96c61fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onOpenDialog:
+  onDialogChange:
     m_PersistentCalls:
       m_Calls: []
-  onEnd:
+  onDialogEnd:
     m_PersistentCalls:
       m_Calls: []
   title: Waxed Lightly Weathered Cut copper stairs
@@ -6825,7 +6825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34296caaacc3645b0abc3a312314c4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animations: []
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -7214,6 +7213,6 @@ SceneRoots:
   - {fileID: 1104312216}
   - {fileID: 107213013}
   - {fileID: 649186102}
-  - {fileID: 1137404526}
   - {fileID: 21747734}
+  - {fileID: 1137404526}
   - {fileID: 2137047203}

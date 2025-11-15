@@ -3,17 +3,20 @@ using UnityEngine.Events;
 
 public class MenuBase : MonoBehaviour
 {
-	[Tooltip("The animations to play when opening/closing the menu.")]
-	[SerializeField] protected MenuAnimation[] animations;
-
+	[Tooltip("This event is called when when the menu is opened.")]
 	public UnityEvent onOpen = new UnityEvent();
+
+	[Tooltip("This event is called when when the menu is closed.")]
 	public UnityEvent onClose = new UnityEvent();
+
+	[Tooltip("This event is called when when the menu is hidden, usually when a child menu has been opened.")]
 	public UnityEvent onHide = new UnityEvent();
 
 	protected MenuBase parentMenu = null;
 	protected MenuBase childMenu = null;
 	protected int playingAnimations = 0;
 
+	private MenuAnimation[] animations;
 	private bool checkHide = false;
 	private bool checkClose = false;
 
@@ -22,12 +25,24 @@ public class MenuBase : MonoBehaviour
 		this.onOpen.AddListener(() => this.gameObject.SetActive(true));
 		this.onClose.AddListener(() => Destroy(this.gameObject));
 		this.onHide.AddListener(() => this.gameObject.SetActive(false));
-		this.onClose.AddListener(() => {
+		this.onClose.AddListener(() =>
+		{
 			if(this.childMenu != null)
-            {
+			{
 				this.childMenu.Close();
-            }
+			}
 		});
+
+		MenuAnimation[] childAnimations = this.GetComponentsInChildren<MenuAnimation>();
+		MenuAnimation myAnimation = this.GetComponent<MenuAnimation>();
+
+		this.animations = new MenuAnimation[(myAnimation != null ? 1 : 0) + childAnimations.Length];
+		this.animations[0] = myAnimation;
+
+		for(int i = this.animations.Length; --i > 0;)
+		{
+			this.animations[i] = childAnimations[i - 1];
+		}
     }
 
     public virtual void Update()

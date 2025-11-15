@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class InventoryMenuController : MenuBase
 {
-	[Tooltip("The inventory to display.")]
-	[SerializeField] protected Inventory inventory = null;
-
 	[Tooltip("The item stack slot prefab.")]
 	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
 
@@ -19,17 +16,15 @@ public class InventoryMenuController : MenuBase
 
 	public InventoryMenuController Init(Inventory associatedInventory)
 	{
-		this.inventory = associatedInventory;
+		associatedInventory.itemAddedEvent.AddListener(this.AddItemEntry);
+		associatedInventory.itemRemovedEvent.AddListener(this.RemoveItemEntry);
+		associatedInventory.itemChangedEvent.AddListener(this.UpdateItemEntry);
 
-		this.inventory.itemAddedEvent.AddListener(this.AddItemEntry);
-		this.inventory.itemRemovedEvent.AddListener(this.RemoveItemEntry);
-		this.inventory.itemChangedEvent.AddListener(this.UpdateItemEntry);
-
-		Item[] items = this.inventory.GetItems();
+		Item[] items = associatedInventory.GetItems();
 
 		for(int i = 0; i < items.Length; ++i)
 		{
-			this.AddItemEntry(items[i]);
+			this.AddItemEntry(associatedInventory, items[i]);
 		}
 
 		return this;
@@ -92,23 +87,14 @@ public class InventoryMenuController : MenuBase
 	}
 
 	/// <summary>
-	/// Get the inventory associated with this menu.
-	/// </summary>
-	/// <returns>The inventory associated with this menu.</returns>
-	public Inventory GetInventory()
-	{
-		return this.inventory;
-	}
-
-	/// <summary>
 	/// Add an item stack to to the inventory menu. This does not actually 
 	/// add an item to the underlying inventory and is used only for 
 	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to add.</param>
-	protected virtual void AddItemEntry(Item item)
+	protected virtual void AddItemEntry(Inventory inventory, Item item)
 	{
-		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(this.inventory, item);
+		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
 
 		if(stack.TryGetComponent(out Toggle toggle))
 		{
@@ -128,7 +114,7 @@ public class InventoryMenuController : MenuBase
 	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to remove.</param>
-	protected virtual void RemoveItemEntry(Item item)
+	protected virtual void RemoveItemEntry(Inventory inventory, Item item)
 	{
 		ItemStackEntryController stack = this.GetItemStack(item);
 
@@ -143,7 +129,7 @@ public class InventoryMenuController : MenuBase
 	/// stack's stack count label.
 	/// </summary>
 	/// <param name="item">The item to update.</param>
-	protected virtual void UpdateItemEntry(Item item)
+	protected virtual void UpdateItemEntry(Inventory inventory, Item item, int amount)
 	{
 		ItemStackEntryController stack = this.GetItemStack(item);
 

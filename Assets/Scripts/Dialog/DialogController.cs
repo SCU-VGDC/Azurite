@@ -4,15 +4,15 @@ using UnityEngine.Events;
 public class DialogController : MonoBehaviour
 {
 	[Tooltip("This event is called whenever the dialog opens/changes.")]
-	[SerializeField] public UnityEvent<string, DialogEntry[]> onOpenDialog = new UnityEvent<string, DialogEntry[]>();
+	[SerializeField] public UnityEvent<DialogController> onDialogChange = new UnityEvent<DialogController>();
 
 	[Tooltip("This event is called whenever the dialog finishes.")]
-	[SerializeField] public UnityEvent onEnd = new UnityEvent();
+	[SerializeField] public UnityEvent onDialogEnd = new UnityEvent();
 
-	[Tooltip("Set this field to change the title of the dialog moving forward.")]
+	[Tooltip("The initial title of the dialog sequence.")]
 	[SerializeField] private string title = "";
 
-	[Tooltip("Whether or not to save the dialog when closed.")]
+	[Tooltip("Whether or not to save the dialog when closed prematurely.")]
 	[SerializeField] private bool keepState = false;
 
 	[Tooltip("The dialog menu prefab.")]
@@ -25,43 +25,61 @@ public class DialogController : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.M))
 		{
-			this.Open();
+			if (this.IsMenuOpen())
+			{
+				this.GetOpenMenu().Close();
+			}
+			else
+			{
+				this.OpenMenu();
+			}
 		}
 	}
 
 	public void Select(DialogEntry selected)
 	{
-		Debug.Log("Flag");
 		if(selected == null)
 		{
 			foreach(DialogEntry entry in this.GetDialogEntries())
 			{
 				if(entry.HasNext())
 				{
-					this.current = entry.Get();
+					this.current = entry.GetActual();
 					this.current.Select();
-					this.onOpenDialog.Invoke(this.GetTitle(), this.GetDialogEntries());
+					this.onDialogChange.Invoke(this);
 					return;
 				}
 			}
 
-			this.onEnd.Invoke();
+			this.onDialogEnd.Invoke();
 			return;
 		}
 
-		this.current = selected.Get();
+		this.current = selected.GetActual();
 		this.current.Select();
-		this.onOpenDialog.Invoke(this.GetTitle(), this.GetDialogEntries());
+		this.onDialogChange.Invoke(this);
 	}
 
 	public void Reset()
 	{
 		this.current = null;
 		this.titleOverride = "";
-		this.onOpenDialog.Invoke(this.GetTitle(), this.GetDialogEntries());
+		this.onDialogChange.Invoke(this);
 	}
 
-	public void Open()
+	public bool IsMenuOpen()
+	{
+		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
+		return canvas != null && canvas.transform.GetComponentInChildren<DialogMenuController>() != null;
+	}
+
+	public DialogMenuController GetOpenMenu()
+	{
+		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
+		return canvas != null ? canvas.transform.GetComponentInChildren<DialogMenuController>() : null;
+	}
+
+	public void OpenMenu()
 	{
 		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
 
@@ -75,7 +93,7 @@ public class DialogController : MonoBehaviour
 
 		if(this.keepState)
 		{
-			this.onOpenDialog.Invoke(this.GetTitle(), this.GetDialogEntries());
+			this.onDialogChange.Invoke(this);
 			return;
 		}
 
@@ -92,7 +110,7 @@ public class DialogController : MonoBehaviour
 		return this.titleOverride.Length > 0 ? this.titleOverride : this.title;
 	}
 
-	private DialogEntry[] GetDialogEntries()
+	public DialogEntry[] GetDialogEntries()
 	{
 		Transform currentDialog = this.current == null ? this.transform : this.current.transform;
 		DialogEntry[] entries = new DialogEntry[currentDialog.childCount];
