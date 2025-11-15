@@ -36,7 +36,7 @@ public class SubmarineRoute : MonoBehaviour
         ActionManager.Instance.ChangeSubmarineState("name");
 
     }
-
+     
     // Update is called once per frame
     void Update()
     {

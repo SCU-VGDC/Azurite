@@ -6,10 +6,11 @@ using UnityEngine;
 public class ActionManager : MonoBehaviour
 {
     public static ActionManager Instance;
+    [SerializeField] private String Location;
 
     private int actionCounter
     {
-        get { return (int)PersistentDataManager.Instance.Get("actionCounter"); }
+        get { return PersistentDataManager.Instance.Get<int>("actionCounter"); }
 
         set { PersistentDataManager.Instance.Set("actionCounter", value);  }
     }
@@ -39,9 +40,6 @@ public class ActionManager : MonoBehaviour
     {
         get { return ((int[])PersistentDataManager.Instance.Get("actionThresholdIncrease")).Length; }
     }
-
-    [SerializeField] private SubmarineRoute submarine;
-    [SerializeField] private string submarineInRoom;
 
     // basic singleton pattern
     private void Awake()
@@ -87,14 +85,7 @@ public class ActionManager : MonoBehaviour
 
     public void ChangeSubmarineState(string name)
     {
-        if (submarine != null)
-        {
-            string potentialName = submarine.TryMoveNext(out var successSub, name);
-
-            if (successSub == true)
-            {
-                submarineInRoom = potentialName;
-            }
-        }
+        PersistentDataManager.Instance.Set("submarineInRoom", name);
+        Location = name;
     }
 }
