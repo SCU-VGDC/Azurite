@@ -5,43 +5,26 @@ using UnityEngine.UI;
 
 public class InventoryMenuController : MenuBase
 {
-	/// <summary>The inventory to display.</summary>
-	[Tooltip("The inventory to display.")]
-	[SerializeField] protected Inventory inventory = null;
-
-	/// <summary>The item stack prefab.</summary>
-	[Tooltip("The item stack prefab.")]
+	[Tooltip("The item stack slot prefab.")]
 	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
 
-	/// <summary>The toggle group containing the item stacks.</summary>
 	[Tooltip("The toggle group containing the item stacks.")]
 	[SerializeField] protected ToggleGroup itemList = null;
 
-	/// <summary>The item name text box.</summary>
 	[Tooltip("The item name text box.")]
 	[SerializeField] protected TextMeshProUGUI itemName = null;
 
-	/// <summary>
-	/// Initialize the inventory menu controller with an inventory. This will generate all 
-	/// the itemstacks and register events with the inventory to automatically update.
-	/// </summary>
-	/// <param name="associatedInventory">The inventory to display.</param>
-	/// <returns>The post-initialized menu controller.</returns>
 	public InventoryMenuController Init(Inventory associatedInventory)
 	{
-		this.inventory = associatedInventory;
+		associatedInventory.itemAddedEvent.AddListener(this.AddItemEntry);
+		associatedInventory.itemRemovedEvent.AddListener(this.RemoveItemEntry);
+		associatedInventory.itemChangedEvent.AddListener(this.UpdateItemEntry);
 
-		// Add the inventory event listeners.
-		this.inventory.itemAddedEvent.AddListener(this.AddItem);
-		this.inventory.itemRemovedEvent.AddListener(this.RemoveItem);
-		this.inventory.itemChangedEvent.AddListener(this.UpdateItem);
-
-		// Generate the item stacks.
-		Item[] items = this.inventory.GetItems();
+		Item[] items = associatedInventory.GetItems();
 
 		for(int i = 0; i < items.Length; ++i)
 		{
-			this.AddItem(items[i]);
+			this.AddItemEntry(associatedInventory, items[i]);
 		}
 
 		return this;
@@ -73,7 +56,7 @@ public class InventoryMenuController : MenuBase
 		}
 
 		// Open the inspect menu when space is pressed.
-		if(Input.GetKeyDown(KeyCode.Space) && !this.HasSubMenu())
+		if(this.childMenu == null && Input.GetKeyDown(KeyCode.Space))
 		{
 			Item selected = this.GetSelectedItem();
 
@@ -81,18 +64,26 @@ public class InventoryMenuController : MenuBase
 			{
 				return;
 			}
+
+			this.childMenu = Instantiate(selected.GetInspectMenuPrefab(), this.transform.parent).Init(selected);
+			this.childMenu.SetParent(this);
+			this.childMenu.gameObject.SetActive(false);
+			this.childMenu.onClose.AddListener(() => {
+				Destroy(this.childMenu.gameObject);
+				this.childMenu = null;
+			});
 			
-			this.Open(Instantiate(selected.GetInspectMenuPrefab(), this.transform.parent).Init(selected));
+			this.onHide.AddListener(this.OpenInspectMenu);
+			this.Hide();
 		}
 	}
 
-	/// <summary>
-	/// Get the inventory associated with this menu.
-	/// </summary>
-	/// <returns>The inventory associated with this menu.</returns>
-	public Inventory GetInventory()
+	private void OpenInspectMenu()
 	{
-		return this.inventory;
+		this.gameObject.SetActive(false);
+		this.childMenu.gameObject.SetActive(true);
+		this.childMenu.Open();
+		this.onHide.RemoveListener(this.OpenInspectMenu);
 	}
 
 	/// <summary>
@@ -101,18 +92,16 @@ public class InventoryMenuController : MenuBase
 	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to add.</param>
-	protected virtual void AddItem(Item item)
+	protected virtual void AddItemEntry(Inventory inventory, Item item)
 	{
-		// Create a new item stack controller
-		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(this.inventory, item);
+		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
 
-		// Add the stack to the item list toggle group.
 		if(stack.TryGetComponent(out Toggle toggle))
 		{
 			toggle.group = this.itemList;
 			toggle.onValueChanged.AddListener(this.UpdateItemName);
 
-			if(this.itemList.transform.childCount == 1)
+			if(this.itemList.transform.childCount == 1) // Update the text box when the first item is added.
 			{
 				this.UpdateItemName(false);
 			}
@@ -125,7 +114,7 @@ public class InventoryMenuController : MenuBase
 	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to remove.</param>
-	protected virtual void RemoveItem(Item item)
+	protected virtual void RemoveItemEntry(Inventory inventory, Item item)
 	{
 		ItemStackEntryController stack = this.GetItemStack(item);
 
@@ -140,7 +129,7 @@ public class InventoryMenuController : MenuBase
 	/// stack's stack count label.
 	/// </summary>
 	/// <param name="item">The item to update.</param>
-	protected virtual void UpdateItem(Item item)
+	protected virtual void UpdateItemEntry(Inventory inventory, Item item, int amount)
 	{
 		ItemStackEntryController stack = this.GetItemStack(item);
 
@@ -168,13 +157,11 @@ public class InventoryMenuController : MenuBase
 			this.itemName.SetText(selected.GetDisplayName());
 			this.itemName.enabled = true;
 
-			// Refresh any layout groups with the new width.
-			// Shouldn't use this function but it works :/
+			// Unity says we shouldn't use this function but it works :/
 			LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform) this.itemName.transform);
 		}
 		else
 		{	
-			// Hide the name field if nothing is selected.
 			this.itemName.enabled = false;
 		}
 	}
