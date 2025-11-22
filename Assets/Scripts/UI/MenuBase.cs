@@ -16,7 +16,7 @@ public class MenuBase : MonoBehaviour
 	protected MenuBase childMenu = null;
 	protected int playingAnimations = 0;
 
-	private MenuAnimation[] animations;
+	private MenuAnimation[] animations = new MenuAnimation[0];
 	private bool checkHide = false;
 	private bool checkClose = false;
 
@@ -37,11 +37,15 @@ public class MenuBase : MonoBehaviour
 		MenuAnimation myAnimation = this.GetComponent<MenuAnimation>();
 
 		this.animations = new MenuAnimation[(myAnimation != null ? 1 : 0) + childAnimations.Length];
-		this.animations[0] = myAnimation;
 
-		for(int i = this.animations.Length; --i > 0;)
+		for(int i = childAnimations.Length; --i >= 0;)
 		{
-			this.animations[i] = childAnimations[i - 1];
+			this.animations[i] = childAnimations[i];
+		}
+
+		if(myAnimation != null)
+		{
+			this.animations[this.animations.Length - 1] = myAnimation;
 		}
     }
 
@@ -99,7 +103,7 @@ public class MenuBase : MonoBehaviour
 
 	protected void PlayAnimations()
 	{
-		for (int i = animations.Length; --i >= 0;)
+		for (int i = this.animations.Length; --i >= 0;)
 		{
 			this.animations[i].Play();
 		}
@@ -107,7 +111,7 @@ public class MenuBase : MonoBehaviour
 
 	protected void RewindAnimations()
 	{
-		for(int i = animations.Length; --i >= 0;)
+		for(int i = this.animations.Length; --i >= 0;)
 		{
 			this.animations[i].Rewind();
 		}
@@ -115,7 +119,7 @@ public class MenuBase : MonoBehaviour
 
 	public bool HaveAnimationsPlayed()
 	{
-		for(int i = animations.Length; --i >= 0;)
+		for(int i = this.animations.Length; --i >= 0;)
 		{
 			if(this.animations[i].GetDirection() != 1f || this.animations[i].GetProgress() < 1f)
 			{
@@ -128,7 +132,7 @@ public class MenuBase : MonoBehaviour
 	
 	public bool HaveAnimationsRewound()
 	{
-		for(int i = animations.Length; --i >= 0;)
+		for(int i = this.animations.Length; --i >= 0;)
 		{
 			if(this.animations[i].GetDirection() != -1f || this.animations[i].GetProgress() > 0f)
 			{

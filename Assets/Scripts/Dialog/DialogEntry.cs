@@ -18,6 +18,11 @@ public class DialogEntry : MonoBehaviour
 	[Tooltip("Set to true to force the entry to be selectable. Useful for a singular dialog option.")]
     [SerializeField] private bool overrideSelectable = false;
 
+	public bool IsSelectable()
+	{
+		return this.overrideSelectable || this.HasNext();
+	}
+
 	public bool HasNext()
 	{
 		return (this.nextOverride != null && this.nextOverride.HasNext()) || this.transform.childCount > 0;
@@ -37,11 +42,6 @@ public class DialogEntry : MonoBehaviour
 			this.nextOverride.Select();
 		}
 	}
-	
-	public bool IsForceSelectable()
-    {
-        return this.overrideSelectable;
-    }
 
 	public string GetText()
 	{
@@ -51,10 +51,5 @@ public class DialogEntry : MonoBehaviour
 	public string GetTitleOverride()
 	{
 		return this.titleOverride;
-	}
-	
-	public DialogController GetController()
-	{
-		return this.GetComponentInParent<DialogController>();
 	}
 }

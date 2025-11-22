@@ -21,6 +21,7 @@ public class DialogController : MonoBehaviour
 	private DialogEntry current = null;
 	private string titleOverride = "";
 
+	// TESTING CODE PLEASE REMOVE
 	public void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.M))
@@ -35,29 +36,36 @@ public class DialogController : MonoBehaviour
 			}
 		}
 	}
+	// END OF TESTING CODE
 
-	public void Select(DialogEntry selected)
+	public void Select(int dialogIndex)
 	{
-		if(selected == null)
+		if(dialogIndex >= 0)
 		{
-			foreach(DialogEntry entry in this.GetDialogEntries())
+			DialogEntry entry = this.GetDialogEntries()[dialogIndex];
+
+			if(entry.IsSelectable())
 			{
-				if(entry.HasNext())
-				{
-					this.current = entry.GetActual();
-					this.current.Select();
-					this.onDialogChange.Invoke(this);
-					return;
-				}
+				this.current = entry.GetActual();
+				this.current.Select();
+				this.onDialogChange.Invoke(this);
 			}
 
-			this.onDialogEnd.Invoke();
 			return;
 		}
 
-		this.current = selected.GetActual();
-		this.current.Select();
-		this.onDialogChange.Invoke(this);
+		foreach(DialogEntry entry in this.GetDialogEntries())
+		{
+			if(entry.IsSelectable())
+			{
+				this.current = entry.GetActual();
+				this.current.Select();
+				this.onDialogChange.Invoke(this);
+				return;
+			}
+		}
+
+		this.onDialogEnd.Invoke();
 	}
 
 	public void Reset()
@@ -115,7 +123,7 @@ public class DialogController : MonoBehaviour
 		Transform currentDialog = this.current == null ? this.transform : this.current.transform;
 		DialogEntry[] entries = new DialogEntry[currentDialog.childCount];
 
-		for (int i = currentDialog.transform.childCount; --i >= 0;)
+		for(int i = currentDialog.transform.childCount; --i >= 0;)
 		{
 			entries[i] = currentDialog.GetChild(i).GetComponent<DialogEntry>();
 		}

@@ -10,21 +10,16 @@ public class DialogMenuController : MenuBase
     [Tooltip("The content panel containing the text and options.")]
     [SerializeField] protected VerticalLayoutGroup content = null;
 
-    [Tooltip("The text box prefab for dialog text.")]
-    [SerializeField] protected TextMeshProUGUI textPrefab = null;
-
 	[Tooltip("The button prefab for dialog options.")]
-	[SerializeField] protected Button optionPrefab = null;
+	[SerializeField] protected DialogEntryMenuController optionPrefab = null;
 
-	private DialogController dialogTree = null;
-	private DialogEntry[] currentEntries = null;
+	private int firstSelectable = -1;
 	private bool hasOptions = false;
 
 	public DialogMenuController Init(DialogController dialog)
 	{
-		this.dialogTree = dialog;
-		this.dialogTree.onDialogEnd.AddListener(this.Close);
-		this.dialogTree.onDialogChange.AddListener(this.SetDialog);
+		dialog.onDialogEnd.AddListener(this.Close);
+		dialog.onDialogChange.AddListener(this.SetDialog);
 		return this;
 	}
 
@@ -32,74 +27,61 @@ public class DialogMenuController : MenuBase
 	{
 		base.Update();
 
-		if(!Input.GetKeyDown(KeyCode.Return))
+		if(Input.GetKeyDown(KeyCode.Return))
 		{
-			return;
+			this.content.transform.GetChild(this.firstSelectable).GetComponent<Button>().onClick.Invoke();
 		}
-		
-		if(!this.hasOptions)
-		{
-			this.dialogTree.Select(null);
-			return;
-		}
-
-		for(int i = 0; i < this.content.transform.childCount; ++i)
-		{
-			Button button = this.content.transform.GetChild(i).GetComponent<Button>();
-
-			if(button != null)
-			{
-				button.onClick.Invoke();
-				return;
-			}
-		}
-	}
-
-	private void AddEntry(DialogEntry entry, bool useButtons)
-	{
-		if(useButtons && (entry.HasNext() || entry.IsForceSelectable()))
-		{
-			Button option = Instantiate(this.optionPrefab, this.content.transform);
-			TextMeshProUGUI prompt = option.GetComponentInChildren<TextMeshProUGUI>();
-
-			option.onClick.AddListener(() => { this.dialogTree.Select(entry); });
-			prompt.SetText(entry.GetText());
-			
-			return;
-		}
-		
-		TextMeshProUGUI dialog = Instantiate(this.textPrefab, this.content.transform);
-        dialog.SetText(entry.GetText());
 	}
 
 	public void SetDialog(DialogController dialog)
 	{
-		this.currentEntries = dialog.GetDialogEntries();
+		DialogEntryMenuController[] entries = this.content.GetComponentsInChildren<DialogEntryMenuController>();
+
+		if(entries.Length == 0)
+		{
+			this.GenerateEntries(dialog);
+			return;
+		}
+
+		entries[0].onClose.AddListener(() => { this.GenerateEntries(dialog); });
+
+		for(int i = entries.Length; --i >= 0;)
+		{
+			entries[i].Close();
+		}
+	}
+
+	private void GenerateEntries(DialogController dialog)
+	{
+		DialogEntry[] entries = dialog.GetDialogEntries();
 		this.title.SetText(dialog.GetTitle());
 
-		for(int i = this.content.transform.childCount; --i >= 0;)
-		{
-			Destroy(this.content.transform.GetChild(i).gameObject);
-		}
+		this.firstSelectable = -1;
+		this.hasOptions = false;
 
 		int selectableCount = 0;
 		
-		for(int i = this.currentEntries.Length; --i >= 0;)
+		for(int i = entries.Length; --i >= 0 && !this.hasOptions;)
 		{
-			if(this.currentEntries[i].GetActual().transform.childCount > 0)
+			if(entries[i].IsSelectable())
 			{
-				++selectableCount;
-			}
-			
-			if(this.hasOptions = (selectableCount == 2 || this.currentEntries[i].GetActual().IsForceSelectable()))
-			{
-				break;
+				this.hasOptions = ++selectableCount == 2;
+
+				if(this.firstSelectable < 0)
+				{
+					this.firstSelectable = i;
+				}
 			}
 		}
 
-		foreach(DialogEntry entry in this.currentEntries)
+		if(this.firstSelectable < 0)
 		{
-			this.AddEntry(entry, this.hasOptions);
+			this.firstSelectable = 0;
+		}
+
+		for(int i = 0; i < entries.Length; ++i)
+		{
+			Instantiate(this.optionPrefab, this.content.transform).Init(dialog, this.hasOptions ? i : -1, entries[i].GetText()).Open();
 		}
 	}
 }
