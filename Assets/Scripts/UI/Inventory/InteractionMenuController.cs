@@ -9,9 +9,9 @@ public class InteractionMenuController : InventoryMenuController
 	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to add.</param>
-	protected override void AddItem(Item item)
+	protected override void AddItemEntry(Inventory inventory, Item item)
 	{
-		base.AddItem(item);
+		base.AddItemEntry(inventory, item);
 		this.UpdateGridSize();
 	}
 
@@ -21,9 +21,9 @@ public class InteractionMenuController : InventoryMenuController
 	/// updating the menu.
 	/// </summary>
 	/// <param name="item">The item to remove.</param>
-	protected override void RemoveItem(Item item)
+	protected override void RemoveItemEntry(Inventory inventory, Item item)
 	{
-		base.RemoveItem(item);
+		base.RemoveItemEntry(inventory, item);
 		this.UpdateGridSize();
 	}
 
