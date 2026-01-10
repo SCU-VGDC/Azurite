@@ -772,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 808960751}
     - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: destinationScene
-      value: DemoScene
+      value: MainHubRoomScene
       objectReference: {fileID: 0}
     - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: destinationObject
