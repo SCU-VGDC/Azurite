@@ -1245,6 +1245,9 @@ TilemapRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1289,6 +1292,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93feae357a285124d9fdfd0f9fd06d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorTile: {fileID: 11400000, guid: cc38d72c6a3b4b04a85d16f8562c436e, type: 2}
+  boxTile: {fileID: 11400000, guid: f482496efc5914142a4aa00c4dba48e1, type: 2}
+  playerTile: {fileID: 11400000, guid: 1ccc8ec900e7f2a439eb1080324a4d64, type: 2}
+  wallTile: {fileID: 11400000, guid: ec73a3ed9a38b494ba3cee4874d3bc6a, type: 2}
+  goalTile: {fileID: 11400000, guid: 0e62598f2c31b9c42bfeec7a987b136f, type: 2}
+  playerFloatSpritePrefab: {fileID: 9130105981111082464, guid: d7376061d6a86b3448df93d1b4eef9ff, type: 3}
+  boxFloatSpritePrefab: {fileID: 2160876496855776255, guid: 45043637ce32ed748af000d451a2ad10, type: 3}
   onSolved:
     m_PersistentCalls:
       m_Calls:
@@ -1304,11 +1314,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
-  floorTile: {fileID: 11400000, guid: cc38d72c6a3b4b04a85d16f8562c436e, type: 2}
-  boxTile: {fileID: 11400000, guid: f482496efc5914142a4aa00c4dba48e1, type: 2}
-  playerTile: {fileID: 11400000, guid: 1ccc8ec900e7f2a439eb1080324a4d64, type: 2}
-  wallTile: {fileID: 11400000, guid: ec73a3ed9a38b494ba3cee4874d3bc6a, type: 2}
-  goalTile: {fileID: 11400000, guid: 0e62598f2c31b9c42bfeec7a987b136f, type: 2}
 --- !u!1 &5287978448946363557
 GameObject:
   m_ObjectHideFlags: 0
