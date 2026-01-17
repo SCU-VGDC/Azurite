@@ -54,6 +54,26 @@ public class GameManager : MonoBehaviour
 
         MainCameraContainer = Instantiate(mainCameraPrefab);
         DontDestroyOnLoad(MainCameraContainer);
+		GameObject worldCanvas = GameObject.FindGameObjectWithTag("World Canvas");
+
+		if(worldCanvas != null)
+		{
+			Canvas canvas = worldCanvas.GetComponent<Canvas>();
+			Camera camera = MainCameraContainer.GetComponentInChildren<Camera>();
+
+			if(canvas == null || camera == null)
+			{
+				Debug.LogError("Failed to assign the camera to the world canvas.");
+			}
+			else
+			{
+				canvas.worldCamera = camera;
+			}
+		}
+		else
+		{
+			Debug.LogError("Failed to find the world canvas");
+		}
 
         var cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
         cineCam.Target = new CameraTarget()
