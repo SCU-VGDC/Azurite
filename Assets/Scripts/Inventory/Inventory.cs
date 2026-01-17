@@ -14,12 +14,6 @@ public class Inventory : MonoBehaviour
 	[Tooltip("This event is called whenever the stacksize of an item is changed.")]
 	public UnityEvent<Inventory, Item, int> itemChangedEvent = new UnityEvent<Inventory, Item, int>();
 
-	[Tooltip("This event is called whenever a new item gets selected.")]
-	public UnityEvent<Inventory, Item> itemSelectedEvent = new UnityEvent<Inventory, Item>();
-
-	[Tooltip("This event is called whenever an item is used.")]
-	public UnityEvent<Inventory, Item> itemUsedEvent = new UnityEvent<Inventory, Item>();
-
 	[Tooltip("The inventory menu prefab.")]
 	[SerializeField] private InventoryMenuController inventoryMenuPrefab = null;
 
@@ -40,7 +34,6 @@ public class Inventory : MonoBehaviour
 
 	public bool SelectItem(Item item)
 	{
-		this.itemSelectedEvent.Invoke(this, item);
 		return this.items.ContainsKey(item);
 	}
 

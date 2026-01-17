@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class InventoryPopupController : MenuBase
 {
+	[Tooltip("This event is called whenever an item is selected from the popup.")]
+	public UnityEvent<Inventory, Item> itemSelectedEvent = new UnityEvent<Inventory, Item>();
+	
 	[Tooltip("The item stack slot prefab.")]
 	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
 
@@ -17,14 +20,15 @@ public class InventoryPopupController : MenuBase
 	[Tooltip("The offset from the transform.")]
 	[SerializeField] protected Vector3 offset = Vector3.zero;
 
-	private UnityEvent<Inventory, Item> itemUsedEvent = new UnityEvent<Inventory, Item>();
+	private Inventory inventory = null;
 
 	public InventoryPopupController Init(Transform relativePosition, Vector3 relativeOffset, Inventory associatedInventory, Item.Category? filterCategory)
 	{
 		this.transform.localScale = new Vector3(0.0125f, 0.0125f, 0.0125f);
 		this.offset = relativeOffset;
 		this.relativeTransform = relativePosition;
-		Item[] items = associatedInventory.GetItems();
+		this.inventory = associatedInventory;
+		Item[] items = this.inventory.GetItems();
 
 		for(int i = 0; i < items.Length; ++i)
 		{
@@ -41,11 +45,11 @@ public class InventoryPopupController : MenuBase
 
 			if(addItem)
 			{
-				this.AddItemEntry(associatedInventory, items[i]);
+				this.AddItemEntry(this.inventory, items[i]);
 			}
 		}
 
-		associatedInventory.itemSelectedEvent.AddListener((inv, item) => {this.Close();});
+		this.itemSelectedEvent.AddListener((inv, item) => {this.Close();});
 		return this;
 	}
 
@@ -85,7 +89,7 @@ public class InventoryPopupController : MenuBase
 				return;
 			}
 
-			//this.onItemSelected.Invoke(this.inventory, selected);
+			this.itemSelectedEvent.Invoke(this.inventory, selected);
 			Debug.Log(selected.name);
 		}
 	}
