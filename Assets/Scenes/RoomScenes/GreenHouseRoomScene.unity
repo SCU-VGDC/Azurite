@@ -835,12 +835,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteract:
+  playerInteractEvent:
     m_PersistentCalls:
       m_Calls: []
   triggerKey: 101
-  textPopUp: {fileID: 619115985}
-  ActionCount: 0
+  popupText: 
+  actionCount: 0
 --- !u!1001 &905983150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1353,7 +1353,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -63
+  m_SortingOrder: -27
   m_Sprite: {fileID: 21300000, guid: 6f0f588bcc45d7746a4b22b434f39773, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
