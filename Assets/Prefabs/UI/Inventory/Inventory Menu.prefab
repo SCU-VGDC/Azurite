@@ -243,11 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba32b0fa677a4001acf0786017b8cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animations:
-  - {fileID: 6524094306866738139}
-  - {fileID: 2489345025830927364}
-  - {fileID: 6598360802340770815}
-  - {fileID: 6404549265521030815}
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -257,7 +252,6 @@ MonoBehaviour:
   onHide:
     m_PersistentCalls:
       m_Calls: []
-  inventory: {fileID: 0}
   itemStackPrefab: {fileID: 7415169227755619130, guid: fd60349386f4b40ee838845f16d90f8b, type: 3}
   itemList: {fileID: 6607535181916610307}
   itemName: {fileID: 4289038871130666165}

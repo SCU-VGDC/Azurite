@@ -32,20 +32,21 @@ public class InventoryPopupController : MenuBase
 
 		for(int i = 0; i < items.Length; ++i)
 		{
-			Item.Category[] categories = items[i].GetCategories();
-			bool addItem = filterCategory == null;
-
-			for(int j = 0; !addItem || j < categories.Length; ++j)
-			{
-				if(filterCategory == categories[i])
-				{
-					addItem = true;
-				}
-			}
-
-			if(addItem)
+			if(filterCategory == null)
 			{
 				this.AddItemEntry(this.inventory, items[i]);
+				continue;
+			}
+
+			Item.Category[] categories = items[i].GetCategories();
+
+			for(int j = 0; j < categories.Length; ++j)
+			{
+				if(filterCategory == categories[j])
+				{
+					this.AddItemEntry(this.inventory, items[i]);
+					break;
+				}
 			}
 		}
 
@@ -79,7 +80,6 @@ public class InventoryPopupController : MenuBase
 			this.MoveSelection(Vector2Int.right);
 		}
 
-		// Open the inspect menu when space is pressed.
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			Item selected = this.GetSelectedItem();
@@ -97,6 +97,12 @@ public class InventoryPopupController : MenuBase
 	protected void AddItemEntry(Inventory inventory, Item item)
 	{
 		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
+
+		if(stack.TryGetComponent(out Toggle toggle))
+		{
+			toggle.group = this.itemList;
+		}
+		
 		this.UpdateGridSize();
 	}
 

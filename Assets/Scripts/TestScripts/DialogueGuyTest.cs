@@ -19,8 +19,8 @@ public class DialogueGuyTest : MonoBehaviour
         spriteRenderer.color = Color.red;
     }
 
-    public void GiveItem()
+    public void GiveItem(Player player)
     {
-        GetComponent<ItemStack>().AddTo();
+        GetComponent<ItemStack>().AddTo(player);
     }
 }
