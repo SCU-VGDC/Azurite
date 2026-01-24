@@ -17,7 +17,7 @@ public class ItemPickup : MonoBehaviour
         }
 
         var item = GetComponent<ItemStack>();
-        GetComponent<InteractionTrigger>().onInteract.AddListener(() =>
+        GetComponent<InteractionTrigger>().playerInteractEvent.AddListener((_) =>
         {
             item.AddTo();
 

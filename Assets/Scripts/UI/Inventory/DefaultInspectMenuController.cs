@@ -18,21 +18,24 @@ public class DefaultInspectMenuController : InspectMenuBase
 
 	public override InspectMenuBase Init(Item item)
 	{
-		// Fill in the menu with item information.
 		this.title.SetText(item.GetDisplayName());
 		this.descripiton.SetText(item.GetDescription());
 		this.preview.sprite = item.GetPreview();
 		return this;
 	}
 
-	public override void Update()
+    public void Start()
+    {
+		this.onClose.AddListener(this.parentMenu.Open);
+    }
+
+    public override void Update()
 	{
 		base.Update();
 
-		// Go back to the inventory when space is pressed.
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			this.Back();
+			this.Close();
 		}
 	}
 }

@@ -9,6 +9,8 @@ public class PlayerInteractionFinder : MonoBehaviour
     [SerializeField] private float _interactionDist = 3;
     private readonly Dictionary<KeyCode, List<InteractionTrigger>> triggers = new();
 
+	private Player player;
+
     public float InteractionDistance
     {
         get => _interactionDist;
@@ -19,20 +21,30 @@ public class PlayerInteractionFinder : MonoBehaviour
         }
     }
 
-    private void Start()
+	public void Awake()
+	{
+		this.player = this.GetComponentInParent<Player>();
+
+		if(this.player == null)
+		{
+			Debug.LogError("Failed to find the player.");
+		}
+	}
+
+	private void Start()
     {
         InteractionDistance = _interactionDist;
     }
 
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-        if (collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
+        if(collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
         {
-            if (!triggers.ContainsKey(interaction.triggerKey))
+            if(!triggers.ContainsKey(interaction.GetInteractionKey()))
             {
-                triggers.Add(interaction.triggerKey, new List<InteractionTrigger>());
+                triggers.Add(interaction.GetInteractionKey(), new List<InteractionTrigger>());
             }
-            triggers[interaction.triggerKey].Add(interaction);
+            triggers[interaction.GetInteractionKey()].Add(interaction);
         }
     }
 
@@ -40,7 +52,7 @@ public class PlayerInteractionFinder : MonoBehaviour
     {
         if (collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
         {
-            if (triggers.TryGetValue(interaction.triggerKey, out var ilist))
+            if (triggers.TryGetValue(interaction.GetInteractionKey(), out var ilist))
             {
                 ilist.Remove(interaction);
                 interaction.ToggleTextPopup(false);
@@ -65,7 +77,7 @@ public class PlayerInteractionFinder : MonoBehaviour
             }
             if (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>()))
             {
-                closest.Trigger();
+                closest.Trigger(this.player);
             }
         }
     }

@@ -1,13 +1,12 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 public class PuzzleInteraction : MonoBehaviour
 {
     private Player playerScript;
-    [SerializeField] private InteractionTrigger interaction;
-
-    [SerializeField] private GameObject puzzlePrefab;
+    [SerializeField] private List<GameObject> puzzlePrefabs;
     private GameObject instantiatePuzzlePrefab;
     static public Vector3 puzzleLocation = new(100, 0, 0);
 
@@ -24,12 +23,14 @@ public class PuzzleInteraction : MonoBehaviour
         mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
         playerScript = GameManager.inst.player.GetComponent<Player>();
-
-        interaction.onInteract.AddListener(this.StartGame);
     }
 
     public void StartGame()
     {
+        // select a random puzzle
+        int randomPuzzleIndex = Random.Range(0, puzzlePrefabs.Count);
+        GameObject puzzlePrefab = puzzlePrefabs[randomPuzzleIndex];
+
         // freeze the player
         playerScript.freezeMovement = true;
         GameManager.inst.paused = true;

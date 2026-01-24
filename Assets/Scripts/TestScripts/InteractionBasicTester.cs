@@ -9,10 +9,10 @@ public class InteractionBasicTester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        interaction.onInteract.AddListener(this.TestTrigger);
+        interaction.playerInteractEvent.AddListener(this.TestTrigger);
     }
 
-    private void TestTrigger()
+    private void TestTrigger(Player _)
     {
         Debug.Log($"Interaction pressed {gameObject.name}");
     }
