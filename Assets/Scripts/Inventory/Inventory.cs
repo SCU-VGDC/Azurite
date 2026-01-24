@@ -15,7 +15,10 @@ public class Inventory : MonoBehaviour
 	public UnityEvent<Inventory, Item, int> itemChangedEvent = new UnityEvent<Inventory, Item, int>();
 
 	[Tooltip("The inventory menu prefab.")]
-	public InventoryMenuController inventoryMenuPrefab = null;
+	[SerializeField] private InventoryMenuController inventoryMenuPrefab = null;
+
+	[Tooltip("The inventory popup prefab.")]
+	[SerializeField] private  InventoryPopupController inventoryPopupPrefab = null;
 
 	private Dictionary<Item, int> items = new Dictionary<Item, int>();
 
@@ -27,6 +30,11 @@ public class Inventory : MonoBehaviour
 	public int GetCount(Item item)
 	{
 		return this.items.GetValueOrDefault(item, 0);
+	}
+
+	public bool SelectItem(Item item)
+	{
+		return this.items.ContainsKey(item);
 	}
 
 	/// <summary>
@@ -112,13 +120,27 @@ public class Inventory : MonoBehaviour
 	public bool IsMenuOpen()
 	{
 		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-		return canvas != null && canvas.transform.GetComponentInChildren<InventoryMenuController>() != null;
+
+		if(canvas == null)
+		{
+			Debug.Log("Failed to find the main canvas!");
+			return false;
+		}
+
+		return canvas.transform.GetComponentInChildren<InventoryMenuController>() != null;
 	}
 
 	public InventoryMenuController GetOpenMenu()
 	{
 		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-		return canvas != null ? canvas.transform.GetComponentInChildren<InventoryMenuController>() : null;
+
+		if(canvas == null)
+		{
+			Debug.Log("Failed to find the main canvas!");
+			return null;
+		}
+
+		return canvas.transform.GetComponentInChildren<InventoryMenuController>();
 	}
 	
 	public void OpenMenu()
@@ -132,5 +154,44 @@ public class Inventory : MonoBehaviour
 		}
 
 		Instantiate(this.inventoryMenuPrefab, canvas.transform).Init(this);
+	}
+
+	public bool IsPopupOpen()
+	{
+		GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
+
+		if(canvas == null)
+		{
+			Debug.Log("Failed to find the world canvas!");
+			return false;
+		}
+
+		return canvas.transform.GetComponentInChildren<InventoryPopupController>() != null;
+	}
+
+	public InventoryPopupController GetOpenPopup()
+	{
+		GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
+
+		if(canvas == null)
+		{
+			Debug.Log("Failed to find the world canvas!");
+			return null;
+		}
+
+		return canvas.transform.GetComponentInChildren<InventoryPopupController>();
+	}
+	
+	public void OpenPopup(Transform relativePosition, Vector3 offset, Item.Category? category)
+	{
+		GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
+
+		if(canvas == null)
+		{
+			Debug.Log("Failed to find the world canvas!");
+			return;
+		}
+
+		Instantiate(this.inventoryPopupPrefab, canvas.transform).Init(relativePosition, offset, this, category);
 	}
 }

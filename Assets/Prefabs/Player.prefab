@@ -262,7 +262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerRigidBody: {fileID: 3838181656129955612}
   playerSpeed: 10
-  inventoryPrefab: {fileID: 344100902533872232, guid: 26f44a2f4a2994223be87a7d8db617a4, type: 3}
   freezeMovement: 0
 --- !u!114 &6599850474268316214
 MonoBehaviour:
@@ -286,6 +285,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   inventoryMenuPrefab: {fileID: 344100902533872232, guid: 26f44a2f4a2994223be87a7d8db617a4, type: 3}
+  inventoryPopupPrefab: {fileID: 3637571202153826813, guid: c511499aaf8bd4fd38bb49bd83e9d141, type: 3}
 --- !u!114 &8029251484623211219
 MonoBehaviour:
   m_ObjectHideFlags: 0

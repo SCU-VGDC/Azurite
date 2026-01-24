@@ -15,11 +15,11 @@ public class ShowNote : MonoBehaviour
     {
         noteImage.GetComponentInParent<Canvas>(true).worldCamera = Camera.main;
         noteText.GetComponentInParent<Canvas>(true).worldCamera = Camera.main;
-        interaction.onInteract.AddListener(this.Read);
+        interaction.playerInteractEvent.AddListener(this.Read);
         TogglePopup(noteShown);
     }
 
-    public void Read()
+    public void Read(Player _)
     {
         this.PauseGame();
         TogglePopup(noteShown = !noteShown);
