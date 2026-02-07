@@ -26,7 +26,7 @@ public class AnchorAnimation : MenuAnimation
 	{
 		base.Update();
 
-		// Set the min and max anchors to the interpolated position.
+		// Set the min and max anchors to the interpolated offset.
 		float position = this.CalculatePosition();
 		((RectTransform) this.transform).anchorMin = position * this.endMinAnchor + (1f - position) * this.startMinAnchor;
 		((RectTransform) this.transform).anchorMax = position * this.endMaxAnchor + (1f - position) * this.startMaxAnchor;

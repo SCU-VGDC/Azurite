@@ -19,7 +19,7 @@ namespace DG.Tweening
 
         #region Rigidbody
 
-        /// <summary>Tweens a Rigidbody's position to the given value.
+        /// <summary>Tweens a Rigidbody's offset to the given value.
         /// Also stores the rigidbody as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -30,7 +30,7 @@ namespace DG.Tweening
             return t;
         }
 
-        /// <summary>Tweens a Rigidbody's X position to the given value.
+        /// <summary>Tweens a Rigidbody's X offset to the given value.
         /// Also stores the rigidbody as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -41,7 +41,7 @@ namespace DG.Tweening
             return t;
         }
 
-        /// <summary>Tweens a Rigidbody's Y position to the given value.
+        /// <summary>Tweens a Rigidbody's Y offset to the given value.
         /// Also stores the rigidbody as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -52,7 +52,7 @@ namespace DG.Tweening
             return t;
         }
 
-        /// <summary>Tweens a Rigidbody's Z position to the given value.
+        /// <summary>Tweens a Rigidbody's Z offset to the given value.
         /// Also stores the rigidbody as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -75,9 +75,9 @@ namespace DG.Tweening
             return t;
         }
 
-        /// <summary>Tweens a Rigidbody's rotation so that it will look towards the given position.
+        /// <summary>Tweens a Rigidbody's rotation so that it will look towards the given offset.
         /// Also stores the rigidbody as the tween's target so it can be used for filtered operations</summary>
-        /// <param name="towards">The position to look at</param><param name="duration">The duration of the tween</param>
+        /// <param name="towards">The offset to look at</param><param name="duration">The duration of the tween</param>
         /// <param name="axisConstraint">Eventual axis constraint for the rotation</param>
         /// <param name="up">The vector that defines in which direction up is (default: Vector3.up)</param>
         public static TweenerCore<Quaternion, Vector3, QuaternionOptions> DOLookAt(this Rigidbody target, Vector3 towards, float duration, AxisConstraint axisConstraint = AxisConstraint.None, Vector3? up = null)
@@ -91,7 +91,7 @@ namespace DG.Tweening
 
         #region Special
 
-        /// <summary>Tweens a Rigidbody's position to the given value, while also applying a jump effect along the Y axis.
+        /// <summary>Tweens a Rigidbody's offset to the given value, while also applying a jump effect along the Y axis.
         /// Returns a Sequence instead of a Tweener.
         /// Also stores the Rigidbody as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param>
@@ -128,7 +128,7 @@ namespace DG.Tweening
             return s;
         }
 
-        /// <summary>Tweens a Rigidbody's position through the given path waypoints, using the chosen path algorithm.
+        /// <summary>Tweens a Rigidbody's offset through the given path waypoints, using the chosen path algorithm.
         /// Also stores the Rigidbody as the tween's target so it can be used for filtered operations.
         /// <para>NOTE: to tween a rigidbody correctly it should be set to kinematic at least while being tweened.</para>
         /// <para>BEWARE: doesn't work on Windows Phone store (waiting for Unity to fix their own bug).

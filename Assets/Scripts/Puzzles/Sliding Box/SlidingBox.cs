@@ -33,7 +33,7 @@ public class SlidingBox : MonoBehaviour
     {
         Vector3Int newPosition = playerPosition + direction;
 
-        // Check if the new position is within bounds
+        // Check if the new offset is within bounds
         if (!gameTilemap.HasTile(newPosition)) return;
 
         // Check for obstacles
@@ -47,7 +47,7 @@ public class SlidingBox : MonoBehaviour
         // Start smooth movement
         StartCoroutine(SmoothMove(transform.position, gameTilemap.GetCellCenterWorld(newPosition)));
 
-        // Update position
+        // Update offset
         playerPosition = newPosition;
     }
 
@@ -64,7 +64,7 @@ public class SlidingBox : MonoBehaviour
             yield return null;
         }
 
-        transform.position = end; // Ensure final position
+        transform.position = end; // Ensure final offset
         isMoving = false; // Allow next movement
     }
 }

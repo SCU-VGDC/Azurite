@@ -16,9 +16,9 @@ public class IcePuzzlePlayerController : MonoBehaviour
 	[Tooltip("The duration of the slide animation in seconds.")]
 	public float slideDuration = 0.5f;
 
-	/// <summary>The start position of the slide animation.</summary>
+	/// <summary>The start offset of the slide animation.</summary>
 	private Vector3 startPos = Vector3.zero;
-	/// <summary>The end position of the slide animation.</summary>
+	/// <summary>The end offset of the slide animation.</summary>
 	private Vector3 finalPos = Vector3.zero;
 	/// <summary>The animation progress from 0 to 1.</summary>
 	private float animationTime = 1;
@@ -41,7 +41,7 @@ public class IcePuzzlePlayerController : MonoBehaviour
 				this.animationTime = 1;
 			}
 
-			// The player's position is determined by the equation 6x^5 - 15x^4 + 10x^3
+			// The player's offset is determined by the equation 6x^5 - 15x^4 + 10x^3
 			float interpolatedTime = this.animationTime * this.animationTime * this.animationTime * (this.animationTime * (6f * this.animationTime - 15f) + 10f);
 
 			this.transform.position = new Vector3(
