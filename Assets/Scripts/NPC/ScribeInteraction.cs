@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractionTrigger))]
 public class ScribeInteraction : MonoBehaviour
 {
-    [SerializeField] private DialogueSequence firstMeetDialogue, incorrectDialogue, correctDialogue, repeatAfterCorrectDialogue;
+    [SerializeField] private DialogController firstMeetDialogue, incorrectDialogue, correctDialogue, repeatAfterCorrectDialogue;
     [SerializeField] private ScribeQuizPaper quizPaperUI;
     [SerializeField] private Item quizPaperItem;
 
@@ -17,22 +14,23 @@ public class ScribeInteraction : MonoBehaviour
         if (GameManager.inst.player.Inventory.HasItem(quizPaperItem))
         {
             if (quizPaperUI.IsCorrect)
-                correctDialogue.DialogueStart();
+                correctDialogue.Select(0);
             else
-                correctDialogue.DialogueStart();
+                incorrectDialogue.Select(0);
         }
         else
         {
             if (!quizSolved)
-                firstMeetDialogue.DialogueStart();
+                firstMeetDialogue.Select(0);
             else
-                repeatAfterCorrectDialogue.DialogueStart();
+                repeatAfterCorrectDialogue.Select(0);
         }
     }
 
     public void OnQuizSolved()
     {
         quizSolved = true;
+        // something else happens later
     }
 
     public void GiveQuizItem()

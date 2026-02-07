@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Wrench
   description: Now THIS is my type of tool.
-  icon: {fileID: 21300000, guid: 870b6addd572f4df9948786535edb693, type: 3}
-  preview: {fileID: 21300000, guid: 870b6addd572f4df9948786535edb693, type: 3}
+  icon: {fileID: 3968315933675048818, guid: 4bcd4dda6d8fad54f89557d4e6383ca5, type: 3}
+  preview: {fileID: 3968315933675048818, guid: 4bcd4dda6d8fad54f89557d4e6383ca5, type: 3}
   maxStackSize: 1
   inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
   categories: 00000000
