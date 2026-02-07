@@ -78,11 +78,9 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
         if (scene.name == startupScene) return;
-        string SubmarineLocation;
-        string CurrentLocation;
 
         var bounds = GameObject.FindWithTag("Camera Bounds");
-        if (bounds != null && bounds.TryGetComponent<PolygonCollider2D>(out var collider))
+        if (bounds != null && bounds.TryGetComponent<Collider2D>(out var collider))
         {
             MainCameraContainer.GetComponentInChildren<CinemachineConfiner2D>().BoundingShape2D = collider;
         }
@@ -90,10 +88,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a PolygonCollider2D tagged as 'Camera Bounds'!");
         }
-        if (PersistentDataManager.Instance.TryGet<string>("submarineInRoom", out SubmarineLocation))
+        if (PersistentDataManager.Instance.TryGet("submarineInRoom", out string SubmarineLocation))
         {
             Debug.Log($"Current world state = {SubmarineLocation}");
-            if (PersistentDataManager.Instance.TryGet<string>("currentLocation", out CurrentLocation))
+            if (PersistentDataManager.Instance.TryGet("currentLocation", out string CurrentLocation))
             {
                 Debug.Log($"Current world state = {CurrentLocation}");
                 if (SubmarineLocation == CurrentLocation)
@@ -117,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Current location not found or wrong type");
+            Debug.Log("Current submarine location not found or wrong type");
         }        
     }
 

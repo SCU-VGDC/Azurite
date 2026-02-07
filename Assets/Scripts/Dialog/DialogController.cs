@@ -20,26 +20,13 @@ public class DialogController : MonoBehaviour
 
 	private DialogEntry current = null;
 	private string titleOverride = "";
-
-	// TESTING CODE PLEASE REMOVE
-	public void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.M))
-		{
-			if (this.IsMenuOpen())
-			{
-				this.GetOpenMenu().Close();
-			}
-			else
-			{
-				this.OpenMenu();
-			}
-		}
-	}
-	// END OF TESTING CODE
+	private DialogMenuController menuInstance = null;
 
 	public void Select(int dialogIndex)
 	{
+		if (menuInstance == null)
+			OpenMenu();
+
 		if(dialogIndex >= 0)
 		{
 			DialogEntry entry = this.GetDialogEntries()[dialogIndex];
@@ -56,6 +43,7 @@ public class DialogController : MonoBehaviour
 
 		foreach(DialogEntry entry in this.GetDialogEntries())
 		{
+			Debug.Log($"{entry} {entry.IsSelectable()}");
 			if(entry.IsSelectable())
 			{
 				this.current = entry.GetActual();
@@ -75,29 +63,10 @@ public class DialogController : MonoBehaviour
 		this.onDialogChange.Invoke(this);
 	}
 
-	public bool IsMenuOpen()
-	{
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-		return canvas != null && canvas.transform.GetComponentInChildren<DialogMenuController>() != null;
-	}
-
-	public DialogMenuController GetOpenMenu()
-	{
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-		return canvas != null ? canvas.transform.GetComponentInChildren<DialogMenuController>() : null;
-	}
-
 	public void OpenMenu()
 	{
 		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-		if(canvas == null || canvas.transform.GetComponentInChildren<MenuBase>() != null)
-		{
-			Debug.Log("A menu is already open!");
-			return;
-		}
-
-		Instantiate(this.menuPrefab, canvas.transform).Init(this);
+        menuInstance = Instantiate(menuPrefab, canvas.transform).Init(this);
 
 		if(this.keepState)
 		{
