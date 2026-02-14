@@ -11,10 +11,6 @@ public class Player : MonoBehaviour
 	//Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
 	[SerializeField][Range(0, 10)] float playerSpeed = 1.0f;
 
-	/// <summary>The inventory menu controller prefab.</summary>
-	[Tooltip("The inventory menu controller prefab.")]
-	[SerializeField] private InventoryMenuController inventoryPrefab = null;
-
 	/// <summary>The player's inventory.</summary>
 	public Inventory Inventory { get; private set; }
 
@@ -42,6 +38,19 @@ public class Player : MonoBehaviour
 			else
 			{
 				this.Inventory.OpenMenu();
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.P))
+		{
+			if(this.Inventory.IsPopupOpen())
+			{
+				this.Inventory.GetOpenPopup().Close();
+			}
+			else
+			{
+				BoxCollider2D box = this.GetComponent<BoxCollider2D>();
+				this.Inventory.OpenPopup(this.transform, new Vector3(0, box.size.y * 0.5f, 0), null);
 			}
 		}
 

@@ -10,10 +10,10 @@ public class CodeInputTester : MonoBehaviour
         codePanel.onCorrectCode.AddListener(() => Debug.Log("Correct code!"));
         codePanel.onIncorrectCode.AddListener(() => Debug.Log("Incorrect code!"));
 
-        GetComponent<InteractionTrigger>().onInteract.AddListener(ShowPanel);
+        GetComponent<InteractionTrigger>().playerInteractEvent.AddListener(ShowPanel);
     }
 
-    private void ShowPanel()
+    private void ShowPanel(Player _)
     {
         codePanel.Visible = true;
     }

@@ -11,7 +11,7 @@ public class TeleportationSystem : MonoBehaviour
 
     void Start()
     {
-        interaction.onInteract.AddListener(Teleport);
+        interaction.playerInteractEvent.AddListener(Teleport);
 
         if (GameManager.inst == null)
         {
@@ -26,12 +26,11 @@ public class TeleportationSystem : MonoBehaviour
         }
     }
     
-    public void Teleport()
+    public void Teleport(Player player)
     {
-        if (string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)
+        if(string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)
         {
-            Player player = GameManager.inst.player;
-            if (player != null)
+            if(player != null)
             {
                 // teleport the player!
                 player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
