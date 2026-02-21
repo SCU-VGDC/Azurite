@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventoryPopupController : MenuBase
 {
 	[Tooltip("This event is called whenever an item is selected from the popup.")]
-	public UnityEvent<Inventory, Item> itemSelectedEvent = new UnityEvent<Inventory, Item>();
+	public UnityEvent<Inventory, Item> onItemSelected = new UnityEvent<Inventory, Item>();
 	
 	[Tooltip("The item stack slot prefab.")]
 	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
@@ -32,24 +32,25 @@ public class InventoryPopupController : MenuBase
 
 		for(int i = 0; i < items.Length; ++i)
 		{
-			Item.Category[] categories = items[i].GetCategories();
-			bool addItem = filterCategory == null;
-
-			for(int j = 0; !addItem || j < categories.Length; ++j)
-			{
-				if(filterCategory == categories[i])
-				{
-					addItem = true;
-				}
-			}
-
-			if(addItem)
+			if(filterCategory == null)
 			{
 				this.AddItemEntry(this.inventory, items[i]);
+				continue;
+			}
+
+			Item.Category[] categories = items[i].GetCategories();
+
+			for(int j = 0; j < categories.Length; ++j)
+			{
+				if(filterCategory == categories[j])
+				{
+					this.AddItemEntry(this.inventory, items[i]);
+					break;
+				}
 			}
 		}
 
-		this.itemSelectedEvent.AddListener((inv, item) => {this.Close();});
+		this.onItemSelected.AddListener((inv, item) => {this.Close();});
 		return this;
 	}
 
@@ -58,7 +59,7 @@ public class InventoryPopupController : MenuBase
 		base.Update();
 		this.transform.position = this.relativeTransform.position + this.offset;
 
-		// Handle inventory traversal with WASD or arrow keys.
+		// Handle traversal with arrow keys.
 		if(Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			this.MoveSelection(Vector2Int.down);
@@ -79,7 +80,6 @@ public class InventoryPopupController : MenuBase
 			this.MoveSelection(Vector2Int.right);
 		}
 
-		// Open the inspect menu when space is pressed.
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			Item selected = this.GetSelectedItem();
@@ -89,7 +89,7 @@ public class InventoryPopupController : MenuBase
 				return;
 			}
 
-			this.itemSelectedEvent.Invoke(this.inventory, selected);
+			this.onItemSelected.Invoke(this.inventory, selected);
 			Debug.Log(selected.name);
 		}
 	}
@@ -97,6 +97,12 @@ public class InventoryPopupController : MenuBase
 	protected void AddItemEntry(Inventory inventory, Item item)
 	{
 		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
+
+		if(stack.TryGetComponent(out Toggle toggle))
+		{
+			toggle.group = this.itemList;
+		}
+		
 		this.UpdateGridSize();
 	}
 

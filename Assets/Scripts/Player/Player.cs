@@ -50,16 +50,8 @@ public class Player : MonoBehaviour
 			else
 			{
 				BoxCollider2D box = this.GetComponent<BoxCollider2D>();
-				this.Inventory.OpenPopup(this.transform, new Vector3(0, box.size.y * 0.5f, 0), null);
+				this.Inventory.OpenPopup(this.transform, new Vector3(0, box.size.y * 0.5f, 0), Item.Category.FLOWER);
 			}
-		}
-
-		// FOR TESTING
-		// Add an item to the inventory when "U" is pressed.
-		if(Input.GetKeyDown(KeyCode.U))
-		{
-			ItemStack stack = this.GetComponent<ItemStack>();
-			stack.AddTo();
 		}
 
 		// Only allow player movement when the inventory is closed.

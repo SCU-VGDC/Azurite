@@ -127,7 +127,7 @@ public class Inventory : MonoBehaviour
 			return false;
 		}
 
-		return canvas.transform.GetComponentInChildren<InventoryMenuController>() != null;
+		return canvas.transform.GetComponentInChildren<InventoryMenuController>(true) != null;
 	}
 
 	public InventoryMenuController GetOpenMenu()
@@ -140,7 +140,7 @@ public class Inventory : MonoBehaviour
 			return null;
 		}
 
-		return canvas.transform.GetComponentInChildren<InventoryMenuController>();
+		return canvas.transform.GetComponentInChildren<InventoryMenuController>(true);
 	}
 	
 	public void OpenMenu()
@@ -153,7 +153,7 @@ public class Inventory : MonoBehaviour
 			return;
 		}
 
-		Instantiate(this.inventoryMenuPrefab, canvas.transform).Init(this);
+		Instantiate(this.inventoryMenuPrefab, canvas.transform).Init(this).Open();
 	}
 
 	public bool IsPopupOpen()
@@ -192,6 +192,6 @@ public class Inventory : MonoBehaviour
 			return;
 		}
 
-		Instantiate(this.inventoryPopupPrefab, canvas.transform).Init(relativePosition, offset, this, category);
+		Instantiate(this.inventoryPopupPrefab, canvas.transform).Init(relativePosition, offset, this, category).Open();
 	}
 }
