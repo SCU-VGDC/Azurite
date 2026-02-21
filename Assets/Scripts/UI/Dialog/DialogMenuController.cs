@@ -13,13 +13,14 @@ public class DialogMenuController : MenuBase
 	[Tooltip("The button prefab for dialog options.")]
 	[SerializeField] protected DialogEntryMenuController optionPrefab = null;
 
-	private int firstSelectable = -1;
-	private bool hasOptions = false;
+	DialogController dialog = null;
 
-	public DialogMenuController Init(DialogController dialog)
+	public DialogMenuController Init(DialogController dialogController)
 	{
+		this.dialog = dialogController;
 		dialog.onDialogEnd.AddListener(this.Close);
 		dialog.onDialogChange.AddListener(this.SetDialog);
+		this.onOpen.AddListener(() => { this.GenerateEntries(this.dialog); });
 		return this;
 	}
 
@@ -29,7 +30,7 @@ public class DialogMenuController : MenuBase
 
 		if(Input.GetKeyDown(KeyCode.Return))
 		{
-			this.content.transform.GetChild(this.firstSelectable).GetComponent<Button>().onClick.Invoke();
+			this.dialog.Select(null);
 		}
 	}
 
@@ -53,35 +54,19 @@ public class DialogMenuController : MenuBase
 
 	private void GenerateEntries(DialogController dialog)
 	{
-		DialogEntry[] entries = dialog.GetDialogEntries();
+		DialogEntry[] entries = dialog.GetEntries();
 		this.title.SetText(dialog.GetTitle());
-
-		this.firstSelectable = -1;
-		this.hasOptions = false;
-
-		int selectableCount = 0;
 		
-		for(int i = entries.Length; --i >= 0 && !this.hasOptions;)
-		{
-			if(entries[i].IsSelectable())
-			{
-				this.hasOptions = ++selectableCount == 2;
-
-				if(this.firstSelectable < 0)
-				{
-					this.firstSelectable = i;
-				}
-			}
-		}
-
-		if(this.firstSelectable < 0)
-		{
-			this.firstSelectable = 0;
-		}
-
 		for(int i = 0; i < entries.Length; ++i)
 		{
-			Instantiate(this.optionPrefab, this.content.transform).Init(dialog, this.hasOptions ? i : -1, entries[i].GetText()).Open();
+			DialogEntryMenuController entry = Instantiate(this.optionPrefab, this.content.transform).Init(dialog, entries[i]);
+
+			if(dialog.HasOptions() && entries[i].IsSelectable())
+			{
+				entry.ShowSelectable();
+			}
+
+			entry.Open();
 		}
 	}
 }

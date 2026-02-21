@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventoryPopupController : MenuBase
 {
 	[Tooltip("This event is called whenever an item is selected from the popup.")]
-	public UnityEvent<Inventory, Item> itemSelectedEvent = new UnityEvent<Inventory, Item>();
+	public UnityEvent<Inventory, Item> onItemSelected = new UnityEvent<Inventory, Item>();
 	
 	[Tooltip("The item stack slot prefab.")]
 	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
@@ -50,7 +50,7 @@ public class InventoryPopupController : MenuBase
 			}
 		}
 
-		this.itemSelectedEvent.AddListener((inv, item) => {this.Close();});
+		this.onItemSelected.AddListener((inv, item) => {this.Close();});
 		return this;
 	}
 
@@ -59,7 +59,7 @@ public class InventoryPopupController : MenuBase
 		base.Update();
 		this.transform.position = this.relativeTransform.position + this.offset;
 
-		// Handle inventory traversal with WASD or arrow keys.
+		// Handle traversal with arrow keys.
 		if(Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			this.MoveSelection(Vector2Int.down);
@@ -89,7 +89,7 @@ public class InventoryPopupController : MenuBase
 				return;
 			}
 
-			this.itemSelectedEvent.Invoke(this.inventory, selected);
+			this.onItemSelected.Invoke(this.inventory, selected);
 			Debug.Log(selected.name);
 		}
 	}

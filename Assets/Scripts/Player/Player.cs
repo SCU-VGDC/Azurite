@@ -54,14 +54,6 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		// FOR TESTING
-		// Add an item to the inventory when "U" is pressed.
-		if(Input.GetKeyDown(KeyCode.U))
-		{
-			ItemStack stack = this.GetComponent<ItemStack>();
-			stack.AddTo(this);
-		}
-
 		// Only allow player movement when the inventory is closed.
 		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
 

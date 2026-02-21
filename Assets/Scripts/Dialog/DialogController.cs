@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,57 +24,43 @@ public class DialogController : MonoBehaviour
 	private DialogEntry current = null;
 	private string titleOverride = "";
 
-	// TESTING CODE PLEASE REMOVE
-	public void Update()
+	private List<DialogEntry> currentEntries = new List<DialogEntry>();
+	private List<DialogEntry> selectableEntries = new List<DialogEntry>();
+
+	public void Awake()
 	{
-		if(Input.GetKeyDown(KeyCode.M))
-		{
-			if (this.IsMenuOpen())
-			{
-				this.GetOpenMenu().Close();
-			}
-			else
-			{
-				this.OpenMenu();
-			}
-		}
+		this.titleOverride = this.title;
+		this.CacheEntries();
 	}
-	// END OF TESTING CODE
 
-	public void Select(int dialogIndex)
+	private void CacheEntries()
 	{
-		if(dialogIndex >= 0)
+		Transform currentDialog = this.current == null ? this.transform : this.current.GetActual().transform;
+		
+		this.currentEntries.Clear();
+		this.selectableEntries.Clear();
+
+		for(int i = 0; i < currentDialog.transform.childCount; ++i)
 		{
-			DialogEntry entry = this.GetDialogEntries()[dialogIndex];
-
-			if(entry.IsSelectable())
+			if(currentDialog.GetChild(i).TryGetComponent<DialogEntry>(out DialogEntry entry))
 			{
-				this.current = entry.GetActual();
-				this.current.Select();
-				this.onDialogChange.Invoke(this);
-			}
+				this.currentEntries.Add(entry);
 
-			return;
-		}
+				if(!entry.IsSelectable())
+				{
+					continue;
+				}
 
-		foreach(DialogEntry entry in this.GetDialogEntries())
-		{
-			if(entry.IsSelectable())
-			{
-				this.current = entry.GetActual();
-				this.current.Select();
-				this.onDialogChange.Invoke(this);
-				return;
+				this.selectableEntries.Add(entry);
 			}
 		}
-
-		this.onDialogEnd.Invoke();
 	}
 
 	public void Reset()
 	{
 		this.current = null;
-		this.titleOverride = "";
+		this.titleOverride = this.name;
+		this.CacheEntries();
 		this.onDialogChange.Invoke(this);
 	}
 
@@ -97,37 +86,78 @@ public class DialogController : MonoBehaviour
 			return;
 		}
 
-		Instantiate(this.menuPrefab, canvas.transform).Init(this);
+		DialogMenuController menu = Instantiate(this.menuPrefab, canvas.transform).Init(this);
 
-		if(this.keepState)
+		if(!this.keepState)
 		{
-			this.onDialogChange.Invoke(this);
-			return;
+			menu.onClose.AddListener(this.Reset);
 		}
 
-		this.Reset();
+		menu.Open();
 	}
 
 	public string GetTitle()
 	{
-		if(this.current != null && this.current.GetTitleOverride().Length != 0)
+		return this.titleOverride;
+	}
+
+	public DialogEntry[] GetEntries()
+	{
+		return this.currentEntries.ToArray();
+	}
+
+	public DialogEntry[] GetSelectableEntries()
+	{
+		return this.selectableEntries.ToArray();
+	}
+
+	public bool HasNext()
+	{
+		return this.selectableEntries.Count > 0;
+	}
+
+	public bool HasOptions()
+	{
+		return this.selectableEntries.Count > 1;
+	}
+
+	public DialogEntry GetDefaultNext()
+	{
+		return this.HasNext() ? this.selectableEntries[0] : null;
+	}
+
+	public void Select(DialogEntry entry)
+	{
+		// If the entry is not part of this dialog, return
+		if(entry != null && !this.currentEntries.Contains(entry))
+		{
+			Debug.LogWarning("Attempted to select a dialog entry that does not exist.");
+			return;
+		}
+
+		// If their is no next dialog, end.
+		if(!this.HasNext())
+		{
+			this.onDialogEnd.Invoke();
+			return;
+		}
+
+		// If the entry has no children during a fork, return.
+		if(this.HasOptions() && entry != null && !entry.IsSelectable())
+		{
+			Debug.LogWarning("Attempted to select a dialog entry that has no options.");
+			return;
+		}
+
+		// If only one branch exists, select it regardless of the entry.
+		this.current = entry != null && this.HasOptions() ? entry : this.GetDefaultNext();
+
+		if(this.current.HasTitleOverride())
 		{
 			this.titleOverride = this.current.GetTitleOverride();
 		}
 
-		return this.titleOverride.Length > 0 ? this.titleOverride : this.title;
-	}
-
-	public DialogEntry[] GetDialogEntries()
-	{
-		Transform currentDialog = this.current == null ? this.transform : this.current.transform;
-		DialogEntry[] entries = new DialogEntry[currentDialog.childCount];
-
-		for(int i = currentDialog.transform.childCount; --i >= 0;)
-		{
-			entries[i] = currentDialog.GetChild(i).GetComponent<DialogEntry>();
-		}
-
-		return entries;
+		this.CacheEntries();
+		this.onDialogChange.Invoke(this);
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,7 @@ public class InventoryMenuController : MenuBase
 			this.AddItemEntry(associatedInventory, items[i]);
 		}
 
+		this.MoveSelection(-this.GetSelectedPosition());
 		return this;
 	}
 
@@ -34,7 +36,6 @@ public class InventoryMenuController : MenuBase
 	{
 		base.Update();
 
-		// Handle inventory traversal with WASD or arrow keys.
 		if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			this.MoveSelection(Vector2Int.down);
@@ -69,8 +70,8 @@ public class InventoryMenuController : MenuBase
 			this.childMenu.SetParent(this);
 			this.childMenu.gameObject.SetActive(false);
 			this.childMenu.onClose.AddListener(() => {
-				Destroy(this.childMenu.gameObject);
 				this.childMenu = null;
+				this.Open();
 			});
 			
 			this.onHide.AddListener(this.OpenInspectMenu);
@@ -86,12 +87,6 @@ public class InventoryMenuController : MenuBase
 		this.onHide.RemoveListener(this.OpenInspectMenu);
 	}
 
-	/// <summary>
-	/// Add an item stack to to the inventory menu. This does not actually 
-	/// add an item to the underlying inventory and is used only for 
-	/// updating the menu.
-	/// </summary>
-	/// <param name="item">The item to add.</param>
 	protected virtual void AddItemEntry(Inventory inventory, Item item)
 	{
 		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
@@ -101,19 +96,13 @@ public class InventoryMenuController : MenuBase
 			toggle.group = this.itemList;
 			toggle.onValueChanged.AddListener(this.UpdateItemName);
 
-			if(this.itemList.transform.childCount == 1) // Update the text box when the first item is added.
+			if(this.itemList.transform.childCount == 1)
 			{
 				this.UpdateItemName(false);
 			}
 		}
 	}
 
-	/// <summary>
-	/// Remove an item stack from the inventory menu. This does not actually 
-	/// remove an item from the underlying inventory and is only used for 
-	/// updating the menu.
-	/// </summary>
-	/// <param name="item">The item to remove.</param>
 	protected virtual void RemoveItemEntry(Inventory inventory, Item item)
 	{
 		ItemStackEntryController stack = this.GetItemStack(item);
@@ -124,11 +113,6 @@ public class InventoryMenuController : MenuBase
 		}
 	}
 
-	/// <summary>
-	/// Update an item stack in the inventory menu. This refreshes the item 
-	/// stack's stack count label.
-	/// </summary>
-	/// <param name="item">The item to update.</param>
 	protected virtual void UpdateItemEntry(Inventory inventory, Item item, int amount)
 	{
 		ItemStackEntryController stack = this.GetItemStack(item);
@@ -139,10 +123,6 @@ public class InventoryMenuController : MenuBase
 		}
 	}
 
-	/// <summary>
-	/// Update the item name in the currently selected item text box.
-	/// </summary>
-	/// <param name="_">Unused.</param>
 	protected virtual void UpdateItemName(bool _)
 	{
 		if(this.itemName == null)
@@ -166,37 +146,23 @@ public class InventoryMenuController : MenuBase
 		}
 	}
 
-	/// <summary>
-	/// Gets the currently selected item stack menu component.
-	/// </summary>
-	/// <returns>The currently selected item stack menu component or null if none exists.</returns>
 	public ItemStackEntryController GetSelectedStack()
 	{
 		Toggle selected = this.itemList.GetFirstActiveToggle();
 		return selected != null ? selected.gameObject.GetComponent<ItemStackEntryController>() : null;
 	}
 
-	/// <summary>
-	/// Gets the currently seletced item.
-	/// </summary>
-	/// <returns>The currently selected item or null if none exists.</returns>
 	public Item GetSelectedItem()
 	{
 		ItemStackEntryController selectedStack = this.GetSelectedStack();
 		return selectedStack != null ? selectedStack.GetItem() : null;
 	}
 
-	/// <summary>
-	/// Gets the item stack menu component associated with the specified item.
-	/// </summary>
-	/// <param name="item">The item to search for.</param>
-	/// <returns>The item stack menu component associated with the specified item or null if none exists.</returns>
 	public ItemStackEntryController GetItemStack(Item item)
 	{
-		// Iterate through the item list's children and find the item.
 		foreach(Transform child in this.itemList.transform)
 		{
-    		ItemStackEntryController stack = child.gameObject.GetComponent<ItemStackEntryController>();
+			ItemStackEntryController stack = child.gameObject.GetComponent<ItemStackEntryController>();
 
 			if(stack != null && item == stack.GetItem())
 			{
@@ -207,12 +173,6 @@ public class InventoryMenuController : MenuBase
 		return null;
 	}
 
-	/// <summary>
-	/// Move the current selection by a specified offset on the inventory 
-	/// grid. The slection will loop around if the selection is outside the 
-	/// bounds of the inventory grid.
-	/// </summary>
-	/// <param name="offset">The selection offset.</param>
 	public void MoveSelection(Vector2Int offset)
 	{
 		// Return if the inventory is empty.
@@ -244,10 +204,6 @@ public class InventoryMenuController : MenuBase
 		}
 	}
 
-	/// <summary>
-	/// Gets the grid coordinates of the currently selected item stack.
-	/// </summary>
-	/// <returns>The grid coordinates of the currently selected item stack.</returns>
 	public Vector2Int GetSelectedPosition()
 	{
 		Vector2Int grid = this.GetGridSize();
@@ -273,10 +229,6 @@ public class InventoryMenuController : MenuBase
 		return grid;
 	}
 
-	/// <summary>
-	/// Gets the current width and height of the inventory grid.
-	/// </summary>
-	/// <returns>The current width and height of the inventory grid.</returns>
 	public Vector2Int GetGridSize()
 	{
 		// Return if the inventory is empty or if the grid layout group doesn't exist.
@@ -298,7 +250,7 @@ public class InventoryMenuController : MenuBase
 			int columnCount = this.itemList.transform.childCount / grid.constraintCount + Mathf.Min(1, this.itemList.transform.childCount % grid.constraintCount);
 			return new Vector2Int(columnCount, grid.constraintCount);
 		
-		// If nothing is fixed, oof.
+		// If the grid is felxible, oof.
 		case GridLayoutGroup.Constraint.Flexible:
 			int gridWidth = 0;
 			float prevX = float.NegativeInfinity;

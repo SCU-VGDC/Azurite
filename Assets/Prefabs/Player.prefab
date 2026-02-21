@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 3838181656129955612}
   - component: {fileID: 554456252167468186}
   - component: {fileID: 6599850474268316214}
-  - component: {fileID: 8029251484623211219}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -286,17 +285,3 @@ MonoBehaviour:
       m_Calls: []
   inventoryMenuPrefab: {fileID: 344100902533872232, guid: 26f44a2f4a2994223be87a7d8db617a4, type: 3}
   inventoryPopupPrefab: {fileID: 3637571202153826813, guid: c511499aaf8bd4fd38bb49bd83e9d141, type: 3}
---- !u!114 &8029251484623211219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8629497072332039666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
-  count: 1
