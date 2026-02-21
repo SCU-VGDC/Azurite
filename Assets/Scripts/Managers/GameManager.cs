@@ -1,9 +1,13 @@
 using Unity.Cinemachine;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(EventSystem))]
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private string firstGameScene;
@@ -13,7 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject submarinePrefab;
     [NonSerialized] public static GameManager inst;
     [NonSerialized] public Player player;
-    public bool debugMode;
+    public bool debugMode = false;
+    public bool outputMainCanvasRaycastTarget = false;
     public GameObject MainCameraContainer { get; private set; } = null;
     public string PreviousScene { get; private set; } = null;
 
@@ -90,6 +95,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        if (outputMainCanvasRaycastTarget)
+        {
+            var mainCanvas = transform.Find("MainCanvas");
+            if (mainCanvas != null)
+            {
+                List<RaycastResult> results = new();
+                PointerEventData pointer = new(GetComponent<EventSystem>())
+                {
+                    position = Input.mousePosition
+                };
+                mainCanvas.GetComponent<GraphicRaycaster>().Raycast(pointer, results);
+                foreach (var res in results)
+                    Debug.Log(res.gameObject);
+            }
+        }
+    }
+
     private void OnSceneUnloaded(Scene scene)
     {
         PreviousScene = scene.name;
@@ -148,7 +172,6 @@ public class GameManager : MonoBehaviour
 
         action?.Invoke();
     }
-
 
     public void EndCurrentPuzzle()
     {
