@@ -7,7 +7,8 @@ public class Item : ScriptableObject
 	{
 		TOOL,
 		FLOWER,
-		MONSTER
+		MONSTER,
+		DOORKEY
 	}
 
 	/// <summary>The item's display name.</summary>
