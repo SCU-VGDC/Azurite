@@ -784,15 +784,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
---- !u!114 &943583154 stripped
+--- !u!114 &957068474 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8426171602254506548, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
   m_PrefabInstance: {fileID: 2091254306}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1159721117 stripped
@@ -1532,7 +1532,22 @@ MonoBehaviour:
   MonkeyCup: {fileID: 11400000, guid: 0993253dff5544fcd92f85d486c52d0c, type: 2}
   OrangeSapling: {fileID: 11400000, guid: 4e127e1c3d15c7c45bd75148e86d53e3, type: 2}
   PrettyFlower: {fileID: 11400000, guid: 167a91d790920414fa543436e864a068, type: 2}
-  recipes: []
+  recipes:
+  - a: {fileID: 11400000, guid: 774901a7c00814eb697a08822eaa09fc, type: 2}
+    b: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
+    result: {fileID: 11400000, guid: e0dc7a5499d5f47839fcab268fc70dac, type: 2}
+  - a: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
+    b: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
+    result: {fileID: 11400000, guid: e03eb3b84ac1242a99182f48077b3791, type: 2}
+  - a: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
+    b: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
+    result: {fileID: 11400000, guid: 0993253dff5544fcd92f85d486c52d0c, type: 2}
+  - a: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
+    b: {fileID: 11400000, guid: 3616bda03ba1e40a6b7eb0f3a8917b6c, type: 2}
+    result: {fileID: 11400000, guid: 4e127e1c3d15c7c45bd75148e86d53e3, type: 2}
+  - a: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
+    b: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
+    result: {fileID: 11400000, guid: 167a91d790920414fa543436e864a068, type: 2}
   contentChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2334,14 +2349,14 @@ PrefabInstance:
     - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: playerInteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 943583154}
+      objectReference: {fileID: 957068474}
     - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: playerInteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: playerInteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Start
+      value: AddTo
       objectReference: {fileID: 0}
     - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -2349,7 +2364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: playerInteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InteractionTrigger, Assembly-CSharp
+      value: ItemStack, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1214072826258735228, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
