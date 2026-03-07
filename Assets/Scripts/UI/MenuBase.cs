@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,83 +13,103 @@ public class MenuBase : MonoBehaviour
 	[Tooltip("This event is called when when the menu is hidden, usually when a child menu has been opened.")]
 	public UnityEvent onHide = new UnityEvent();
 
+	protected Sequence animations = null;
 	protected MenuBase parentMenu = null;
 	protected MenuBase childMenu = null;
-	protected int playingAnimations = 0;
 
-	private MenuAnimation[] animations = new MenuAnimation[0];
-	private bool checkHide = false;
-	private bool checkClose = false;
+	private bool isHiding = false;
+	private bool isClosing = false;
 
     public void Awake()
 	{
 		this.onOpen.AddListener(() => this.gameObject.SetActive(true));
-		this.onClose.AddListener(() => Destroy(this.gameObject));
 		this.onHide.AddListener(() => this.gameObject.SetActive(false));
-		this.onClose.AddListener(() =>
+		this.onClose.AddListener(() => Destroy(this.gameObject));
+		
+		this.animations = DOTween.Sequence().SetAutoKill(false).Pause();
+
+		this.CollectAnimations(this.animations, this.transform);
+
+		if(this.animations.Duration() == 0)
 		{
-			if(this.childMenu != null)
-			{
-				this.childMenu.Close();
-			}
-		});
-
-		MenuAnimation[] childAnimations = this.GetComponentsInChildren<MenuAnimation>();
-		MenuAnimation myAnimation = this.GetComponent<MenuAnimation>();
-
-		this.animations = new MenuAnimation[(myAnimation != null ? 1 : 0) + childAnimations.Length];
-
-		for(int i = childAnimations.Length; --i >= 0;)
-		{
-			this.animations[i] = childAnimations[i];
-		}
-
-		if(myAnimation != null)
-		{
-			this.animations[this.animations.Length - 1] = myAnimation;
+			this.animations.Join(DOTween.To(() => {return 0f;}, (value) => {}, 0f, 0f));
 		}
     }
+
+	private void CollectAnimations(Sequence sequence, Transform transform)
+	{
+		if(transform.TryGetComponent<MenuBase>(out MenuBase menu) && menu != this)
+		{
+			return;
+		}
+
+		if(transform.TryGetComponent<MenuAnimation>(out MenuAnimation animation))
+		{
+			sequence.Join(animation.GetTween());
+		}
+
+		for(int i = 0; i < transform.childCount; ++i)
+		{
+			this.CollectAnimations(sequence, transform.GetChild(i).transform);
+		}
+	}
 
     public virtual void Update()
     {
-        if(this.checkHide && this.HaveAnimationsRewound())
+		if(!this.HaveAnimationsRewound())
 		{
-			this.checkHide = false;
+			return;
+		}
+
+		if(this.isHiding)
+		{
+			this.isHiding = false;
 			this.onHide.Invoke();
-			
-			if(this.checkClose)
-			{
-				this.checkClose = false;
-				this.onClose.Invoke();
-            }
-        }
+		}
+
+		if(this.isClosing)
+		{
+			this.isClosing = false;
+			this.onClose.Invoke();
+		}
     }
 
-    public void SetParent(MenuBase parent)
+	public virtual void OnDestroy()
+	{
+		if(this.animations != null)
+		{
+			this.animations.Kill();
+		}
+	}
+
+	public void SetParent(MenuBase parent)
 	{
 		this.parentMenu = parent;
 	}
 
 	public void Open()
 	{
-		if(this.IsClosed())
-		{
-			this.onOpen.Invoke();
-		}
-		
+		this.onOpen.Invoke();
 		this.PlayAnimations();
 	}
 
 	public void Close()
 	{
-		this.Hide();
-		this.checkClose = true;
+		if(this.childMenu != null)
+		{
+			this.childMenu.onClose.AddListener(this.onClose.Invoke);
+			this.childMenu.Close();
+			return;
+		}
+
+		this.RewindAnimations();
+		this.isClosing = true;
 	}
 
 	public void Hide()
 	{
 		this.RewindAnimations();
-		this.checkHide = true;
+		this.isHiding = true;
 	}
 
 	public bool IsOpen()
@@ -103,43 +124,21 @@ public class MenuBase : MonoBehaviour
 
 	protected void PlayAnimations()
 	{
-		for (int i = this.animations.Length; --i >= 0;)
-		{
-			this.animations[i].Play();
-		}
+		this.animations.PlayForward();
 	}
 
 	protected void RewindAnimations()
 	{
-		for(int i = this.animations.Length; --i >= 0;)
-		{
-			this.animations[i].Rewind();
-		}
+		this.animations.PlayBackwards();
 	}
 
 	public bool HaveAnimationsPlayed()
 	{
-		for(int i = this.animations.Length; --i >= 0;)
-		{
-			if(this.animations[i].GetDirection() != 1f || this.animations[i].GetProgress() < 1f)
-			{
-				return false;
-			}
-		}
-
-		return true;
+		return !this.animations.IsBackwards() && this.animations.ElapsedPercentage() == 1;
 	}
 	
 	public bool HaveAnimationsRewound()
 	{
-		for(int i = this.animations.Length; --i >= 0;)
-		{
-			if(this.animations[i].GetDirection() != -1f || this.animations[i].GetProgress() > 0f)
-			{
-				return false;
-			}
-		}
-
-		return true;
+		return this.animations.IsBackwards() && this.animations.ElapsedPercentage() == 0;
 	}
 }

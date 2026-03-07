@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 7747845197157062084}
   - component: {fileID: 344100902533872232}
   - component: {fileID: 6598360802340770815}
+  - component: {fileID: 6457285425714672403}
   m_Layer: 5
   m_Name: Inventory Menu
   m_TagString: Untagged
@@ -267,9 +268,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a932f9c9e6a114c01be17b7fce3b261c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementType: 0
-  animationScale: 8
-  startAlpha: 0
+  interpolation: 1
+  duration: 0.2
+  reverse: 1
+  endAlpha: 0
+--- !u!225 &6457285425714672403
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637139246085363424}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2435763631774814949
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +297,7 @@ GameObject:
   - component: {fileID: 1914890444409570527}
   - component: {fileID: 6215509057352523567}
   - component: {fileID: 8636788702977105864}
-  - component: {fileID: 2489345025830927364}
+  - component: {fileID: 7984322644919308621}
   m_Layer: 5
   m_Name: Item Name Panel
   m_TagString: Untagged
@@ -390,7 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &2489345025830927364
+--- !u!114 &7984322644919308621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -402,10 +416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementType: 3
-  animationScale: 8
-  startMinAnchor: {x: 0.5, y: 1}
-  startMaxAnchor: {x: 0.5, y: 1}
+  interpolation: 21
+  duration: 0.2
+  reverse: 1
+  minAnchorEnd: {x: 0.5, y: 1}
+  maxAnchorEnd: {x: 0.5, y: 1}
 --- !u!1 &4137059596029370892
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +585,7 @@ GameObject:
   - component: {fileID: 6648760916489104717}
   - component: {fileID: 2259747909147063430}
   - component: {fileID: 6607535181916610307}
-  - component: {fileID: 6524094306866738139}
+  - component: {fileID: 8463363525628536894}
   m_Layer: 5
   m_Name: Item List Panel
   m_TagString: Untagged
@@ -672,7 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
---- !u!114 &6524094306866738139
+--- !u!114 &8463363525628536894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -684,10 +699,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementType: 3
-  animationScale: 8
-  startMinAnchor: {x: 0, y: 0}
-  startMaxAnchor: {x: 1, y: 0}
+  interpolation: 21
+  duration: 0.2
+  reverse: 1
+  minAnchorEnd: {x: 0, y: 0}
+  maxAnchorEnd: {x: 1, y: 0}
 --- !u!1 &8819007799520314246
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +715,7 @@ GameObject:
   - component: {fileID: 6025035135315471544}
   - component: {fileID: 8538054175999683763}
   - component: {fileID: 7163906986460816267}
-  - component: {fileID: 6404549265521030815}
+  - component: {fileID: 361641866161489393}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -825,7 +841,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6404549265521030815
+--- !u!114 &361641866161489393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -837,7 +853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55475a358ae834496808893db69b039d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementType: 3
-  animationScale: 8
-  startMinAnchor: {x: 0, y: 0}
-  startMaxAnchor: {x: 1, y: 1}
+  interpolation: 21
+  duration: 0.2
+  reverse: 1
+  minAnchorEnd: {x: 0, y: 1}
+  maxAnchorEnd: {x: 1, y: 1}

@@ -4,15 +4,12 @@ using UnityEngine.UI;
 
 public class DefaultInspectMenuController : InspectMenuBase
 {
-	/// <summary>The item name text box.</summary>
 	[Tooltip("The item name text box.")]
 	[SerializeField] private TextMeshProUGUI title = null;
 
-	/// <summary>The item description text box.</summary>
 	[Tooltip("The item description text box.")]
 	[SerializeField] private TextMeshProUGUI descripiton = null;
 
-	/// <summary>The item preview image.</summary>
 	[Tooltip("The item preview image.")]
 	[SerializeField] private Image preview = null;
 
@@ -24,12 +21,7 @@ public class DefaultInspectMenuController : InspectMenuBase
 		return this;
 	}
 
-    public void Start()
-    {
-		this.onClose.AddListener(this.parentMenu.Open);
-    }
-
-    public override void Update()
+	public override void Update()
 	{
 		base.Update();
 

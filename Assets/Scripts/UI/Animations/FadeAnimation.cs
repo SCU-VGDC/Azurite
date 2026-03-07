@@ -1,30 +1,40 @@
+using System.Threading;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-[RequireComponent(typeof(CanvasRenderer))]
 public class FadeAnimation : MenuAnimation
 {
-	/// <summary>The starting alpha value to use when playing the animation.</summary>
-	[Tooltip("The starting alpha value to use when playing the animation.")]
-	[SerializeField] float startAlpha = 0f;
+	[Tooltip("The ending alpha value.")]
+	[SerializeField] float endAlpha = 0f;
 
-	/// <summary>The final alpha value to use when playing the animation.</summary>
-	private float endAlpha = 0f;
-
-	/// <summary>The canvas renderer to adjust the alpha value of.</summary>
-	private CanvasRenderer uiRenderer = null;
-
-	public void Start()
+	protected override Tween CreateTween()
 	{
-		this.uiRenderer = this.GetComponent<CanvasRenderer>();
-		this.endAlpha = this.uiRenderer.GetAlpha();
-	}
+		if(this.TryGetComponent<CanvasGroup>(out CanvasGroup canvasGroup))
+		{
+			if(this.reverse)
+			{
+				Tween tween = DOTween.To((value) => {canvasGroup.alpha = value;}, this.endAlpha, canvasGroup.alpha, this.duration).SetAutoKill(false).Pause();
+				canvasGroup.alpha = this.endAlpha;
+				return tween;
+			}
 
-	public override void Update()
-	{
-		base.Update();
+			return DOTween.To((value) => {canvasGroup.alpha = value;}, canvasGroup.alpha, this.endAlpha, this.duration).SetAutoKill(false).Pause();
+		}
+		else if(this.TryGetComponent<CanvasRenderer>(out CanvasRenderer canvasRenderer))
+		{
+			if(this.reverse)
+			{
+				Tween tween = DOTween.To(canvasRenderer.SetAlpha, this.endAlpha, canvasRenderer.GetAlpha(), this.duration).SetAutoKill(false).Pause();
+				canvasRenderer.SetAlpha(this.endAlpha);
+				return tween;
+			}
 
-		// Set the alpha to the interpolated progress.
-		float position = this.CalculatePosition();
-		this.uiRenderer.SetAlpha(position * this.endAlpha + (1f - position) * this.startAlpha);
+			return DOTween.To(canvasRenderer.SetAlpha, canvasRenderer.GetAlpha(), this.endAlpha, this.duration).SetAutoKill(false).Pause();
+		}
+		else
+		{
+			return DOTween.To(() => {return 0f;}, (value) => {}, 0f, 0f).SetEase(this.interpolation).SetAutoKill(false).Pause();
+		}
 	}
 }

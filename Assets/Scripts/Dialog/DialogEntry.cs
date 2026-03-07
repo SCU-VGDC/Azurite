@@ -52,4 +52,9 @@ public class DialogEntry : MonoBehaviour
 	{
 		return this.titleOverride;
 	}
+
+	public bool HasTitleOverride()
+	{
+		return !string.IsNullOrEmpty(this.titleOverride);
+	}
 }

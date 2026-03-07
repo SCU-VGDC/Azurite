@@ -67,6 +67,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Mono crash logs
+mono_crash.*
+
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
