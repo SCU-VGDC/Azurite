@@ -3,22 +3,27 @@ using UnityEngine.Events;
 
 public class FlowerMenuController : MonoBehaviour
 {
-    [Tooltip("The menu prefab to instantiate. If not set, opens the player's inventory menu instead.")]
-    [SerializeField] private FlowerMenu menuPrefab = null;
+    [Tooltip(
+        "The menu prefab to instantiate."
+    )]
+    [SerializeField]
+    private FlowerMenu menuPrefab = null;
 
-    [Tooltip("The inventory to display in the flower menu. If not set, uses the player's inventory.")]
-    [SerializeField] private Inventory inventoryToShow = null;
+    [Tooltip(
+        "The inventory to display in the flower menu."
+    )]
+    [SerializeField]
+    private Inventory inventoryToShow = null;
 
-    // No longer need to store the InteractionTrigger reference
-    // We'll call OpenMenu() directly from the InteractionTrigger script
+    [Tooltip("The flower combiner inventory. If set, Space in the menu transfers the selected item here.")]
+    [SerializeField]
+    private FlowerInventory flowerInventory = null;
 
     [Tooltip("This event is called whenever the menu is opened.")]
     public UnityEvent<FlowerMenuController> onMenuOpen = new UnityEvent<FlowerMenuController>();
 
     [Tooltip("This event is called whenever the menu is closed.")]
     public UnityEvent<FlowerMenuController> onMenuClose = new UnityEvent<FlowerMenuController>();
-
-    // Removed Start() method - we'll call OpenMenu() directly
 
     public bool IsMenuOpen()
     {
@@ -52,24 +57,34 @@ public class FlowerMenuController : MonoBehaviour
 
         if (canvas == null || canvas.transform.GetComponentInChildren<MenuBase>() != null)
         {
-            Debug.Log("A menu is already open!");
+            Debug.Log("A menu is already open");
             return;
         }
 
-        Inventory inventory = this.inventoryToShow != null
-            ? this.inventoryToShow
-            : (GameManager.inst != null && GameManager.inst.player != null ? GameManager.inst.player.Inventory : null);
+        Inventory inventory =
+            this.inventoryToShow != null
+                ? this.inventoryToShow
+                : (
+                    GameManager.inst != null && GameManager.inst.player != null
+                        ? GameManager.inst.player.Inventory
+                        : null
+                );
 
         if (inventory == null)
         {
-            Debug.LogError("No inventory to show: assign one in the inspector or ensure GameManager and player exist.");
+            Debug.LogError(
+                "No inventory to show: assign one in the inspector or ensure GameManager and player exist."
+            );
             return;
         }
 
         if (this.menuPrefab == null)
         {
-            // Default to player's inventory menu (same as pressing I).
-            if (GameManager.inst != null && GameManager.inst.player != null && GameManager.inst.player.Inventory != null)
+            if (
+                GameManager.inst != null
+                && GameManager.inst.player != null
+                && GameManager.inst.player.Inventory != null
+            )
             {
                 GameManager.inst.player.Inventory.OpenMenu();
                 this.onMenuOpen.Invoke(this);
@@ -81,13 +96,27 @@ public class FlowerMenuController : MonoBehaviour
             return;
         }
 
-        Instantiate(this.menuPrefab, canvas.transform).Init(inventory);
+        string playerInvLog = "Player Inventory: ";
+        foreach (var item in inventory.GetItems())
+            playerInvLog += $"{item.GetDisplayName()} (x{inventory.GetCount(item)}), ";
+        Debug.Log(playerInvLog);
+
+        if (this.flowerInventory != null)
+        {
+            string combinerLog = "Combiner Inventory: ";
+            foreach (var item in this.flowerInventory.GetItems())
+                combinerLog += $"{item.GetDisplayName()} (x{this.flowerInventory.GetCount(item)}), ";
+            Debug.Log(combinerLog);
+        }
+        else
+        {
+            Debug.LogWarning("Combiner Inventory is NULL on the controller!");
+        }
+
+        Instantiate(this.menuPrefab, canvas.transform).Init(inventory, this.flowerInventory);
         this.onMenuOpen.Invoke(this);
     }
 
-    /// <summary>
-    /// Closes the flower menu if it is open. Call this from code or wire to a button's onClick.
-    /// </summary>
     public void CloseMenu()
     {
         FlowerMenu openMenu = this.GetOpenMenu();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,15 +7,29 @@ using UnityEngine.UI;
 public class FlowerMenu : MenuBase
 {
     [Tooltip("The item stack slot prefab.")]
-    [SerializeField] protected ItemStackEntryController itemStackPrefab = null;
+    [SerializeField]
+    protected ItemStackEntryController itemStackPrefab = null;
 
     [Tooltip("The toggle group containing the item stacks.")]
-    [SerializeField] protected ToggleGroup itemList = null;
+    [SerializeField]
+    protected ToggleGroup itemList = null;
 
-    [Tooltip("The item name text box.")] 
-    [SerializeField] protected TextMeshProUGUI itemName = null;
+    [Tooltip("The item name text box.")]
+    [SerializeField]
+    protected TextMeshProUGUI itemName = null;
 
-    public FlowerMenu Init(Inventory associatedInventory)
+    [Tooltip("The flower combiner inventory to transfer items to.")]
+    [SerializeField]
+    protected FlowerInventory flowerInventory = null;
+
+    [Tooltip("The Combine Button (Should not be altered outside of prefab).")]
+    [SerializeField]
+    protected Button combineButton = null;
+
+    private Dictionary<Item, ItemStackEntryController> itemStacks = new Dictionary<Item, ItemStackEntryController>();
+    private GridLayoutGroup gridLayoutGroup;
+
+    public FlowerMenu Init(Inventory associatedInventory, FlowerInventory combiner = null)
     {
         associatedInventory.itemAddedEvent.AddListener(this.AddItemEntry);
         associatedInventory.itemRemovedEvent.AddListener(this.RemoveItemEntry);
@@ -22,9 +37,24 @@ public class FlowerMenu : MenuBase
 
         Item[] items = associatedInventory.GetItems();
 
-        for(int i = 0; i < items.Length; ++i)
+        for (int i = 0; i < items.Length; ++i)
         {
             this.AddItemEntry(associatedInventory, items[i]);
+        }
+
+        if (combiner != null)
+        {
+            this.flowerInventory = combiner;
+            Transform leftPanel = this.transform.Find("Left Item Panel");
+            Transform rightPanel = this.transform.Find("Right Item Panel");
+            if (leftPanel != null && rightPanel != null && this.itemStackPrefab != null)
+                combiner.BindCombinerSlots(leftPanel, rightPanel, this.itemStackPrefab);
+
+            if (this.combineButton != null)
+            {
+                this.combineButton.onClick.RemoveAllListeners();
+                this.combineButton.onClick.AddListener(this.OnCombineButtonClicked);
+            }
         }
 
         return this;
@@ -34,25 +64,42 @@ public class FlowerMenu : MenuBase
     {
         base.Update();
 
-        // Handle list traversal with WASD or arrow keys.
-        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             this.MoveSelection(Vector2Int.down);
         }
 
-        if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             this.MoveSelection(Vector2Int.up);
         }
 
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             this.MoveSelection(Vector2Int.left);
         }
 
-        if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             this.MoveSelection(Vector2Int.right);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Item selected = this.GetSelectedItem();
+            if (selected != null && this.flowerInventory != null)
+                this.flowerInventory.AddFlower(selected);
+        }
+    }
+
+    public void OnCombineButtonClicked()
+    {
+        if (this.flowerInventory == null) return;
+
+        Item result = this.flowerInventory.Combine();
+        if (result != null)
+        {
+            Debug.Log($"Crafted {result.GetDisplayName()}");
         }
     }
 
@@ -63,14 +110,17 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void AddItemEntry(Inventory inventory, Item item)
     {
-        ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
+        ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform)
+            .Init(inventory, item);
 
-        if(stack.TryGetComponent(out Toggle toggle))
+        this.itemStacks[item] = stack;
+
+        if (stack.TryGetComponent(out Toggle toggle))
         {
             toggle.group = this.itemList;
             toggle.onValueChanged.AddListener(this.UpdateItemName);
 
-            if(this.itemList.transform.childCount == 1)
+            if (this.itemList.transform.childCount == 1)
             {
                 this.UpdateItemName(false);
             }
@@ -84,11 +134,10 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void RemoveItemEntry(Inventory inventory, Item item)
     {
-        ItemStackEntryController stack = this.GetItemStack(item);
-
-        if(stack != null)
+        if (this.itemStacks.TryGetValue(item, out ItemStackEntryController stack) && stack != null)
         {
             Destroy(stack.gameObject);
+            this.itemStacks.Remove(item);
         }
     }
 
@@ -100,7 +149,7 @@ public class FlowerMenu : MenuBase
     {
         ItemStackEntryController stack = this.GetItemStack(item);
 
-        if(stack != null)
+        if (stack != null)
         {
             stack.Refresh();
         }
@@ -111,18 +160,18 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void UpdateItemName(bool _)
     {
-        if(this.itemName == null)
+        if (this.itemName == null)
         {
             return;
         }
 
         Item selected = this.GetSelectedItem();
 
-        if(selected != null)
+        if (selected != null)
         {
             this.itemName.SetText(selected.GetDisplayName());
             this.itemName.enabled = true;
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform) this.itemName.transform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.itemName.transform);
         }
         else
         {
@@ -136,7 +185,9 @@ public class FlowerMenu : MenuBase
     public ItemStackEntryController GetSelectedStack()
     {
         Toggle selected = this.itemList.GetFirstActiveToggle();
-        return selected != null ? selected.gameObject.GetComponent<ItemStackEntryController>() : null;
+        return selected != null
+            ? selected.gameObject.GetComponent<ItemStackEntryController>()
+            : null;
     }
 
     /// <summary>
@@ -153,17 +204,8 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public ItemStackEntryController GetItemStack(Item item)
     {
-        foreach(Transform child in this.itemList.transform)
-        {
-            ItemStackEntryController stack = child.gameObject.GetComponent<ItemStackEntryController>();
-
-            if(stack != null && item == stack.GetItem())
-            {
-                return stack;
-            }
-        }
-
-        return null;
+        this.itemStacks.TryGetValue(item, out ItemStackEntryController stack);
+        return stack;
     }
 
     /// <summary>
@@ -172,7 +214,7 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public void MoveSelection(Vector2Int offset)
     {
-        if(this.itemList.transform.childCount == 0)
+        if (this.itemList.transform.childCount == 0)
         {
             return;
         }
@@ -185,12 +227,12 @@ public class FlowerMenu : MenuBase
         int height = selectedPos.x >= lastRowWidth ? grid.y - 1 : grid.y;
 
         selectedPos += offset;
-        selectedPos.x = selectedPos.x < 0 ? width - (Math.Abs(selectedPos.x + 1) % width) - 1 : selectedPos.x % width;
-        selectedPos.y = selectedPos.y < 0 ? height - (Math.Abs(selectedPos.y + 1) % height) - 1 : selectedPos.y % height;
+        selectedPos.x = ((selectedPos.x % width) + width) % width;
+        selectedPos.y = ((selectedPos.y % height) + height) % height;
 
         int index = (selectedPos.y * grid.x + selectedPos.x) % this.itemList.transform.childCount;
 
-        if(this.itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
+        if (this.itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
         {
             stack.isOn = true;
         }
@@ -203,7 +245,7 @@ public class FlowerMenu : MenuBase
     {
         Vector2Int grid = this.GetGridSize();
 
-        if(grid.x == 0)
+        if (grid.x == 0)
         {
             grid.Set(-1, -1);
             return grid;
@@ -211,13 +253,16 @@ public class FlowerMenu : MenuBase
 
         ItemStackEntryController selected = this.GetSelectedStack();
 
-        if(selected == null)
+        if (selected == null)
         {
             grid.Set(-1, -1);
             return grid;
         }
 
-        grid.Set(selected.transform.GetSiblingIndex() % grid.x, selected.transform.GetSiblingIndex() / grid.x);
+        grid.Set(
+            selected.transform.GetSiblingIndex() % grid.x,
+            selected.transform.GetSiblingIndex() / grid.x
+        );
         return grid;
     }
 
@@ -226,43 +271,56 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public Vector2Int GetGridSize()
     {
-        if(this.itemList.transform.childCount == 0 || !this.itemList.gameObject.TryGetComponent(out GridLayoutGroup grid))
+        if (this.itemList.transform.childCount == 0 || (this.gridLayoutGroup == null && !this.itemList.gameObject.TryGetComponent(out this.gridLayoutGroup)))
         {
             return Vector2Int.zero;
         }
 
-        switch(grid.constraint)
+        switch (this.gridLayoutGroup.constraint)
         {
-        case GridLayoutGroup.Constraint.FixedColumnCount:
-            int rowCount = this.itemList.transform.childCount / grid.constraintCount + Mathf.Min(1, this.itemList.transform.childCount % grid.constraintCount);
-            return new Vector2Int(grid.constraintCount, rowCount);
+            case GridLayoutGroup.Constraint.FixedColumnCount:
+                int rowCount = (this.itemList.transform.childCount + this.gridLayoutGroup.constraintCount - 1) / this.gridLayoutGroup.constraintCount;
+                return new Vector2Int(this.gridLayoutGroup.constraintCount, rowCount);
 
-        case GridLayoutGroup.Constraint.FixedRowCount:
-            int columnCount = this.itemList.transform.childCount / grid.constraintCount + Mathf.Min(1, this.itemList.transform.childCount % grid.constraintCount);
-            return new Vector2Int(columnCount, grid.constraintCount);
+            case GridLayoutGroup.Constraint.FixedRowCount:
+                int columnCount = (this.itemList.transform.childCount + this.gridLayoutGroup.constraintCount - 1) / this.gridLayoutGroup.constraintCount;
+                return new Vector2Int(columnCount, this.gridLayoutGroup.constraintCount);
 
-        case GridLayoutGroup.Constraint.Flexible:
-            int gridWidth = 0;
-            float prevX = float.NegativeInfinity;
+            case GridLayoutGroup.Constraint.Flexible:
+                int gridWidth = 0;
+                float prevX = float.NegativeInfinity;
 
-            for(int i = 0; i < this.itemList.transform.childCount; ++i)
-            {
-                float x = ((RectTransform) grid.transform.GetChild(i)).anchoredPosition.x;
-
-                if(x <= prevX)
+                for (int i = 0; i < this.itemList.transform.childCount; ++i)
                 {
-                    break;
+                    float x = ((RectTransform)this.gridLayoutGroup.transform.GetChild(i)).anchoredPosition.x;
+                    if (x <= prevX)
+                        break;
+
+                    prevX = x;
+                    ++gridWidth;
                 }
 
-                prevX = x;
-                ++gridWidth;
+                int gridHeight = (this.itemList.transform.childCount + gridWidth - 1) / gridWidth;
+                return new Vector2Int(gridWidth, gridHeight);
+
+            default:
+                return Vector2Int.zero;
+        }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (this.flowerInventory != null)
+        {
+            Item[] items = this.flowerInventory.GetItems();
+            foreach (Item item in items)
+            {
+                int count = this.flowerInventory.GetCount(item);
+                for (int i = 0; i < count; ++i)
+                {
+                    this.flowerInventory.RemoveFlower(item);
+                }
             }
-
-            int gridHeight = this.itemList.transform.childCount / gridWidth + Mathf.Min(1, this.itemList.transform.childCount % gridWidth);
-            return new Vector2Int(gridWidth, gridHeight);
-
-        default:
-            return Vector2Int.zero;
         }
     }
 }

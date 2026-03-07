@@ -1339,6 +1339,7 @@ GameObject:
   - component: {fileID: 1511759255}
   - component: {fileID: 1511759256}
   - component: {fileID: 1511759257}
+  - component: {fileID: 1511759258}
   m_Layer: 0
   m_Name: Combiner
   m_TagString: Untagged
@@ -1505,14 +1506,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f0148eea8b6604599b62c32585429d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuPrefab: {fileID: 0}
+  menuPrefab: {fileID: 4533616568178099494, guid: 1cbab4725d58b1646814801149fff8bd, type: 3}
   inventoryToShow: {fileID: 0}
+  flowerInventory: {fileID: 1511759258}
   onMenuOpen:
     m_PersistentCalls:
       m_Calls: []
   onMenuClose:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1511759258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511759252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce8397616fb02245bf13be6586503fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemAddedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemRemovedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  inventoryMenuPrefab: {fileID: 0}
+  inventoryPopupPrefab: {fileID: 0}
+  Beanstalk: {fileID: 11400000, guid: e0dc7a5499d5f47839fcab268fc70dac, type: 2}
+  MapleSapling: {fileID: 11400000, guid: e03eb3b84ac1242a99182f48077b3791, type: 2}
+  MonkeyCup: {fileID: 11400000, guid: 0993253dff5544fcd92f85d486c52d0c, type: 2}
+  OrangeSapling: {fileID: 11400000, guid: 4e127e1c3d15c7c45bd75148e86d53e3, type: 2}
+  PrettyFlower: {fileID: 11400000, guid: 167a91d790920414fa543436e864a068, type: 2}
+  recipes: []
+  failedCombinationItem: {fileID: 11400000, guid: 867f6391fc3477541be07862f19b1972, type: 2}
 --- !u!114 &1528930963 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3898913513855460555, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
