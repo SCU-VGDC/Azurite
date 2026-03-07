@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 568856870118070222}
   - component: {fileID: 5135841316147126665}
   m_Layer: 0
-  m_Name: Note
+  m_Name: ScribeNote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

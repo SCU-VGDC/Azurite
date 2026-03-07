@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public Player player;
     public bool debugMode = false;
     public bool outputMainCanvasRaycastTarget = false;
+
+    public Canvas MainCanvas { get; private set; } = null;
     public GameObject MainCameraContainer { get; private set; } = null;
+    public Camera MainCamera => MainCameraContainer.GetComponentInChildren<Camera>();
     public string PreviousScene { get; private set; } = null;
 
     // game states
@@ -53,6 +56,10 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        MainCanvas = transform.Find("MainCanvas").GetComponent<Canvas>();
+        if (MainCanvas == null)
+            Debug.LogWarning("Main canvas not found in GameManager!");
+
         var playerObj = Instantiate(playerPrefab);
         DontDestroyOnLoad(playerObj);
         player = playerObj.GetComponent<Player>();
@@ -64,15 +71,14 @@ public class GameManager : MonoBehaviour
 		if(worldCanvas != null)
 		{
 			Canvas canvas = worldCanvas.GetComponent<Canvas>();
-			Camera camera = MainCameraContainer.GetComponentInChildren<Camera>();
 
-			if(canvas == null || camera == null)
+			if(canvas == null || MainCamera == null)
 			{
 				Debug.LogError("Failed to assign the camera to the world canvas.");
 			}
 			else
 			{
-				canvas.worldCamera = camera;
+				canvas.worldCamera = MainCamera;
 			}
 		}
 		else
@@ -99,18 +105,14 @@ public class GameManager : MonoBehaviour
     {
         if (outputMainCanvasRaycastTarget)
         {
-            var mainCanvas = transform.Find("MainCanvas");
-            if (mainCanvas != null)
+            List<RaycastResult> results = new();
+            PointerEventData pointer = new(GetComponent<EventSystem>())
             {
-                List<RaycastResult> results = new();
-                PointerEventData pointer = new(GetComponent<EventSystem>())
-                {
-                    position = Input.mousePosition
-                };
-                mainCanvas.GetComponent<GraphicRaycaster>().Raycast(pointer, results);
-                foreach (var res in results)
-                    Debug.Log(res.gameObject);
-            }
+                position = Input.mousePosition
+            };
+            MainCanvas.GetComponent<GraphicRaycaster>().Raycast(pointer, results);
+            foreach (var res in results)
+                Debug.Log(res.gameObject);
         }
     }
 
