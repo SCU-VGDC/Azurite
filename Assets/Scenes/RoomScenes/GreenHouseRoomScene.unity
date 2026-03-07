@@ -1268,7 +1268,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -27
+  m_SortingOrder: -25
   m_Sprite: {fileID: 21300000, guid: 6f0f588bcc45d7746a4b22b434f39773, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1527,23 +1527,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce8397616fb02245bf13be6586503fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemAddedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemRemovedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  inventoryMenuPrefab: {fileID: 0}
-  inventoryPopupPrefab: {fileID: 0}
   Beanstalk: {fileID: 11400000, guid: e0dc7a5499d5f47839fcab268fc70dac, type: 2}
   MapleSapling: {fileID: 11400000, guid: e03eb3b84ac1242a99182f48077b3791, type: 2}
   MonkeyCup: {fileID: 11400000, guid: 0993253dff5544fcd92f85d486c52d0c, type: 2}
   OrangeSapling: {fileID: 11400000, guid: 4e127e1c3d15c7c45bd75148e86d53e3, type: 2}
   PrettyFlower: {fileID: 11400000, guid: 167a91d790920414fa543436e864a068, type: 2}
   recipes: []
+  contentChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   failedCombinationItem: {fileID: 11400000, guid: 867f6391fc3477541be07862f19b1972, type: 2}
 --- !u!114 &1528930963 stripped
 MonoBehaviour:

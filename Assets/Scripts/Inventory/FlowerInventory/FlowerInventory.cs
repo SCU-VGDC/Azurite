@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
-public class FlowerInventory : Inventory
+public class FlowerInventory : MonoBehaviour
 {
     [SerializeField] private Item Beanstalk;
     [SerializeField] private Item MapleSapling;
@@ -26,7 +26,11 @@ public class FlowerInventory : Inventory
     private Transform _leftSlotParent;
     private Transform _rightSlotParent;
     private ItemStackEntryController _slotPrefab;
-    private bool _eventsSubscribed;
+
+    public Item Slot1 { get; private set; }
+    public Item Slot2 { get; private set; }
+
+    public UnityEngine.Events.UnityEvent contentChangedEvent = new UnityEngine.Events.UnityEvent();
 
     public void Awake()
     {
@@ -45,13 +49,10 @@ public class FlowerInventory : Inventory
         _leftSlotParent = leftPanel;
         _rightSlotParent = rightPanel;
         _slotPrefab = slotPrefab;
-        if (!_eventsSubscribed)
-        {
-            itemAddedEvent.AddListener((inv, item) => RefreshCombinerSlots());
-            itemRemovedEvent.AddListener((inv, item) => RefreshCombinerSlots());
-            itemChangedEvent.AddListener((inv, item, amount) => RefreshCombinerSlots());
-            _eventsSubscribed = true;
-        }
+
+        contentChangedEvent.RemoveListener(RefreshCombinerSlots);
+        contentChangedEvent.AddListener(RefreshCombinerSlots);
+
         RefreshCombinerSlots();
     }
 
@@ -64,15 +65,20 @@ public class FlowerInventory : Inventory
         for (int i = _rightSlotParent.childCount - 1; i >= 0; i--)
             Destroy(_rightSlotParent.GetChild(i).gameObject);
 
-        Item[] items = GetItems();
-        if (items.Length > 0)
+        if (Slot1 != null)
         {
-            var left = Instantiate(_slotPrefab, _leftSlotParent).Init(this, items[0]);
+            var left = Instantiate(_slotPrefab, _leftSlotParent);
+            Inventory dummy = left.gameObject.AddComponent<Inventory>();
+            dummy.AddItem(Slot1, 1);
+            left.Init(dummy, Slot1);
             if (left.TryGetComponent(out Toggle t)) { t.group = null; t.interactable = false; }
         }
-        if (items.Length > 1)
+        if (Slot2 != null)
         {
-            var right = Instantiate(_slotPrefab, _rightSlotParent).Init(this, items[1]);
+            var right = Instantiate(_slotPrefab, _rightSlotParent);
+            Inventory dummy = right.gameObject.AddComponent<Inventory>();
+            dummy.AddItem(Slot2, 1);
+            right.Init(dummy, Slot2);
             if (right.TryGetComponent(out Toggle t)) { t.group = null; t.interactable = false; }
         }
     }
@@ -82,18 +88,18 @@ public class FlowerInventory : Inventory
 
     public Item Combine()
     {
-        Item[] items = GetItems();
-        if (_craftMap == null || items.Length != 2) return null;
+        if (_craftMap == null || Slot1 == null || Slot2 == null) return null;
 
-        if (!_craftMap.TryGetValue((items[0], items[1]), out Item result) || result == null)
+        if (!_craftMap.TryGetValue((Slot1, Slot2), out Item result) || result == null)
         {
             result = failedCombinationItem;
         }
 
         if (result == null) return null;
 
-        RemoveItem(items[0], 1);
-        RemoveItem(items[1], 1);
+        Slot1 = null;
+        Slot2 = null;
+        contentChangedEvent?.Invoke();
 
         GameManager.inst?.player?.Inventory?.AddItem(result, 1);
         return result;
@@ -101,7 +107,7 @@ public class FlowerInventory : Inventory
 
     public void AddFlower(Item item)
     {
-        if (this.GetItems().Length >= 2) return;
+        if (Slot1 != null && Slot2 != null) return;
 
         if (item.GetCategories() == null || Array.IndexOf(item.GetCategories(), Item.Category.FLOWER) < 0)
         {
@@ -112,13 +118,35 @@ public class FlowerInventory : Inventory
         Inventory player = GameManager.inst?.player?.Inventory;
         if (player == null || !player.HasItem(item)) return;
 
-        AddItem(item, 1);
+        if (Slot1 == null) Slot1 = item;
+        else Slot2 = item;
+
         player.RemoveItem(item, 1);
+        contentChangedEvent?.Invoke();
     }
 
     public void RemoveFlower(Item item)
     {
-        RemoveItem(item, 1);
+        if (Slot1 == item) Slot1 = null;
+        else if (Slot2 == item) Slot2 = null;
+        else return;
+
         GameManager.inst?.player?.Inventory?.AddItem(item, 1);
+        contentChangedEvent?.Invoke();
+    }
+
+    public void ReturnItems()
+    {
+        if (Slot1 != null)
+        {
+            GameManager.inst?.player?.Inventory?.AddItem(Slot1, 1);
+            Slot1 = null;
+        }
+        if (Slot2 != null)
+        {
+            GameManager.inst?.player?.Inventory?.AddItem(Slot2, 1);
+            Slot2 = null;
+        }
+        contentChangedEvent?.Invoke();
     }
 }

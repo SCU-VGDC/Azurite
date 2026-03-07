@@ -100,6 +100,16 @@ public class FlowerMenu : MenuBase
         if (result != null)
         {
             Debug.Log($"Crafted {result.GetDisplayName()}");
+
+            FlowerMenuController controller = FindFirstObjectByType<FlowerMenuController>();
+            if (controller != null)
+            {
+                controller.CloseMenu();
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 
@@ -312,15 +322,7 @@ public class FlowerMenu : MenuBase
     {
         if (this.flowerInventory != null)
         {
-            Item[] items = this.flowerInventory.GetItems();
-            foreach (Item item in items)
-            {
-                int count = this.flowerInventory.GetCount(item);
-                for (int i = 0; i < count; ++i)
-                {
-                    this.flowerInventory.RemoveFlower(item);
-                }
-            }
+            this.flowerInventory.ReturnItems();
         }
     }
 }

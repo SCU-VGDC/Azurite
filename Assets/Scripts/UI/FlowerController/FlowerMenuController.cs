@@ -104,8 +104,8 @@ public class FlowerMenuController : MonoBehaviour
         if (this.flowerInventory != null)
         {
             string combinerLog = "Combiner Inventory: ";
-            foreach (var item in this.flowerInventory.GetItems())
-                combinerLog += $"{item.GetDisplayName()} (x{this.flowerInventory.GetCount(item)}), ";
+            if (this.flowerInventory.Slot1 != null) combinerLog += $"{this.flowerInventory.Slot1.GetDisplayName()} (x1), ";
+            if (this.flowerInventory.Slot2 != null) combinerLog += $"{this.flowerInventory.Slot2.GetDisplayName()} (x1), ";
             Debug.Log(combinerLog);
         }
         else
