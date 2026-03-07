@@ -21,6 +21,8 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 	[Tooltip("The amount of actions interacting with this object costs.")]
     [SerializeField] private int actionCount = 0;
 
+	[SerializeField] private Vector2 offset = new Vector2(0, 1);
+
 	private TextMeshProUGUI textPopup = null;
 
     public int CompareTo(InteractionTrigger other)
@@ -30,12 +32,19 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
         float otherDist = Vector2.Distance(other.transform.position, plrTransform.position);
         return MathF.Sign(myDist - otherDist);
     }
-
+	public void Start()
+	{
+		if (textPopup == null)
+		{
+			popupText = triggerKey.ToString();
+		}
+	}
 	public void Update()
 	{
 		if(this.textPopup != null)
 		{
-			this.textPopup.transform.position = this.transform.position + new Vector3(0, 1, 0);
+			this.textPopup.transform.position = this.transform.position + new Vector3(offset.x, offset.y, 10);
+			this.textPopup.canvas.sortingOrder = 9999;
 		}
 	}
 

@@ -132,7 +132,7 @@ namespace DG.Tweening
 
         /// <summary>
         /// Returns a <see cref="CustomYieldInstruction"/> that waits until the tween is killed
-        /// or has reached the given time position (loops included, delays excluded).
+        /// or has reached the given time offset (loops included, delays excluded).
         /// It can be used inside a coroutine as a yield.
         /// <para>Example usage:</para><code>yield return myTween.WaitForPosition(2.5f);</code>
         /// </summary>
