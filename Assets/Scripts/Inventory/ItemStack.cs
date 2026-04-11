@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ItemStack : MonoBehaviour
@@ -10,20 +11,25 @@ public class ItemStack : MonoBehaviour
 	[Tooltip("The quantity of the item.")]
 	[SerializeField] private int count = 1;
 
-	/// <summary>
-	/// Add the item stack to the specified inventory.
-	/// </summary>
-	/// <param name="inventory">The inventory to add to.</param>
-	public void AddTo(Player player)
+    [Obsolete("This method is deprecated. Please use AddTo() instead.")]
+    public void AddTo(Player player)
 	{
 		player.Inventory.AddItem(this.item, this.count);
 	}
 
-	/// <summary>
-	/// Remove an item from the specified inventory.
-	/// </summary>
-	/// <param name="inventory">The inventory to remove from.</param>
-	public void RemoveFrom(Inventory inventory)
+    /// <summary>
+    /// Add the item stack to the specified inventory.
+    /// </summary>
+    /// <param name="inventory">The inventory to add to.</param>
+    public void AddTo()
+    {
+        GameManager.inst.player.Inventory.AddItem(this.item, this.count);
+    }
+    /// <summary>
+    /// Remove an item from the specified inventory.
+    /// </summary>
+    /// <param name="inventory">The inventory to remove from.</param>
+    public void RemoveFrom(Inventory inventory)
 	{
 		inventory.RemoveItem(this.item, this.count);
 	}
