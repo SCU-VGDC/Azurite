@@ -8,6 +8,9 @@ public class DialogEntry : MonoBehaviour
 	
     [Tooltip("Set this field to change the title of the dialog moving forward.")]
     [SerializeField] private string titleOverride = "";
+
+	[Tooltip("Set this field to change the icon of the dialog moving forward.")]
+    [SerializeField] private Sprite iconOverride = null;
     
     [Tooltip("The text to display in this entry.")]
 	[SerializeField] private string text = "";
@@ -56,5 +59,15 @@ public class DialogEntry : MonoBehaviour
 	public bool HasTitleOverride()
 	{
 		return !string.IsNullOrEmpty(this.titleOverride);
+	}
+
+	public Sprite GetIconOverride()
+	{
+		return this.iconOverride;
+	}
+
+	public bool HasIconOverride()
+	{
+		return this.iconOverride != null;
 	}
 }

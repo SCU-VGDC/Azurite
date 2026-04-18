@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DialogController : MonoBehaviour
+public class Dialog : MonoBehaviour
 {
 	[Tooltip("This event is called whenever the dialog opens/changes.")]
-	[SerializeField] public UnityEvent<DialogController> onDialogChange = new UnityEvent<DialogController>();
+	[SerializeField] public UnityEvent<Dialog> onDialogChange = new UnityEvent<Dialog>();
 
 	[Tooltip("This event is called whenever the dialog finishes.")]
 	[SerializeField] public UnityEvent onDialogEnd = new UnityEvent();
@@ -15,27 +13,32 @@ public class DialogController : MonoBehaviour
 	[Tooltip("The initial title of the dialog sequence.")]
 	[SerializeField] private string title = "";
 
+	[Tooltip("The initial title of the dialog sequence.")]
+	[SerializeField] private Sprite icon = null;
+
 	[Tooltip("Whether or not to save the dialog when closed prematurely.")]
 	[SerializeField] private bool keepState = false;
 
 	[Tooltip("The dialog menu prefab.")]
 	[SerializeField] private DialogMenuController menuPrefab = null;
 
-	private DialogEntry current = null;
-	private string titleOverride = "";
+	private DialogEntry currentEntry = null;
+	private string currentTitle = "";
+	private Sprite currentIcon = null;
 
 	private List<DialogEntry> currentEntries = new List<DialogEntry>();
 	private List<DialogEntry> selectableEntries = new List<DialogEntry>();
 
 	public void Awake()
 	{
-		this.titleOverride = this.title;
+		this.currentTitle = this.title;
+		this.currentIcon = this.icon;
 		this.CacheEntries();
 	}
 
 	private void CacheEntries()
 	{
-		Transform currentDialog = this.current == null ? this.transform : this.current.GetActual().transform;
+		Transform currentDialog = this.currentEntry == null ? this.transform : this.currentEntry.GetActual().transform;
 		
 		this.currentEntries.Clear();
 		this.selectableEntries.Clear();
@@ -58,8 +61,9 @@ public class DialogController : MonoBehaviour
 
 	public void Reset()
 	{
-		this.current = null;
-		this.titleOverride = this.name;
+		this.currentEntry = null;
+		this.currentTitle = this.title;
+		this.currentIcon = this.icon;
 		this.CacheEntries();
 		this.onDialogChange.Invoke(this);
 	}
@@ -98,7 +102,12 @@ public class DialogController : MonoBehaviour
 
 	public string GetTitle()
 	{
-		return this.titleOverride;
+		return this.currentTitle;
+	}
+
+	public Sprite GetIcon()
+	{
+		return this.currentIcon;
 	}
 
 	public DialogEntry[] GetEntries()
@@ -150,11 +159,16 @@ public class DialogController : MonoBehaviour
 		}
 
 		// If only one branch exists, select it regardless of the entry.
-		this.current = entry != null && this.HasOptions() ? entry : this.GetDefaultNext();
+		this.currentEntry = entry != null && this.HasOptions() ? entry : this.GetDefaultNext();
 
-		if(this.current.HasTitleOverride())
+		if(this.currentEntry.HasTitleOverride())
 		{
-			this.titleOverride = this.current.GetTitleOverride();
+			this.currentTitle = this.currentEntry.GetTitleOverride();
+		}
+
+		if(this.currentEntry.HasIconOverride())
+		{
+			this.currentIcon = this.currentEntry.GetIconOverride();
 		}
 
 		this.CacheEntries();
