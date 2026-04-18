@@ -18,7 +18,7 @@ namespace DG.Tweening
 
         #region Rigidbody2D Shortcuts
 
-        /// <summary>Tweens a Rigidbody2D's position to the given value.
+        /// <summary>Tweens a Rigidbody2D's offset to the given value.
         /// Also stores the Rigidbody2D as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -29,7 +29,7 @@ namespace DG.Tweening
             return t;
         }
 
-        /// <summary>Tweens a Rigidbody2D's X position to the given value.
+        /// <summary>Tweens a Rigidbody2D's X offset to the given value.
         /// Also stores the Rigidbody2D as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -40,7 +40,7 @@ namespace DG.Tweening
             return t;
         }
 
-        /// <summary>Tweens a Rigidbody2D's Y position to the given value.
+        /// <summary>Tweens a Rigidbody2D's Y offset to the given value.
         /// Also stores the Rigidbody2D as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         /// <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
@@ -63,10 +63,10 @@ namespace DG.Tweening
 
         #region Special
 
-        /// <summary>Tweens a Rigidbody2D's position to the given value, while also applying a jump effect along the Y axis.
+        /// <summary>Tweens a Rigidbody2D's offset to the given value, while also applying a jump effect along the Y axis.
         /// Returns a Sequence instead of a Tweener.
         /// Also stores the Rigidbody2D as the tween's target so it can be used for filtered operations.
-        /// <para>IMPORTANT: a rigidbody2D can't be animated in a jump arc using MovePosition, so the tween will directly set the position</para></summary>
+        /// <para>IMPORTANT: a rigidbody2D can't be animated in a jump arc using MovePosition, so the tween will directly set the offset</para></summary>
         /// <param name="endValue">The end value to reach</param>
         /// <param name="jumpPower">Power of the jump (the max height of the jump is represented by this plus the final Y offset)</param>
         /// <param name="numJumps">Total number of jumps</param>
@@ -99,7 +99,7 @@ namespace DG.Tweening
             return s;
         }
 
-        /// <summary>Tweens a Rigidbody2D's position through the given path waypoints, using the chosen path algorithm.
+        /// <summary>Tweens a Rigidbody2D's offset through the given path waypoints, using the chosen path algorithm.
         /// Also stores the Rigidbody2D as the tween's target so it can be used for filtered operations.
         /// <para>NOTE: to tween a Rigidbody2D correctly it should be set to kinematic at least while being tweened.</para>
         /// <para>BEWARE: doesn't work on Windows Phone store (waiting for Unity to fix their own bug).

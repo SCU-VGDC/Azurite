@@ -55,7 +55,7 @@ public class DraggableObject : MonoBehaviour
 
     void OnMouseDown()
     {
-        //Stores the position of the tile that the object is on when the mouse is clicked.
+        //Stores the offset of the tile that the object is on when the mouse is clicked.
         IsDragging = true;
         TargetPosition = WorldToTilemap(transform.position);
         TargetPosition = new Vector3(Mathf.RoundToInt(TargetPosition.x), Mathf.RoundToInt(TargetPosition.y), 0);
@@ -76,10 +76,10 @@ public class DraggableObject : MonoBehaviour
 
         UpdateTimer = UpdateCooldown;
 
-        //Gets coordinates of the mouse to drag box to position
+        //Gets coordinates of the mouse to drag box to offset
         Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition()) + PuzzleInteraction.puzzleLocation; // need to offset by the puzzle's grid location
         Vector3 mouseTilePos = new Vector3(Mathf.RoundToInt(rawMouseTilePos.x), Mathf.RoundToInt(rawMouseTilePos.y), 0);
-        // Use the raw position for a tolerance check
+        // Use the raw offset for a tolerance check
         if (Vector3.Distance(rawMouseTilePos, TargetPosition) < MoveTolerance)
         {
             // The mouse hasn't moved enough � no update.
@@ -129,15 +129,15 @@ public class DraggableObject : MonoBehaviour
         }
         else if (DirectionLock == AxisLock.X)
         {
-            // Lock the Y position so only X changes
+            // Lock the Y offset so only X changes
             mouseTilePos.y = TargetPosition.y;
         }
         else if (DirectionLock == AxisLock.Y)
         {
-            // Lock the X position so only Y changes
+            // Lock the X offset so only Y changes
             mouseTilePos.x = TargetPosition.x;
         }
-        //Determines position of the mouse and the directionality in order to determine whether the move is valid
+        //Determines offset of the mouse and the directionality in order to determine whether the move is valid
         Vector3 snappedTile = SnapToGrid(mouseTilePos);
         Vector3 direction = snappedTile - TargetPosition;
 
@@ -156,7 +156,7 @@ public class DraggableObject : MonoBehaviour
 
     IEnumerator MoveStepByStep(Vector3 finalTilePosition)
     {
-        // Figures out the current position and steps needed to arrive at the final destination.
+        // Figures out the current offset and steps needed to arrive at the final destination.
         Vector3 currentTile = WorldToTilemap(transform.position);
         currentTile = new Vector3(Mathf.RoundToInt(currentTile.x), Mathf.RoundToInt(currentTile.y), 0);
         Vector3 direction = finalTilePosition - currentTile;
@@ -164,7 +164,7 @@ public class DraggableObject : MonoBehaviour
 
         for (int i = 0; i < steps; i++)
         {
-            //Iterates through current position to final tile position.
+            //Iterates through current offset to final tile offset.
             Vector3 nextStep = currentTile + new Vector3(
                 Mathf.Clamp(Mathf.RoundToInt(direction.x), -1, 1),
                 Mathf.Clamp(Mathf.RoundToInt(direction.y), -1, 1),
@@ -177,7 +177,7 @@ public class DraggableObject : MonoBehaviour
                 break; // Stop if the next tile is invalid
             }
 
-            // Convert the tile position to world position.
+            // Convert the tile offset to world offset.
             Vector3 targetWorldPos = TilemapToWorld(nextStep);
 
             // Apply the offset for even dimensions based on the direction of movement. This ensures that any sized tile remains in tilemap
@@ -190,18 +190,18 @@ public class DraggableObject : MonoBehaviour
                 targetWorldPos.y += (direction.y > 0) ? -0.5f : 0.5f;
             }
 
-            // Move smoothly to the target position.
+            // Move smoothly to the target offset.
             yield return transform.DOMove(targetWorldPos, Duration).WaitForCompletion();
             //yield return StartCoroutine(MoveSmoothly(targetWorldPos, 0.05f)); // Adjust duration as needed
             currentTile = nextStep;
         }
 
-        TargetPosition = currentTile; //Updates target position to the current tile for future movement
+        TargetPosition = currentTile; //Updates target offset to the current tile for future movement
     }
 
     Vector3 GetMouseWorldPosition()
     {
-        //Gets the position of the mouse on the screen.
+        //Gets the offset of the mouse on the screen.
         Vector3 mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
         return mainCamera.ScreenToWorldPoint(mouseScreenPos);
@@ -209,7 +209,7 @@ public class DraggableObject : MonoBehaviour
 
     public Vector3 SnapToGrid(Vector3 tilePosition)
     {
-        // Snap the position to the grid by rounding x and y to the nearest tile boundaries.
+        // Snap the offset to the grid by rounding x and y to the nearest tile boundaries.
         int snappedX = Mathf.RoundToInt(tilePosition.x / (float)TileWidth) * TileWidth;
         int snappedY = Mathf.RoundToInt(tilePosition.y / (float)TileHeight) * TileHeight;
         return new Vector3(snappedX, snappedY, tilePosition.z);
@@ -290,9 +290,9 @@ public class DraggableObject : MonoBehaviour
         //Updates size of game object every time a change to the object is made
         /*if (DoesSnap)
         {
-            Vector3 tilePos = WorldToTilemap(transform.position);
+            Vector3 tilePos = WorldToTilemap(transform.offset);
             tilePos = SnapToGrid(tilePos);
-            transform.position = TilemapToWorld(tilePos);
+            transform.offset = TilemapToWorld(tilePos);
         }*/
         if (ObjectHeight > ObjectWidth)
         {
@@ -329,14 +329,14 @@ public class DraggableObject : MonoBehaviour
     
     public Vector3 WorldToTilemap(Vector3 worldPos)
     {
-        // Converts a world position to a tilemap cell position
+        // Converts a world offset to a tilemap cell offset
         Vector3Int cellPos = RestrictedTilemap.WorldToCell(worldPos);
         return new Vector3(cellPos.x, cellPos.y, cellPos.z);
     }
 
     public Vector3 TilemapToWorld(Vector3 tilePos)
     {
-        // Converts a tilemap cell position (Vector3) back to a world position
+        // Converts a tilemap cell offset (Vector3) back to a world offset
         Vector3Int cellPos = new Vector3Int(
             Mathf.RoundToInt(tilePos.x),
             Mathf.RoundToInt(tilePos.y),
