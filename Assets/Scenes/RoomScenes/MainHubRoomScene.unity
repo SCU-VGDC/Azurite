@@ -361,6 +361,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!1 &256038100
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +622,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: Infected Weed
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!61 &325189468
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -850,6 +852,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!1 &888826697
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +892,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   title: Lord Foog the 2st
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6f3d3bb6abce94358a13f4556b42ca4c, type: 3}
   keepState: 0
   menuPrefab: {fileID: 7753031139513124029, guid: 84dedf2b14f014dbfa79e839aec8e0e2, type: 3}
 --- !u!114 &888826699
@@ -922,6 +925,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Converse [E]'
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!61 &888826700
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1194,6 +1198,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!212 &981169073
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1595,6 +1600,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!1001 &1235943924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1707,6 +1713,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!1 &1245404491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1848,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Infected Pitcher Plant [E]'
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!61 &1245404496
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2021,6 +2029,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Data Stick [E]'
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!61 &1271852453
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2201,6 +2210,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Infected Bamboo [E]'
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!61 &1404722808
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2359,6 +2369,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!1 &1510023369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,6 +2578,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Screwdriver [E]'
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!61 &1536110746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2795,6 +2807,7 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  offset: {x: 0, y: 1}
 --- !u!1001 &1712739198
 PrefabInstance:
   m_ObjectHideFlags: 0
