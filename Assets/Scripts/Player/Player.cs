@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
 	public bool freezeMovement = false;
 
+	private Animator animator;
 
 	public void Start()
 	{
@@ -25,7 +26,8 @@ public class Player : MonoBehaviour
 		{
 			Debug.LogError("Failed to find the player inventory.");
 		}
-	}
+        animator = GetComponent<Animator>();
+    }
 
 	void Update()
 	{
@@ -73,7 +75,9 @@ public class Player : MonoBehaviour
 	{
 		if (!freezeMovement) PlayerRigidBody.linearVelocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
 		else PlayerRigidBody.linearVelocity = new Vector2(0, 0);
-	}
+        animator.SetBool("Up", playerInput.y > 0);
+        animator.SetBool("Down", playerInput.y < 0);
+    }
 
     void LateUpdate()
     {
