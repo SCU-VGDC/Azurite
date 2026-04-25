@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1552739897857619066}
   - component: {fileID: 2173811639921606635}
   - component: {fileID: 1292907628474872117}
+  - component: {fileID: 5631382223142188799}
   m_Layer: 0
   m_Name: TextPopup
   m_TagString: Untagged
@@ -84,6 +85,20 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &5631382223142188799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657895117466415311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 12, y: 0, z: 12, w: 0}
+  m_Softness: {x: 76, y: 0}
 --- !u!1 &6055495911161630511
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8039216}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

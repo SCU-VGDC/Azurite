@@ -1,8 +1,6 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
@@ -55,7 +53,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
                 return;
             }
 
-            
+
         }
         else if (this.textPopup != null)
         {
