@@ -26,7 +26,7 @@ public class FlowerMenu : MenuBase
     [SerializeField]
     protected Button combineButton = null;
 
-    private Dictionary<Item, ItemStackEntryController> itemStacks = new Dictionary<Item, ItemStackEntryController>();
+    private readonly Dictionary<Item, ItemStackEntryController> itemStacks = new();
     private GridLayoutGroup gridLayoutGroup;
 
     public FlowerMenu Init(Inventory associatedInventory, FlowerInventory combiner = null)
@@ -318,11 +318,12 @@ public class FlowerMenu : MenuBase
         }
     }
 
-    protected virtual void OnDestroy()
+    public override void OnDestroy()
     {
         if (this.flowerInventory != null)
         {
             this.flowerInventory.ReturnItems();
         }
+        base.OnDestroy();
     }
 }

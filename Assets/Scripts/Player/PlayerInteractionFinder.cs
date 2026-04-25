@@ -39,11 +39,11 @@ public class PlayerInteractionFinder : MonoBehaviour
     {
         if (collision.TryGetComponent(out InteractionTrigger interaction))
         {
-            if (!triggers.ContainsKey(interaction.GetInteractionKey()))
+            if (!triggers.ContainsKey(interaction.InteractionKey))
             {
-                triggers.Add(interaction.GetInteractionKey(), new List<InteractionTrigger>());
+                triggers.Add(interaction.InteractionKey, new List<InteractionTrigger>());
             }
-            triggers[interaction.GetInteractionKey()].Add(interaction);
+            triggers[interaction.InteractionKey].Add(interaction);
         }
     }
 
@@ -51,7 +51,7 @@ public class PlayerInteractionFinder : MonoBehaviour
     {
         if (collision.TryGetComponent(out InteractionTrigger interaction))
         {
-            if (triggers.TryGetValue(interaction.GetInteractionKey(), out var ilist))
+            if (triggers.TryGetValue(interaction.InteractionKey, out var ilist))
             {
                 ilist.Remove(interaction);
                 interaction.ToggleTextPopup(false);

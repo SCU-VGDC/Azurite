@@ -38,12 +38,12 @@ public class MenuBase : MonoBehaviour
 
     private void CollectAnimations(Sequence sequence, Transform transform)
     {
-        if (transform.TryGetComponent<MenuBase>(out MenuBase menu) && menu != this)
+        if (transform.TryGetComponent(out MenuBase menu) && menu != this)
         {
             return;
         }
 
-        if (transform.TryGetComponent<MenuAnimation>(out MenuAnimation animation))
+        if (transform.TryGetComponent(out MenuAnimation animation))
         {
             sequence.Join(animation.GetTween());
         }
@@ -76,10 +76,7 @@ public class MenuBase : MonoBehaviour
 
     public virtual void OnDestroy()
     {
-        if (this.animations != null)
-        {
-            this.animations.Kill();
-        }
+        this.animations?.Kill();
     }
 
     public void SetParent(MenuBase parent)

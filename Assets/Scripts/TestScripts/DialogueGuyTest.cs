@@ -4,6 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(InteractionTrigger))]
 [RequireComponent(typeof(DialogueSequence))]
+[RequireComponent(typeof(ItemStack))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class DialogueGuyTest : MonoBehaviour
 {
     public void ChangeGreen()
@@ -19,8 +21,8 @@ public class DialogueGuyTest : MonoBehaviour
         spriteRenderer.color = Color.red;
     }
 
-    public void GiveItem(Player player)
+    public void GiveItem()
     {
-        GetComponent<ItemStack>().AddTo(player);
+        GetComponent<ItemStack>().AddTo();
     }
 }

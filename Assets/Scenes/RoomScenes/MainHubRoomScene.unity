@@ -361,6 +361,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &256038100
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +623,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: Infected Weed
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &325189468
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -850,6 +854,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &888826697
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,6 +928,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Converse [E]'
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &888826700
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1194,6 +1202,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!212 &981169073
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1381,6 +1391,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1407185375786976593, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4355777366290488060, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1420,6 +1434,10 @@ PrefabInstance:
     - target: {fileID: 4355777366290488060, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543223900686974291, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
+      propertyPath: debugMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4570050680939474994, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
       propertyPath: m_Name
@@ -1595,6 +1613,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!1001 &1235943924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1707,6 +1727,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &1245404491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1863,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Infected Pitcher Plant [E]'
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &1245404496
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2021,6 +2045,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Data Stick [E]'
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &1271852453
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2201,6 +2227,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Infected Bamboo [E]'
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &1404722808
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2359,6 +2387,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &1510023369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,6 +2597,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: 'Screwdriver [E]'
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &1536110746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2795,6 +2827,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: E
   actionCount: 0
+  popupPrefabAddress: Assets/Prefabs/UI/TextPopup.prefab
+  popupOffset: {x: 0, y: 1, z: 0}
 --- !u!1001 &1712739198
 PrefabInstance:
   m_ObjectHideFlags: 0

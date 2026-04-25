@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
@@ -17,7 +19,14 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     [Tooltip("The amount of actions interacting with this object costs.")]
     [SerializeField] private int actionCount = 0;
 
+    [SerializeField] private string popupPrefabAddress = "Assets/Prefabs/UI/TextPopup.prefab";
+    private static AsyncOperationHandle<GameObject>? assetLoader = null;
+    private static GameObject popupPrefab = null;
+
+    public KeyCode InteractionKey => triggerKey;
+
     private TextPopup textPopup = null;
+    public Vector3 popupOffset = Vector3.up;
 
     public int CompareTo(InteractionTrigger other)
     {
@@ -27,11 +36,23 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
         return MathF.Sign(myDist - otherDist);
     }
 
-    public void Update()
+    private void Start()
+    {
+        if (assetLoader != null) return;
+        assetLoader = Addressables.LoadAssetAsync<GameObject>(popupPrefabAddress);
+        assetLoader.Value.WaitForCompletion();
+
+        if (assetLoader.Value.Status == AsyncOperationStatus.Succeeded)
+        {
+            popupPrefab = assetLoader.Value.Result;
+        }
+    }
+
+    private void Update()
     {
         if (this.textPopup != null)
         {
-            this.textPopup.transform.position = this.transform.position + new Vector3(0, 1, 0);
+            this.textPopup.transform.position = this.transform.position + popupOffset;
         }
     }
 
@@ -39,7 +60,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     {
         if (!GameManager.inst.paused)
         {
-            this.playerInteractEvent.Invoke(interactingPlayer);
+            playerInteractEvent.Invoke(interactingPlayer);
             ActionManager.Instance.IncrementAction(actionCount);
         }
     }
@@ -48,23 +69,15 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     {
         if (value)
         {
-            if (this.textPopup != null)
-            {
+            if (textPopup != null || popupPrefab == null)
                 return;
-            }
-
-
+            textPopup = Instantiate(popupPrefab).GetComponent<TextPopup>();
+            textPopup.showOnStart = true;
         }
-        else if (this.textPopup != null)
+        else if (textPopup != null)
         {
-            Destroy(this.textPopup.gameObject);
-            this.textPopup = null;
-            return;
+            textPopup.Hide(true);
+            textPopup = null;
         }
-    }
-
-    public KeyCode GetInteractionKey()
-    {
-        return this.triggerKey;
     }
 }
