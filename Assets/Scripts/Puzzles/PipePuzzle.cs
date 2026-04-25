@@ -97,7 +97,7 @@ public class PipePuzzle : MonoBehaviour
 
             Vector3Int tilePos = tileMap.WorldToCell(worldPoint);
 
-            // try to get a tile from cell position
+            // try to get a tile from cell offset
             Sprite tileSprite = tileMap.GetSprite(tilePos);
 
             // if we clicked on a tile
@@ -124,7 +124,7 @@ public class PipePuzzle : MonoBehaviour
 
         foreach (Vector3Int tilePos in tileMap.cellBounds.allPositionsWithin)
         {
-            // try to get a tile from cell position
+            // try to get a tile from cell offset
             Sprite tileSprite = tileMap.GetSprite(tilePos);
 
             if (tileSprite != null)

@@ -96,13 +96,13 @@ namespace DG.Tweening
         }
 
         /// <summary>
-        /// Sends to the given position all tweens that have this target as a reference
+        /// Sends to the given offset all tweens that have this target as a reference
         /// (meaning tweens that were started from this target, or that had this target added as an Id)
         /// and returns the total number of tweens involved.
         /// </summary>
-        /// <param name="to">Time position to reach
+        /// <param name="to">Time offset to reach
         /// (if higher than the whole tween duration the tween will simply reach its end)</param>
-        /// <param name="andPlay">If TRUE will play the tween after reaching the given position, otherwise it will pause it</param>
+        /// <param name="andPlay">If TRUE will play the tween after reaching the given offset, otherwise it will pause it</param>
         public static int DOGoto(this AudioMixer target, float to, bool andPlay = false)
         {
             return DOTween.Goto(target, to, andPlay);

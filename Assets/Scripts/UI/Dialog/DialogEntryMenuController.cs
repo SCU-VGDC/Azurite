@@ -10,7 +10,7 @@ public class DialogEntryMenuController : MenuBase
 	[Tooltip("The entry's text box.")]
     [SerializeField] protected TextMeshProUGUI text = null;
 
-	public DialogEntryMenuController Init(DialogController dialog, DialogEntry entry)
+	public DialogEntryMenuController Init(Dialog dialog, DialogEntry entry)
 	{
 		this.button.onClick.AddListener(() => dialog.Select(entry));
 		this.text.SetText(entry.GetText());
@@ -20,5 +20,15 @@ public class DialogEntryMenuController : MenuBase
 	public void ShowSelectable()
 	{
 		this.text.fontStyle = FontStyles.Underline;
+	}
+
+	public Button GetButton()
+	{
+		return this.button;
+	}
+
+	public TextMeshProUGUI GetText()
+	{
+		return this.text;
 	}
 }
