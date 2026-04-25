@@ -48,7 +48,7 @@ public class ButtonScreenScript : MonoBehaviour
         {
             for (int j = 0; j < width; j++) 
             {
-                Vector3 buttonPos = this.transform.position;
+                Vector3 buttonPos = this.transform.offset;
                 buttonPos.x += (75 * j) - WidthOffset;
                 buttonPos.y -= (75 * i) - HeightOffset;
                 Debug.Log("Set up button number" + (width * i + j));
