@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 9e270c44b01ee4d4ca60593eee7739ff
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3147197027693661354
+    second: Player backward Walk Spritesheet_0
+  - first:
+      213: -3614796414267917818
+    second: Player backward Walk Spritesheet_1
+  - first:
+      213: 7349691267137117781
+    second: Player backward Walk Spritesheet_2
+  - first:
+      213: 3758644374584292286
+    second: Player backward Walk Spritesheet_3
+  - first:
+      213: -2818619664774707281
+    second: Player backward Walk Spritesheet_4
+  - first:
+      213: 7472823613774306041
+    second: Player backward Walk Spritesheet_5
+  - first:
+      213: 8763455793851948399
+    second: Player backward Walk Spritesheet_6
+  - first:
+      213: -3297171353349633974
+    second: Player backward Walk Spritesheet_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 24
+        width: 124
+        height: 357
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aac88d9a5071dab20800000000000000
+      internalID: 3147197027693661354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 29
+        width: 119
+        height: 355
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a743030d9a5ddc0800000000000000
+      internalID: -3614796414267917818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 46
+        width: 123
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55e9f7264495ff560800000000000000
+      internalID: 7349691267137117781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 39
+        width: 122
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb3fd100523692430800000000000000
+      internalID: 3758644374584292286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 40
+        width: 121
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa74c2c395042e8d0800000000000000
+      internalID: -2818619664774707281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 40
+        width: 120
+        height: 332
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa1b28eb7dc4b760800000000000000
+      internalID: 7472823613774306041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1555
+        y: 36
+        width: 121
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6d526d1d9c0e9970800000000000000
+      internalID: 8763455793851948399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player backward Walk Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 34
+        width: 122
+        height: 346
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4840009f181e32d0800000000000000
+      internalID: -3297171353349633974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player backward Walk Spritesheet_0: 3147197027693661354
+      Player backward Walk Spritesheet_1: -3614796414267917818
+      Player backward Walk Spritesheet_2: 7349691267137117781
+      Player backward Walk Spritesheet_3: 3758644374584292286
+      Player backward Walk Spritesheet_4: -2818619664774707281
+      Player backward Walk Spritesheet_5: 7472823613774306041
+      Player backward Walk Spritesheet_6: 8763455793851948399
+      Player backward Walk Spritesheet_7: -3297171353349633974
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
