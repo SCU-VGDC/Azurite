@@ -14,7 +14,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     [SerializeField] private KeyCode triggerKey = KeyCode.E;
 
     [Tooltip("The text popup that appears over the interactable object.")]
-    [SerializeField] private string popupText;
+    [SerializeField] private string popupText = "Interact";
 
     [Tooltip("The amount of actions interacting with this object costs.")]
     [SerializeField] private int actionCount = 0;
@@ -25,8 +25,8 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public KeyCode InteractionKey => triggerKey;
 
-    private TextPopup textPopup = null;
-    public Vector3 popupOffset = Vector3.up;
+    private TextPopup textPopupComponent = null;
+    public Vector3 popupOffset = Vector3.up * 3;
 
     public int CompareTo(InteractionTrigger other)
     {
@@ -48,14 +48,6 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
         }
     }
 
-    private void Update()
-    {
-        if (this.textPopup != null)
-        {
-            this.textPopup.transform.position = this.transform.position + popupOffset;
-        }
-    }
-
     public void Trigger(Player interactingPlayer)
     {
         if (!GameManager.inst.paused)
@@ -69,15 +61,18 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     {
         if (value)
         {
-            if (textPopup != null || popupPrefab == null)
+            if (textPopupComponent != null || popupPrefab == null)
                 return;
-            textPopup = Instantiate(popupPrefab).GetComponent<TextPopup>();
-            textPopup.showOnStart = true;
+            textPopupComponent = Instantiate(popupPrefab).GetComponent<TextPopup>();
+            textPopupComponent.transform.SetParent(transform, false);
+            textPopupComponent.popupOffset = popupOffset;
+            textPopupComponent.Text = popupText;
+            textPopupComponent.showOnStart = true;
         }
-        else if (textPopup != null)
+        else if (textPopupComponent != null)
         {
-            textPopup.Hide(true);
-            textPopup = null;
+            textPopupComponent.Hide(true);
+            textPopupComponent = null;
         }
     }
 }
