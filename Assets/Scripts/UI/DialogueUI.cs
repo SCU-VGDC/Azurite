@@ -5,7 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Dialogue.Data;
+using System;
 
+[Obsolete()]
 public class DialogueUI : MonoBehaviour
 {
     public CanvasGroup canvasGroup;

@@ -1,4 +1,4 @@
-using System;
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -28,6 +28,21 @@ public class FlowerMenu : MenuBase
 
     private readonly Dictionary<Item, ItemStackEntryController> itemStacks = new();
     private GridLayoutGroup gridLayoutGroup;
+
+    protected override Sequence AnimateOnOpen()
+    {
+        return null;
+    }
+
+    protected override Sequence AnimateOnClose()
+    {
+        return null;
+    }
+
+    protected override Sequence AnimateOnChildOpen(MenuBase child)
+    {
+        return null;
+    }
 
     public FlowerMenu Init(Inventory associatedInventory, FlowerInventory combiner = null)
     {
@@ -60,10 +75,8 @@ public class FlowerMenu : MenuBase
         return this;
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             this.MoveSelection(Vector2Int.down);
@@ -318,7 +331,7 @@ public class FlowerMenu : MenuBase
         }
     }
 
-    public override void OnDestroy()
+    protected override void OnDestroy()
     {
         if (this.flowerInventory != null)
         {

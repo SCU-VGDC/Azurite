@@ -1,8 +1,10 @@
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MenuBase : MonoBehaviour
+public abstract class MenuBase : MonoBehaviour
 {
     [Tooltip("This event is called when when the menu is opened.")]
     public UnityEvent onOpen = new();
@@ -10,132 +12,55 @@ public class MenuBase : MonoBehaviour
     [Tooltip("This event is called when when the menu is closed.")]
     public UnityEvent onClose = new();
 
-    [Tooltip("This event is called when when the menu is hidden, usually when a child menu has been opened.")]
-    public UnityEvent onHide = new();
+    public UnityEvent<int> onChildOpen = new();
 
-    protected Sequence animations = null;
-    protected MenuBase parentMenu = null;
-    protected MenuBase childMenu = null;
+    protected MenuBase parent;
+    protected List<MenuBase> children;
 
-    private bool isHiding = false;
-    private bool isClosing = false;
-
-    public void Awake()
+    private Sequence _currentSequence;
+    public Sequence CurrentSequence
     {
-        this.onOpen.AddListener(() => this.gameObject.SetActive(true));
-        this.onHide.AddListener(() => this.gameObject.SetActive(false));
-        this.onClose.AddListener(() => Destroy(this.gameObject));
-
-        this.animations = DOTween.Sequence().SetAutoKill(false).Pause();
-
-        this.CollectAnimations(this.animations, this.transform);
-
-        if (this.animations.Duration() == 0)
+        get => _currentSequence;
+        private set
         {
-            this.animations.Join(DOTween.To(() => { return 0f; }, (value) => { }, 0f, 0f));
+            _currentSequence?.Kill();
+            _currentSequence = value;
         }
     }
 
-    private void CollectAnimations(Sequence sequence, Transform transform)
+    private void Start()
     {
-        if (transform.TryGetComponent(out MenuBase menu) && menu != this)
-        {
-            return;
-        }
+        onClose.AddListener(() => Destroy(gameObject));
 
-        if (transform.TryGetComponent(out MenuAnimation animation))
-        {
-            sequence.Join(animation.GetTween());
-        }
+        transform.parent.TryGetComponent(out parent);
+        children = GetComponentsInChildren<MenuBase>().Where(menu => menu != this).ToList();
 
-        for (int i = 0; i < transform.childCount; ++i)
-        {
-            this.CollectAnimations(sequence, transform.GetChild(i).transform);
-        }
+        foreach (var child in children)
+            child.onOpen.AddListener(() => CurrentSequence = AnimateOnChildOpen(child));
     }
 
-    public virtual void Update()
+    protected virtual void OnDestroy()
     {
-        if (!this.HaveAnimationsRewound())
-        {
-            return;
-        }
-
-        if (this.isHiding)
-        {
-            this.isHiding = false;
-            this.onHide.Invoke();
-        }
-
-        if (this.isClosing)
-        {
-            this.isClosing = false;
-            this.onClose.Invoke();
-        }
+        CurrentSequence?.Kill();
     }
 
-    public virtual void OnDestroy()
+    // Create and return an animation for opening this menu
+    protected abstract Sequence AnimateOnOpen();
+    
+    // Create and return an animation for closing this menu
+    protected abstract Sequence AnimateOnClose();
+    
+    // Create and return an animation when a child menu opens
+    protected abstract Sequence AnimateOnChildOpen(MenuBase child);
+
+
+    public virtual void Open()
     {
-        this.animations?.Kill();
+        CurrentSequence = AnimateOnOpen();
     }
 
-    public void SetParent(MenuBase parent)
+    public virtual void Close()
     {
-        this.parentMenu = parent;
-    }
-
-    public void Open()
-    {
-        this.onOpen.Invoke();
-        this.PlayAnimations();
-    }
-
-    public void Close()
-    {
-        if (this.childMenu != null)
-        {
-            this.childMenu.onClose.AddListener(this.onClose.Invoke);
-            this.childMenu.Close();
-            return;
-        }
-
-        this.RewindAnimations();
-        this.isClosing = true;
-    }
-
-    public void Hide()
-    {
-        this.RewindAnimations();
-        this.isHiding = true;
-    }
-
-    public bool IsOpen()
-    {
-        return this.enabled && !this.HaveAnimationsRewound();
-    }
-
-    public bool IsClosed()
-    {
-        return !this.enabled || this.HaveAnimationsRewound();
-    }
-
-    protected void PlayAnimations()
-    {
-        this.animations.PlayForward();
-    }
-
-    protected void RewindAnimations()
-    {
-        this.animations.PlayBackwards();
-    }
-
-    public bool HaveAnimationsPlayed()
-    {
-        return !this.animations.IsBackwards() && this.animations.ElapsedPercentage() == 1;
-    }
-
-    public bool HaveAnimationsRewound()
-    {
-        return this.animations.IsBackwards() && this.animations.ElapsedPercentage() == 0;
+        CurrentSequence = AnimateOnClose().AppendCallback(onClose.Invoke);
     }
 }
