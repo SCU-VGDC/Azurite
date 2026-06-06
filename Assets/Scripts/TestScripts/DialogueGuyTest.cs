@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractionTrigger))]
@@ -21,6 +19,6 @@ public class DialogueGuyTest : MonoBehaviour
 
     public void GiveItem(Player player)
     {
-        GetComponent<ItemStack>().AddTo(player);
+		player.GetInventory().AddItem(GetComponent<ItemStack>());
     }
 }

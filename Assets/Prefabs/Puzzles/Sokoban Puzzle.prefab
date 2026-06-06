@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6567141148655120980}
+  - component: {fileID: 98070330872357430}
   m_Layer: 0
   m_Name: Sokoban Puzzle
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 2873208147125050347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &98070330872357430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516433285536891297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afbd0cc5ba3749ca92c0bc213528424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPuzzle: {fileID: 6643125910108420959}
 --- !u!1 &3435235410526422202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,23 +1311,9 @@ MonoBehaviour:
   playerTile: {fileID: 11400000, guid: 1ccc8ec900e7f2a439eb1080324a4d64, type: 2}
   wallTile: {fileID: 11400000, guid: ec73a3ed9a38b494ba3cee4874d3bc6a, type: 2}
   goalTile: {fileID: 11400000, guid: 0e62598f2c31b9c42bfeec7a987b136f, type: 2}
-  playerFloatSpritePrefab: {fileID: 9130105981111082464, guid: d7376061d6a86b3448df93d1b4eef9ff, type: 3}
-  boxFloatSpritePrefab: {fileID: 2160876496855776255, guid: 45043637ce32ed748af000d451a2ad10, type: 3}
-  onSolved:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4543223900686974291, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndCurrentPuzzle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+  playerFloatSpritePrefab: {fileID: 4086386750425431410, guid: d7376061d6a86b3448df93d1b4eef9ff, type: 3}
+  boxFloatSpritePrefab: {fileID: 8741476713864323540, guid: 45043637ce32ed748af000d451a2ad10, type: 3}
+  puzzleComplete: 0
 --- !u!1 &5287978448946363557
 GameObject:
   m_ObjectHideFlags: 0

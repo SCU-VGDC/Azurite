@@ -16,10 +16,11 @@ public class ItemPickup : MonoBehaviour
             return;
         }
 
-        var item = GetComponent<ItemStack>();
+        ItemStack item = GetComponent<ItemStack>();
+		
         GetComponent<InteractionTrigger>().playerInteractEvent.AddListener((player) =>
         {
-            item.AddTo(player);
+			player.GetInventory().AddItem(item);
 
             if (usePersistentData)
             {

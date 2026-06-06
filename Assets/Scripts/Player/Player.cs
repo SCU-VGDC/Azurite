@@ -12,16 +12,16 @@ public class Player : MonoBehaviour
 	[SerializeField][Range(0, 10)] float playerSpeed = 1.0f;
 
 	/// <summary>The player's inventory.</summary>
-	public Inventory Inventory { get; private set; }
+	public Inventory inventory;
 
 	public bool freezeMovement = false;
 
 
 	public void Start()
 	{
-		this.Inventory = this.GetComponent<Inventory>();
+		this.inventory = this.GetComponent<Inventory>();
 
-		if(this.Inventory == null)
+		if(this.inventory == null)
 		{
 			Debug.LogError("Failed to find the player inventory.");
 		}
@@ -31,26 +31,26 @@ public class Player : MonoBehaviour
 	{
 		if(Input.GetButtonDown("Inventory"))
 		{
-			if(this.Inventory.IsMenuOpen())
+			if(this.inventory.IsMenuOpen())
 			{
-				this.Inventory.GetOpenMenu().Close();
+				this.inventory.GetOpenMenu().Close();
 			}
 			else
 			{
-				this.Inventory.OpenMenu();
+				this.inventory.OpenMenu();
 			}
 		}
 
 		if(Input.GetKeyDown(KeyCode.P))
 		{
-			if(this.Inventory.IsPopupOpen())
+			if(this.inventory.IsPopupOpen())
 			{
-				this.Inventory.GetOpenPopup().Close();
+				this.inventory.GetOpenPopup().Close();
 			}
 			else
 			{
 				BoxCollider2D box = this.GetComponent<BoxCollider2D>();
-				this.Inventory.OpenPopup(this.transform, new Vector3(0, box.size.y * 0.5f, 0), Item.Category.FLOWER);
+				this.inventory.OpenPopup(this.transform, new Vector3(0, box.size.y * 0.5f, 0), Item.Category.FLOWER);
 			}
 		}
 
@@ -79,4 +79,9 @@ public class Player : MonoBehaviour
     {
         this.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(-transform.position.y*100);
     }
+
+	public Inventory GetInventory()
+	{
+		return this.inventory;
+	}
 }

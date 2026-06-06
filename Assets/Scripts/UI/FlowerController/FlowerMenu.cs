@@ -318,8 +318,10 @@ public class FlowerMenu : MenuBase
         }
     }
 
-    protected virtual void OnDestroy()
+    public override void OnDestroy()
     {
+		base.OnDestroy();
+		
         if (this.flowerInventory != null)
         {
             this.flowerInventory.ReturnItems();

@@ -23,6 +23,7 @@ public class PuzzleInteraction : MonoBehaviour
         mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
         playerScript = GameManager.inst.player.GetComponent<Player>();
+		StartGame();
     }
 
     public void StartGame()

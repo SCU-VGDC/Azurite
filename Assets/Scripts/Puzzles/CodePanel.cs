@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,14 +5,13 @@ using UnityEngine.Events;
 using TMPro;
 using DG.Tweening;
 
-public class CodePanel : MonoBehaviour
+public class CodePanel : PuzzleLogic
 {
     public string solution;
     public UnityEvent onCorrectCode;
     public UnityEvent onIncorrectCode;
     public string allowedChars = string.Empty;
     private string currentInput = string.Empty;
-    private bool _visible = false;
     private Image inputDisplayBackground;
     private Sequence currentTweenSequence;
     [SerializeField] private Transform buttonContainer;
@@ -24,27 +21,8 @@ public class CodePanel : MonoBehaviour
     [SerializeField] private CanvasGroup uiCanvas;
     [SerializeField] private GameObject buttonPrefab;
 
-    public bool Visible
-    {
-        get => _visible;
-        set
-        {
-            currentTweenSequence?.Kill();
-            currentTweenSequence = null;
-
-            if (value)
-            {
-                ClearInput();
-                inputDisplayBackground.color = Color.black;
-                inputDisplay.color = Color.green;
-            }
-
-            uiCanvas.DOFade(value ? 1 : 0, 0.2f).SetEase(Ease.InOutQuad);
-            uiCanvas.interactable = value;
-            uiCanvas.blocksRaycasts = value;
-            _visible = value;
-        }
-    }
+	[Tooltip("Whether or not the puzzle has been completed.")]
+	[SerializeField] protected bool puzzleComplete = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +36,7 @@ public class CodePanel : MonoBehaviour
             buttonGO.GetComponentInChildren<TextMeshProUGUI>().text = c.ToString();
             Button button = buttonGO.GetComponent<Button>();
             button.onClick.AddListener(() => {
-                if (_visible && !CheckTweenRunning()) AppendToInput(c);
+                if (!CheckTweenRunning()) AppendToInput(c);
             });
         }
 
@@ -73,7 +51,7 @@ public class CodePanel : MonoBehaviour
 
     private void Update()
     {
-        if (!_visible || CheckTweenRunning()) return;
+        if (CheckTweenRunning()) return;
         foreach (char c in Input.inputString)
             if (allowedChars.Contains(c))
                 AppendToInput(c);
@@ -103,8 +81,7 @@ public class CodePanel : MonoBehaviour
             .Append(inputDisplayBackground.DOColor(Color.green, 0.2f))
             .Join(inputDisplay.DOColor(Color.black, 0.2f))
             .AppendInterval(0.8f)
-            .AppendCallback(onCorrectCode.Invoke)
-            .AppendCallback(() => Visible = false);
+            .AppendCallback(onCorrectCode.Invoke);
     }
 
     private void ClearInput()
@@ -118,4 +95,9 @@ public class CodePanel : MonoBehaviour
         currentInput += append;
         inputDisplay.text = currentInput;
     }
+
+	public override bool IsComplete()
+	{
+		return this.puzzleComplete;
+	}
 }

@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class InsightPuzzle : MonoBehaviour
 {
-    [SerializeField] private Tilemap tileMap;
+	[Tooltip("The tilemap containing valid spaces.")]
+    [SerializeField] protected Tilemap tileMap;
     [SerializeField] private List<Vector3Int> solutionTiles;
 
     [SerializeField] private Sprite tileOffToggleable;

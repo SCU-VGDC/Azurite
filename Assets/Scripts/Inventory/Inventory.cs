@@ -32,9 +32,15 @@ public class Inventory : MonoBehaviour
 		return this.items.GetValueOrDefault(item, 0);
 	}
 
-	public bool SelectItem(Item item)
+	public int AddItem(ItemStack itemStack)
 	{
-		return this.items.ContainsKey(item);
+		if(itemStack == null)
+		{
+			Debug.LogWarning("Cannot add null to the inventory.");
+			return 0;
+		}
+		
+		return this.AddItem(itemStack.GetItem(), itemStack.GetCount());
 	}
 
 	/// <summary>

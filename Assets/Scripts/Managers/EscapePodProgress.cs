@@ -24,11 +24,11 @@ public class EscapePodProgress : MonoBehaviour
         // get the player instance from the interaction trigger!?
         // call inventory from a player instance
 
-        if (player.Inventory.HasItem(escapePart)) // replace collectedParts with the part in the inventory
+        if (player.GetInventory().HasItem(escapePart)) // replace collectedParts with the part in the inventory
         {
             // uhhhh, adding one more part to the current amount of parts we have
             EscapePodParts++;
-            player.Inventory.RemoveItem(escapePart, 1);
+            player.GetInventory().RemoveItem(escapePart, 1);
             print("parts used: " + EscapePodParts);
             UpdateEscapeDoor();
             return;

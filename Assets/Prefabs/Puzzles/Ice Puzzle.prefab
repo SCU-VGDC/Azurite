@@ -103,7 +103,6 @@ MonoBehaviour:
   maxScanDistance: 25
   goalCollider: {fileID: 2558025965533786879}
   puzzleComplete: 0
-  runOnceFlag: 0
   slideDuration: 0.125
 --- !u!1 &2414567403797819031
 GameObject:
@@ -1071,6 +1070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9027814519359272777}
+  - component: {fileID: 129127154748604372}
   m_Layer: 0
   m_Name: Ice Puzzle
   m_TagString: Untagged
@@ -1096,6 +1096,19 @@ Transform:
   - {fileID: 5895528853069367681}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &129127154748604372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503111807856674784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afbd0cc5ba3749ca92c0bc213528424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPuzzle: {fileID: 3180673124389803415}
 --- !u!1 &7415734782035110109
 GameObject:
   m_ObjectHideFlags: 0

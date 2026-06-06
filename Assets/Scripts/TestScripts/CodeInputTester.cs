@@ -15,6 +15,6 @@ public class CodeInputTester : MonoBehaviour
 
     private void ShowPanel(Player _)
     {
-        codePanel.Visible = true;
+        
     }
 }

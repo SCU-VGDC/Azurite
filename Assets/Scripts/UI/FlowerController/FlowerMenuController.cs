@@ -66,7 +66,7 @@ public class FlowerMenuController : MonoBehaviour
                 ? this.inventoryToShow
                 : (
                     GameManager.inst != null && GameManager.inst.player != null
-                        ? GameManager.inst.player.Inventory
+                        ? GameManager.inst.player.GetInventory()
                         : null
                 );
 
@@ -80,13 +80,9 @@ public class FlowerMenuController : MonoBehaviour
 
         if (this.menuPrefab == null)
         {
-            if (
-                GameManager.inst != null
-                && GameManager.inst.player != null
-                && GameManager.inst.player.Inventory != null
-            )
+            if (GameManager.inst != null && GameManager.inst.player != null)
             {
-                GameManager.inst.player.Inventory.OpenMenu();
+                GameManager.inst.player.GetInventory().OpenMenu();
                 this.onMenuOpen.Invoke(this);
             }
             else
