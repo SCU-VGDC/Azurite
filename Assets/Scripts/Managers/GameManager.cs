@@ -1,11 +1,11 @@
-using Unity.Cinemachine;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Cinemachine;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(EventSystem))]
 public class GameManager : MonoBehaviour
@@ -31,12 +31,12 @@ public class GameManager : MonoBehaviour
     // Puzzles:
     public Action currentEndGameAction;
 
-    void Start()
+    private void Start()
     {
         paused = false;
     }
 
-    void Awake()
+    private void Awake()
     {
         // Basic singleton pattern. Make sure there is only ever 1 GameManager in the scene and updates inst accordingly.
 
@@ -56,37 +56,20 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        MainCanvas = transform.Find("MainCanvas").GetComponent<Canvas>();
-        if (MainCanvas == null)
-            Debug.LogWarning("Main canvas not found in GameManager!");
+        MainCameraContainer = Instantiate(mainCameraPrefab);
+        DontDestroyOnLoad(MainCameraContainer);
 
-        var playerObj = Instantiate(playerPrefab);
+        GameObject playerObj = Instantiate(playerPrefab);
         DontDestroyOnLoad(playerObj);
         player = playerObj.GetComponent<Player>();
 
-        MainCameraContainer = Instantiate(mainCameraPrefab);
-        DontDestroyOnLoad(MainCameraContainer);
-		GameObject worldCanvas = GameObject.FindGameObjectWithTag("World Canvas");
+        MainCanvas = transform.Find("MainCanvas").GetComponent<Canvas>();
+        MainCanvas.worldCamera = MainCamera;
 
-		if(worldCanvas != null)
-		{
-			Canvas canvas = worldCanvas.GetComponent<Canvas>();
+        Canvas worldCanvas = transform.Find("WorldCanvas").GetComponent<Canvas>();
+        worldCanvas.worldCamera = MainCamera;
 
-			if(canvas == null || MainCamera == null)
-			{
-				Debug.LogError("Failed to assign the camera to the world canvas.");
-			}
-			else
-			{
-				canvas.worldCamera = MainCamera;
-			}
-		}
-		else
-		{
-			Debug.LogError("Failed to find the world canvas");
-		}
-
-        var cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
+        CinemachineCamera cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
         cineCam.Target = new CameraTarget()
         {
             TrackingTarget = player.transform,
@@ -95,9 +78,9 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        if(!debugMode)
+        if (!debugMode)
         {
-            SceneManager.LoadSceneAsync(firstGameScene, LoadSceneMode.Single);
+            _ = SceneManager.LoadSceneAsync(firstGameScene, LoadSceneMode.Single);
         }
     }
 
@@ -111,7 +94,7 @@ public class GameManager : MonoBehaviour
                 position = Input.mousePosition
             };
             MainCanvas.GetComponent<GraphicRaycaster>().Raycast(pointer, results);
-            foreach (var res in results)
+            foreach (RaycastResult res in results)
                 Debug.Log(res.gameObject);
         }
     }
@@ -124,11 +107,9 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
         if (scene.name == startupScene) return;
-        string SubmarineLocation;
-        string CurrentLocation;
 
         var bounds = GameObject.FindWithTag("Camera Bounds");
-        if (bounds != null && bounds.TryGetComponent<PolygonCollider2D>(out var collider))
+        if (bounds != null && bounds.TryGetComponent(out PolygonCollider2D collider))
         {
             MainCameraContainer.GetComponentInChildren<CinemachineConfiner2D>().BoundingShape2D = collider;
         }
@@ -136,10 +117,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a PolygonCollider2D tagged as 'Camera Bounds'!");
         }
-        if (PersistentDataManager.Instance.TryGet<string>("submarineInRoom", out SubmarineLocation))
+        if (PersistentDataManager.Instance.TryGet("submarineInRoom", out string SubmarineLocation))
         {
             Debug.Log($"Current world state = {SubmarineLocation}");
-            if (PersistentDataManager.Instance.TryGet<string>("currentLocation", out CurrentLocation))
+            if (PersistentDataManager.Instance.TryGet("currentLocation", out string CurrentLocation))
             {
                 Debug.Log($"Current world state = {CurrentLocation}");
                 if (SubmarineLocation == CurrentLocation)
@@ -164,14 +145,14 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Current location not found or wrong type");
-        }        
+        }
     }
 
 
+    [Obsolete("Extra boilerplate code, just use an Awaitable")]
     public IEnumerator Sleep(float seconds, Action action)
     {
         yield return new WaitForSeconds(seconds);
-
         action?.Invoke();
     }
 

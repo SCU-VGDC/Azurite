@@ -4,174 +4,69 @@ using UnityEngine.Events;
 
 public class Dialog : MonoBehaviour
 {
-	[Tooltip("This event is called whenever the dialog opens/changes.")]
-	[SerializeField] public UnityEvent<Dialog> onDialogChange = new UnityEvent<Dialog>();
+    [Tooltip("Whether or not to save the dialog when closed prematurely.")]
+    [SerializeField] private bool keepState = false;
+    [SerializeField] private DialogMenuController menuPrefab = null;
 
-	[Tooltip("This event is called whenever the dialog finishes.")]
-	[SerializeField] public UnityEvent onDialogEnd = new UnityEvent();
+    public string defaultTitle = "";
+    public Sprite defaultIcon = null;
 
-	[Tooltip("The initial title of the dialog sequence.")]
-	[SerializeField] private string title = "";
+    public UnityEvent<DialogStep> onChanged = new();
+    public UnityEvent onFinished = new();
 
-	[Tooltip("The initial title of the dialog sequence.")]
-	[SerializeField] private Sprite icon = null;
+    private DialogMenuController menu;
 
-	[Tooltip("Whether or not to save the dialog when closed prematurely.")]
-	[SerializeField] private bool keepState = false;
+    private DialogStep _currentStep;
+    public DialogStep CurrentStep
+    {
+        get => _currentStep;
+        set
+        {
+            _currentStep = value;
+            menu.UpdateFromDialog(this);
+            onChanged.Invoke(value);
+        }
+    }
+    public string CurrentTitle => CurrentStep != null && CurrentStep.HasTitleOverride ? CurrentStep.TitleOverride : defaultTitle;
+    public Sprite CurrentIcon => CurrentStep != null && CurrentStep.HasIconOverride ? CurrentStep.IconOverride : defaultIcon;
 
-	[Tooltip("The dialog menu prefab.")]
-	[SerializeField] private DialogMenuController menuPrefab = null;
+    /*private void CacheEntries()
+    {
+        Transform currentDialog = CurrentStep == null ? transform : CurrentStep.GetActual().transform;
 
-	private DialogEntry currentEntry = null;
-	private string currentTitle = "";
-	private Sprite currentIcon = null;
+        currentEntries.Clear();
+        selectableEntries.Clear();
 
-	private List<DialogEntry> currentEntries = new List<DialogEntry>();
-	private List<DialogEntry> selectableEntries = new List<DialogEntry>();
+        for (int i = 0; i < currentDialog.transform.childCount; ++i)
+        {
+            if (currentDialog.GetChild(i).TryGetComponent(out DialogStep entry))
+            {
+                currentEntries.Add(entry);
 
-	public void Awake()
-	{
-		this.currentTitle = this.title;
-		this.currentIcon = this.icon;
-		this.CacheEntries();
-	}
+                if (!entry.IsSelectable())
+                {
+                    continue;
+                }
 
-	private void CacheEntries()
-	{
-		Transform currentDialog = this.currentEntry == null ? this.transform : this.currentEntry.GetActual().transform;
-		
-		this.currentEntries.Clear();
-		this.selectableEntries.Clear();
+                selectableEntries.Add(entry);
+            }
+        }
+    }*/
 
-		for(int i = 0; i < currentDialog.transform.childCount; ++i)
-		{
-			if(currentDialog.GetChild(i).TryGetComponent<DialogEntry>(out DialogEntry entry))
-			{
-				this.currentEntries.Add(entry);
+    private void Reset()
+    {
+        CurrentStep = null;
+    }
 
-				if(!entry.IsSelectable())
-				{
-					continue;
-				}
+    public void StartDialogSequence()
+    {
+        GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
+        menu = Instantiate(menuPrefab, canvas.transform);
+        menu.Open();
 
-				this.selectableEntries.Add(entry);
-			}
-		}
-	}
+        if (!keepState)
+            menu.onClose.AddListener(Reset);
 
-	public void Reset()
-	{
-		this.currentEntry = null;
-		this.currentTitle = this.title;
-		this.currentIcon = this.icon;
-		this.CacheEntries();
-		this.onDialogChange.Invoke(this);
-	}
-
-	public bool IsMenuOpen()
-	{
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-		return canvas != null && canvas.transform.GetComponentInChildren<DialogMenuController>() != null;
-	}
-
-	public DialogMenuController GetOpenMenu()
-	{
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-		return canvas != null ? canvas.transform.GetComponentInChildren<DialogMenuController>() : null;
-	}
-
-	public void OpenMenu()
-	{
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-		if(canvas == null || canvas.transform.GetComponentInChildren<MenuBase>() != null)
-		{
-			Debug.Log("A menu is already open!");
-			return;
-		}
-
-		DialogMenuController menu = Instantiate(this.menuPrefab, canvas.transform).Init(this);
-
-		if(!this.keepState)
-		{
-			menu.onClose.AddListener(this.Reset);
-		}
-
-		menu.Open();
-	}
-
-	public string GetTitle()
-	{
-		return this.currentTitle;
-	}
-
-	public Sprite GetIcon()
-	{
-		return this.currentIcon;
-	}
-
-	public DialogEntry[] GetEntries()
-	{
-		return this.currentEntries.ToArray();
-	}
-
-	public DialogEntry[] GetSelectableEntries()
-	{
-		return this.selectableEntries.ToArray();
-	}
-
-	public bool HasNext()
-	{
-		return this.selectableEntries.Count > 0;
-	}
-
-	public bool HasOptions()
-	{
-		return this.selectableEntries.Count > 1;
-	}
-
-	public DialogEntry GetDefaultNext()
-	{
-		return this.HasNext() ? this.selectableEntries[0] : null;
-	}
-
-	public void Select(DialogEntry entry)
-	{
-		// If the entry is not part of this dialog, return
-		if(entry != null && !this.currentEntries.Contains(entry))
-		{
-			Debug.LogWarning("Attempted to select a dialog entry that does not exist.");
-			return;
-		}
-
-		// If their is no next dialog, end.
-		if(!this.HasNext())
-		{
-			this.onDialogEnd.Invoke();
-			return;
-		}
-
-		// If the entry has no children during a fork, return.
-		if(this.HasOptions() && entry != null && !entry.IsSelectable())
-		{
-			Debug.LogWarning("Attempted to select a dialog entry that has no options.");
-			return;
-		}
-
-		// If only one branch exists, select it regardless of the entry.
-		this.currentEntry = entry != null && this.HasOptions() ? entry : this.GetDefaultNext();
-
-		if(this.currentEntry.HasTitleOverride())
-		{
-			this.currentTitle = this.currentEntry.GetTitleOverride();
-		}
-
-		if(this.currentEntry.HasIconOverride())
-		{
-			this.currentIcon = this.currentEntry.GetIconOverride();
-		}
-
-		this.CacheEntries();
-		this.onDialogChange.Invoke(this);
-	}
+        CurrentStep = transform.GetChild(0).GetComponent<DialogStep>();
+    }
 }

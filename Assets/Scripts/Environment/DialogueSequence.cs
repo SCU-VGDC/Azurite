@@ -21,6 +21,7 @@ namespace Dialogue.Data
     }
 }
 
+[Obsolete]
 public class DialogueSequence : MonoBehaviour
 {
     

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Obsolete]
 public class PanelSizer : MonoBehaviour
 {
     [Range(0.0f, 1.0f)]

@@ -185,7 +185,7 @@ Canvas:
   m_GameObject: {fileID: 3853007126478005474}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
   mainCameraPrefab: {fileID: 358754659124557754, guid: fd5b45d9e4f51cf47abf377881fa87cd, type: 3}
   submarinePrefab: {fileID: 0}
   debugMode: 0
-  outputMainCannvasRaycastTarget: 0
+  outputMainCanvasRaycastTarget: 0
 --- !u!114 &1712760210611694450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 3305498943339705897}
   - component: {fileID: 4179988720193787204}
   m_Layer: 5
-  m_Name: World Canvas
+  m_Name: WorldCanvas
   m_TagString: World Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,8 +556,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

@@ -12,7 +12,12 @@ public abstract class MenuBase : MonoBehaviour
     [Tooltip("This event is called when when the menu is closed.")]
     public UnityEvent onClose = new();
 
-    public UnityEvent<int> onChildOpen = new();
+    public UnityEvent<MenuBase> onChildOpen = new();
+    public UnityEvent<MenuBase> onChildClose = new();
+
+    public bool destroyOnClose = true;
+
+    public bool IsOpen { get; private set; } = false;
 
     protected MenuBase parent;
     protected List<MenuBase> children;
@@ -30,13 +35,20 @@ public abstract class MenuBase : MonoBehaviour
 
     private void Start()
     {
-        onClose.AddListener(() => Destroy(gameObject));
-
         transform.parent.TryGetComponent(out parent);
         children = GetComponentsInChildren<MenuBase>().Where(menu => menu != this).ToList();
 
         foreach (var child in children)
-            child.onOpen.AddListener(() => CurrentSequence = AnimateOnChildOpen(child));
+        {
+            child.onOpen.AddListener(() =>
+            {
+                CurrentSequence = AnimateOnChildOpen(child);
+                onChildOpen.Invoke(child);
+            });
+            child.onClose.AddListener(() =>
+                CurrentSequence = AnimateOnChildClose(child).AppendCallback(() => onChildClose.Invoke(child))
+            );
+        }
     }
 
     protected virtual void OnDestroy()
@@ -44,23 +56,33 @@ public abstract class MenuBase : MonoBehaviour
         CurrentSequence?.Kill();
     }
 
-    // Create and return an animation for opening this menu
-    protected abstract Sequence AnimateOnOpen();
+    // Create the animation for opening
+    protected virtual Sequence AnimateOnOpen() { return DOTween.Sequence(); }
     
-    // Create and return an animation for closing this menu
-    protected abstract Sequence AnimateOnClose();
-    
-    // Create and return an animation when a child menu opens
-    protected abstract Sequence AnimateOnChildOpen(MenuBase child);
+    // Create the animation for closing
+    protected virtual Sequence AnimateOnClose() { return DOTween.Sequence(); }
 
+    // Create the animation for when any child opens
+    protected virtual Sequence AnimateOnChildOpen(MenuBase child) { return DOTween.Sequence(); }
+
+    // Create the animation for when any child closes
+    protected virtual Sequence AnimateOnChildClose(MenuBase child) { return DOTween.Sequence(); }
 
     public virtual void Open()
     {
+        IsOpen = true;
         CurrentSequence = AnimateOnOpen();
+        onOpen.Invoke();
     }
 
     public virtual void Close()
     {
+        IsOpen = false;
         CurrentSequence = AnimateOnClose().AppendCallback(onClose.Invoke);
+
+        foreach (var child in children)
+            child.Close();
+
+        if (destroyOnClose) Destroy(gameObject);
     }
 }

@@ -481,14 +481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: Goodbye.
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!1 &325189463
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,14 +758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: Give it?
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!1 &758387134 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9041838947452863631, guid: d6c17ad5730fbac42b3cc321d88c47b7, type: 3}
@@ -888,16 +872,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49865cbc6918d43588525fce96c61fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDialogChange:
-    m_PersistentCalls:
-      m_Calls: []
-  onDialogEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  title: Lord Foog the 2st
-  icon: {fileID: 0}
   keepState: 0
   menuPrefab: {fileID: 7753031139513124029, guid: 84dedf2b14f014dbfa79e839aec8e0e2, type: 3}
+  defaultTitle: 
+  defaultIcon: {fileID: 0}
+  onChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &888826699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,14 +1288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: I have it.
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!4 &1004162480
 Transform:
   m_ObjectHideFlags: 0
@@ -1375,14 +1351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: Where is it?
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!1001 &1128697668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1391,10 +1359,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1407185375786976593, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 4355777366290488060, guid: 9dcf48a3bb3df6c41af0b6d6b3b11b9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1493,14 +1457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: Yes
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!1001 &1211194912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3241,14 +3197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: You don't have it?
-  nextOverride: {fileID: 1004162479}
-  overrideSelectable: 0
 --- !u!1 &2003554252
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,14 +3242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: Do you have it?
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!1 &2005408662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3347,14 +3287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812983da960a04803b8eabcf2be96d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSelect:
-    m_PersistentCalls:
-      m_Calls: []
-  titleOverride: 
-  iconOverride: {fileID: 0}
-  text: No
-  nextOverride: {fileID: 0}
-  overrideSelectable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

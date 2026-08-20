@@ -5,208 +5,207 @@ using UnityEngine.UI;
 
 public class InventoryPopupController : MenuBase
 {
-	[Tooltip("This event is called whenever an item is selected from the popup.")]
-	public UnityEvent<Inventory, Item> onItemSelected = new UnityEvent<Inventory, Item>();
-	
-	[Tooltip("The item stack slot prefab.")]
-	[SerializeField] protected ItemStackEntryController itemStackPrefab = null;
+    [Tooltip("This event is called whenever an item is selected from the popup.")]
+    public UnityEvent<Inventory, Item> onItemSelected = new();
 
-	[Tooltip("The toggle group containing the item stacks.")]
-	[SerializeField] protected ToggleGroup itemList = null;
+    [Tooltip("The item stack slot prefab.")]
+    [SerializeField] protected ItemStackEntryController itemStackPrefab = null;
 
-	[Tooltip("The transform that the popup moves relative to.")]
-	[SerializeField] protected Transform relativeTransform = null;
+    [Tooltip("The toggle group containing the item stacks.")]
+    [SerializeField] protected ToggleGroup itemList = null;
 
-	[Tooltip("The offset from the transform.")]
-	[SerializeField] protected Vector3 offset = Vector3.zero;
+    [Tooltip("The transform that the popup moves relative to.")]
+    [SerializeField] protected Transform relativeTransform = null;
 
-	private Inventory inventory = null;
+    [Tooltip("The offset from the transform.")]
+    [SerializeField] protected Vector3 offset = Vector3.zero;
 
-	public InventoryPopupController Init(Transform relativePosition, Vector3 relativeOffset, Inventory associatedInventory, Item.Category? filterCategory)
-	{
-		this.transform.localScale = new Vector3(0.0125f, 0.0125f, 0.0125f);
-		this.offset = relativeOffset;
-		this.relativeTransform = relativePosition;
-		this.inventory = associatedInventory;
-		Item[] items = this.inventory.GetItems();
+    private Inventory inventory = null;
 
-		for(int i = 0; i < items.Length; ++i)
-		{
-			if(filterCategory == null)
-			{
-				this.AddItemEntry(this.inventory, items[i]);
-				continue;
-			}
+    public InventoryPopupController Init(Transform relativePosition, Vector3 relativeOffset, Inventory associatedInventory, Item.Category? filterCategory)
+    {
+        transform.localScale = new Vector3(0.0125f, 0.0125f, 0.0125f);
+        offset = relativeOffset;
+        relativeTransform = relativePosition;
+        inventory = associatedInventory;
+        Item[] items = inventory.GetItems();
 
-			Item.Category[] categories = items[i].GetCategories();
+        for (int i = 0; i < items.Length; ++i)
+        {
+            if (filterCategory == null)
+            {
+                AddItemEntry(inventory, items[i]);
+                continue;
+            }
 
-			for(int j = 0; j < categories.Length; ++j)
-			{
-				if(filterCategory == categories[j])
-				{
-					this.AddItemEntry(this.inventory, items[i]);
-					break;
-				}
-			}
-		}
+            Item.Category[] categories = items[i].GetCategories();
 
-		this.onItemSelected.AddListener((inv, item) => {this.Close();});
-		return this;
-	}
+            for (int j = 0; j < categories.Length; ++j)
+            {
+                if (filterCategory == categories[j])
+                {
+                    AddItemEntry(inventory, items[i]);
+                    break;
+                }
+            }
+        }
 
-	public override void Update()
-	{
-		base.Update();
-		this.transform.position = this.relativeTransform.position + this.offset;
+        onItemSelected.AddListener((inv, item) => { Close(); });
+        return this;
+    }
 
-		// Handle traversal with arrow keys.
-		if(Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			this.MoveSelection(Vector2Int.down);
-		}
+    public void Update()
+    {
+        transform.position = relativeTransform.position + offset;
 
-		if(Input.GetKeyDown(KeyCode.DownArrow))
-		{
-			this.MoveSelection(Vector2Int.up);
-		}
+        // Handle traversal with arrow keys.
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            MoveSelection(Vector2Int.down);
+        }
 
-		if(Input.GetKeyDown(KeyCode.LeftArrow))
-		{
-			this.MoveSelection(Vector2Int.left);
-		}
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            MoveSelection(Vector2Int.up);
+        }
 
-		if(Input.GetKeyDown(KeyCode.RightArrow))
-		{
-			this.MoveSelection(Vector2Int.right);
-		}
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            MoveSelection(Vector2Int.left);
+        }
 
-		if(Input.GetKeyDown(KeyCode.Space))
-		{
-			Item selected = this.GetSelectedItem();
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            MoveSelection(Vector2Int.right);
+        }
 
-			if(selected == null)
-			{
-				return;
-			}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Item selected = GetSelectedItem();
 
-			this.onItemSelected.Invoke(this.inventory, selected);
-			Debug.Log(selected.name);
-		}
-	}
+            if (selected == null)
+            {
+                return;
+            }
 
-	protected void AddItemEntry(Inventory inventory, Item item)
-	{
-		ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform).Init(inventory, item);
+            onItemSelected.Invoke(inventory, selected);
+            Debug.Log(selected.name);
+        }
+    }
 
-		if(stack.TryGetComponent(out Toggle toggle))
-		{
-			toggle.group = this.itemList;
-		}
-		
-		this.UpdateGridSize();
-	}
+    protected void AddItemEntry(Inventory inventory, Item item)
+    {
+        ItemStackEntryController stack = Instantiate(itemStackPrefab, itemList.transform).Init(inventory, item);
 
-	public ItemStackEntryController GetSelectedStack()
-	{
-		Toggle selected = this.itemList.GetFirstActiveToggle();
-		return selected != null ? selected.gameObject.GetComponent<ItemStackEntryController>() : null;
-	}
+        if (stack.TryGetComponent(out Toggle toggle))
+        {
+            toggle.group = itemList;
+        }
 
-	public Item GetSelectedItem()
-	{
-		ItemStackEntryController selectedStack = this.GetSelectedStack();
-		return selectedStack != null ? selectedStack.GetItem() : null;
-	}
+        UpdateGridSize();
+    }
 
-	public void MoveSelection(Vector2Int offset)
-	{
-		if(this.itemList.transform.childCount == 0)
-		{
-			return;
-		}
+    public ItemStackEntryController GetSelectedStack()
+    {
+        Toggle selected = itemList.GetFirstActiveToggle();
+        return selected != null ? selected.gameObject.GetComponent<ItemStackEntryController>() : null;
+    }
 
-		Vector2Int grid = this.GetGridSize();
-		Vector2Int selectedPos = this.GetSelectedPosition();
+    public Item GetSelectedItem()
+    {
+        ItemStackEntryController selectedStack = GetSelectedStack();
+        return selectedStack != null ? selectedStack.GetItem() : null;
+    }
 
-		// Change the bounds if the current selection is on the incomplete row.
-		int lastRowWidth =((this.itemList.transform.childCount - 1) % grid.x) + 1;
-		int width = selectedPos.y == grid.y - 1 ? lastRowWidth : grid.x;
-		int height = selectedPos.x >= lastRowWidth ? grid.y - 1 : grid.y;
+    public void MoveSelection(Vector2Int offset)
+    {
+        if (itemList.transform.childCount == 0)
+        {
+            return;
+        }
 
-		// Move the selection.
-		selectedPos += offset;
-		selectedPos.x = selectedPos.x < 0 ? width -(Math.Abs(selectedPos.x + 1) % width) - 1 : selectedPos.x % width;
-		selectedPos.y = selectedPos.y < 0 ? height -(Math.Abs(selectedPos.y + 1) % height) - 1 : selectedPos.y % height;
+        Vector2Int grid = GetGridSize();
+        Vector2Int selectedPos = GetSelectedPosition();
 
-		// Translate the coordinates to an index.
-		int index =(selectedPos.y * grid.x + selectedPos.x) % this.itemList.transform.childCount;
+        // Change the bounds if the current selection is on the incomplete row.
+        int lastRowWidth = ((itemList.transform.childCount - 1) % grid.x) + 1;
+        int width = selectedPos.y == grid.y - 1 ? lastRowWidth : grid.x;
+        int height = selectedPos.x >= lastRowWidth ? grid.y - 1 : grid.y;
 
-		// Toggle the new selected stack.
-		if(this.itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
-		{
-			stack.isOn = true;
-		}
-	}
+        // Move the selection.
+        selectedPos += offset;
+        selectedPos.x = selectedPos.x < 0 ? width - (Math.Abs(selectedPos.x + 1) % width) - 1 : selectedPos.x % width;
+        selectedPos.y = selectedPos.y < 0 ? height - (Math.Abs(selectedPos.y + 1) % height) - 1 : selectedPos.y % height;
 
-	public Vector2Int GetGridSize()
-	{
-		// Return if the inventory is empty or if the grid layout group doesn't exist.
-		if(this.itemList.transform.childCount == 0 || !this.itemList.gameObject.TryGetComponent(out GridLayoutGroup grid))
-		{
-			return Vector2Int.zero;
-		}
+        // Translate the coordinates to an index.
+        int index = (selectedPos.y * grid.x + selectedPos.x) % itemList.transform.childCount;
 
-		int gridWidth = 0;
-		float prevX = float.NegativeInfinity;
-		
-		// Find the width by iterating through the item stack's until a wrap around is detected.
-		for(int i = 0; i < this.itemList.transform.childCount; ++i)
-		{
-			float x = ((RectTransform) grid.transform.GetChild(i)).anchoredPosition.x;
+        // Toggle the new selected stack.
+        if (itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
+        {
+            stack.isOn = true;
+        }
+    }
 
-			if(x <= prevX)
-			{
-				break;
-			}
+    public Vector2Int GetGridSize()
+    {
+        // Return if the inventory is empty or if the grid layout group doesn't exist.
+        if (itemList.transform.childCount == 0 || !itemList.gameObject.TryGetComponent(out GridLayoutGroup grid))
+        {
+            return Vector2Int.zero;
+        }
 
-			prevX = x;
-			++gridWidth;
-		}
+        int gridWidth = 0;
+        float prevX = float.NegativeInfinity;
 
-		// Calculate the height using the width.
-		int gridHeight = this.itemList.transform.childCount / gridWidth + Mathf.Min(1, this.itemList.transform.childCount % gridWidth);
-		return new Vector2Int(gridWidth, gridHeight);
-	}
+        // Find the width by iterating through the item stack's until a wrap around is detected.
+        for (int i = 0; i < itemList.transform.childCount; ++i)
+        {
+            float x = ((RectTransform)grid.transform.GetChild(i)).anchoredPosition.x;
 
-	public Vector2Int GetSelectedPosition()
-	{
-		Vector2Int grid = this.GetGridSize();
+            if (x <= prevX)
+            {
+                break;
+            }
 
-		if(grid.x == 0)
-		{
-			grid.Set(-1, -1);
-			return grid;
-		}
+            prevX = x;
+            ++gridWidth;
+        }
 
-		ItemStackEntryController selected = this.GetSelectedStack();
-		
-		// Return if no stack is selected.
-		if(selected == null)
-		{
-			grid.Set(-1, -1);
-			return grid;
-		}
+        // Calculate the height using the width.
+        int gridHeight = itemList.transform.childCount / gridWidth + Mathf.Min(1, itemList.transform.childCount % gridWidth);
+        return new Vector2Int(gridWidth, gridHeight);
+    }
 
-		// Translate the selected stack's index to grid coordinates.
-		grid.Set(selected.transform.GetSiblingIndex() % grid.x, selected.transform.GetSiblingIndex() / grid.x);
-		return grid;
-	}
+    public Vector2Int GetSelectedPosition()
+    {
+        Vector2Int grid = GetGridSize();
 
-	private void UpdateGridSize()
-	{
-		if(this.itemList.TryGetComponent(out GridLayoutGroup grid))
-		{
-			grid.constraintCount = Mathf.FloorToInt(Mathf.Sqrt(this.itemList.transform.childCount - 1)) + 1;
-		}
-	}
+        if (grid.x == 0)
+        {
+            grid.Set(-1, -1);
+            return grid;
+        }
+
+        ItemStackEntryController selected = GetSelectedStack();
+
+        // Return if no stack is selected.
+        if (selected == null)
+        {
+            grid.Set(-1, -1);
+            return grid;
+        }
+
+        // Translate the selected stack's index to grid coordinates.
+        grid.Set(selected.transform.GetSiblingIndex() % grid.x, selected.transform.GetSiblingIndex() / grid.x);
+        return grid;
+    }
+
+    private void UpdateGridSize()
+    {
+        if (itemList.TryGetComponent(out GridLayoutGroup grid))
+        {
+            grid.constraintCount = Mathf.FloorToInt(Mathf.Sqrt(itemList.transform.childCount - 1)) + 1;
+        }
+    }
 }

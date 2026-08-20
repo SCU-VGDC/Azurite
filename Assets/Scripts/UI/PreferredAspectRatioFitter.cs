@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,96 +7,97 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(LayoutElement))]
 [ExecuteAlways]
+[Obsolete]
 public class PreferredAspectRatioFitter : UIBehaviour, ILayoutSelfController, ILayoutController
 {
-	public enum AspectMode
-	{
-		None,
-		WidthControlsHeight,
-		HeightControlsWidth
-	}
+    public enum AspectMode
+    {
+        None,
+        WidthControlsHeight,
+        HeightControlsWidth
+    }
 
-	[SerializeField]
-	private AspectMode aspectMode;
+    [SerializeField]
+    private AspectMode aspectMode;
 
-	[SerializeField]
-	private float aspectRatio = 1f;
+    [SerializeField]
+    private float aspectRatio = 1f;
 
-	private RectTransform rectTransform = null;
-	private LayoutElement element = null;
-	private bool delayUpdate = false;
+    private RectTransform rectTransform = null;
+    private LayoutElement element = null;
+    private bool delayUpdate = false;
 
-	protected override void Awake()
-	{
-		base.Awake();
-		this.rectTransform = this.GetComponent<RectTransform>();
-		this.element = this.GetComponent<LayoutElement>();
-	}
+    protected override void Awake()
+    {
+        base.Awake();
+        rectTransform = GetComponent<RectTransform>();
+        element = GetComponent<LayoutElement>();
+    }
 
-	protected virtual void Update()
-	{
-		if(this.delayUpdate)
-		{
-			this.delayUpdate = false;
-			this.UpdatePreferred();
-		}
-	}
+    protected virtual void Update()
+    {
+        if (delayUpdate)
+        {
+            delayUpdate = false;
+            UpdatePreferred();
+        }
+    }
 
-	protected override void OnEnable()
-	{
-		base.OnEnable();
-		this.UpdatePreferred();
-	}
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        UpdatePreferred();
+    }
 
-	protected override void OnTransformParentChanged()
-	{
-		base.OnTransformParentChanged();
-		this.UpdatePreferred();
-	}
+    protected override void OnTransformParentChanged()
+    {
+        base.OnTransformParentChanged();
+        UpdatePreferred();
+    }
 
-	protected override void OnRectTransformDimensionsChange()
-	{
-		this.UpdatePreferred();
-	}
+    protected override void OnRectTransformDimensionsChange()
+    {
+        UpdatePreferred();
+    }
 
-	public void UpdatePreferred()
-	{
-		if(!this.IsActive())
-		{
-			return;
-		}
+    public void UpdatePreferred()
+    {
+        if (!IsActive())
+        {
+            return;
+        }
 
-		switch(this.aspectMode)
-		{
-			case AspectMode.None:
-				if(!Application.isPlaying)
-				{
-					this.aspectRatio = Mathf.Clamp(this.rectTransform.rect.width / this.rectTransform.rect.height, 0.001f, 1000f);
-				}
+        switch (aspectMode)
+        {
+            case AspectMode.None:
+                if (!Application.isPlaying)
+                {
+                    aspectRatio = Mathf.Clamp(rectTransform.rect.width / rectTransform.rect.height, 0.001f, 1000f);
+                }
 
-				break;
-			case AspectMode.HeightControlsWidth:
-				this.element.preferredWidth = this.rectTransform.rect.height * this.aspectRatio;
-				break;
-			case AspectMode.WidthControlsHeight:
-				this.element.preferredHeight = this.rectTransform.rect.width / this.aspectRatio;
-				break;
-		}
-	}
+                break;
+            case AspectMode.HeightControlsWidth:
+                element.preferredWidth = rectTransform.rect.height * aspectRatio;
+                break;
+            case AspectMode.WidthControlsHeight:
+                element.preferredHeight = rectTransform.rect.width / aspectRatio;
+                break;
+        }
+    }
 
-	protected override void OnValidate()
-	{
-		this.aspectRatio = Mathf.Clamp(this.aspectRatio, 0.001f, 1000f);
-		this.delayUpdate = true;
-	}
+    protected override void OnValidate()
+    {
+        aspectRatio = Mathf.Clamp(aspectRatio, 0.001f, 1000f);
+        delayUpdate = true;
+    }
 
-	public void SetLayoutHorizontal()
-	{
-		
-	}
+    public void SetLayoutHorizontal()
+    {
 
-	public void SetLayoutVertical()
-	{
-		
-	}
+    }
+
+    public void SetLayoutVertical()
+    {
+
+    }
 }
