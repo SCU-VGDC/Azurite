@@ -38,7 +38,7 @@ public class InventoryPopupController : MenuBase
                 continue;
             }
 
-            Item.Category[] categories = items[i].GetCategories();
+            Item.Category[] categories = items[i].Categories;
 
             for (int j = 0; j < categories.Length; ++j)
             {

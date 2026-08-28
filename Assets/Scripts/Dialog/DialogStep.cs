@@ -5,23 +5,23 @@ using UnityEngine;
 // Storage class for each step in a dialogue sequence
 public class DialogStep : MonoBehaviour
 {
-    // The Dialog object this step belongs to
     public Dialog OwnerDialog => GetComponentInParent<Dialog>();
 
-    [Tooltip("Optionally replace the dialog sequence's title")]
-    [field: SerializeField] public string TitleOverride { get; private set; } = "";
-    public bool HasTitleOverride => !string.IsNullOrEmpty(TitleOverride);
+    [field: SerializeField] public string Title { get; private set; } = "";
+    public bool HasTitle => !string.IsNullOrEmpty(Title);
 
-    [Tooltip("Optionally replace the dialog sequence's icon")]
-    [field: SerializeField] public Sprite IconOverride { get; private set; } = null;
-    public bool HasIconOverride => IconOverride != null;
+    [field: SerializeField] public Sprite Icon { get; private set; } = null;
+    public bool HasIcon => Icon != null;
 
-    [Tooltip("The text to display in this entry.")]
-    [field: SerializeField] public string Text { get; private set; } = "";
+    [field: SerializeField] public string Body { get; private set; } = "";
 
     [Tooltip("Optionally specify the next dialog step to proceed to. If null, proceeds to the next sibling")]
     [field: SerializeField] public DialogStep NextStepOverride { get; private set; } = null;
 
-    private List<DialogStep> _options = null;
-    public List<DialogStep> Options => _options ??= GetComponentsInChildren<DialogStep>().Where(s => s != this).ToList();
+    public DialogStep NextStep =>
+        NextStepOverride != null
+        ? NextStepOverride
+        : transform.parent.GetChild(transform.GetSiblingIndex() + 1).GetComponent<DialogStep>();
+
+    public DialogStep[] Options => GetComponentsInChildren<DialogStep>().Where(s => s != this).ToArray();
 }

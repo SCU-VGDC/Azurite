@@ -56,7 +56,7 @@ public class IcePuzzlePlayerController : MonoBehaviour
 		{
 			if (!runOnceFlag)
 			{
-            	StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
+            	StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
 
 				runOnceFlag = true;
 			}

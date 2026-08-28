@@ -13,16 +13,16 @@ public class TeleportationSystem : MonoBehaviour
     {
         interaction.playerInteractEvent.AddListener(Teleport);
 
-        if (GameManager.inst == null)
+        if (GameManager.Instance == null)
         {
             Debug.LogWarning("GameManager didn't exist on scene startup!");
             return;
         }
 
-        if (!string.IsNullOrEmpty(destinationScene) && GameManager.inst.PreviousScene == destinationScene)
+        if (!string.IsNullOrEmpty(destinationScene) && GameManager.Instance.PreviousScene == destinationScene)
         {
-            GameManager.inst.player.transform.position = transform.position;
-            GameManager.inst.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.inst.player.transform.position, Quaternion.identity);
+            GameManager.Instance.Player.transform.position = transform.position;
+            GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.Instance.Player.transform.position, Quaternion.identity);
         }
     }
     
@@ -34,7 +34,7 @@ public class TeleportationSystem : MonoBehaviour
             {
                 // teleport the player!
                 player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
-                GameManager.inst.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(player.transform.position, Quaternion.identity);
+                GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(player.transform.position, Quaternion.identity);
             }
         }
         else

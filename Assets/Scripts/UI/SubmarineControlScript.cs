@@ -1,14 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class ControlScript : MonoBehaviour
+public class SubmarineControlScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    // [SerializeField] private GameObject popupUI;
     private Canvas canvas;
 
     void Start()
@@ -26,11 +19,6 @@ public class ControlScript : MonoBehaviour
         if (canvas != null) canvas.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Exit()
     {
         if (canvas != null) canvas.gameObject.SetActive(false);

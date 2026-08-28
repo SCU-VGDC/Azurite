@@ -22,9 +22,9 @@ public class PlayerInteractionFinder : MonoBehaviour
 
     public void Awake()
     {
-        this.player = this.GetComponentInParent<Player>();
+        player = GetComponentInParent<Player>();
 
-        if (this.player == null)
+        if (player == null)
         {
             Debug.LogError("Failed to find the player.");
         }
@@ -76,7 +76,7 @@ public class PlayerInteractionFinder : MonoBehaviour
             }
             if (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>()))
             {
-                closest.Trigger(this.player);
+                closest.Trigger(player);
             }
         }
     }

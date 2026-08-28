@@ -107,7 +107,7 @@ public class SokobanHandler : MonoBehaviour
             onSolved.Invoke();
 
             // TODO: add to onSolved
-            StartCoroutine(GameManager.inst.Sleep(1.0f, GameManager.inst.EndCurrentPuzzle));
+            StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
         }
     }
 

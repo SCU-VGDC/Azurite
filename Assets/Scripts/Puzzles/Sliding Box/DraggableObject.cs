@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
+[RequireComponent(typeof(BoxCollider2D))]
 public class DraggableObject : MonoBehaviour
 {
-    public static List<DraggableObject> AllDraggables = new List<DraggableObject>();
+    public static List<DraggableObject> AllDraggables = new();
     // Define the size of each tile in grid units.
-    private int TileWidth = 1;
-    private int TileHeight = 1;
+    private const int TileWidth = 1;
+    private const int TileHeight = 1;
     public Tilemap RestrictedTilemap;
     //private Tilemap RestrictedTilemap;
     public int ObjectWidth = 1;
@@ -29,7 +29,7 @@ public class DraggableObject : MonoBehaviour
     private float UpdateTimer;
     public float UpdateCooldown;
     public float MoveTolerance = 0.3f;
-    
+
     void Awake()
     {
         AllDraggables.Add(this);
@@ -37,7 +37,7 @@ public class DraggableObject : MonoBehaviour
         if (RestrictedTilemap == null)
         {
             Debug.Log("No Tile Map Found, Choosing First Available");
-            RestrictedTilemap = FindFirstObjectByType<Tilemap>();
+            RestrictedTilemap = FindAnyObjectByType<Tilemap>();
         }
         //Allocates BoxCollider
         if (BoxCollider == null)
@@ -78,7 +78,7 @@ public class DraggableObject : MonoBehaviour
 
         //Gets coordinates of the mouse to drag box to offset
         Vector3 rawMouseTilePos = WorldToTilemap(GetMouseWorldPosition()) + PuzzleInteraction.puzzleLocation; // need to offset by the puzzle's grid location
-        Vector3 mouseTilePos = new Vector3(Mathf.RoundToInt(rawMouseTilePos.x), Mathf.RoundToInt(rawMouseTilePos.y), 0);
+        Vector3 mouseTilePos = new(Mathf.RoundToInt(rawMouseTilePos.x), Mathf.RoundToInt(rawMouseTilePos.y), 0);
         // Use the raw offset for a tolerance check
         if (Vector3.Distance(rawMouseTilePos, TargetPosition) < MoveTolerance)
         {
@@ -225,7 +225,7 @@ public class DraggableObject : MonoBehaviour
         // Adjust for even object dimensions based on the direction of movement.
         int offsetX = 0;
         int offsetY = 0;
-        
+
         //DO NOT CHANGE the -3:1 ratio. I'm unsure of the exact math, but changing it in any way breaks everything here.
         if (ObjectWidth % 2 == 0)
         {
@@ -242,20 +242,18 @@ public class DraggableObject : MonoBehaviour
         int bottomLeftCellX = centerCellX - ((ObjectWidth - 1) / 2) + (offsetX / 2);
         int bottomLeftCellY = centerCellY - ((ObjectHeight - 1) / 2) + (offsetY / 2);
 
-        BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
-        if (myCollider == null)
+        if (!TryGetComponent<BoxCollider2D>(out _))
         {
             Debug.LogWarning("No BoxCollider2D attached!");
             return true;
         }
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject[] interactables = GameObject.FindGameObjectsWithTag("Draggable Object");
         for (int x = 0; x < ObjectWidth; x++)
         {
             for (int y = 0; y < ObjectHeight; y++)
             {
 
-                Vector3Int cellToCheck = new Vector3Int(bottomLeftCellX + x, bottomLeftCellY + y, 0);
+                Vector3Int cellToCheck = new(bottomLeftCellX + x, bottomLeftCellY + y, 0);
                 Vector3 cellCenter = RestrictedTilemap.GetCellCenterWorld(cellToCheck);
                 Vector2 cellSize = new Vector2(TileWidth, TileHeight) * 0.9f; // Slightly smaller box, done to allow boxes to actually touch and move after touching
                 Collider2D hitCollider = Physics2D.OverlapBox(cellCenter, cellSize, 0f);
@@ -298,22 +296,21 @@ public class DraggableObject : MonoBehaviour
         {
             DirectionLock = AxisLock.Y;
         }
-        else if (ObjectWidth > ObjectHeight) 
+        else if (ObjectWidth > ObjectHeight)
         {
             DirectionLock = AxisLock.X;
         }
         UpdateColliderSize();
     }
 
-    
+
     private void UpdateColliderSize()
     {
         // Adjust the collider and sprite scale based on the new tile dimensions
         if (BoxCollider == null)
             BoxCollider = GetComponent<BoxCollider2D>();
 
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
+        if (!TryGetComponent<SpriteRenderer>(out var spriteRenderer))
             return;
 
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size; // Original sprite size
@@ -326,7 +323,7 @@ public class DraggableObject : MonoBehaviour
         );
     }
 
-    
+
     public Vector3 WorldToTilemap(Vector3 worldPos)
     {
         // Converts a world offset to a tilemap cell offset
@@ -337,7 +334,7 @@ public class DraggableObject : MonoBehaviour
     public Vector3 TilemapToWorld(Vector3 tilePos)
     {
         // Converts a tilemap cell offset (Vector3) back to a world offset
-        Vector3Int cellPos = new Vector3Int(
+        Vector3Int cellPos = new(
             Mathf.RoundToInt(tilePos.x),
             Mathf.RoundToInt(tilePos.y),
             Mathf.RoundToInt(tilePos.z)

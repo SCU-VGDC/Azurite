@@ -1,20 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Dialog : MonoBehaviour
 {
-    [Tooltip("Whether or not to save the dialog when closed prematurely.")]
-    [SerializeField] private bool keepState = false;
-    [SerializeField] private DialogMenuController menuPrefab = null;
-
     public string defaultTitle = "";
     public Sprite defaultIcon = null;
 
-    public UnityEvent<DialogStep> onChanged = new();
+    public UnityEvent<DialogStep> onStepChanged = new();
     public UnityEvent onFinished = new();
-
-    private DialogMenuController menu;
 
     private DialogStep _currentStep;
     public DialogStep CurrentStep
@@ -23,35 +16,15 @@ public class Dialog : MonoBehaviour
         set
         {
             _currentStep = value;
-            menu.UpdateFromDialog(this);
-            onChanged.Invoke(value);
+            onStepChanged.Invoke(value);
         }
     }
-    public string CurrentTitle => CurrentStep != null && CurrentStep.HasTitleOverride ? CurrentStep.TitleOverride : defaultTitle;
-    public Sprite CurrentIcon => CurrentStep != null && CurrentStep.HasIconOverride ? CurrentStep.IconOverride : defaultIcon;
 
-    /*private void CacheEntries()
-    {
-        Transform currentDialog = CurrentStep == null ? transform : CurrentStep.GetActual().transform;
-
-        currentEntries.Clear();
-        selectableEntries.Clear();
-
-        for (int i = 0; i < currentDialog.transform.childCount; ++i)
-        {
-            if (currentDialog.GetChild(i).TryGetComponent(out DialogStep entry))
-            {
-                currentEntries.Add(entry);
-
-                if (!entry.IsSelectable())
-                {
-                    continue;
-                }
-
-                selectableEntries.Add(entry);
-            }
-        }
-    }*/
+    public string Title => CurrentStep != null && CurrentStep.HasTitle ? CurrentStep.Title : defaultTitle;
+    public Sprite Icon => CurrentStep != null && CurrentStep.HasIcon ? CurrentStep.Icon : defaultIcon;
+    public string Body => CurrentStep != null ? CurrentStep.Body : string.Empty;
+    public bool HasOptions => CurrentStep != null && CurrentStep.Options.Length > 0;
+    public DialogStep[] Options => CurrentStep != null ? CurrentStep.Options : new DialogStep[0];
 
     private void Reset()
     {
@@ -60,13 +33,22 @@ public class Dialog : MonoBehaviour
 
     public void StartDialogSequence()
     {
-        GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-        menu = Instantiate(menuPrefab, canvas.transform);
-        menu.Open();
-
-        if (!keepState)
-            menu.onClose.AddListener(Reset);
-
         CurrentStep = transform.GetChild(0).GetComponent<DialogStep>();
+    }
+
+    public bool Advance()
+    {
+        if (CurrentStep == null)
+            return false;
+
+        var nextStep = CurrentStep.NextStep;
+        if (nextStep == null)
+        {
+            onFinished.Invoke();
+            return false;
+        }
+
+        CurrentStep = nextStep;
+        return true;
     }
 }

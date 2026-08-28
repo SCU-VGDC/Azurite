@@ -1,102 +1,84 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(EventSystem))]
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string firstGameScene;
-    [SerializeField] private string startupScene;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject mainCameraPrefab;
-    [SerializeField] private GameObject submarinePrefab;
-    [NonSerialized] public static GameManager inst;
-    [NonSerialized] public Player player;
-    public bool debugMode = false;
-    public bool outputMainCanvasRaycastTarget = false;
+    private const string gameManagerPrefabKey = "Assets/Prefabs/Managers/GameManager.prefab";
+    private const string playerPrefabKey = "Assets/Prefabs/Player.prefab";
+    private const string cameraPrefabKey = "Assets/Prefabs/CameraMain.prefab";
 
-    public Canvas MainCanvas { get; private set; } = null;
-    public GameObject MainCameraContainer { get; private set; } = null;
+    public static GameManager Instance { get; private set; }
+    public Player Player { get; private set; }
+
+    public GameObject MainCameraContainer { get; private set; }
     public Camera MainCamera => MainCameraContainer.GetComponentInChildren<Camera>();
-    public string PreviousScene { get; private set; } = null;
+    public string PreviousScene { get; private set; }
 
     // game states
-    [NonSerialized] public bool paused;
+    private bool _paused = false;
+    public bool Paused
+    {
+        get => _paused;
+        set
+        {
+            Time.timeScale = value ? 0f : 1f;
+            _paused = value;
+        }
+    }
 
-    // Puzzles:
-    public Action currentEndGameAction;
+    public event Action OnPuzzleEnd;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void GameStart()
+    {
+        Addressables.LoadAssetAsync<GameObject>(gameManagerPrefabKey).Completed += handle =>
+        {
+            if (handle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+                DontDestroyOnLoad(Instantiate(handle.Result));
+            else
+                Debug.LogError($"Failed to load GameManager prefab: {handle.OperationException}");
+        };
+    }
 
     private void Start()
     {
-        paused = false;
+        Paused = false;
     }
 
-    private void Awake()
+    private async void Awake()
     {
-        // Basic singleton pattern. Make sure there is only ever 1 GameManager in the scene and updates inst accordingly.
-
-        // If no GameManager assigned...
-        if (inst == null)
+        if (Instance == null)
+            Instance = this;
+        else
         {
-            // This is our GameManager
-            inst = this;
-        }
-        // If there is a GameManager assigned, and it's not this
-        else if (inst != this)
-        {
-            // Then this shouldn't exist, destroy it.
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
-
-        MainCameraContainer = Instantiate(mainCameraPrefab);
+        var cameraPrefab = await Addressables.LoadAssetAsync<GameObject>(cameraPrefabKey).Task;
+        MainCameraContainer = Instantiate(cameraPrefab);
         DontDestroyOnLoad(MainCameraContainer);
 
+        var playerPrefab = await Addressables.LoadAssetAsync<GameObject>(playerPrefabKey).Task;
         GameObject playerObj = Instantiate(playerPrefab);
         DontDestroyOnLoad(playerObj);
-        player = playerObj.GetComponent<Player>();
-
-        MainCanvas = transform.Find("MainCanvas").GetComponent<Canvas>();
-        MainCanvas.worldCamera = MainCamera;
-
-        Canvas worldCanvas = transform.Find("WorldCanvas").GetComponent<Canvas>();
-        worldCanvas.worldCamera = MainCamera;
+        Player = playerObj.GetComponent<Player>();
 
         CinemachineCamera cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
         cineCam.Target = new CameraTarget()
         {
-            TrackingTarget = player.transform,
-            LookAtTarget = player.transform,
+            TrackingTarget = Player.transform,
+            LookAtTarget = Player.transform,
         };
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        if (!debugMode)
-        {
-            _ = SceneManager.LoadSceneAsync(firstGameScene, LoadSceneMode.Single);
-        }
-    }
-
-    public void Update()
-    {
-        if (outputMainCanvasRaycastTarget)
-        {
-            List<RaycastResult> results = new();
-            PointerEventData pointer = new(GetComponent<EventSystem>())
-            {
-                position = Input.mousePosition
-            };
-            MainCanvas.GetComponent<GraphicRaycaster>().Raycast(pointer, results);
-            foreach (RaycastResult res in results)
-                Debug.Log(res.gameObject);
-        }
     }
 
     private void OnSceneUnloaded(Scene scene)
@@ -106,8 +88,6 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
-        if (scene.name == startupScene) return;
-
         var bounds = GameObject.FindWithTag("Camera Bounds");
         if (bounds != null && bounds.TryGetComponent(out PolygonCollider2D collider))
         {
@@ -116,35 +96,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a PolygonCollider2D tagged as 'Camera Bounds'!");
-        }
-        if (PersistentDataManager.Instance.TryGet("submarineInRoom", out string SubmarineLocation))
-        {
-            Debug.Log($"Current world state = {SubmarineLocation}");
-            if (PersistentDataManager.Instance.TryGet("currentLocation", out string CurrentLocation))
-            {
-                Debug.Log($"Current world state = {CurrentLocation}");
-                if (SubmarineLocation == CurrentLocation)
-                {
-                    GameObject location = GameObject.Find("SubmarineDock");
-                    if (location != null)
-                    {
-                        Debug.Log("Found Submarine!");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("No object named Submarine found in scene!");
-                    }
-                    Instantiate(submarinePrefab, location.transform);
-                }
-            }
-            else
-            {
-                Debug.Log("Submarine location not found or wrong type");
-            }
-        }
-        else
-        {
-            Debug.Log("Current location not found or wrong type");
         }
     }
 
@@ -158,6 +109,6 @@ public class GameManager : MonoBehaviour
 
     public void EndCurrentPuzzle()
     {
-        currentEndGameAction?.Invoke();
+        OnPuzzleEnd?.Invoke();
     }
 }

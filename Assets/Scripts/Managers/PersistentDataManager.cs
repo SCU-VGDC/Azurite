@@ -6,7 +6,7 @@ public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
     
-    [SerializeField] private Dictionary<string, object> persistentDict = new();
+    private readonly Dictionary<string, object> persistentDict = new();
     private readonly Dictionary<string, Delegate> eventStore = new();
 
     // basic singleton pattern

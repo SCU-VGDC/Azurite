@@ -65,7 +65,7 @@ public class InventoryMenuController : MenuBase
                 return;
             }
 
-            childMenu = Instantiate(selected.GetInspectMenuPrefab(), transform.parent).Init(selected);
+            childMenu = Instantiate(selected.InspectMenuPrefab, transform.parent).Init(selected);
             childMenu.transform.SetParent(transform);
             childMenu.gameObject.SetActive(false);
             childMenu.onClose.AddListener(() =>
@@ -134,7 +134,7 @@ public class InventoryMenuController : MenuBase
 
         if (selected != null)
         {
-            itemName.SetText(selected.GetDisplayName());
+            itemName.SetText(selected.DisplayName);
             itemName.enabled = true;
 
             // Unity says we shouldn't use this function but it works :/

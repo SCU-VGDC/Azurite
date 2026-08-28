@@ -23,7 +23,7 @@ public class ItemStack : MonoBehaviour
     /// <param name="inventory">The inventory to add to.</param>
     public void AddTo()
     {
-        GameManager.inst.player.Inventory.AddItem(this.item, this.count);
+        GameManager.Instance.Player.Inventory.AddItem(this.item, this.count);
     }
     /// <summary>
     /// Remove an item from the specified inventory.

@@ -30,7 +30,7 @@ public class FlowerInventory : MonoBehaviour
     public Item Slot1 { get; private set; }
     public Item Slot2 { get; private set; }
 
-    public UnityEngine.Events.UnityEvent contentChangedEvent = new UnityEngine.Events.UnityEvent();
+    public UnityEngine.Events.UnityEvent contentChangedEvent = new();
 
     public void Awake()
     {
@@ -101,7 +101,10 @@ public class FlowerInventory : MonoBehaviour
         Slot2 = null;
         contentChangedEvent?.Invoke();
 
-        GameManager.inst?.player?.Inventory?.AddItem(result, 1);
+        if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
+        {
+            GameManager.Instance.Player.Inventory.AddItem(result, 1);
+        }
         return result;
     }
 
@@ -109,13 +112,17 @@ public class FlowerInventory : MonoBehaviour
     {
         if (Slot1 != null && Slot2 != null) return;
 
-        if (item.GetCategories() == null || Array.IndexOf(item.GetCategories(), Item.Category.FLOWER) < 0)
+        if (item.Categories == null || Array.IndexOf(item.Categories, Item.Category.FLOWER) < 0)
         {
-            Debug.Log($"Cannot add {item.GetDisplayName()} to the combiner.");
+            Debug.Log($"Cannot add {item.DisplayName} to the combiner.");
             return;
         }
 
-        Inventory player = GameManager.inst?.player?.Inventory;
+        Inventory player = null;
+        if (GameManager.Instance != null && GameManager.Instance.Player != null)
+        {
+            player = GameManager.Instance.Player.Inventory;
+        }
         if (player == null || !player.HasItem(item)) return;
 
         if (Slot1 == null) Slot1 = item;
@@ -131,7 +138,10 @@ public class FlowerInventory : MonoBehaviour
         else if (Slot2 == item) Slot2 = null;
         else return;
 
-        GameManager.inst?.player?.Inventory?.AddItem(item, 1);
+        if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
+        {
+            GameManager.Instance.Player.Inventory.AddItem(item, 1);
+        }
         contentChangedEvent?.Invoke();
     }
 
@@ -139,12 +149,18 @@ public class FlowerInventory : MonoBehaviour
     {
         if (Slot1 != null)
         {
-            GameManager.inst?.player?.Inventory?.AddItem(Slot1, 1);
+            if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
+            {
+                GameManager.Instance.Player.Inventory.AddItem(Slot1, 1);
+            }
             Slot1 = null;
         }
         if (Slot2 != null)
         {
-            GameManager.inst?.player?.Inventory?.AddItem(Slot2, 1);
+            if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
+            {
+                GameManager.Instance.Player.Inventory.AddItem(Slot2, 1);
+            }
             Slot2 = null;
         }
         contentChangedEvent?.Invoke();

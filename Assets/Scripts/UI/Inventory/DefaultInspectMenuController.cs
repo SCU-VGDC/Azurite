@@ -15,9 +15,9 @@ public class DefaultInspectMenuController : InspectMenuBase
 
     public override InspectMenuBase Init(Item item)
     {
-        title.SetText(item.GetDisplayName());
-        descripiton.SetText(item.GetDescription());
-        preview.sprite = item.GetPreview();
+        title.SetText(item.DisplayName);
+        descripiton.SetText(item.Description);
+        preview.sprite = item.Preview;
         return this;
     }
 

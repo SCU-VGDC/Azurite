@@ -33,20 +33,20 @@ public class ShowNote : MonoBehaviour
 
      public void PauseGame()
     {
-        if (GameManager.inst.paused == false)
+        if (GameManager.Instance.Paused == false)
         {
             Debug.Log("Paused");
             Time.timeScale = 0f;
             
-            GameManager.inst.paused = true;
+            GameManager.Instance.Paused = true;
         }
 
-        else if (GameManager.inst.paused == true)
+        else if (GameManager.Instance.Paused == true)
         {
             Debug.Log("Resume");
             Time.timeScale = 1;
 
-            GameManager.inst.paused = false;
+            GameManager.Instance.Paused = false;
         }
     }
 }

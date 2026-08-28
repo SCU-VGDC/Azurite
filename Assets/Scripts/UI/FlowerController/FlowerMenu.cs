@@ -46,29 +46,29 @@ public class FlowerMenu : MenuBase
 
     public FlowerMenu Init(Inventory associatedInventory, FlowerInventory combiner = null)
     {
-        associatedInventory.itemAddedEvent.AddListener(this.AddItemEntry);
-        associatedInventory.itemRemovedEvent.AddListener(this.RemoveItemEntry);
-        associatedInventory.itemChangedEvent.AddListener(this.UpdateItemEntry);
+        associatedInventory.itemAddedEvent.AddListener(AddItemEntry);
+        associatedInventory.itemRemovedEvent.AddListener(RemoveItemEntry);
+        associatedInventory.itemChangedEvent.AddListener(UpdateItemEntry);
 
         Item[] items = associatedInventory.GetItems();
 
         for (int i = 0; i < items.Length; ++i)
         {
-            this.AddItemEntry(associatedInventory, items[i]);
+            AddItemEntry(associatedInventory, items[i]);
         }
 
         if (combiner != null)
         {
-            this.flowerInventory = combiner;
-            Transform leftPanel = this.transform.Find("Left Item Panel");
-            Transform rightPanel = this.transform.Find("Right Item Panel");
-            if (leftPanel != null && rightPanel != null && this.itemStackPrefab != null)
-                combiner.BindCombinerSlots(leftPanel, rightPanel, this.itemStackPrefab);
+            flowerInventory = combiner;
+            Transform leftPanel = transform.Find("Left Item Panel");
+            Transform rightPanel = transform.Find("Right Item Panel");
+            if (leftPanel != null && rightPanel != null && itemStackPrefab != null)
+                combiner.BindCombinerSlots(leftPanel, rightPanel, itemStackPrefab);
 
-            if (this.combineButton != null)
+            if (combineButton != null)
             {
-                this.combineButton.onClick.RemoveAllListeners();
-                this.combineButton.onClick.AddListener(this.OnCombineButtonClicked);
+                combineButton.onClick.RemoveAllListeners();
+                combineButton.onClick.AddListener(OnCombineButtonClicked);
             }
         }
 
@@ -79,49 +79,49 @@ public class FlowerMenu : MenuBase
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            this.MoveSelection(Vector2Int.down);
+            MoveSelection(Vector2Int.down);
         }
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            this.MoveSelection(Vector2Int.up);
+            MoveSelection(Vector2Int.up);
         }
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            this.MoveSelection(Vector2Int.left);
+            MoveSelection(Vector2Int.left);
         }
 
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            this.MoveSelection(Vector2Int.right);
+            MoveSelection(Vector2Int.right);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Item selected = this.GetSelectedItem();
-            if (selected != null && this.flowerInventory != null)
-                this.flowerInventory.AddFlower(selected);
+            Item selected = GetSelectedItem();
+            if (selected != null && flowerInventory != null)
+                flowerInventory.AddFlower(selected);
         }
     }
 
     public void OnCombineButtonClicked()
     {
-        if (this.flowerInventory == null) return;
+        if (flowerInventory == null) return;
 
-        Item result = this.flowerInventory.Combine();
+        Item result = flowerInventory.Combine();
         if (result != null)
         {
-            Debug.Log($"Crafted {result.GetDisplayName()}");
+            Debug.Log($"Crafted {result.DisplayName}");
 
-            FlowerMenuController controller = FindFirstObjectByType<FlowerMenuController>();
+            FlowerMenuController controller = FindAnyObjectByType<FlowerMenuController>();
             if (controller != null)
             {
                 controller.CloseMenu();
             }
             else
             {
-                this.Close();
+                Close();
             }
         }
     }
@@ -133,19 +133,19 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void AddItemEntry(Inventory inventory, Item item)
     {
-        ItemStackEntryController stack = Instantiate(this.itemStackPrefab, this.itemList.transform)
+        ItemStackEntryController stack = Instantiate(itemStackPrefab, itemList.transform)
             .Init(inventory, item);
 
-        this.itemStacks[item] = stack;
+        itemStacks[item] = stack;
 
         if (stack.TryGetComponent(out Toggle toggle))
         {
-            toggle.group = this.itemList;
-            toggle.onValueChanged.AddListener(this.UpdateItemName);
+            toggle.group = itemList;
+            toggle.onValueChanged.AddListener(UpdateItemName);
 
-            if (this.itemList.transform.childCount == 1)
+            if (itemList.transform.childCount == 1)
             {
-                this.UpdateItemName(false);
+                UpdateItemName(false);
             }
         }
     }
@@ -157,10 +157,10 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void RemoveItemEntry(Inventory inventory, Item item)
     {
-        if (this.itemStacks.TryGetValue(item, out ItemStackEntryController stack) && stack != null)
+        if (itemStacks.TryGetValue(item, out ItemStackEntryController stack) && stack != null)
         {
             Destroy(stack.gameObject);
-            this.itemStacks.Remove(item);
+            itemStacks.Remove(item);
         }
     }
 
@@ -170,7 +170,7 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void UpdateItemEntry(Inventory inventory, Item item, int amount)
     {
-        ItemStackEntryController stack = this.GetItemStack(item);
+        ItemStackEntryController stack = GetItemStack(item);
 
         if (stack != null)
         {
@@ -183,22 +183,22 @@ public class FlowerMenu : MenuBase
     /// </summary>
     protected virtual void UpdateItemName(bool _)
     {
-        if (this.itemName == null)
+        if (itemName == null)
         {
             return;
         }
 
-        Item selected = this.GetSelectedItem();
+        Item selected = GetSelectedItem();
 
         if (selected != null)
         {
-            this.itemName.SetText(selected.GetDisplayName());
-            this.itemName.enabled = true;
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.itemName.transform);
+            itemName.SetText(selected.DisplayName);
+            itemName.enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)itemName.transform);
         }
         else
         {
-            this.itemName.enabled = false;
+            itemName.enabled = false;
         }
     }
 
@@ -207,7 +207,7 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public ItemStackEntryController GetSelectedStack()
     {
-        Toggle selected = this.itemList.GetFirstActiveToggle();
+        Toggle selected = itemList.GetFirstActiveToggle();
         return selected != null
             ? selected.gameObject.GetComponent<ItemStackEntryController>()
             : null;
@@ -218,7 +218,7 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public Item GetSelectedItem()
     {
-        ItemStackEntryController selectedStack = this.GetSelectedStack();
+        ItemStackEntryController selectedStack = GetSelectedStack();
         return selectedStack != null ? selectedStack.GetItem() : null;
     }
 
@@ -227,7 +227,7 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public ItemStackEntryController GetItemStack(Item item)
     {
-        this.itemStacks.TryGetValue(item, out ItemStackEntryController stack);
+        itemStacks.TryGetValue(item, out ItemStackEntryController stack);
         return stack;
     }
 
@@ -237,15 +237,15 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public void MoveSelection(Vector2Int offset)
     {
-        if (this.itemList.transform.childCount == 0)
+        if (itemList.transform.childCount == 0)
         {
             return;
         }
 
-        Vector2Int grid = this.GetGridSize();
-        Vector2Int selectedPos = this.GetSelectedPosition();
+        Vector2Int grid = GetGridSize();
+        Vector2Int selectedPos = GetSelectedPosition();
 
-        int lastRowWidth = ((this.itemList.transform.childCount - 1) % grid.x) + 1;
+        int lastRowWidth = ((itemList.transform.childCount - 1) % grid.x) + 1;
         int width = selectedPos.y == grid.y - 1 ? lastRowWidth : grid.x;
         int height = selectedPos.x >= lastRowWidth ? grid.y - 1 : grid.y;
 
@@ -253,9 +253,9 @@ public class FlowerMenu : MenuBase
         selectedPos.x = ((selectedPos.x % width) + width) % width;
         selectedPos.y = ((selectedPos.y % height) + height) % height;
 
-        int index = (selectedPos.y * grid.x + selectedPos.x) % this.itemList.transform.childCount;
+        int index = ((selectedPos.y * grid.x) + selectedPos.x) % itemList.transform.childCount;
 
-        if (this.itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
+        if (itemList.transform.GetChild(index).TryGetComponent(out Toggle stack))
         {
             stack.isOn = true;
         }
@@ -266,7 +266,7 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public Vector2Int GetSelectedPosition()
     {
-        Vector2Int grid = this.GetGridSize();
+        Vector2Int grid = GetGridSize();
 
         if (grid.x == 0)
         {
@@ -274,7 +274,7 @@ public class FlowerMenu : MenuBase
             return grid;
         }
 
-        ItemStackEntryController selected = this.GetSelectedStack();
+        ItemStackEntryController selected = GetSelectedStack();
 
         if (selected == null)
         {
@@ -294,28 +294,28 @@ public class FlowerMenu : MenuBase
     /// </summary>
     public Vector2Int GetGridSize()
     {
-        if (this.itemList.transform.childCount == 0 || (this.gridLayoutGroup == null && !this.itemList.gameObject.TryGetComponent(out this.gridLayoutGroup)))
+        if (itemList.transform.childCount == 0 || (gridLayoutGroup == null && !itemList.gameObject.TryGetComponent(out gridLayoutGroup)))
         {
             return Vector2Int.zero;
         }
 
-        switch (this.gridLayoutGroup.constraint)
+        switch (gridLayoutGroup.constraint)
         {
             case GridLayoutGroup.Constraint.FixedColumnCount:
-                int rowCount = (this.itemList.transform.childCount + this.gridLayoutGroup.constraintCount - 1) / this.gridLayoutGroup.constraintCount;
-                return new Vector2Int(this.gridLayoutGroup.constraintCount, rowCount);
+                int rowCount = (itemList.transform.childCount + gridLayoutGroup.constraintCount - 1) / gridLayoutGroup.constraintCount;
+                return new Vector2Int(gridLayoutGroup.constraintCount, rowCount);
 
             case GridLayoutGroup.Constraint.FixedRowCount:
-                int columnCount = (this.itemList.transform.childCount + this.gridLayoutGroup.constraintCount - 1) / this.gridLayoutGroup.constraintCount;
-                return new Vector2Int(columnCount, this.gridLayoutGroup.constraintCount);
+                int columnCount = (itemList.transform.childCount + gridLayoutGroup.constraintCount - 1) / gridLayoutGroup.constraintCount;
+                return new Vector2Int(columnCount, gridLayoutGroup.constraintCount);
 
             case GridLayoutGroup.Constraint.Flexible:
                 int gridWidth = 0;
                 float prevX = float.NegativeInfinity;
 
-                for (int i = 0; i < this.itemList.transform.childCount; ++i)
+                for (int i = 0; i < itemList.transform.childCount; ++i)
                 {
-                    float x = ((RectTransform)this.gridLayoutGroup.transform.GetChild(i)).anchoredPosition.x;
+                    float x = ((RectTransform)gridLayoutGroup.transform.GetChild(i)).anchoredPosition.x;
                     if (x <= prevX)
                         break;
 
@@ -323,7 +323,7 @@ public class FlowerMenu : MenuBase
                     ++gridWidth;
                 }
 
-                int gridHeight = (this.itemList.transform.childCount + gridWidth - 1) / gridWidth;
+                int gridHeight = (itemList.transform.childCount + gridWidth - 1) / gridWidth;
                 return new Vector2Int(gridWidth, gridHeight);
 
             default:
@@ -333,9 +333,9 @@ public class FlowerMenu : MenuBase
 
     protected override void OnDestroy()
     {
-        if (this.flowerInventory != null)
+        if (flowerInventory != null)
         {
-            this.flowerInventory.ReturnItems();
+            flowerInventory.ReturnItems();
         }
         base.OnDestroy();
     }

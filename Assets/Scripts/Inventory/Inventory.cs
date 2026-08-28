@@ -24,17 +24,17 @@ public class Inventory : MonoBehaviour
 
     public bool HasItem(Item item)
     {
-        return this.items.ContainsKey(item);
+        return items.ContainsKey(item);
     }
 
     public int GetCount(Item item)
     {
-        return this.items.GetValueOrDefault(item, 0);
+        return items.GetValueOrDefault(item, 0);
     }
 
     public bool SelectItem(Item item)
     {
-        return this.items.ContainsKey(item);
+        return items.ContainsKey(item);
     }
 
     /// <summary>
@@ -50,26 +50,26 @@ public class Inventory : MonoBehaviour
             return 0;
         }
 
-        amount = Math.Min(item.GetMaxStackSize(), amount);
+        amount = Math.Min(item.MaxStackSize, amount);
 
-        if (!this.HasItem(item))
+        if (!HasItem(item))
         {
-            this.items.Add(item, amount);
-            this.itemAddedEvent.Invoke(this, item);
-            this.itemChangedEvent.Invoke(this, item, amount);
+            items.Add(item, amount);
+            itemAddedEvent.Invoke(this, item);
+            itemChangedEvent.Invoke(this, item, amount);
             return amount;
         }
 
-        if (this.items[item] + amount <= item.GetMaxStackSize())
+        if (items[item] + amount <= item.MaxStackSize)
         {
-            this.items[item] += amount;
-            this.itemChangedEvent.Invoke(this, item, amount);
+            items[item] += amount;
+            itemChangedEvent.Invoke(this, item, amount);
             return amount;
         }
 
-        int added = item.GetMaxStackSize() - this.items[item];
-        this.items[item] = item.GetMaxStackSize();
-        this.itemChangedEvent.Invoke(this, item, added);
+        int added = item.MaxStackSize - items[item];
+        items[item] = item.MaxStackSize;
+        itemChangedEvent.Invoke(this, item, added);
         return added;
     }
 
@@ -81,22 +81,22 @@ public class Inventory : MonoBehaviour
     /// <returns>The amount of items successfully removed from the inventory.</returns>
     public int RemoveItem(Item item, int amount)
     {
-        if (amount <= 0 || !this.HasItem(item))
+        if (amount <= 0 || !HasItem(item))
         {
             return 0;
         }
 
-        if (this.items[item] - amount > 0)
+        if (items[item] - amount > 0)
         {
-            this.items[item] -= amount;
-            this.itemChangedEvent.Invoke(this, item, -amount);
+            items[item] -= amount;
+            itemChangedEvent.Invoke(this, item, -amount);
             return amount;
         }
 
-        int removed = this.items[item];
-        this.items.Remove(item);
-        this.itemRemovedEvent.Invoke(this, item);
-        this.itemChangedEvent.Invoke(this, item, -removed);
+        int removed = items[item];
+        items.Remove(item);
+        itemRemovedEvent.Invoke(this, item);
+        itemChangedEvent.Invoke(this, item, -removed);
         return removed;
     }
 
@@ -106,10 +106,10 @@ public class Inventory : MonoBehaviour
     /// <returns>The items in the inventory as an array.</returns>
     public Item[] GetItems()
     {
-        Item[] itemArray = new Item[this.items.Count];
+        Item[] itemArray = new Item[items.Count];
         int index = -1;
 
-        foreach (Item i in this.items.Keys)
+        foreach (Item i in items.Keys)
         {
             itemArray[++index] = i;
         }
@@ -153,7 +153,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        Instantiate(this.inventoryMenuPrefab, canvas.transform).Init(this).Open();
+        Instantiate(inventoryMenuPrefab, canvas.transform).Init(this).Open();
     }
 
     public bool IsPopupOpen()
@@ -192,6 +192,6 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        Instantiate(this.inventoryPopupPrefab, canvas.transform).Init(relativePosition, offset, this, category).Open();
+        Instantiate(inventoryPopupPrefab, canvas.transform).Init(relativePosition, offset, this, category).Open();
     }
 }

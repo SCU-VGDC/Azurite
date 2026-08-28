@@ -32,7 +32,7 @@ public class TextPopup : MonoBehaviour
         cgroup = GetComponent<CanvasGroup>();
         mainText = GetComponentInChildren<TextMeshProUGUI>();
         mainText.text = _text;
-        GetComponent<Canvas>().worldCamera = GameManager.inst.MainCamera;
+        GetComponent<Canvas>().worldCamera = GameManager.Instance.MainCamera;
         cgroup.interactable = false;
         cgroup.blocksRaycasts = false;
         cgroup.alpha = 0f;
