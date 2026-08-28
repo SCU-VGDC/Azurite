@@ -1,22 +1,16 @@
-using Unity.VisualScripting;
-using UnityEditor.U2D.Sprites;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
-
 
 public class EscapePodProgress : MonoBehaviour
 {
-
     [SerializeField] private Item escapePart;
     [SerializeField] private List<GameObject> doorObjects = new List<GameObject>();
     [SerializeField] private GameObject door;
     
     private int EscapePodParts
     {
-        get { return PersistentDataManager.Instance.Get<int>("collectedParts"); }
-        set { PersistentDataManager.Instance.Set<int>("collectedParts", value); }
+        get => PersistentDataManager.Instance.Get<int>("collectedParts");
+        set => PersistentDataManager.Instance.Set<int>("collectedParts", value);
     }
 
     public void EscapePartUsed(Player player)
@@ -29,12 +23,8 @@ public class EscapePodProgress : MonoBehaviour
             // uhhhh, adding one more part to the current amount of parts we have
             EscapePodParts++;
             player.Inventory.RemoveItem(escapePart, 1);
-            print("parts used: " + EscapePodParts);
             UpdateEscapeDoor();
-            return;
         }
-        
-        print("no escape part in inventory");
     }
     
     public void LoadEscapeDoorProgress()
@@ -50,39 +40,21 @@ public class EscapePodProgress : MonoBehaviour
             {
                 currentObject.SetActive(true);
             }
-            
         }
     }
 
     private void UpdateEscapeDoor()
-    {
-        //GameObject doorPart = new GameObject();
-        //doorPart.transform.SetParent(transform);
-        print("update: " + (EscapePodParts - 1));
-        print("length " + doorObjects.Count);
-        
-        GameObject currentObject = doorObjects[EscapePodParts -1];
+    {        
+        GameObject currentObject = doorObjects[EscapePodParts - 1];
         if (currentObject != null)
         {
             currentObject.SetActive(true);
         }
-
-        //doorPart.AddComponent<SpriteRenderer>().sprite = sprites[EscapePodParts - 1];
     }
     
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     { 
         EscapePodParts = 0;
         LoadEscapeDoorProgress();
-        print("list length " + doorObjects.Count);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -286,11 +286,11 @@ public class LaserPuzzle : MonoBehaviour
                     // you won!
                     Debug.Log("you won!");
 
-                    StartCoroutine(GameManager.inst.Sleep(1.0f, () => 
+                    StartCoroutine(GameManager.Instance.Sleep(1.0f, () => 
                     {
                         DestroyLaserPrefabs(); 
 
-                        GameManager.inst.EndCurrentPuzzle();
+                        GameManager.Instance.EndCurrentPuzzle();
                     }));
                     
                     laserQueue.Dequeue();

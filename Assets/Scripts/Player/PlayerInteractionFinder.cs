@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class PlayerInteractionFinder : MonoBehaviour
@@ -9,7 +8,7 @@ public class PlayerInteractionFinder : MonoBehaviour
     [SerializeField] private float _interactionDist = 3;
     private readonly Dictionary<KeyCode, List<InteractionTrigger>> triggers = new();
 
-	private Player player;
+    private Player player;
 
     public float InteractionDistance
     {
@@ -21,43 +20,43 @@ public class PlayerInteractionFinder : MonoBehaviour
         }
     }
 
-	public void Awake()
-	{
-		this.player = this.GetComponentInParent<Player>();
+    public void Awake()
+    {
+        player = GetComponentInParent<Player>();
 
-		if(this.player == null)
-		{
-			Debug.LogError("Failed to find the player.");
-		}
-	}
+        if (player == null)
+        {
+            Debug.LogError("Failed to find the player.");
+        }
+    }
 
-	private void Start()
+    private void Start()
     {
         InteractionDistance = _interactionDist;
     }
 
-    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
+        if (collision.TryGetComponent(out InteractionTrigger interaction))
         {
-            if(!triggers.ContainsKey(interaction.GetInteractionKey()))
+            if (!triggers.ContainsKey(interaction.InteractionKey))
             {
-                triggers.Add(interaction.GetInteractionKey(), new List<InteractionTrigger>());
+                triggers.Add(interaction.InteractionKey, new List<InteractionTrigger>());
             }
-            triggers[interaction.GetInteractionKey()].Add(interaction);
+            triggers[interaction.InteractionKey].Add(interaction);
         }
     }
 
-    private void OnTriggerExit2D(UnityEngine.Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<InteractionTrigger>(out InteractionTrigger interaction))
+        if (collision.TryGetComponent(out InteractionTrigger interaction))
         {
-            if (triggers.TryGetValue(interaction.GetInteractionKey(), out var ilist))
+            if (triggers.TryGetValue(interaction.InteractionKey, out var ilist))
             {
                 ilist.Remove(interaction);
                 interaction.ToggleTextPopup(false);
             }
-        }    
+        }
     }
 
     private void Update()
@@ -71,13 +70,13 @@ public class PlayerInteractionFinder : MonoBehaviour
                 continue;
 
             InteractionTrigger closest = triggerPair.Value.Min();
-            foreach(var interaction in triggerPair.Value)
+            foreach (var interaction in triggerPair.Value)
             {
                 interaction.ToggleTextPopup(interaction == closest);
             }
             if (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>()))
             {
-                closest.Trigger(this.player);
+                closest.Trigger(player);
             }
         }
     }

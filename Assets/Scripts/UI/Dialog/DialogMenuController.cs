@@ -1,86 +1,89 @@
+using System.Collections.Generic;
+using System.Threading;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DialogMenuController : MenuBase
 {
-    [Tooltip("The text box of the title.")]
-    [SerializeField] protected TextMeshProUGUI title = null;
+    [SerializeField] protected DialogOptionButton optionButtonPrefab = null;
 
-	[Tooltip("The icon object.")]
-    [SerializeField] protected Image icon = null;
+    [SerializeField] protected TextMeshProUGUI titleText = null;
+    [SerializeField] protected TextMeshProUGUI bodyText = null;
+    [SerializeField] protected Image iconImage = null;
 
     [Tooltip("The content panel containing the text and options.")]
-    [SerializeField] protected VerticalLayoutGroup content = null;
+    [SerializeField] protected VerticalLayoutGroup contentContainer = null;
 
-	[Tooltip("The next button .")]
-    [SerializeField] protected Button nextButton = null;
+    [Tooltip("The icon indicating that the dialogue can continue.")]
+    [SerializeField] protected AnimatedArrowIcon nextArrow = null;
 
-	[Tooltip("The button prefab for dialog options.")]
-	[SerializeField] protected DialogEntryMenuController optionPrefab = null;
+    private Dialog currentDialog;
+    private readonly List<DialogOptionButton> optionButtons = new();
+    private Awaitable bodyDisplayTask;
 
-	public override void Update()
-	{
-		base.Update();
+    public void Init(Dialog dialog)
+    {
+        if (currentDialog != null)
+            return;
 
-		if((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) && this.nextButton.GetComponent<MenuBase>().IsOpen())
-		{
-			this.nextButton.onClick.Invoke();
-		}
-	}
+        currentDialog = dialog;
+        currentDialog.onStepChanged.AddListener(_ => DisplayCurrentStep());
+        currentDialog.onFinished.AddListener(() =>
+        {
+            currentDialog = null;
+            Close();
+        });
+        DisplayCurrentStep();
+    }
 
-	public DialogMenuController Init(Dialog dialog)
-	{
-		dialog.onDialogEnd.AddListener(this.Close);
-		dialog.onDialogChange.AddListener(this.SetDialog);
-		this.onOpen.AddListener(() => this.GenerateEntries(dialog));
-		this.nextButton.onClick.AddListener(() => dialog.Select(null));
-		return this;
-	}
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && !currentDialog.HasOptions)
+        {
+            if (bodyDisplayTask == null || bodyDisplayTask.IsCompleted)
+            {
+                currentDialog.Advance();
+                DisplayCurrentStep();
+            }
+            else
+            {
+                bodyDisplayTask?.Cancel();
+                bodyText.text = currentDialog.Body;
+                nextArrow.Show();
+            }
+        }
+    }
 
-	public void SetDialog(Dialog dialog)
-	{
-		DialogEntryMenuController[] entries = this.content.GetComponentsInChildren<DialogEntryMenuController>();
+    private void DisplayCurrentStep()
+    {
+        foreach (var option in optionButtons)
+            Destroy(option.gameObject);
+        optionButtons.Clear();
 
-		if(entries.Length == 0)
-		{
-			this.GenerateEntries(dialog);
-			return;
-		}
+        iconImage.sprite = currentDialog.Icon;
+        titleText.text = currentDialog.Title;
 
-		entries[0].onClose.AddListener(() => this.GenerateEntries(dialog));
+        bodyDisplayTask?.Cancel();
+        bodyDisplayTask = DisplayBodyAsync(currentDialog.Body);
+    }
 
-		for(int i = entries.Length; --i >= 0;)
-		{
-			entries[i].Close();
-		}
+    private async Awaitable DisplayBodyAsync(string text)
+    {
+        bodyText.text = string.Empty;
+        nextArrow.Hide();
+        foreach (char c in text)
+        {
+            bodyText.text += c;
+            await Awaitable.WaitForSecondsAsync(0.02f);
+        }
+        nextArrow.Show();
 
-		this.nextButton.GetComponent<MenuBase>().Hide();
-	}
-
-	private void GenerateEntries(Dialog dialog)
-	{
-		DialogEntry[] entries = dialog.GetEntries();
-
-		this.title.SetText(dialog.GetTitle());
-		this.icon.sprite = dialog.GetIcon();
-		
-		for(int i = 0; i < entries.Length; ++i)
-		{
-			DialogEntryMenuController entry = Instantiate(this.optionPrefab, this.content.transform).Init(dialog, entries[i]);
-
-			if(dialog.HasOptions() && entries[i].IsSelectable())
-			{
-				entry.ShowSelectable();
-			}
-
-			entry.Open();
-		}
-
-		if(!dialog.HasOptions())
-		{
-			this.nextButton.GetComponent<MenuBase>().Open();
-		}
-	}
+        foreach (var option in currentDialog.Options)
+        {
+            var button = Instantiate(optionButtonPrefab, contentContainer.transform).Init(currentDialog, option);
+            optionButtons.Add(button);
+        }
+    }
 }

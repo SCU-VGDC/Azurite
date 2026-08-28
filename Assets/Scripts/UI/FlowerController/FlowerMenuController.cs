@@ -20,10 +20,10 @@ public class FlowerMenuController : MonoBehaviour
     private FlowerInventory flowerInventory = null;
 
     [Tooltip("This event is called whenever the menu is opened.")]
-    public UnityEvent<FlowerMenuController> onMenuOpen = new UnityEvent<FlowerMenuController>();
+    public UnityEvent<FlowerMenuController> onMenuOpen = new();
 
     [Tooltip("This event is called whenever the menu is closed.")]
-    public UnityEvent<FlowerMenuController> onMenuClose = new UnityEvent<FlowerMenuController>();
+    public UnityEvent<FlowerMenuController> onMenuClose = new();
 
     public bool IsMenuOpen()
     {
@@ -62,11 +62,11 @@ public class FlowerMenuController : MonoBehaviour
         }
 
         Inventory inventory =
-            this.inventoryToShow != null
-                ? this.inventoryToShow
+            inventoryToShow != null
+                ? inventoryToShow
                 : (
-                    GameManager.inst != null && GameManager.inst.player != null
-                        ? GameManager.inst.player.Inventory
+                    GameManager.Instance != null && GameManager.Instance.Player != null
+                        ? GameManager.Instance.Player.Inventory
                         : null
                 );
 
@@ -78,16 +78,16 @@ public class FlowerMenuController : MonoBehaviour
             return;
         }
 
-        if (this.menuPrefab == null)
+        if (menuPrefab == null)
         {
             if (
-                GameManager.inst != null
-                && GameManager.inst.player != null
-                && GameManager.inst.player.Inventory != null
+                GameManager.Instance != null
+                && GameManager.Instance.Player != null
+                && GameManager.Instance.Player.Inventory != null
             )
             {
-                GameManager.inst.player.Inventory.OpenMenu();
-                this.onMenuOpen.Invoke(this);
+                GameManager.Instance.Player.Inventory.OpenMenu();
+                onMenuOpen.Invoke(this);
             }
             else
             {
@@ -98,14 +98,14 @@ public class FlowerMenuController : MonoBehaviour
 
         string playerInvLog = "Player Inventory: ";
         foreach (var item in inventory.GetItems())
-            playerInvLog += $"{item.GetDisplayName()} (x{inventory.GetCount(item)}), ";
+            playerInvLog += $"{item.DisplayName} (x{inventory.GetCount(item)}), ";
         Debug.Log(playerInvLog);
 
-        if (this.flowerInventory != null)
+        if (flowerInventory != null)
         {
             string combinerLog = "Combiner Inventory: ";
-            if (this.flowerInventory.Slot1 != null) combinerLog += $"{this.flowerInventory.Slot1.GetDisplayName()} (x1), ";
-            if (this.flowerInventory.Slot2 != null) combinerLog += $"{this.flowerInventory.Slot2.GetDisplayName()} (x1), ";
+            if (flowerInventory.Slot1 != null) combinerLog += $"{flowerInventory.Slot1.DisplayName} (x1), ";
+            if (flowerInventory.Slot2 != null) combinerLog += $"{flowerInventory.Slot2.DisplayName} (x1), ";
             Debug.Log(combinerLog);
         }
         else
@@ -113,17 +113,17 @@ public class FlowerMenuController : MonoBehaviour
             Debug.LogWarning("Combiner Inventory is NULL on the controller!");
         }
 
-        Instantiate(this.menuPrefab, canvas.transform).Init(inventory, this.flowerInventory);
-        this.onMenuOpen.Invoke(this);
+        Instantiate(menuPrefab, canvas.transform).Init(inventory, flowerInventory);
+        onMenuOpen.Invoke(this);
     }
 
     public void CloseMenu()
     {
-        FlowerMenu openMenu = this.GetOpenMenu();
+        FlowerMenu openMenu = GetOpenMenu();
         if (openMenu != null)
         {
             openMenu.Close();
-            this.onMenuClose.Invoke(this);
+            onMenuClose.Invoke(this);
         }
     }
 }

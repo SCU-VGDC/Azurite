@@ -4,40 +4,40 @@ using UnityEngine.UI;
 
 public class ItemStackEntryController : MonoBehaviour
 {
-	[Tooltip("The inventory the item is associated with.")]
-	[SerializeField] protected Inventory inventory = null;
+    [Tooltip("The inventory the item is associated with.")]
+    [SerializeField] protected Inventory inventory = null;
 
-	[Tooltip("The item to display.")]
-	[SerializeField] protected Item item = null;
+    [Tooltip("The item to display.")]
+    [SerializeField] protected Item item = null;
 
-	[Tooltip("The Image object to fill with the item icon.")]
-	[SerializeField] protected Image icon = null;
+    [Tooltip("The Image object to fill with the item icon.")]
+    [SerializeField] protected Image icon = null;
 
-	[Tooltip("The Text Mesh Pro object to fill with the stack count.")]
-	[SerializeField] protected TextMeshProUGUI count = null;
+    [Tooltip("The Text Mesh Pro object to fill with the stack count.")]
+    [SerializeField] protected TextMeshProUGUI count = null;
 
-	public ItemStackEntryController Init(Inventory associatedInventory, Item inventoryItem)
-	{
-		this.inventory = associatedInventory;
-		this.item = inventoryItem;
-		this.icon.sprite = this.item.GetIcon();
+    public ItemStackEntryController Init(Inventory associatedInventory, Item inventoryItem)
+    {
+        inventory = associatedInventory;
+        item = inventoryItem;
+        icon.sprite = item.Icon;
 
-		this.Refresh();
-		return this;
-	}
+        Refresh();
+        return this;
+    }
 
-	public void Refresh()
-	{
-		this.count.SetText(this.inventory.GetCount(this.item).ToString());
-	}
+    public void Refresh()
+    {
+        count.SetText(inventory.GetCount(item).ToString());
+    }
 
-   public Inventory GetInventory()
-	{
-		return this.inventory;
-	}
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
 
-	public Item GetItem()
-	{
-		return this.item;
-	}
+    public Item GetItem()
+    {
+        return item;
+    }
 }

@@ -22,7 +22,7 @@ public class PuzzleInteraction : MonoBehaviour
         mainCameraUniversalAdditionalCameraData = Camera.main.GetUniversalAdditionalCameraData();
         mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
-        playerScript = GameManager.inst.player.GetComponent<Player>();
+        playerScript = GameManager.Instance.Player.GetComponent<Player>();
     }
 
     public void StartGame()
@@ -33,7 +33,7 @@ public class PuzzleInteraction : MonoBehaviour
 
         // freeze the player
         playerScript.freezeMovement = true;
-        GameManager.inst.paused = true;
+        GameManager.Instance.Paused = true;
 
         // instantiate puzzle
         instantiatePuzzlePrefab = Instantiate(puzzlePrefab, puzzleLocation, Quaternion.identity);
@@ -58,7 +58,7 @@ public class PuzzleInteraction : MonoBehaviour
         puzzleCamera.enabled = true;
         mainVirtualCamera.Priority = -1;
 
-        GameManager.inst.currentEndGameAction = EndGame;
+        GameManager.Instance.OnPuzzleEnd += EndGame;
     }
 
     public void EndGame()
@@ -74,6 +74,6 @@ public class PuzzleInteraction : MonoBehaviour
 
         // resume player
         playerScript.freezeMovement = false;
-        GameManager.inst.paused = false;
+        GameManager.Instance.Paused = false;
     }
 }

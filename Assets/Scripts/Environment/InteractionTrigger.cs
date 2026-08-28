@@ -1,101 +1,54 @@
 using System;
-using System.Collections.Generic;
-using NUnit.Framework.Constraints;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 {
-	[Tooltip("This event is called whenever the player interacts with this object.")]
     public UnityEvent<Player> playerInteractEvent;
 
-	[Tooltip("The key used to trigger an interaction.")]
-    [SerializeField] private KeyCode triggerKey = KeyCode.E;
+    public KeyCode triggerKey = KeyCode.E;
+    public string popupText = "Interact";
+    public int actionCount = 0;
+    public KeyCode InteractionKey => triggerKey;
+    public Vector3 popupOffset = Vector3.up * 3;
+    [SerializeField] private TextPopup popupPrefab;
 
-	[Tooltip("The text popup that appears over the interactable object.")]
-    [SerializeField] private string popupText;
-
-	[Tooltip("The amount of actions interacting with this object costs.")]
-    [SerializeField] private int actionCount = 0;
-
-	[SerializeField] private Vector2 offset = new Vector2(0, 1);
-
-	private TextMeshProUGUI textPopup = null;
+    private TextPopup textPopupComponent = null;
 
     public int CompareTo(InteractionTrigger other)
     {
-        Transform plrTransform = GameManager.inst.player.transform;
+        Transform plrTransform = GameManager.Instance.Player.transform;
         float myDist = Vector2.Distance(transform.position, plrTransform.position);
         float otherDist = Vector2.Distance(other.transform.position, plrTransform.position);
         return MathF.Sign(myDist - otherDist);
     }
-	public void Start()
-	{
-		if (textPopup == null)
-		{
-			popupText = triggerKey.ToString();
-		}
-	}
-	public void Update()
-	{
-		if(this.textPopup != null)
-		{
-			this.textPopup.transform.position = this.transform.position + new Vector3(offset.x, offset.y, 10);
-			this.textPopup.canvas.sortingOrder = 9999;
-		}
-	}
 
-	public void Trigger(Player interactingPlayer)
+    public void Trigger(Player interactingPlayer)
     {
-        if(!GameManager.inst.paused)
+        if (!GameManager.Instance.Paused)
         {
-            this.playerInteractEvent.Invoke(interactingPlayer);
+            playerInteractEvent.Invoke(interactingPlayer);
             ActionManager.Instance.IncrementAction(actionCount);
-        }        
+        }
     }
 
     public void ToggleTextPopup(bool value)
     {
-		if(value)
-		{
-			if(this.textPopup != null)
-			{
-				return;
-			}
-
-			GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
-
-			if(canvas == null)
-			{
-				Debug.Log("Failed to find the world canvas!");
-				return;
-			}
-
-			this.textPopup = new GameObject("InteractionPopup", typeof(TextMeshProUGUI), typeof(ContentSizeFitter)).GetComponent<TextMeshProUGUI>();
-			this.textPopup.SetText(this.popupText);
-			this.textPopup.color = Color.blue;
-			this.textPopup.fontSize = 1;
-			this.textPopup.transform.SetParent(canvas.transform);
-			this.textPopup.rectTransform.anchoredPosition = new Vector2(0.5f, 1);
-
-			ContentSizeFitter fitter = this.textPopup.GetComponent<ContentSizeFitter>();
-			fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-			fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-			return;
-		}
-		else if(this.textPopup != null)
-		{
-			Destroy(this.textPopup.gameObject);
-			this.textPopup = null;
-			return;
-		}
-	}
-
-	public KeyCode GetInteractionKey()
-	{
-		return this.triggerKey;
-	}
+        if (value)
+        {
+            if (textPopupComponent != null || popupPrefab == null)
+                return;
+            textPopupComponent = Instantiate(popupPrefab);
+            textPopupComponent.transform.SetParent(transform, false);
+            textPopupComponent.popupOffset = popupOffset;
+            textPopupComponent.Text = popupText;
+            textPopupComponent.showOnStart = true;
+        }
+        else if (textPopupComponent != null)
+        {
+            textPopupComponent.Hide(true);
+            textPopupComponent = null;
+        }
+    }
 }
