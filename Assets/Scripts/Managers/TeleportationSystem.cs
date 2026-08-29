@@ -6,7 +6,6 @@ public class TeleportationSystem : MonoBehaviour
 {
     // Start is called before the first frame update
     public string destinationScene;
-    private Vector2 destinationCoords;
     [SerializeField] private InteractionTrigger interaction;
 
     void Start()
@@ -30,10 +29,9 @@ public class TeleportationSystem : MonoBehaviour
     {
         if(string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)
         {
-            if(player != null)
+            if (player != null)
             {
-                // teleport the player!
-                player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
+                //player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
                 GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(player.transform.position, Quaternion.identity);
             }
         }

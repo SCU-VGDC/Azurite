@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Dialog))]
-public class NewMonoBehaviour : InteractionTrigger
+public class DialogTrigger : InteractionTrigger
 {
-    private void Start()
+    public override void Trigger(Player interactingPlayer)
     {
-        
+        base.Trigger(interactingPlayer);
+        UIManager.Instance.CreateDialog(GetComponent<Dialog>());
     }
 }

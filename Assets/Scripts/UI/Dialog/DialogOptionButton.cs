@@ -4,25 +4,31 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(HorizontalLayoutGroup))]
 public class DialogOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] private RectTransform textContainer;
+    [SerializeField] private TextMeshProUGUI text;
     private Button button = null;
-    private TextMeshProUGUI text = null;
     private AnimatedArrowIcon arrow = null;
-    private Tween tween;
+    private float paddingLeftStart;
 
     private void Awake()
     {
         button = GetComponentInChildren<Button>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
         arrow = GetComponentInChildren<AnimatedArrowIcon>();
+    }
+
+    private void OnDestroy()
+    {
+        textContainer.DOKill();
     }
 
     public DialogOptionButton Init(Dialog dialog, DialogStep entry)
     {
         button.onClick.AddListener(() => dialog.CurrentStep = entry);
         text.text = entry.name;
+        paddingLeftStart = textContainer.anchoredPosition.x;
+        textContainer.anchoredPosition = Vector2.zero;
         return this;
     }
 
@@ -30,19 +36,13 @@ public class DialogOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         text.fontStyle = FontStyles.Underline;
         arrow.Show();
-
-        var layout = GetComponent<HorizontalLayoutGroup>();
-        tween?.Kill();
-        tween = DOTween.To(() => layout.padding.left, x => layout.padding.left = x, 75, 0.3f).SetEase(Ease.OutCubic);
+        textContainer.DOAnchorPos(new Vector2(paddingLeftStart, 0), 0.15f).SetEase(Ease.OutCubic);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         text.fontStyle = FontStyles.Normal;
         arrow.Hide();
-
-        var layout = GetComponent<HorizontalLayoutGroup>();
-        tween?.Kill();
-        tween = DOTween.To(() => layout.padding.left, x => layout.padding.left = x, 0, 0.3f).SetEase(Ease.InCubic);
+        textContainer.DOAnchorPos(Vector2.zero, 0.15f).SetEase(Ease.InCubic);
     }
 }

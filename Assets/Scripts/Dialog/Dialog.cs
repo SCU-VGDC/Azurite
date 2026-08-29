@@ -25,6 +25,7 @@ public class Dialog : MonoBehaviour
     public string Body => CurrentStep != null ? CurrentStep.Body : string.Empty;
     public bool HasOptions => CurrentStep != null && CurrentStep.Options.Length > 0;
     public DialogStep[] Options => CurrentStep != null ? CurrentStep.Options : new DialogStep[0];
+    public bool Finished => CurrentStep == null || CurrentStep.NextStep == null || CurrentStep.EndDialog;
 
     private void Reset()
     {

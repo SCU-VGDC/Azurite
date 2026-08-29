@@ -1,35 +1,33 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ItemStack))]
-[RequireComponent(typeof(InteractionTrigger))]
-public class ItemPickup : MonoBehaviour
+public class ItemPickup : InteractionTrigger
 {
     public bool destroyOnPickup = true;
     public bool usePersistentData = true;
+    public Item item;
     public string dataKey;
 
-    private void Start()
+    private void Awake()
     {
-        if (usePersistentData && PersistentDataManager.Instance.TryGet(dataKey, out bool pickedUp) && pickedUp)
+        if (destroyOnPickup && usePersistentData && PersistentDataManager.Instance.TryGet(dataKey, out bool pickedUp) && pickedUp)
         {
             Destroy(gameObject);
             return;
         }
+    }
 
-        var item = GetComponent<ItemStack>();
-        GetComponent<InteractionTrigger>().playerInteractEvent.AddListener((player) =>
+    public override void Trigger(Player interactingPlayer)
+    {
+        base.Trigger(interactingPlayer);
+
+        if (usePersistentData)
         {
-            item.AddTo();
+            PersistentDataManager.Instance.Set(dataKey, true);
+        }
 
-            if (usePersistentData)
-            {
-                PersistentDataManager.Instance.Set(dataKey, true);
-            }
-
-            if (destroyOnPickup)
-            {
-                Destroy(gameObject);
-            }
-        });
+        if (destroyOnPickup)
+        {
+            Destroy(gameObject);
+        }
     }
 }

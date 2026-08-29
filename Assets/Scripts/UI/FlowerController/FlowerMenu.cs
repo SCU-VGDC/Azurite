@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlowerMenu : MenuBase
+public class FlowerMenu : Menu
 {
     [Tooltip("The item stack slot prefab.")]
     [SerializeField]
@@ -29,32 +29,28 @@ public class FlowerMenu : MenuBase
     private readonly Dictionary<Item, ItemStackEntryController> itemStacks = new();
     private GridLayoutGroup gridLayoutGroup;
 
-    protected override Sequence AnimateOnOpen()
+    protected override Tween AnimateOnOpen()
     {
         return null;
     }
 
-    protected override Sequence AnimateOnClose()
+    protected override Tween AnimateOnClose()
     {
         return null;
     }
 
-    protected override Sequence AnimateOnChildOpen(MenuBase child)
+    public FlowerMenu Init(FlowerInventory combiner = null)
     {
-        return null;
-    }
+        var associatedInventory = GameManager.Instance.Player.Inventory;
+        associatedInventory.onItemAdded.AddListener(AddItemEntry);
+        associatedInventory.onItemRemoved.AddListener(RemoveItemEntry);
+        associatedInventory.onItemCountChanged.AddListener(UpdateItemEntry);
 
-    public FlowerMenu Init(Inventory associatedInventory, FlowerInventory combiner = null)
-    {
-        associatedInventory.itemAddedEvent.AddListener(AddItemEntry);
-        associatedInventory.itemRemovedEvent.AddListener(RemoveItemEntry);
-        associatedInventory.itemChangedEvent.AddListener(UpdateItemEntry);
-
-        Item[] items = associatedInventory.GetItems();
+        Item[] items = associatedInventory.Items;
 
         for (int i = 0; i < items.Length; ++i)
         {
-            AddItemEntry(associatedInventory, items[i]);
+            AddItemEntry(items[i]);
         }
 
         if (combiner != null)
@@ -131,10 +127,10 @@ public class FlowerMenu : MenuBase
     /// add an item to the underlying inventory and is used only for
     /// updating the menu.
     /// </summary>
-    protected virtual void AddItemEntry(Inventory inventory, Item item)
+    protected virtual void AddItemEntry(Item item)
     {
         ItemStackEntryController stack = Instantiate(itemStackPrefab, itemList.transform)
-            .Init(inventory, item);
+            .Init(GameManager.Instance.Player.Inventory, item);
 
         itemStacks[item] = stack;
 
@@ -155,7 +151,7 @@ public class FlowerMenu : MenuBase
     /// remove an item from the underlying inventory and is only used for
     /// updating the menu.
     /// </summary>
-    protected virtual void RemoveItemEntry(Inventory inventory, Item item)
+    protected virtual void RemoveItemEntry(Item item)
     {
         if (itemStacks.TryGetValue(item, out ItemStackEntryController stack) && stack != null)
         {
@@ -168,7 +164,7 @@ public class FlowerMenu : MenuBase
     /// Update an item stack in the menu. This refreshes the item
     /// stack's stack count label.
     /// </summary>
-    protected virtual void UpdateItemEntry(Inventory inventory, Item item, int amount)
+    protected virtual void UpdateItemEntry(Item item, int amount)
     {
         ItemStackEntryController stack = GetItemStack(item);
 

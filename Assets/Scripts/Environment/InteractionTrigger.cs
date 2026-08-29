@@ -24,7 +24,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
         return MathF.Sign(myDist - otherDist);
     }
 
-    public void Trigger(Player interactingPlayer)
+    public virtual void Trigger(Player interactingPlayer)
     {
         if (!GameManager.Instance.Paused)
         {
@@ -43,7 +43,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
             textPopupComponent.transform.SetParent(transform, false);
             textPopupComponent.popupOffset = popupOffset;
             textPopupComponent.Text = popupText;
-            textPopupComponent.showOnStart = true;
+            textPopupComponent.Show();
         }
         else if (textPopupComponent != null)
         {

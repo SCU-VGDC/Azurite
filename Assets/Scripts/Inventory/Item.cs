@@ -21,7 +21,5 @@ public class Item : ScriptableObject
 
     [field: SerializeField] public int MaxStackSize { get; private set; } = 99;
 
-    [field: SerializeField] public InspectMenuBase InspectMenuPrefab { get; private set; } = null;
-
     [field: SerializeField] public Category[] Categories { get; private set; } = null;
 }

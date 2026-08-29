@@ -1,86 +1,48 @@
 using System;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Events;
 
+[RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
-	[SerializeField] Rigidbody2D PlayerRigidBody;
-	Vector2 playerInput;
-	//Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-	[SerializeField][Range(0, 10)] float playerSpeed = 1.0f;
+    private static readonly int DownHash = Animator.StringToHash("Down");
+    private static readonly int UpHash = Animator.StringToHash("Up");
 
-	/// <summary>The player's inventory.</summary>
-	public Inventory Inventory { get; private set; }
+    [SerializeField] Rigidbody2D PlayerRigidBody;
+    Vector2 playerInput;
+    //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
+    [SerializeField][Range(0, 10)] float playerSpeed = 1.0f;
 
-	public bool freezeMovement = false;
+    /// <summary>The player's inventory.</summary>
+    public Inventory Inventory { get; private set; }
 
-	private Animator animator;
+    public bool freezeMovement = false;
 
-	public void Start()
-	{
-		this.Inventory = this.GetComponent<Inventory>();
+    private Animator animator;
 
-		if(this.Inventory == null)
-		{
-			Debug.LogError("Failed to find the player inventory.");
-		}
+    public void Start()
+    {
+        Inventory = GetComponent<Inventory>();
         animator = GetComponent<Animator>();
     }
 
-	void Update()
-	{
-		if(Input.GetButtonDown("Inventory"))
-		{
-			if(this.Inventory.IsMenuOpen())
-			{
-				this.Inventory.GetOpenMenu().Close();
-			}
-			else
-			{
-				this.Inventory.OpenMenu();
-			}
-		}
+    void Update()
+    {
+        playerInput.x = Input.GetAxisRaw("Horizontal");
+        playerInput.y = Input.GetAxisRaw("Vertical");
+    }
 
-		if(Input.GetKeyDown(KeyCode.P))
-		{
-			if(this.Inventory.IsPopupOpen())
-			{
-				this.Inventory.GetOpenPopup().Close();
-			}
-			else
-			{
-				BoxCollider2D box = this.GetComponent<BoxCollider2D>();
-				this.Inventory.OpenPopup(this.transform, new Vector3(0, box.size.y * 0.5f, 0), Item.Category.FLOWER);
-			}
-		}
-
-		// Only allow player movement when the inventory is closed.
-		GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-		if(canvas != null && canvas.GetComponentInChildren<MenuBase>() != null)
-		{
-			playerInput.x = 0;
-			playerInput.y = 0;
-		}
-		else
-		{
-			playerInput.x = Input.GetAxisRaw("Horizontal");
-			playerInput.y = Input.GetAxisRaw("Vertical");
-		}
-	}
-
-	void FixedUpdate()
-	{
-		if (!freezeMovement) PlayerRigidBody.linearVelocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
-		else PlayerRigidBody.linearVelocity = new Vector2(0, 0);
-        animator.SetBool("Up", playerInput.y > 0);
-        animator.SetBool("Down", playerInput.y < 0);
+    void FixedUpdate()
+    {
+        if (!freezeMovement) PlayerRigidBody.linearVelocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
+        else PlayerRigidBody.linearVelocity = new Vector2(0, 0);
+        animator.SetBool(UpHash, playerInput.y > 0);
+        animator.SetBool(DownHash, playerInput.y < 0);
     }
 
     void LateUpdate()
     {
-        this.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(-transform.position.y*100);
+        GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
     }
 }

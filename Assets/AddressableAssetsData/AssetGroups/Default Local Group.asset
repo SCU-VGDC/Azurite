@@ -14,27 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: 8aac4bf36f7c46d4c8cf05dd441d5847
-  m_SerializeEntries:
-  - m_GUID: 9dcf48a3bb3df6c41af0b6d6b3b11b9c
-    m_Address: Assets/Prefabs/Managers/GameManager.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a54242187cde0424f83f14d67b354931
-    m_Address: Assets/Prefabs/UI/TextPopup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c81d2fb9930201742931997ce04f1017
-    m_Address: Assets/Prefabs/Player.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd5b45d9e4f51cf47abf377881fa87cd
-    m_Address: Assets/Prefabs/CameraMain.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bdde42ad4df21244eb4443a0fb364b02, type: 2}
   m_SchemaSet:

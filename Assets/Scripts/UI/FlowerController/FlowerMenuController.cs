@@ -55,7 +55,7 @@ public class FlowerMenuController : MonoBehaviour
     {
         GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
 
-        if (canvas == null || canvas.transform.GetComponentInChildren<MenuBase>() != null)
+        if (canvas == null || canvas.transform.GetComponentInChildren<Menu>() != null)
         {
             Debug.Log("A menu is already open");
             return;
@@ -86,7 +86,7 @@ public class FlowerMenuController : MonoBehaviour
                 && GameManager.Instance.Player.Inventory != null
             )
             {
-                GameManager.Instance.Player.Inventory.OpenMenu();
+                //GameManager.Instance.Player.Inventory.OpenMenu();
                 onMenuOpen.Invoke(this);
             }
             else
@@ -97,7 +97,7 @@ public class FlowerMenuController : MonoBehaviour
         }
 
         string playerInvLog = "Player Inventory: ";
-        foreach (var item in inventory.GetItems())
+        foreach (var item in inventory.Items)
             playerInvLog += $"{item.DisplayName} (x{inventory.GetCount(item)}), ";
         Debug.Log(playerInvLog);
 
@@ -113,7 +113,7 @@ public class FlowerMenuController : MonoBehaviour
             Debug.LogWarning("Combiner Inventory is NULL on the controller!");
         }
 
-        Instantiate(menuPrefab, canvas.transform).Init(inventory, flowerInventory);
+        Instantiate(menuPrefab, canvas.transform).Init(flowerInventory);
         onMenuOpen.Invoke(this);
     }
 

@@ -13,6 +13,11 @@ public class AnimatedArrowIcon : MonoBehaviour
     private bool moveStateDown = false;
     private float t = 0;
 
+    private void OnDestroy()
+    {
+        GetComponent<CanvasGroup>().DOKill();
+    }
+
     private void Update()
     {
         if (GetComponent<CanvasGroup>().alpha == 0) return;

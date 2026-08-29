@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(CanvasGroup))]
 public class TextPopup : MonoBehaviour
 {
-    public bool showOnStart = false;
-
     private readonly Vector3 hideOffset = Vector3.down * 0.3f;
 
     private TextMeshProUGUI mainText;
@@ -37,9 +35,6 @@ public class TextPopup : MonoBehaviour
         cgroup.blocksRaycasts = false;
         cgroup.alpha = 0f;
         transform.localPosition = popupOffset + hideOffset;
-
-        if (showOnStart)
-            Show();
     }
 
     public void Show()

@@ -1,24 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
-    [Tooltip("This event is called whenever a new item is added to the inventory.")]
-    public UnityEvent<Inventory, Item> itemAddedEvent = new();
+    public UnityEvent<Item> onItemAdded = new();
+    public UnityEvent<Item> onItemRemoved = new();
+    public UnityEvent<Item, int> onItemCountChanged = new();
 
-    [Tooltip("This event is called whenever an item is completely removed from the inventory.")]
-    public UnityEvent<Inventory, Item> itemRemovedEvent = new();
-
-    [Tooltip("This event is called whenever the stacksize of an item is changed.")]
-    public UnityEvent<Inventory, Item, int> itemChangedEvent = new();
-
-    [Tooltip("The inventory menu prefab.")]
-    [SerializeField] private InventoryMenuController inventoryMenuPrefab = null;
-
-    [Tooltip("The inventory popup prefab.")]
-    [SerializeField] private InventoryPopupController inventoryPopupPrefab = null;
+    public Item[] Items => items.SelectMany(kv => Enumerable.Repeat(kv.Key, kv.Value)).ToArray();
 
     private readonly Dictionary<Item, int> items = new();
 
@@ -30,11 +22,6 @@ public class Inventory : MonoBehaviour
     public int GetCount(Item item)
     {
         return items.GetValueOrDefault(item, 0);
-    }
-
-    public bool SelectItem(Item item)
-    {
-        return items.ContainsKey(item);
     }
 
     /// <summary>
@@ -50,27 +37,17 @@ public class Inventory : MonoBehaviour
             return 0;
         }
 
-        amount = Math.Min(item.MaxStackSize, amount);
+        amount = Math.Max(0, Math.Min(item.MaxStackSize - GetCount(item), amount));
 
-        if (!HasItem(item))
-        {
-            items.Add(item, amount);
-            itemAddedEvent.Invoke(this, item);
-            itemChangedEvent.Invoke(this, item, amount);
-            return amount;
-        }
-
-        if (items[item] + amount <= item.MaxStackSize)
-        {
+        if (items.TryAdd(item, amount))
+            onItemAdded.Invoke(item);
+        else
             items[item] += amount;
-            itemChangedEvent.Invoke(this, item, amount);
-            return amount;
-        }
 
-        int added = item.MaxStackSize - items[item];
-        items[item] = item.MaxStackSize;
-        itemChangedEvent.Invoke(this, item, added);
-        return added;
+        if (amount > 0)
+            onItemCountChanged.Invoke(item, GetCount(item));
+
+        return amount;
     }
 
     /// <summary>
@@ -86,112 +63,16 @@ public class Inventory : MonoBehaviour
             return 0;
         }
 
-        if (items[item] - amount > 0)
+        amount = Math.Min(amount, GetCount(item));
+        items[item] -= amount;
+        onItemCountChanged.Invoke(item, GetCount(item));
+
+        if (items[item] <= 0)
         {
-            items[item] -= amount;
-            itemChangedEvent.Invoke(this, item, -amount);
-            return amount;
+            items.Remove(item);
+            onItemRemoved.Invoke(item);
         }
 
-        int removed = items[item];
-        items.Remove(item);
-        itemRemovedEvent.Invoke(this, item);
-        itemChangedEvent.Invoke(this, item, -removed);
-        return removed;
-    }
-
-    /// <summary>
-    /// Get the items stored in the inventory as an array.
-    /// </summary>
-    /// <returns>The items in the inventory as an array.</returns>
-    public Item[] GetItems()
-    {
-        Item[] itemArray = new Item[items.Count];
-        int index = -1;
-
-        foreach (Item i in items.Keys)
-        {
-            itemArray[++index] = i;
-        }
-
-        return itemArray;
-    }
-
-    public bool IsMenuOpen()
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-        if (canvas == null)
-        {
-            Debug.Log("Failed to find the main canvas!");
-            return false;
-        }
-
-        return canvas.transform.GetComponentInChildren<InventoryMenuController>(true) != null;
-    }
-
-    public InventoryMenuController GetOpenMenu()
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-        if (canvas == null)
-        {
-            Debug.Log("Failed to find the main canvas!");
-            return null;
-        }
-
-        return canvas.transform.GetComponentInChildren<InventoryMenuController>(true);
-    }
-
-    public void OpenMenu()
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("Main Canvas");
-
-        if (canvas == null || canvas.transform.GetComponentInChildren<MenuBase>() != null)
-        {
-            Debug.Log("A menu is already open!");
-            return;
-        }
-
-        Instantiate(inventoryMenuPrefab, canvas.transform).Init(this).Open();
-    }
-
-    public bool IsPopupOpen()
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
-
-        if (canvas == null)
-        {
-            Debug.Log("Failed to find the world canvas!");
-            return false;
-        }
-
-        return canvas.transform.GetComponentInChildren<InventoryPopupController>() != null;
-    }
-
-    public InventoryPopupController GetOpenPopup()
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
-
-        if (canvas == null)
-        {
-            Debug.Log("Failed to find the world canvas!");
-            return null;
-        }
-
-        return canvas.transform.GetComponentInChildren<InventoryPopupController>();
-    }
-
-    public void OpenPopup(Transform relativePosition, Vector3 offset, Item.Category? category)
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("World Canvas");
-
-        if (canvas == null)
-        {
-            Debug.Log("Failed to find the world canvas!");
-            return;
-        }
-
-        Instantiate(inventoryPopupPrefab, canvas.transform).Init(relativePosition, offset, this, category).Open();
+        return amount;
     }
 }
