@@ -1283,8 +1283,8 @@ MonoBehaviour:
   triggerKey: 101
   popupText: Interact
   actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
+  popupOffset: {x: 0, y: 1, z: 0}
+  popupPrefab: {fileID: 9165422664646780557, guid: a54242187cde0424f83f14d67b354931, type: 3}
 --- !u!114 &1970766102
 MonoBehaviour:
   m_ObjectHideFlags: 0

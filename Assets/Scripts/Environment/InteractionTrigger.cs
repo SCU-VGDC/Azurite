@@ -11,7 +11,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     public string popupText = "Interact";
     public int actionCount = 0;
     public KeyCode InteractionKey => triggerKey;
-    public Vector3 popupOffset = Vector3.up * 3;
+    public Vector3 popupOffset = Vector3.up;
     [SerializeField] private TextPopup popupPrefab;
 
     private TextPopup textPopupComponent = null;

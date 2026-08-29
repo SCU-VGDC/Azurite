@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         Paused = false;
     }
 
-    private async void Awake()
+    private void Awake()
     {
         if (Instance == null)
             Instance = this;

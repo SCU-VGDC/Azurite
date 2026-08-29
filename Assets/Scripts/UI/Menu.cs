@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Menu : MonoBehaviour
 {
+    public bool restrictPlayerActions = false;
     public bool allowMultipleChildrenOpen = false;
     public bool destroyOnClose = true;
     public UnityEvent onOpen = new();
@@ -38,6 +39,7 @@ public class Menu : MonoBehaviour
     protected virtual void OnDestroy()
     {
         CurrentTween?.Kill();
+        UIManager.Instance.OnMenuClosed(this);
     }
 
     private void OnTransformParentChanged()
@@ -68,6 +70,7 @@ public class Menu : MonoBehaviour
         IsOpen = true;
         CurrentTween = AnimateOnOpen();
         onOpen.Invoke();
+        UIManager.Instance.OnMenuOpened(this);
 
         if (parent != null)
             parent.OnChildOpen(this);
@@ -78,6 +81,7 @@ public class Menu : MonoBehaviour
         IsOpen = false;
         CurrentTween = AnimateOnClose();
         onClose.Invoke();
+        UIManager.Instance.OnMenuClosed(this);
 
         if (parent != null)
             parent.OnChildClose(this);

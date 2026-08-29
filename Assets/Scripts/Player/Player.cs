@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
@@ -9,40 +10,51 @@ public class Player : MonoBehaviour
     private static readonly int DownHash = Animator.StringToHash("Down");
     private static readonly int UpHash = Animator.StringToHash("Up");
 
-    [SerializeField] Rigidbody2D PlayerRigidBody;
-    Vector2 playerInput;
-    //Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-    [SerializeField][Range(0, 10)] float playerSpeed = 1.0f;
+    public PlayerInteractionController InteractionController => GetComponentInChildren<PlayerInteractionController>();
 
-    /// <summary>The player's inventory.</summary>
+    // Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
+    [SerializeField][Range(0, 10)] private float playerSpeed = 1.0f;
+    [SerializeField] private Rigidbody2D PlayerRigidBody;
+
+    public bool Frozen => freezeReasons.Count > 0;
+
+    private Vector2 playerInput;
     public Inventory Inventory { get; private set; }
-
-    public bool freezeMovement = false;
-
     private Animator animator;
+    private readonly HashSet<string> freezeReasons = new();
 
-    public void Start()
+    private void Start()
     {
         Inventory = GetComponent<Inventory>();
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         playerInput.x = Input.GetAxisRaw("Horizontal");
         playerInput.y = Input.GetAxisRaw("Vertical");
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (!freezeMovement) PlayerRigidBody.linearVelocity = playerInput.normalized * playerSpeed; // without this line, player cannot move. at all.
-        else PlayerRigidBody.linearVelocity = new Vector2(0, 0);
+        PlayerRigidBody.linearVelocity = !Frozen ? playerInput.normalized * playerSpeed : Vector2.zero;
+
         animator.SetBool(UpHash, playerInput.y > 0);
         animator.SetBool(DownHash, playerInput.y < 0);
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
+        //GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
+    }
+
+    public void Freeze(string reason)
+    {
+        freezeReasons.Add(reason);
+    }
+
+    public void Unfreeze(string reason)
+    {
+        freezeReasons.Remove(reason);
     }
 }

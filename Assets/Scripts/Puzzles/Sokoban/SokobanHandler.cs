@@ -25,8 +25,7 @@ public class SokobanHandler : MonoBehaviour
     private readonly List<Vector3Int> boxPositions = new();
     private readonly List<Transform> boxSprites = new();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         // Find player's initial pos
         tilemap = GetComponent<Tilemap>();
@@ -66,8 +65,7 @@ public class SokobanHandler : MonoBehaviour
         tilemap.SetTile(playerTilemapPos, floorTile);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (solved) return;
 

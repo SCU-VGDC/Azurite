@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34296caaacc3645b0abc3a312314c4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restrictPlayerActions: 1
   allowMultipleChildrenOpen: 0
   destroyOnClose: 1
   onOpen:

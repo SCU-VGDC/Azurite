@@ -32,7 +32,7 @@ public class PuzzleInteraction : MonoBehaviour
         GameObject puzzlePrefab = puzzlePrefabs[randomPuzzleIndex];
 
         // freeze the player
-        playerScript.freezeMovement = true;
+        playerScript.Freeze("PuzzleInteraction");
         GameManager.Instance.Paused = true;
 
         // instantiate puzzle
@@ -73,7 +73,7 @@ public class PuzzleInteraction : MonoBehaviour
         Destroy(instantiatePuzzlePrefab);
 
         // resume player
-        playerScript.freezeMovement = false;
+        playerScript.Unfreeze("PuzzleInteraction");
         GameManager.Instance.Paused = false;
     }
 }
