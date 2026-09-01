@@ -15,7 +15,6 @@ public class PersistentDataManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-
             return;
         }
 

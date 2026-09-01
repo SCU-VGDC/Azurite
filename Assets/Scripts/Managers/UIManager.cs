@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
@@ -9,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     [field: SerializeField] public Menu FullscreenMenuContainer { get; private set; }
     [SerializeField] private DialogMenu dialogMenuPrefab;
+    [SerializeField] private Menu notePopupPrefab;
 
     private readonly HashSet<Menu> openMenus = new();
 
@@ -34,6 +36,15 @@ public class UIManager : MonoBehaviour
         var dialogMenu = Instantiate(dialogMenuPrefab, FullscreenMenuContainer.transform);
         dialogMenu.Init(dialog);
         return dialogMenu;
+    }
+
+    public Menu CreateNotePopup(string text)
+    {
+        var notePopup = Instantiate(notePopupPrefab, FullscreenMenuContainer.transform).GetComponent<Menu>();
+        notePopup.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        notePopup.Open();
+
+        return notePopup;
     }
 
     private void CheckMenuRestrictingControls()

@@ -26,7 +26,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out InteractionTrigger interaction))
+        if (collision.TryGetComponent(out InteractionTrigger interaction) && interaction.isActiveAndEnabled)
         {
             if (!triggers.ContainsKey(interaction.InteractionKey))
                 triggers.Add(interaction.InteractionKey, new List<InteractionTrigger>());
@@ -51,6 +51,8 @@ public class PlayerInteractionController : MonoBehaviour
 
         foreach (var triggerPair in triggers)
         {
+            triggerPair.Value.RemoveAll(interaction => interaction == null || !interaction.isActiveAndEnabled);
+
             if (triggerPair.Value.Count == 0)
                 continue;
 
@@ -62,7 +64,10 @@ public class PlayerInteractionController : MonoBehaviour
             foreach (var interaction in triggerPair.Value)
                 interaction.ToggleTextPopup(allowInteraction && interaction == closest);
 
-            if (allowInteraction && (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>())))
+            if (allowInteraction
+                && closest.CanInteract
+                && (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>()))
+            )
                 closest.Trigger(GetComponentInParent<Player>());
         }
     }

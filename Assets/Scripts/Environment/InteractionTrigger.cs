@@ -7,14 +7,28 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 {
     public UnityEvent<Player> playerInteractEvent;
 
+    public virtual bool CanInteract { get; protected set; } = true;
+    public virtual string PopupText => defaultPopupText;
+
     public KeyCode triggerKey = KeyCode.E;
-    public string popupText = "Interact";
+    public string defaultPopupText = "Interact";
     public int actionCount = 0;
     public KeyCode InteractionKey => triggerKey;
     public Vector3 popupOffset = Vector3.up;
     [SerializeField] private TextPopup popupPrefab;
 
     private TextPopup textPopupComponent = null;
+
+    protected virtual void OnDisable()
+    {
+        ToggleTextPopup(false);
+    }
+
+    protected virtual void Update()
+    {
+        if (textPopupComponent != null && textPopupComponent.Text != PopupText)
+            textPopupComponent.Text = PopupText;
+    }
 
     public int CompareTo(InteractionTrigger other)
     {
@@ -26,7 +40,7 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public virtual void Trigger(Player interactingPlayer)
     {
-        if (!GameManager.Instance.Paused)
+        if (!GameManager.Instance.Paused && isActiveAndEnabled && CanInteract)
         {
             playerInteractEvent.Invoke(interactingPlayer);
             ActionManager.Instance.IncrementAction(actionCount);
@@ -35,14 +49,14 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public void ToggleTextPopup(bool value)
     {
-        if (value)
+        if (value && isActiveAndEnabled)
         {
             if (textPopupComponent != null || popupPrefab == null)
                 return;
             textPopupComponent = Instantiate(popupPrefab);
             textPopupComponent.transform.SetParent(transform, false);
             textPopupComponent.popupOffset = popupOffset;
-            textPopupComponent.Text = popupText;
+            textPopupComponent.Text = PopupText;
             textPopupComponent.Show();
         }
         else if (textPopupComponent != null)

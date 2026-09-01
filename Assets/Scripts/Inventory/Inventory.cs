@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
     /// <param name="item">The item to add.</param>
     /// <param name="amount">The amount to add.</param>
     /// <returns>The amount of items successfully added to the inventory.</returns>
-    public int AddItem(Item item, int amount)
+    public int AddItem(Item item, int amount = 1)
     {
         if (amount <= 0)
         {
@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
     /// <param name="item">The item to remove.</param>
     /// <param name="amount">The quantity to remove.</param>
     /// <returns>The amount of items successfully removed from the inventory.</returns>
-    public int RemoveItem(Item item, int amount)
+    public int RemoveItem(Item item, int amount = 1)
     {
         if (amount <= 0 || !HasItem(item))
         {

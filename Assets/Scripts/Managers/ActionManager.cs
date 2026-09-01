@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionManager : MonoBehaviour
@@ -8,40 +6,32 @@ public class ActionManager : MonoBehaviour
     public static ActionManager Instance;
     [SerializeField] private String Location;
 
-    private int actionCounter
+    private int ActionCounter
     {
-        get { return PersistentDataManager.Instance.Get<int>("actionCounter"); }
-
-        set { PersistentDataManager.Instance.Set("actionCounter", value);  }
+        get => PersistentDataManager.Instance.Get<int>("actionCounter");
+        set => PersistentDataManager.Instance.Set("actionCounter", value);
     }
 
-    private int actionThreshold
+    private int ActionThreshold
     {
-        get { return (int)PersistentDataManager.Instance.Get("actionThreshold"); }
-
-        set { PersistentDataManager.Instance.Set("actionThreshold", value); }
+        get => PersistentDataManager.Instance.Get<int>("actionThreshold");
+        set => PersistentDataManager.Instance.Set("actionThreshold", value);
     }
 
-    private int[] actionThresholdIncrease
+    private int[] ActionThresholdIncrease
     {
-        get { return PersistentDataManager.Instance.Get("actionThresholdIncrease") as int[]; }
-
-        set { PersistentDataManager.Instance.Set("actionThresholdIncrease", value);  }
+        get => PersistentDataManager.Instance.Get<int[]>("actionThresholdIncrease");
+        set => PersistentDataManager.Instance.Set("actionThresholdIncrease", value);
     }
 
-    private int worldState
+    private int WorldState
     {
-        get { return (int)PersistentDataManager.Instance.Get("worldState"); }
-
-        set { PersistentDataManager.Instance.Set("worldState", value); }
+        get => PersistentDataManager.Instance.Get<int>("worldState");
+        set => PersistentDataManager.Instance.Set("worldState", value);
     }
 
-    private int WorldStateMax
-    {
-        get { return ((int[])PersistentDataManager.Instance.Get("actionThresholdIncrease")).Length; }
-    }
+    private int WorldStateMax => PersistentDataManager.Instance.Get<int[]>("actionThresholdIncrease").Length;
 
-    // basic singleton pattern
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -56,29 +46,28 @@ public class ActionManager : MonoBehaviour
     private void Start()
     {
         // initialize persistent data
-        actionCounter = 0;
-        actionThreshold = 10;
-        actionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 };
+        ActionCounter = 0;
+        ActionThreshold = 10;
+        ActionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 };
     }
 
     private void IncrementRoomState()
     {
-        if (actionCounter >= actionThreshold && (worldState + 1) <= WorldStateMax)
+        if (ActionCounter >= ActionThreshold && (WorldState + 1) <= WorldStateMax)
         {
-            actionThreshold += actionThresholdIncrease[worldState];
-            worldState++;
+            ActionThreshold += ActionThresholdIncrease[WorldState];
+            WorldState++;
 
-            Debug.Log(worldState);
+            Debug.Log(WorldState);
             IncrementRoomState();
         }
     }
 
     public void IncrementAction(int x)
     {
-        if (worldState + 1 <= WorldStateMax)
+        if (WorldState + 1 <= WorldStateMax)
         {
-            actionCounter += x;
-
+            ActionCounter += x;
             IncrementRoomState();
         }
     }

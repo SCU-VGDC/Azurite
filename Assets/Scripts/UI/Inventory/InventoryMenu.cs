@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 
 public class InventoryMenu : Menu
@@ -25,6 +26,7 @@ public class InventoryMenu : Menu
     {
         base.Start();
         GameManager.Instance.Player.Inventory.onItemAdded.AddListener(OnItemAdded);
+        GameManager.Instance.Player.Inventory.onItemRemoved.AddListener(OnItemRemoved);
     }
 
     private void Update()
@@ -41,5 +43,11 @@ public class InventoryMenu : Menu
     private void OnItemAdded(Item item)
     {
         Instantiate(itemBoxPrefab, itemBoxContainer).Item = item;
+    }
+
+    private void OnItemRemoved(Item item)
+    {
+        foreach (var itemBox in itemBoxContainer.GetComponentsInChildren<ItemBox>().Where(ib => ib.Item == item))
+            Destroy(itemBox.gameObject);
     }
 }

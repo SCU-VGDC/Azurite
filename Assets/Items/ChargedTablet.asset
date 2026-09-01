@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
-  m_Name: DeadTablet
-  m_EditorClassIdentifier: 
+  m_Name: ChargedTablet
+  m_EditorClassIdentifier: Assembly-CSharp::Item
   <DisplayName>k__BackingField: Tablet
   <Description>k__BackingField: An oddly tablet-shaped tablet.
-  <Icon>k__BackingField: {fileID: 21300000, guid: 806558831f89f4e44b8da733127e2354, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: e8cade9cf15d79649a8c2db49f2b8752, type: 3}
   <MaxStackSize>k__BackingField: 1
   <Categories>k__BackingField: 00000000

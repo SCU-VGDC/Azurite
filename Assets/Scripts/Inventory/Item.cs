@@ -17,8 +17,6 @@ public class Item : ScriptableObject
 
     [field: SerializeField] public Sprite Icon { get; private set; } = null;
 
-    [field: SerializeField] public Sprite Preview { get; private set; } = null;
-
     [field: SerializeField] public int MaxStackSize { get; private set; } = 99;
 
     [field: SerializeField] public Category[] Categories { get; private set; } = null;

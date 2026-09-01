@@ -29,9 +29,15 @@ public class TextPopup : MonoBehaviour
         Init();
     }
 
+    private void OnDestroy()
+    {
+        currentTweens?.Kill();
+    }
+
     public void Init()
     {
         if (initDone) return;
+        initDone = true;
 
         mainText = GetComponentInChildren<TextMeshProUGUI>();
         mainText.text = _text;
@@ -42,7 +48,7 @@ public class TextPopup : MonoBehaviour
         cgroup.blocksRaycasts = false;
         cgroup.alpha = 0f;
 
-        transform.localPosition = popupOffset + hideOffset;
+        transform.SetPositionAndRotation(transform.parent.position + popupOffset + hideOffset, Quaternion.identity);
     }
 
     public void Show()
@@ -51,7 +57,7 @@ public class TextPopup : MonoBehaviour
 
         currentTweens?.Kill();
         currentTweens = DOTween.Sequence()
-            .Append(transform.DOLocalMove(popupOffset, 0.3f))
+            .Append(transform.DOMove(transform.parent.position + popupOffset, 0.3f))
             .Join(GetComponent<CanvasGroup>().DOFade(1f, 0.3f))
             .SetEase(Ease.OutCubic);
     }
@@ -60,7 +66,7 @@ public class TextPopup : MonoBehaviour
     {
         currentTweens?.Kill();
         currentTweens = DOTween.Sequence()
-            .Append(transform.DOLocalMove(popupOffset + hideOffset, 0.3f))
+            .Append(transform.DOMove(transform.parent.position + popupOffset + hideOffset, 0.3f))
             .Join(GetComponent<CanvasGroup>().DOFade(0f, 0.3f))
             .SetEase(Ease.InCubic);
         if (destroyOnHide)
