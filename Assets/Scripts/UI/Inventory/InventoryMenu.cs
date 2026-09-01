@@ -11,20 +11,17 @@ public class InventoryMenu : Menu
     protected override Tween AnimateOnOpen()
     {
         var rt = (RectTransform)transform;
-        return DOTween.Sequence()
-            .Append(rt.DOAnchorPos(new Vector2(-rt.rect.size.x, 0), 0.5f));
+        return rt.DOAnchorPos(new Vector2(-rt.rect.size.x, 0), 0.5f);
     }
 
     protected override Tween AnimateOnClose()
     {
         var rt = (RectTransform)transform;
-        return DOTween.Sequence()
-            .Append(rt.DOAnchorPos(Vector2.zero, 0.5f));
+        return rt.DOAnchorPos(Vector2.zero, 0.5f);
     }
 
-    protected override void Start()
+    protected virtual void Start()
     {
-        base.Start();
         GameManager.Instance.Player.Inventory.onItemAdded.AddListener(OnItemAdded);
         GameManager.Instance.Player.Inventory.onItemRemoved.AddListener(OnItemRemoved);
     }

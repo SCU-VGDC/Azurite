@@ -1,20 +1,28 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using static UnityEngine.Rendering.DebugUI;
 
 // Storage class for each step in a dialogue sequence
 public class DialogStep : MonoBehaviour
 {
+    public UnityEvent onEnterStep;
+
     public Dialog OwnerDialog => GetComponentInParent<Dialog>();
+
+    public virtual bool TransitionAllowed => true;
 
     [field: SerializeField] public bool ChildrenAreOptions { get; private set; } = false;
     [field: SerializeField] public bool EndDialog { get; private set; } = false;
+    [field: SerializeField] public bool SkipDisplay { get; private set; } = false;
 
     [field: SerializeField] public string Title { get; private set; } = string.Empty;
     public bool HasTitle => !string.IsNullOrEmpty(Title);
 
     [field: SerializeField] public Sprite Icon { get; private set; } = null;
     public bool HasIcon => Icon != null;
+
+    [field: SerializeField] public int ActionCount { get; private set; } = 0;
 
     [field: SerializeField] [field: TextArea] public string Body { get; private set; } = string.Empty;
 
@@ -32,12 +40,19 @@ public class DialogStep : MonoBehaviour
                 return NextStepOverride;
 
             int index = transform.GetSiblingIndex();
-            if (index + 1 < transform.parent.childCount)
-                return transform.parent.GetChild(index + 1).GetComponent<DialogStep>();
+            while (++index < transform.parent.childCount)
+                if (transform.parent.GetChild(index).TryGetComponent<DialogStep>(out var next) && next.TransitionAllowed)
+                    return next;
 
             return null;
         }
     }
 
-    public DialogStep[] Options => ChildrenAreOptions ? GetComponentsInChildren<DialogStep>().Where(s => s != this && s.transform.parent == transform).ToArray() : new DialogStep[0];
+    public DialogStep[] Options => ChildrenAreOptions ? GetComponentsInChildren<DialogStep>().Where(s => s != this && s.TransitionAllowed && s.transform.parent == transform).ToArray() : new DialogStep[0];
+
+    public virtual void OnEnterStep()
+    {
+        onEnterStep.Invoke();
+        ActionManager.Instance.IncrementAction(ActionCount);
+    }
 }

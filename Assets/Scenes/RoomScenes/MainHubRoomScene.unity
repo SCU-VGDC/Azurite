@@ -119,6 +119,123 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31610615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31610616}
+  - component: {fileID: 31610617}
+  m_Layer: 0
+  m_Name: Insert tablet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &31610616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31610615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 154577263}
+  - {fileID: 322366133}
+  m_Father: {fileID: 631598902}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31610617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31610615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ded304a695c6d04ebb62bb22ce58c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 1
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: It might take a long time to charge. Are you sure?
+  <NextStepOverride>k__BackingField: {fileID: 0}
+  requiredItem: {fileID: 11400000, guid: f08a912ac80824e15935b7e4796fd69a, type: 2}
+  takeAmount: 0
+  giveItem: {fileID: 0}
+  giveAmount: 0
+--- !u!1 &154577262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 154577263}
+  - component: {fileID: 154577264}
+  m_Layer: 0
+  m_Name: Yes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &154577263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154577262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 604227616}
+  m_Father: {fileID: 31610616}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &154577264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154577262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: You wait for the tablet to charge.
+  <NextStepOverride>k__BackingField: {fileID: 604227617}
 --- !u!1 &166063148
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,10 +280,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
   <ChildrenAreOptions>k__BackingField: 0
   <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
   <Body>k__BackingField: we are both left fighting for scraps in this capitalist
     world
   <NextStepOverride>k__BackingField: {fileID: 0}
@@ -468,6 +590,61 @@ MonoBehaviour:
   actionCount: 0
   popupOffset: {x: 0, y: 1, z: 0}
   popupPrefab: {fileID: 0}
+--- !u!1 &322366132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 322366133}
+  - component: {fileID: 322366134}
+  m_Layer: 0
+  m_Name: No
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &322366133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322366132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 31610616}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &322366134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322366132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &360138170
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +656,8 @@ GameObject:
   - component: {fileID: 360138174}
   - component: {fileID: 360138173}
   - component: {fileID: 360138172}
-  - component: {fileID: 360138171}
+  - component: {fileID: 360138176}
+  - component: {fileID: 360138175}
   m_Layer: 0
   m_Name: TabletCharger
   m_TagString: Untagged
@@ -487,30 +665,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &360138171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360138170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0654c64414fcc274e95f28b96891fd3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TabletCharger
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  defaultPopupText: Place Tablet
-  actionCount: 0
-  popupOffset: {x: 0, y: 2.2, z: 0}
-  popupPrefab: {fileID: 9165422664646780557, guid: a54242187cde0424f83f14d67b354931, type: 3}
-  MissingItemText: Something goes here...
-  unchargedTablet: {fileID: 11400000, guid: f08a912ac80824e15935b7e4796fd69a, type: 2}
-  chargedTablet: {fileID: 11400000, guid: c176e6654d078b54cae237d99b960018, type: 2}
-  chargeActions: 5
 --- !u!61 &360138172
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -629,9 +783,51 @@ Transform:
   m_LocalPosition: {x: -12.7, y: 3.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 631598902}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &360138175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360138170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101ef61908556624f91afaa34707341f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTrigger
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Interact
+  actionCount: 0
+  popupOffset: {x: 0, y: 2, z: 0}
+  popupPrefab: {fileID: 9165422664646780557, guid: a54242187cde0424f83f14d67b354931, type: 3}
+--- !u!114 &360138176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360138170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49865cbc6918d43588525fce96c61fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dialog
+  defaultTitle: Charging Station
+  defaultIcon: {fileID: 0}
+  allowEarlyExit: 0
+  onStepChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &365226611
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +1104,181 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &604227615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604227616}
+  - component: {fileID: 604227617}
+  m_Layer: 0
+  m_Name: Step4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &604227616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604227615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 154577263}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &604227617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604227615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ded304a695c6d04ebb62bb22ce58c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 5
+  <Body>k__BackingField: Obtained a charged tablet!
+  <NextStepOverride>k__BackingField: {fileID: 0}
+  requiredItem: {fileID: 11400000, guid: f08a912ac80824e15935b7e4796fd69a, type: 2}
+  takeAmount: 1
+  giveItem: {fileID: 11400000, guid: c176e6654d078b54cae237d99b960018, type: 2}
+  giveAmount: 1
+--- !u!1 &631598901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 631598902}
+  - component: {fileID: 631598903}
+  m_Layer: 0
+  m_Name: Step1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &631598902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631598901}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 31610616}
+  - {fileID: 785622729}
+  m_Father: {fileID: 360138174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &631598903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631598901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 1
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: It's some kind of charging station.
+  <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &785622728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785622729}
+  - component: {fileID: 785622730}
+  m_Layer: 0
+  m_Name: Leave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &785622729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785622728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 631598902}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &785622730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785622728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ded304a695c6d04ebb62bb22ce58c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 0}
+  requiredItem: {fileID: 11400000, guid: f08a912ac80824e15935b7e4796fd69a, type: 2}
+  takeAmount: 0
+  giveItem: {fileID: 0}
+  giveAmount: 0
 --- !u!1 &924253303
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,10 +1323,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
   <ChildrenAreOptions>k__BackingField: 0
   <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
   <Body>k__BackingField: thanks
   <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1022918619
@@ -1635,10 +2011,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
   <ChildrenAreOptions>k__BackingField: 0
   <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
   <Body>k__BackingField: you are greed incarnate
   <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1580089023
@@ -1770,10 +2151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
   <ChildrenAreOptions>k__BackingField: 1
   <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
   <Body>k__BackingField: can i have them?
   <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1001 &1658106268
@@ -2036,6 +2422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialog
   defaultTitle: John Azurite
   defaultIcon: {fileID: 21300000, guid: 53ae7e5a001caba4abb59790460d4018, type: 3}
+  allowEarlyExit: 1
   onStepChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2209,10 +2596,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
   <ChildrenAreOptions>k__BackingField: 0
   <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
   <Body>k__BackingField: hello there
   <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &2037526174
@@ -2261,10 +2653,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
   <ChildrenAreOptions>k__BackingField: 1
   <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
   <Body>k__BackingField: got any grapes?
   <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1001 &1248925979555300752

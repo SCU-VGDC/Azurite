@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
             Destroy(child.gameObject);
 
         var dialogMenu = Instantiate(dialogMenuPrefab, FullscreenMenuContainer.transform);
+        dialogMenu.canBeClosedBySiblings = dialog.allowEarlyExit;
         dialogMenu.Init(dialog);
         return dialogMenu;
     }

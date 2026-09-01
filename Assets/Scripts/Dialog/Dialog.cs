@@ -5,6 +5,7 @@ public class Dialog : MonoBehaviour
 {
     public string defaultTitle = "";
     public Sprite defaultIcon = null;
+    public bool allowEarlyExit = true;
 
     public UnityEvent<DialogStep> onStepChanged = new();
     public UnityEvent onFinished = new();
@@ -16,7 +17,11 @@ public class Dialog : MonoBehaviour
         set
         {
             _currentStep = value;
+            value.OnEnterStep();
             onStepChanged.Invoke(value);
+
+            if (value.SkipDisplay)
+                Advance();
         }
     }
 
@@ -29,7 +34,7 @@ public class Dialog : MonoBehaviour
 
     private void Reset()
     {
-        CurrentStep = null;
+        _currentStep = null;
     }
 
     public void StartDialogSequence()

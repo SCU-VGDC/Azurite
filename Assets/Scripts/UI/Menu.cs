@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
 {
     public bool restrictPlayerActions = false;
     public bool allowMultipleChildrenOpen = false;
+    public bool canBeClosedBySiblings = true;
     public bool destroyOnClose = true;
     public UnityEvent onOpen = new();
     public UnityEvent onClose = new();
@@ -16,7 +17,7 @@ public class Menu : MonoBehaviour
 
     public bool IsOpen { get; private set; } = false;
 
-    protected Menu parent;
+    protected Menu Parent => transform.parent.GetComponent<Menu>();
 
     private Tween _currentTween;
     protected Tween CurrentTween
@@ -31,20 +32,10 @@ public class Menu : MonoBehaviour
         }
     }
 
-    protected virtual void Start()
-    {
-        transform.parent.TryGetComponent(out parent);
-    }
-
     protected virtual void OnDestroy()
     {
         CurrentTween?.Kill();
         UIManager.Instance.OnMenuClosed(this);
-    }
-
-    private void OnTransformParentChanged()
-    {
-        transform.parent.TryGetComponent(out parent);
     }
 
     protected virtual Tween AnimateOnOpen() { return null; }
@@ -56,7 +47,7 @@ public class Menu : MonoBehaviour
         onChildOpen.Invoke(child);
 
         if (!allowMultipleChildrenOpen)
-            foreach (var otherChild in GetComponentsInChildren<Menu>().Where(menu => menu != this && menu != child))
+            foreach (var otherChild in GetComponentsInChildren<Menu>().Where(menu => menu != this && menu != child && menu.transform.parent == transform))
                 otherChild.Close();
     }
 
@@ -67,13 +58,16 @@ public class Menu : MonoBehaviour
 
     public virtual void Open()
     {
+        if (Parent != null && !Parent.CanChildOpen())
+            return;
+
         IsOpen = true;
         CurrentTween = AnimateOnOpen();
         onOpen.Invoke();
         UIManager.Instance.OnMenuOpened(this);
 
-        if (parent != null)
-            parent.OnChildOpen(this);
+        if (Parent != null)
+            Parent.OnChildOpen(this);
     }
 
     public virtual void Close()
@@ -83,8 +77,8 @@ public class Menu : MonoBehaviour
         onClose.Invoke();
         UIManager.Instance.OnMenuClosed(this);
 
-        if (parent != null)
-            parent.OnChildClose(this);
+        if (Parent != null)
+            Parent.OnChildClose(this);
 
         if (destroyOnClose)
             if (CurrentTween != null)
@@ -92,7 +86,16 @@ public class Menu : MonoBehaviour
             else
                 Destroy(gameObject);
         else
-            foreach (var child in GetComponentsInChildren<Menu>().Where(menu => menu != this))
+            foreach (var child in GetComponentsInChildren<Menu>().Where(menu => menu != this && menu.transform.parent == transform))
                 child.Close();
+    }
+
+    protected bool CanChildOpen()
+    {
+        if (allowMultipleChildrenOpen)
+            return true;
+
+        var openMenu = GetComponentsInChildren<Menu>().FirstOrDefault(m => m != this && m.IsOpen && m.transform.parent == transform);
+        return openMenu == null || openMenu.canBeClosedBySiblings;
     }
 }
