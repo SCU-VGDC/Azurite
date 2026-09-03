@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.XR;
-using static UnityEngine.UI.Image;
 
 public class ColorSwitcher : MonoBehaviour
 {
@@ -14,7 +9,7 @@ public class ColorSwitcher : MonoBehaviour
     [SerializeField] private InteractionTrigger interaction;
     private int colorState = 0;
     public List<GameObject> childObject;
-    int maxLightColor = 3; //Number of different colors for the lights.
+    readonly int maxLightColor = 3; //Number of different colors for the lights.
     // Start is called before the first frame update
 
     void Start()
@@ -22,12 +17,12 @@ public class ColorSwitcher : MonoBehaviour
         colorRenderer = GetComponentInChildren<SpriteRenderer>(); //Gets the sprite renderer of switch. Used to change color.
         RandomlyPlaceChildObjects(); //Randomly assigns the child objects to the placement game objects.
 
-        interaction.playerInteractEvent.AddListener(this.ColorSwitch);
+        interaction.playerInteractEvent.AddListener(ColorSwitch);
     }
 
     void RandomlyPlaceChildObjects()
     {
-        List<int> availableIndices = new List<int>(); //List of available slots for a child object to be placed.
+        List<int> availableIndices = new(); //List of available slots for a child object to be placed.
         for (int i = 0; i < childObject.Count; i++)
         {
             availableIndices.Add(i); //One available index for every child object.
@@ -62,7 +57,7 @@ public class ColorSwitcher : MonoBehaviour
             }
         }
     }
-    
+
     void ColorSwitch(Player _) //Switches color of room light.
     {
         colorState++;

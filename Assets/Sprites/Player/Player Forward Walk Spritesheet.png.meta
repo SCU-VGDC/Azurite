@@ -77,7 +77,9 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -124,12 +126,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_0
       rect:
         serializedVersion: 2
-        x: 60
-        y: 16
-        width: 121
-        height: 360
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 61
+        y: 17
+        width: 119
+        height: 358
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,12 +148,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_1
       rect:
         serializedVersion: 2
-        x: 309
-        y: 13
-        width: 121
-        height: 366
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 310
+        y: 14
+        width: 119
+        height: 364
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,12 +170,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_2
       rect:
         serializedVersion: 2
-        x: 557
-        y: 13
-        width: 120
-        height: 372
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 558
+        y: 14
+        width: 118
+        height: 370
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,12 +192,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_3
       rect:
         serializedVersion: 2
-        x: 807
-        y: 15
-        width: 126
-        height: 366
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 808
+        y: 16
+        width: 124
+        height: 364
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +214,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_4
       rect:
         serializedVersion: 2
-        x: 1057
-        y: 19
-        width: 126
-        height: 354
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1058
+        y: 20
+        width: 124
+        height: 352
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +236,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_5
       rect:
         serializedVersion: 2
-        x: 1307
-        y: 15
-        width: 127
-        height: 358
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1308
+        y: 16
+        width: 125
+        height: 356
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +258,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_6
       rect:
         serializedVersion: 2
-        x: 1557
-        y: 19
-        width: 133
-        height: 362
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1558
+        y: 20
+        width: 131
+        height: 360
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,12 +280,12 @@ TextureImporter:
       name: Player Forward Walk Spritesheet_7
       rect:
         serializedVersion: 2
-        x: 1806
-        y: 15
-        width: 126
-        height: 361
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1807
+        y: 16
+        width: 124
+        height: 359
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -300,7 +302,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3b8289ae14444e94db21b4525768af12
     internalID: 0
     vertices: []
     indices: 
@@ -308,7 +310,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Player Forward Walk Spritesheet_0: 1797322002452536846
       Player Forward Walk Spritesheet_1: -1573023614738917234

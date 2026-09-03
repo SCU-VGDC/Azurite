@@ -77,7 +77,9 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -124,12 +126,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 24
-        width: 124
-        height: 357
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 54
+        y: 25
+        width: 122
+        height: 355
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,12 +148,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_1
       rect:
         serializedVersion: 2
-        x: 301
-        y: 29
-        width: 119
-        height: 355
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 302
+        y: 30
+        width: 117
+        height: 353
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,12 +170,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_2
       rect:
         serializedVersion: 2
-        x: 551
-        y: 46
-        width: 123
-        height: 341
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 552
+        y: 47
+        width: 121
+        height: 339
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,12 +192,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_3
       rect:
         serializedVersion: 2
-        x: 801
-        y: 39
-        width: 122
-        height: 343
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 802
+        y: 40
+        width: 120
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +214,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_4
       rect:
         serializedVersion: 2
-        x: 1055
-        y: 40
-        width: 121
-        height: 336
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1056
+        y: 41
+        width: 119
+        height: 334
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +236,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_5
       rect:
         serializedVersion: 2
-        x: 1306
-        y: 40
-        width: 120
-        height: 332
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1307
+        y: 41
+        width: 118
+        height: 330
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +258,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_6
       rect:
         serializedVersion: 2
-        x: 1555
-        y: 36
-        width: 121
-        height: 343
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1556
+        y: 37
+        width: 119
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,12 +280,12 @@ TextureImporter:
       name: Player backward Walk Spritesheet_7
       rect:
         serializedVersion: 2
-        x: 1803
-        y: 34
-        width: 122
-        height: 346
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1804
+        y: 35
+        width: 120
+        height: 344
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -300,7 +302,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 29b01e78698d9b94e8266aa7c279b153
     internalID: 0
     vertices: []
     indices: 
@@ -308,7 +310,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Player backward Walk Spritesheet_0: 3147197027693661354
       Player backward Walk Spritesheet_1: -3614796414267917818

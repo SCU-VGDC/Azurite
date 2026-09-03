@@ -74,6 +74,12 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void OnSceneUnloaded(Scene scene)
     {
         PreviousScene = scene.name;

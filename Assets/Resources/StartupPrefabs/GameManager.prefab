@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9156441948112352805}
   - component: {fileID: 4260647382947726628}
   - component: {fileID: 7172838217461191120}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryMenu
   restrictPlayerActions: 0
   allowMultipleChildrenOpen: 0
+  canBeClosedBySiblings: 1
   destroyOnClose: 0
   onOpen:
     m_PersistentCalls:
@@ -136,7 +137,7 @@ GameObject:
   - component: {fileID: 1545730971923191787}
   - component: {fileID: 1003142340355812946}
   - component: {fileID: 7669745387704445444}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScreenUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +185,7 @@ Canvas:
   m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1882802293
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1545730971923191787
@@ -253,7 +254,7 @@ GameObject:
   - component: {fileID: 6222966597347820912}
   - component: {fileID: 7743388713681205856}
   - component: {fileID: 8146145907535811998}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +329,7 @@ GameObject:
   - component: {fileID: 3414947351332893288}
   - component: {fileID: 1861507199178504848}
   - component: {fileID: 6057426514794773834}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6763137648074972022}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +549,7 @@ GameObject:
   - component: {fileID: 1479658116333248039}
   - component: {fileID: 5744724200492433055}
   - component: {fileID: 7260765788438967962}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +653,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -686,7 +687,7 @@ GameObject:
   - component: {fileID: 3768842589215208691}
   - component: {fileID: 556518194868801401}
   - component: {fileID: 6653389865911197441}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -812,7 +813,7 @@ GameObject:
   - component: {fileID: 5881960945563510833}
   - component: {fileID: 5196001641335125484}
   - component: {fileID: 4806688066542483475}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 319430799280334624}
   - component: {fileID: 589033374803814824}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3147206104759856710}
   - component: {fileID: 4089837707078156584}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FullscreenMenus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,6 +1010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Menu
   restrictPlayerActions: 0
   allowMultipleChildrenOpen: 0
+  canBeClosedBySiblings: 1
   destroyOnClose: 0
   onOpen:
     m_PersistentCalls:

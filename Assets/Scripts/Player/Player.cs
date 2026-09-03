@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
     private static readonly int DownHash = Animator.StringToHash("Down");
@@ -26,7 +24,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Inventory = GetComponent<Inventory>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -41,11 +39,6 @@ public class Player : MonoBehaviour
 
         animator.SetBool(UpHash, playerInput.y > 0);
         animator.SetBool(DownHash, playerInput.y < 0);
-    }
-
-    private void LateUpdate()
-    {
-        //GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
     }
 
     public void Freeze(string reason)

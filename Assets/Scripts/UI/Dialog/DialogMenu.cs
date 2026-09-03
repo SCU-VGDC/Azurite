@@ -51,15 +51,18 @@ public class DialogMenu : Menu
         if (currentDialog == null)
             return;
 
-        if (Input.GetMouseButtonDown(0) && !currentDialog.HasOptions)
+        if (Input.GetMouseButtonDown(0))
         {
             if (bodyText.text == currentDialog.Body)
-                currentDialog.Advance();
+            {
+                if (!currentDialog.HasOptions)
+                    currentDialog.Advance();
+            }
             else
             {
                 bodyDisplayToken?.Cancel();
                 bodyText.text = currentDialog.Body;
-                nextArrow.Show();
+                OnTextDisplayFinished();
             }
         }
     }
