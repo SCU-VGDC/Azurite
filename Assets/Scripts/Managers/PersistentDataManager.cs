@@ -9,7 +9,12 @@ public class PersistentDataManager : MonoBehaviour
     private readonly Dictionary<string, object> persistentDict = new();
     private readonly Dictionary<string, Delegate> eventStore = new();
 
-    // basic singleton pattern
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void RuntimeInit()
+    {
+        Instance = null;
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

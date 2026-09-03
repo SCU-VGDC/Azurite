@@ -232,7 +232,7 @@ MonoBehaviour:
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     rid: 1113551359160615004
-  m_CastingOption: 1
+  m_CastingOption: 2
   m_PreviousTrimEdge: 0.1
   m_PreviousEdgeProcessing: 1
   m_PreviousShadowCastingSource: 2
@@ -3045,7 +3045,7 @@ GameObject:
   - component: {fileID: 3838181656129955612}
   - component: {fileID: 554456252167468186}
   - component: {fileID: 6599850474268316214}
-  - component: {fileID: 4440983118591311951}
+  - component: {fileID: 707405068152231392}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -3109,7 +3109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b69b669b0bf62544a6b87b4a770126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
+  playerSpeed: 5
   PlayerRigidBody: {fileID: 3838181656129955612}
 --- !u!114 &6599850474268316214
 MonoBehaviour:
@@ -3132,8 +3132,8 @@ MonoBehaviour:
   onItemCountChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!58 &4440983118591311951
-CircleCollider2D:
+--- !u!61 &707405068152231392
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3166,5 +3166,15 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -2}
-  m_Radius: 0.3
+  m_Offset: {x: 0, y: -1.73}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 0.52}
+  m_EdgeRadius: 0

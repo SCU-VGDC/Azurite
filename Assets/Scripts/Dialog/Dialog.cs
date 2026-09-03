@@ -39,7 +39,16 @@ public class Dialog : MonoBehaviour
 
     public void StartDialogSequence()
     {
-        CurrentStep = transform.GetChild(0).GetComponent<DialogStep>();
+        int i = 0;
+        while (i < transform.childCount)
+        {
+            if (transform.GetChild(i).TryGetComponent<DialogStep>(out var step) && step.isActiveAndEnabled && step.TransitionAllowed)
+            {
+                CurrentStep = step;
+                return;
+            }
+            i++;
+        }
     }
 
     public bool Advance()

@@ -14,6 +14,12 @@ public class UIManager : MonoBehaviour
 
     private readonly HashSet<Menu> openMenus = new();
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void RuntimeInit()
+    {
+        Instance = null;
+    }
+
     private void Awake()
     {
         if (Instance == null)

@@ -30,6 +30,15 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
             textPopupComponent.Text = PopupText;
     }
 
+    protected virtual void OnDestroy()
+    {
+        if (textPopupComponent != null)
+        {
+            Destroy(textPopupComponent.gameObject);
+            textPopupComponent = null;
+        }    
+    }
+
     public int CompareTo(InteractionTrigger other)
     {
         Transform plrTransform = GameManager.Instance.Player.transform;
@@ -49,6 +58,9 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 
     public void ToggleTextPopup(bool value)
     {
+        if (string.IsNullOrEmpty(PopupText) || (value && textPopupComponent != null) || (!value && textPopupComponent == null))
+            return;
+
         if (value && isActiveAndEnabled)
         {
             if (textPopupComponent != null || popupPrefab == null)

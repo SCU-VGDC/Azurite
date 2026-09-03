@@ -51,7 +51,7 @@ public class PlayerInteractionController : MonoBehaviour
 
         foreach (var triggerPair in triggers)
         {
-            triggerPair.Value.RemoveAll(interaction => interaction == null || !interaction.isActiveAndEnabled);
+            triggerPair.Value.RemoveAll(interaction => interaction == null || !interaction.isActiveAndEnabled || !interaction.CanInteract);
 
             if (triggerPair.Value.Count == 0)
                 continue;
@@ -64,10 +64,7 @@ public class PlayerInteractionController : MonoBehaviour
             foreach (var interaction in triggerPair.Value)
                 interaction.ToggleTextPopup(allowInteraction && interaction == closest);
 
-            if (allowInteraction
-                && closest.CanInteract
-                && (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>()))
-            )
+            if (allowInteraction && (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>())))
                 closest.Trigger(GetComponentInParent<Player>());
         }
     }

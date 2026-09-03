@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using Unity.Cinemachine;
@@ -33,8 +34,14 @@ public class GameManager : MonoBehaviour
 
     public event Action OnPuzzleEnd;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void RuntimeInit()
+    {
+        Instance = null;
+    }
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-    private static void GameStart()
+    private static void CreateManager()
     {
         DontDestroyOnLoad(Instantiate(Resources.Load(GameManagerPrefabPath)));
     }
@@ -53,6 +60,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        DOTween.KillAll();
 
         var cameraPrefab = Resources.Load(CameraPrefabPath) as GameObject;
         MainCameraContainer = Instantiate(cameraPrefab);

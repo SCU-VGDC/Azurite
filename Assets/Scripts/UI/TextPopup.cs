@@ -4,8 +4,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(RectTransform))]
 public class TextPopup : MonoBehaviour
 {
+    public bool Visible { get; private set; } = false;
+
     private readonly Vector3 hideOffset = Vector3.down * 0.2f;
 
     private TextMeshProUGUI mainText;
@@ -32,6 +35,7 @@ public class TextPopup : MonoBehaviour
     private void OnDestroy()
     {
         currentTweens?.Kill();
+        currentTweens = null;
     }
 
     public void Init()
@@ -53,6 +57,10 @@ public class TextPopup : MonoBehaviour
 
     public void Show()
     {
+        if (Visible)
+            return;
+        Visible = true;
+
         Init();
 
         currentTweens?.Kill();
@@ -64,12 +72,25 @@ public class TextPopup : MonoBehaviour
 
     public void Hide(bool destroyOnHide = false)
     {
+        if (!Visible)
+            return;
+        Visible = false;
+
+        Init();
+
         currentTweens?.Kill();
         currentTweens = DOTween.Sequence()
             .Append(transform.DOMove(transform.parent.position + popupOffset + hideOffset, 0.3f))
             .Join(GetComponent<CanvasGroup>().DOFade(0f, 0.3f))
             .SetEase(Ease.InCubic);
+
         if (destroyOnHide)
-            currentTweens.AppendCallback(() => Destroy(gameObject));
+        {
+            currentTweens.AppendCallback(() =>
+            {
+                if (this != null)
+                    Destroy(gameObject);
+            });
+        }
     }
 }

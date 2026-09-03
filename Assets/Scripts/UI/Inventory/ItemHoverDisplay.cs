@@ -22,10 +22,10 @@ public class ItemHoverDisplay : MonoBehaviour
     private void UpdatePosition()
     {
         var rt = GetComponent<RectTransform>();
-        if (Screen.height - Input.mousePosition.y < rt.rect.size.y)
-            rt.pivot = Vector2.one;
-        else
+        if (Input.mousePosition.y < rt.rect.size.y)
             rt.pivot = Vector2.right;
+        else
+            rt.pivot = Vector2.one;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent as RectTransform, Input.mousePosition, Camera.main, out var pos);
         rt.anchoredPosition = pos;

@@ -31,6 +31,12 @@ public class ActionManager : MonoBehaviour
 
     private int WorldStateMax => PersistentDataManager.Instance.Get<int[]>("actionThresholdIncrease").Length;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void RuntimeInit()
+    {
+        Instance = null;
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

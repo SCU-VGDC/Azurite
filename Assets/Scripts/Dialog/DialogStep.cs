@@ -1,7 +1,6 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEngine.Rendering.DebugUI;
 
 // Storage class for each step in a dialogue sequence
 public class DialogStep : MonoBehaviour
@@ -41,7 +40,7 @@ public class DialogStep : MonoBehaviour
 
             int index = transform.GetSiblingIndex();
             while (++index < transform.parent.childCount)
-                if (transform.parent.GetChild(index).TryGetComponent<DialogStep>(out var next) && next.TransitionAllowed)
+                if (transform.parent.GetChild(index).TryGetComponent<DialogStep>(out var next) && next.isActiveAndEnabled && next.TransitionAllowed)
                     return next;
 
             return null;

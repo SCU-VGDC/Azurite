@@ -10,8 +10,7 @@ public class Player : MonoBehaviour
 
     public PlayerInteractionController InteractionController => GetComponentInChildren<PlayerInteractionController>();
 
-    // Values have ranges on them to ensure sane values and to ensure NAN or infinity conditions are never encountered
-    [SerializeField][Range(0, 10)] private float playerSpeed = 1.0f;
+    [SerializeField] private float playerSpeed = 1.0f;
     [SerializeField] private Rigidbody2D PlayerRigidBody;
 
     public bool Frozen => freezeReasons.Count > 0;
@@ -37,8 +36,8 @@ public class Player : MonoBehaviour
     {
         PlayerRigidBody.linearVelocity = !Frozen ? playerInput.normalized * playerSpeed : Vector2.zero;
 
-        animator.SetBool(UpHash, playerInput.y > 0);
-        animator.SetBool(DownHash, playerInput.y < 0);
+        animator.SetBool(UpHash, !Frozen && playerInput.y > 0);
+        animator.SetBool(DownHash, !Frozen && (playerInput.y < 0 || (playerInput.x != 0 && playerInput.y == 0)));
     }
 
     public void Freeze(string reason)
