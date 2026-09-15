@@ -16,6 +16,7 @@ public class DialogMenu : Menu
 
     [Tooltip("The content panel containing the text and options.")]
     [SerializeField] protected VerticalLayoutGroup contentContainer = null;
+    [SerializeField] protected GameObject portraitContainer = null;
 
     [Tooltip("The icon indicating that the dialogue can continue.")]
     [SerializeField] protected AnimatedArrowIcon nextArrow = null;
@@ -92,6 +93,8 @@ public class DialogMenu : Menu
 
         iconImage.sprite = currentDialog.Icon;
         titleText.text = currentDialog.Title;
+
+        portraitContainer.SetActive(currentDialog.Icon != null && !string.IsNullOrEmpty(currentDialog.Title));
 
         bodyDisplayToken?.Cancel();
         bodyDisplayToken = new CancellationTokenSource();

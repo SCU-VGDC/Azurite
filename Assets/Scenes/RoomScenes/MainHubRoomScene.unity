@@ -553,7 +553,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1510023372}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalScale.x
@@ -565,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.651
+      value: -22.390999
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -631,11 +631,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 254690827}
   m_SourcePrefab: {fileID: 100100000, guid: 822da2db82c760e4381f2e396904983f, type: 3}
---- !u!4 &254690825 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 254690824}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &254690826 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -660,7 +655,6 @@ MonoBehaviour:
   defaultPopupText: Interact
   actionCount: 0
   popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!1 &322366132
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +774,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.26, y: 2.84}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &360138173
 SpriteRenderer:
@@ -877,7 +871,6 @@ MonoBehaviour:
   defaultPopupText: Interact
   actionCount: 0
   popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 9165422664646780557, guid: a54242187cde0424f83f14d67b354931, type: 3}
 --- !u!114 &360138176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,7 +1025,7 @@ MonoBehaviour:
   m_Intensity: 0.46
   m_LightVolumeIntensity: 0.07
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1532,7 +1525,7 @@ MonoBehaviour:
   m_Intensity: 0.28
   m_LightVolumeIntensity: 0.01
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1807,7 +1800,6 @@ MonoBehaviour:
   defaultPopupText: Terminal
   actionCount: 0
   popupOffset: {x: 0, y: 2, z: 0}
-  popupPrefab: {fileID: 9165422664646780557, guid: a54242187cde0424f83f14d67b354931, type: 3}
 --- !u!114 &841984306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1885,7 +1877,7 @@ MonoBehaviour:
   m_Intensity: 0.28
   m_LightVolumeIntensity: 0.01
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -2113,23 +2105,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1510023372}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.04569109
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.08463455
+    - target: {fileID: 143589321792618806, guid: 822da2db82c760e4381f2e396904983f, type: 3}
+      propertyPath: defaultPopupText
+      value: Janitor Closet
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.643
+      value: -13.56
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.676
+      value: -0.96
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2170,7 +2158,7 @@ PrefabInstance:
     - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: interaction
       value: 
-      objectReference: {fileID: 1211194915}
+      objectReference: {fileID: 0}
     - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: destinationScene
       value: JanitorClosetRoomScene
@@ -2186,64 +2174,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1211194915}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 822da2db82c760e4381f2e396904983f, type: 3}
---- !u!4 &1211194913 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 1211194912}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1211194914 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 1211194912}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1211194915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1211194914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  defaultPopupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!1001 &1235943924
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1510023372}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.04569109
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.08463455
+    - target: {fileID: 143589321792618806, guid: 822da2db82c760e4381f2e396904983f, type: 3}
+      propertyPath: defaultPopupText
+      value: Green House
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.795
+      value: 13.78
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.303
+      value: 2.69
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2282,59 +2233,14 @@ PrefabInstance:
       value: Green House Teleportation System
       objectReference: {fileID: 0}
     - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: interaction
-      value: 
-      objectReference: {fileID: 1235943927}
-    - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: destinationScene
       value: GreenHouseRoomScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: destinationObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6329623679212241615, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      propertyPath: destinationCameraBorder
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1235943927}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 822da2db82c760e4381f2e396904983f, type: 3}
---- !u!4 &1235943925 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 1235943924}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1235943926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 1235943924}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1235943927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235943926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  defaultPopupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!1 &1371065023
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,7 +2297,7 @@ MonoBehaviour:
   m_Intensity: 0.28
   m_LightVolumeIntensity: 0.01
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -2541,7 +2447,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1510023372}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2553,7 +2459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.64
+      value: -22.38
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2619,11 +2525,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1501839990}
   m_SourcePrefab: {fileID: 100100000, guid: 822da2db82c760e4381f2e396904983f, type: 3}
---- !u!4 &1501839988 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 1501839987}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1501839989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -2648,7 +2549,6 @@ MonoBehaviour:
   defaultPopupText: Interact
   actionCount: 0
   popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!1 &1510023369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,11 +2641,6 @@ Transform:
   m_Children:
   - {fileID: 1022918622}
   - {fileID: 449273275}
-  - {fileID: 1501839988}
-  - {fileID: 1211194913}
-  - {fileID: 254690825}
-  - {fileID: 1235943925}
-  - {fileID: 1658106269}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534406154
@@ -3077,7 +2972,7 @@ MonoBehaviour:
   m_Intensity: 0.28
   m_LightVolumeIntensity: 0.01
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3135,7 +3030,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1510023372}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalScale.x
@@ -3147,7 +3042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.784
+      value: -21.524
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3213,11 +3108,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1658106271}
   m_SourcePrefab: {fileID: 100100000, guid: 822da2db82c760e4381f2e396904983f, type: 3}
---- !u!4 &1658106269 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
-  m_PrefabInstance: {fileID: 1658106268}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1658106270 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4005820831130061488, guid: 822da2db82c760e4381f2e396904983f, type: 3}
@@ -3242,7 +3132,6 @@ MonoBehaviour:
   defaultPopupText: Interact
   actionCount: 0
   popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!1 &1682791153
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,7 +3331,7 @@ MonoBehaviour:
   m_Intensity: 0.2
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3636,7 +3525,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.38471127}
+  m_Offset: {x: 0, y: 0.604373}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -3646,7 +3535,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 8.52, y: 0.76942253}
+  m_Size: {x: 8.52, y: 1.208746}
   m_EdgeRadius: 0
 --- !u!1 &1970766100
 GameObject:
@@ -3687,7 +3576,6 @@ MonoBehaviour:
   defaultPopupText: Talk
   actionCount: 0
   popupOffset: {x: 0, y: 1, z: 0}
-  popupPrefab: {fileID: 9165422664646780557, guid: a54242187cde0424f83f14d67b354931, type: 3}
 --- !u!114 &1970766102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3943,7 +3831,7 @@ MonoBehaviour:
   m_Intensity: 0.28
   m_LightVolumeIntensity: 0.01
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000075483970i
+  m_ApplyToSortingLayers: 00000000i
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4274,6 +4162,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1510023372}
+  - {fileID: 1501839987}
+  - {fileID: 1211194912}
+  - {fileID: 254690824}
+  - {fileID: 1235943924}
+  - {fileID: 1658106268}
   - {fileID: 1580089024}
   - {fileID: 1534406155}
   - {fileID: 247257780}

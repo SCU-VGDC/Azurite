@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 357201874386291285}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49,9 +49,8 @@ GameObject:
   - component: {fileID: 1976523020044492578}
   - component: {fileID: 4144417008690965971}
   - component: {fileID: 5662561932350020183}
-  - component: {fileID: 185577181481681107}
   - component: {fileID: 4589657309038076152}
-  - component: {fileID: 1280110820353676496}
+  - component: {fileID: 5423124119657579011}
   m_Layer: 0
   m_Name: Infected Dandelion
   m_TagString: Untagged
@@ -68,8 +67,8 @@ Transform:
   m_GameObject: {fileID: 407866766450593129}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.95, y: 0.58, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.0176, y: -5.6271, z: 0}
+  m_LocalScale: {x: 0.66413, y: 0.66413, z: 0.66413}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4170586671820335614}
@@ -123,7 +122,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ef0ab8898a69834fa230a12af2a0d75, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +131,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &5662561932350020183
 CircleCollider2D:
@@ -164,32 +163,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &185577181481681107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 407866766450593129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &4589657309038076152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +185,7 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &1280110820353676496
+--- !u!114 &5423124119657579011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,11 +194,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 407866766450593129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 2d0bdc49b1b2f46a898e19d9e49559b5, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: dandelion_pickup
 --- !u!1 &2010056519146790881
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 2010056519146790881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: -27.36, y: 16.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -276,7 +266,7 @@ Transform:
   m_GameObject: {fileID: 2813238759418146408}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: 0}
+  m_LocalPosition: {x: -21.63, y: 16.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -307,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 3460925170112285852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 0}
+  m_LocalPosition: {x: -10.46, y: 16.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -327,7 +317,6 @@ GameObject:
   - component: {fileID: 1961083103326665864}
   - component: {fileID: 5372166065380142195}
   - component: {fileID: 5008240071813848862}
-  - component: {fileID: 2337613072301158985}
   m_Layer: 0
   m_Name: FlowerSystem
   m_TagString: Untagged
@@ -509,27 +498,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   triggerKey: 101
-  popupText: Interact
+  defaultPopupText: Interact
   actionCount: 0
   popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &5008240071813848862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3527234101113035146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27367b29b0faac74f91c49d113603efe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colors:
-  - {r: 0, g: 0.9960785, b: 0, a: 1}
-  - {r: 0, g: 0, b: 0.9960785, a: 1}
-  - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &2337613072301158985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -556,9 +528,8 @@ GameObject:
   - component: {fileID: 1215295817008579002}
   - component: {fileID: 352071568008107886}
   - component: {fileID: 3881127155468296132}
-  - component: {fileID: 2211067008856217695}
   - component: {fileID: 3507285771698354383}
-  - component: {fileID: 2083126090617166576}
+  - component: {fileID: 7346330223944979054}
   m_Layer: 0
   m_Name: Infected Sundew
   m_TagString: Untagged
@@ -575,7 +546,7 @@ Transform:
   m_GameObject: {fileID: 3845955909527660364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.53, y: 0.48, z: 0}
+  m_LocalPosition: {x: -1.53, y: -6.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -630,7 +601,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1209382c08ec2744b4e002850c0db71, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -639,7 +610,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &3881127155468296132
 CircleCollider2D:
@@ -671,32 +642,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &2211067008856217695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3845955909527660364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &3507285771698354383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +664,7 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &2083126090617166576
+--- !u!114 &7346330223944979054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -722,11 +673,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3845955909527660364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: sundew_pickup
 --- !u!1 &3947997025108131922
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,9 +700,8 @@ GameObject:
   - component: {fileID: 7914816410413379940}
   - component: {fileID: 6620350539453948547}
   - component: {fileID: 3441970724951606436}
-  - component: {fileID: 3675353166506555863}
   - component: {fileID: 4035271436699499443}
-  - component: {fileID: 107796587256794792}
+  - component: {fileID: 63383478985310276}
   m_Layer: 0
   m_Name: Infected Pitcher Plant
   m_TagString: Untagged
@@ -757,8 +718,8 @@ Transform:
   m_GameObject: {fileID: 3947997025108131922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.55, y: 0.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.55, y: -6.2787, z: 0}
+  m_LocalScale: {x: 0.91161, y: 0.91161, z: 0.91161}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4170586671820335614}
@@ -812,7 +773,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4728ba2a01c87842982d7566069bc13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -821,7 +782,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &3441970724951606436
 CircleCollider2D:
@@ -853,32 +814,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &3675353166506555863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3947997025108131922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &4035271436699499443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,7 +836,7 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &107796587256794792
+--- !u!114 &63383478985310276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -904,11 +845,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3947997025108131922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: e545d49d9e10b4ff8b8676d68bc3dc53, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: pitcher_pickup
 --- !u!1 &4174940238516929752
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +886,7 @@ Transform:
   m_GameObject: {fileID: 4174940238516929752}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: -4.74, y: 6.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -965,7 +917,7 @@ Transform:
   m_GameObject: {fileID: 4545735122116322071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 0, z: 0}
+  m_LocalPosition: {x: -27.5, y: 6.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -982,9 +934,8 @@ GameObject:
   - component: {fileID: 1070218317014595761}
   - component: {fileID: 3227256332832962609}
   - component: {fileID: 3363324755219963893}
-  - component: {fileID: 1214072826258735228}
   - component: {fileID: 654830509644195739}
-  - component: {fileID: 8426171602254506548}
+  - component: {fileID: 7396902297009196735}
   m_Layer: 0
   m_Name: Infected Rose
   m_TagString: Untagged
@@ -1001,8 +952,8 @@ Transform:
   m_GameObject: {fileID: 5624827531332076091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.87, y: 0.52, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 5.87, y: -6.2325, z: 0}
+  m_LocalScale: {x: 0.87626, y: 0.87626, z: 0.87626}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4170586671820335614}
@@ -1056,7 +1007,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c785da788fb9c84cbe857842b38e06a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1065,7 +1016,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &3363324755219963893
 CircleCollider2D:
@@ -1097,32 +1048,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &1214072826258735228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5624827531332076091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &654830509644195739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,7 +1070,7 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &8426171602254506548
+--- !u!114 &7396902297009196735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1148,11 +1079,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5624827531332076091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: rose_pickup
 --- !u!1 &5790414645555043982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1120,7 @@ Transform:
   m_GameObject: {fileID: 5790414645555043982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -10.44, y: 6.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1195,9 +1137,8 @@ GameObject:
   - component: {fileID: 2252571274878511533}
   - component: {fileID: 1387776517281051733}
   - component: {fileID: 7747849166619902655}
-  - component: {fileID: 605138183786407095}
   - component: {fileID: 5767954415960819498}
-  - component: {fileID: 3898913513855460555}
+  - component: {fileID: 7787910114740913498}
   m_Layer: 0
   m_Name: Infected Nightshade
   m_TagString: Untagged
@@ -1214,8 +1155,8 @@ Transform:
   m_GameObject: {fileID: 6859063404029396568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.42, y: 0.61, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.5195, y: -5.4423, z: 0}
+  m_LocalScale: {x: 0.58791906, y: 0.58791906, z: 0.58791906}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4170586671820335614}
@@ -1269,7 +1210,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28e1af6c3fac91845832b4cdd5e8a053, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1278,7 +1219,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &7747849166619902655
 CircleCollider2D:
@@ -1310,32 +1251,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &605138183786407095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859063404029396568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &5767954415960819498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1352,7 +1273,7 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &3898913513855460555
+--- !u!114 &7787910114740913498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1361,11 +1282,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6859063404029396568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 3616bda03ba1e40a6b7eb0f3a8917b6c, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: nightshade_pickup
 --- !u!1 &8196703693166564768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1323,7 @@ Transform:
   m_GameObject: {fileID: 8196703693166564768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 0}
+  m_LocalPosition: {x: -21.72, y: 6.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1408,9 +1340,8 @@ GameObject:
   - component: {fileID: 1172085802775323676}
   - component: {fileID: 3814892828840369484}
   - component: {fileID: 5212770557190726204}
-  - component: {fileID: 7022056287086066648}
   - component: {fileID: 6488402114922288309}
-  - component: {fileID: 2642034236117493004}
+  - component: {fileID: 3955300821654666358}
   m_Layer: 0
   m_Name: Infected Weed
   m_TagString: Untagged
@@ -1427,8 +1358,8 @@ Transform:
   m_GameObject: {fileID: 8333056017705856652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.4, y: 0.54, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.367, y: -5.6863, z: 0}
+  m_LocalScale: {x: 0.64645, y: 0.64645, z: 0.64645}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4170586671820335614}
@@ -1482,7 +1413,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05ccbb11b0b137042a8b55d040b1b6f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1491,7 +1422,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &5212770557190726204
 CircleCollider2D:
@@ -1523,32 +1454,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &7022056287086066648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8333056017705856652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &6488402114922288309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1565,7 +1476,7 @@ MonoBehaviour:
   - {r: 0, g: 0.9960785, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.9960785, a: 1}
   - {r: 0.9960785, g: 0, b: 0, a: 1}
---- !u!114 &2642034236117493004
+--- !u!114 &3955300821654666358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1574,11 +1485,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8333056017705856652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 774901a7c00814eb697a08822eaa09fc, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: weed_pickup
 --- !u!1 &9218133914101721937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,9 +1512,8 @@ GameObject:
   - component: {fileID: 4542219396841702313}
   - component: {fileID: 6684937834367015520}
   - component: {fileID: 8262293766405489320}
-  - component: {fileID: 1303558497640123171}
   - component: {fileID: 3969808832676014367}
-  - component: {fileID: 8521191838337743385}
+  - component: {fileID: 8907680743407801870}
   m_Layer: 0
   m_Name: Infected Bamboo
   m_TagString: Untagged
@@ -1609,8 +1530,8 @@ Transform:
   m_GameObject: {fileID: 9218133914101721937}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.02, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.02, y: -5.4597, z: 0}
+  m_LocalScale: {x: 0.56787986, y: 0.56787986, z: 0.56787986}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4170586671820335614}
@@ -1664,7 +1585,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb1b12a73ed7a3d40b93590703b8dc93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1673,7 +1594,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!58 &8262293766405489320
 CircleCollider2D:
@@ -1705,32 +1626,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &1303558497640123171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9218133914101721937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1c96f92984f1c4d8d4cbf87e995fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerKey: 101
-  popupText: Interact
-  actionCount: 0
-  popupOffset: {x: 0, y: 3, z: 0}
-  popupPrefab: {fileID: 0}
 --- !u!114 &3969808832676014367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1747,7 +1648,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0.0047169924, g: 0.08420312, b: 1, a: 1}
   - {r: 0, g: 0.9253695, b: 1, a: 1}
---- !u!114 &8521191838337743385
+--- !u!114 &8907680743407801870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1756,8 +1657,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 9218133914101721937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14edfc9fce82d4e049fcdb73fa9f2c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 845da8147a5cbb64dbb8626542bb3ce5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
-  count: 1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Pick Up
+  actionCount: 0
+  popupOffset: {x: 0, y: 5, z: 0}
+  destroyOnPickup: 1
+  usePersistentData: 1
+  setSpriteToItem: 0
+  item: {fileID: 0}
+  amount: 1
+  dataKey: bamboo_pickup

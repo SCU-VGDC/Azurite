@@ -2,13 +2,15 @@ using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 
-public class PuzzleInteraction : MonoBehaviour
+[AutoStaticsCleanup]
+public partial class PuzzleInteraction : MonoBehaviour
 {
     private Player playerScript;
     [SerializeField] private List<GameObject> puzzlePrefabs;
     private GameObject instantiatePuzzlePrefab;
-    static public Vector3 puzzleLocation = new(100, 0, 0);
+    public static Vector3 puzzleLocation = new(100, 0, 0);
 
     private Camera mainCamera;
     private CinemachineCamera mainVirtualCamera;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ColorStore))]
 public class ColorSwitcher : MonoBehaviour
 {
     [SerializeField] private List<GameObject> Placements;
@@ -35,14 +36,6 @@ public class ColorSwitcher : MonoBehaviour
             int childIndex = availableIndices[randomIndex];
             availableIndices.RemoveAt(randomIndex);
             childObject[i].transform.position = Placements[childIndex].transform.position;
-            if (childObject[i].transform.position.y > 0)
-            {
-                childObject[i].GetComponent<Renderer>().sortingOrder = -326;
-            }
-            else if (childObject[i].transform.position.y < 9)
-            {
-                childObject[i].GetComponent<Renderer>().sortingOrder = 708;
-            }
         }
     }
 
@@ -61,7 +54,7 @@ public class ColorSwitcher : MonoBehaviour
     void ColorSwitch(Player _) //Switches color of room light.
     {
         colorState++;
-        colorState = colorState % maxLightColor;
+        colorState %= maxLightColor;
         ChangeAll(); //Switches color of children dependent on current lighting.
     }
 }

@@ -1,7 +1,9 @@
 using System;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
-public class ActionManager : MonoBehaviour
+[AutoStaticsCleanup]
+public partial class ActionManager : MonoBehaviour
 {
     public static ActionManager Instance;
 
@@ -31,12 +33,6 @@ public class ActionManager : MonoBehaviour
 
     private int WorldStateMax => PersistentDataManager.Instance.Get<int[]>("actionThresholdIncrease").Length;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void RuntimeInit()
-    {
-        Instance = null;
-    }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -63,7 +59,6 @@ public class ActionManager : MonoBehaviour
             ActionThreshold += ActionThresholdIncrease[WorldState];
             WorldState++;
 
-            Debug.Log(WorldState);
             IncrementRoomState();
         }
     }

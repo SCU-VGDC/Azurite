@@ -1,10 +1,16 @@
 using System;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
-public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
+[AutoStaticsCleanup]
+public partial class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
 {
+    private const string popupPrefabPath = "Assets/Prefabs/UI/TextPopup.prefab";
+    private static GameObject popupPrefab;
+
     public UnityEvent<Player> playerInteractEvent;
 
     public virtual bool CanInteract { get; protected set; } = true;
@@ -15,9 +21,14 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
     public int actionCount = 0;
     public KeyCode InteractionKey => triggerKey;
     public Vector3 popupOffset = Vector3.up;
-    [SerializeField] private TextPopup popupPrefab;
-
+    
     private TextPopup textPopupComponent = null;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    private static void LoadPopupPrefab()
+    {
+        popupPrefab = Addressables.LoadAssetAsync<GameObject>(popupPrefabPath).WaitForCompletion();
+    }
 
     protected virtual void OnDisable()
     {
@@ -65,8 +76,8 @@ public class InteractionTrigger : MonoBehaviour, IComparable<InteractionTrigger>
         {
             if (textPopupComponent != null || popupPrefab == null)
                 return;
-            textPopupComponent = Instantiate(popupPrefab);
-            textPopupComponent.transform.SetParent(transform, false);
+            textPopupComponent = Instantiate(popupPrefab).GetComponent<TextPopup>();
+            textPopupComponent.transform.SetParent(transform, true);
             textPopupComponent.popupOffset = popupOffset;
             textPopupComponent.Text = PopupText;
             textPopupComponent.Show();

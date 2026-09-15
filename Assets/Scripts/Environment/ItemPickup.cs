@@ -5,6 +5,7 @@ public class ItemPickup : InteractionTrigger
 {
     public bool destroyOnPickup = true;
     public bool usePersistentData = true;
+    public bool setSpriteToItem = true;
     public Item item;
     public int amount = 1;
     public string dataKey;
@@ -17,7 +18,8 @@ public class ItemPickup : InteractionTrigger
             return;
         }
 
-        GetComponent<SpriteRenderer>().sprite = item.Icon;
+        if (setSpriteToItem && item != null)
+            GetComponent<SpriteRenderer>().sprite = item.Icon;
     }
 
     public override void Trigger(Player interactingPlayer)

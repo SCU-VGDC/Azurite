@@ -1,19 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 
-public class PersistentDataManager : MonoBehaviour
+[AutoStaticsCleanup]
+public partial class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
     
     private readonly Dictionary<string, object> persistentDict = new();
     private readonly Dictionary<string, Delegate> eventStore = new();
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void RuntimeInit()
-    {
-        Instance = null;
-    }
 
     private void Awake()
     {

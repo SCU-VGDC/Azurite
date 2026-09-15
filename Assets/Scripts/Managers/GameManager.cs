@@ -5,13 +5,16 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using Unity.Scripting.LifecycleManagement;
 
 [RequireComponent(typeof(EventSystem))]
-public class GameManager : MonoBehaviour
+[AutoStaticsCleanup]
+public partial class GameManager : MonoBehaviour
 {
-    private const string GameManagerPrefabPath = "StartupPrefabs/GameManager";
-    private const string CameraPrefabPath = "StartupPrefabs/CameraMain";
-    private const string PlayerPrefabPath = "StartupPrefabs/Player";
+    private const string GameManagerPrefabPath = "Assets/Prefabs/Critical/GameManager.prefab";
+    private const string CameraPrefabPath = "Assets/Prefabs/Critical/CameraMain.prefab";
+    private const string PlayerPrefabPath = "Assets/Prefabs/Critical/Player.prefab";
 
     public static GameManager Instance { get; private set; }
     public Player Player { get; private set; }
@@ -34,16 +37,12 @@ public class GameManager : MonoBehaviour
 
     public event Action OnPuzzleEnd;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void RuntimeInit()
-    {
-        Instance = null;
-    }
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
     private static void CreateManager()
     {
-        DontDestroyOnLoad(Instantiate(Resources.Load(GameManagerPrefabPath)));
+        var handle = Addressables.LoadAssetAsync<GameObject>(GameManagerPrefabPath);
+        handle.WaitForCompletion();
+        DontDestroyOnLoad(Instantiate(handle.Result));
     }
 
     private void Start()
@@ -61,13 +60,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        DOTween.KillAll();
+        DOTween.KillAll();  // needed because of fast play mode preserving tweens
 
-        var cameraPrefab = Resources.Load(CameraPrefabPath) as GameObject;
+        var cameraPrefab = Addressables.LoadAssetAsync<GameObject>(CameraPrefabPath).WaitForCompletion();
         MainCameraContainer = Instantiate(cameraPrefab);
         DontDestroyOnLoad(MainCameraContainer);
 
-        var playerPrefab = Resources.Load(PlayerPrefabPath) as GameObject;
+        var playerPrefab = Addressables.LoadAssetAsync<GameObject>(PlayerPrefabPath).WaitForCompletion();
         GameObject playerObj = Instantiate(playerPrefab);
         DontDestroyOnLoad(playerObj);
         Player = playerObj.GetComponent<Player>();
@@ -94,17 +93,16 @@ public class GameManager : MonoBehaviour
         PreviousScene = scene.name;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
+    private async void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
         var bounds = GameObject.FindWithTag("Camera Bounds");
         if (bounds != null && bounds.TryGetComponent(out Collider2D collider))
-        {
             MainCameraContainer.GetComponentInChildren<CinemachineConfiner2D>().BoundingShape2D = collider;
-        }
         else
-        {
             Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a Collider2D tagged as 'Camera Bounds'!");
-        }
+
+        await Awaitable.WaitForSecondsAsync(0.3f);
+        UIManager.Instance.SetTransitionVisible(false);
     }
 
 

@@ -32,15 +32,7 @@ public class SubmarineRoute : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         ActionManager.Instance.ChangeSubmarineState("name");
-
-    }
-     
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public string TryMoveNext(out bool success, string DestName = "ThisIsABlankResponse") 

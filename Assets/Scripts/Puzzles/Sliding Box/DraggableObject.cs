@@ -1,11 +1,13 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class DraggableObject : MonoBehaviour
+[AutoStaticsCleanup]
+public partial class DraggableObject : MonoBehaviour
 {
     public static List<DraggableObject> AllDraggables = new();
     // Define the size of each tile in grid units.

@@ -1,16 +1,16 @@
+using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(InteractionTrigger))]
 public class TeleportationSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
     public string destinationScene;
-    [SerializeField] private InteractionTrigger interaction;
 
-    void Start()
+    private void Start()
     {
-        interaction.playerInteractEvent.AddListener(Teleport);
+        GetComponent<InteractionTrigger>().playerInteractEvent.AddListener(Teleport);
 
         if (GameManager.Instance == null)
         {
@@ -24,21 +24,14 @@ public class TeleportationSystem : MonoBehaviour
             GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.Instance.Player.transform.position, Quaternion.identity);
         }
     }
-    
+
+    private void OnDestroy()
+    {
+        GetComponent<InteractionTrigger>().playerInteractEvent.RemoveListener(Teleport);
+    }
+
     public void Teleport(Player player)
     {
-        if(string.IsNullOrEmpty(destinationScene) || destinationScene == SceneManager.GetActiveScene().name)
-        {
-            if (player != null)
-            {
-                //player.transform.position = new Vector3(destinationCoords.x, destinationCoords.y, player.transform.position.z);
-                GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(player.transform.position, Quaternion.identity);
-            }
-        }
-        else
-        {
-            SceneManager.LoadScene(destinationScene);
-            PersistentDataManager.Instance.Set("currentLocation", destinationScene);
-        }
+        UIManager.Instance.SetTransitionVisible(true).OnComplete(() => SceneManager.LoadScene(destinationScene));
     }
 }

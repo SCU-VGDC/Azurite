@@ -1,24 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Canvas))]
-public class UIManager : MonoBehaviour
+[AutoStaticsCleanup]
+public partial class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
     [field: SerializeField] public Menu FullscreenMenuContainer { get; private set; }
+    [SerializeField] private Menu transitionScreen;
     [SerializeField] private DialogMenu dialogMenuPrefab;
     [SerializeField] private Menu notePopupPrefab;
 
     private readonly HashSet<Menu> openMenus = new();
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void RuntimeInit()
-    {
-        Instance = null;
-    }
 
     private void Awake()
     {
@@ -31,6 +29,14 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         GetComponent<Canvas>().worldCamera = GameManager.Instance.MainCamera;
+    }
+
+    private void CheckMenuRestrictingControls()
+    {
+        if (openMenus.Any(menu => menu.restrictPlayerActions))
+            GameManager.Instance.Player.Freeze("UIManager");
+        else
+            GameManager.Instance.Player.Unfreeze("UIManager");
     }
 
     public DialogMenu CreateDialog(Dialog dialog)
@@ -54,12 +60,14 @@ public class UIManager : MonoBehaviour
         return notePopup;
     }
 
-    private void CheckMenuRestrictingControls()
+    public Tween SetTransitionVisible(bool active)
     {
-        if (openMenus.Any(menu => menu.restrictPlayerActions))
-            GameManager.Instance.Player.Freeze("UIManager");
+        if (active)
+            transitionScreen.Open();
         else
-            GameManager.Instance.Player.Unfreeze("UIManager");
+            transitionScreen.Close();
+
+        return transitionScreen.CurrentTween;
     }
 
     public void OnMenuOpened(Menu menu)

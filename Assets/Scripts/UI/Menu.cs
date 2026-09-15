@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
     protected Menu Parent => transform.parent.GetComponent<Menu>();
 
     private Tween _currentTween;
-    protected Tween CurrentTween
+    public Tween CurrentTween
     {
         get => _currentTween;
         private set

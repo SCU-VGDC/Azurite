@@ -46,8 +46,12 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 mpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mpos, Camera.main.transform.forward, 100);
+        RaycastHit2D[] hits = null;
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            hits = Physics2D.RaycastAll(mpos, Camera.main.transform.forward, 100);
+        }
 
         foreach (var triggerPair in triggers)
         {
@@ -64,7 +68,10 @@ public class PlayerInteractionController : MonoBehaviour
             foreach (var interaction in triggerPair.Value)
                 interaction.ToggleTextPopup(allowInteraction && interaction == closest);
 
-            if (allowInteraction && (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hit.collider == closest.GetComponent<Collider2D>())))
+            if (!allowInteraction)
+                continue;
+
+            if (Input.GetKeyDown(triggerPair.Key) || (Input.GetMouseButtonDown(0) && hits.Any(h => h.collider == closest.GetComponent<Collider2D>())))
                 closest.Trigger(GetComponentInParent<Player>());
         }
     }
