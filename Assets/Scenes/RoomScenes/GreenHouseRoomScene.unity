@@ -119,6 +119,61 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &92825213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92825214}
+  - component: {fileID: 92825215}
+  m_Layer: 0
+  m_Name: Want me to beat it up?
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92825214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92825213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 291128191}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &92825215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92825213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Are you that strong? Wait, no, don't try it! That thing's too dangerous.
+  <NextStepOverride>k__BackingField: {fileID: 2126407062}
 --- !u!1001 &119911394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,6 +339,64 @@ MonoBehaviour:
       type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data:
         m_Cache: []
+--- !u!1 &163677770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 163677771}
+  - component: {fileID: 163677772}
+  m_Layer: 0
+  m_Name: SecondEncounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &163677771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163677770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 507327796}
+  - {fileID: 1439894301}
+  - {fileID: 1024829733}
+  m_Father: {fileID: 1367876668}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163677772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163677770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 507327797}
 --- !u!1 &200206433
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +597,61 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &287017590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287017591}
+  - component: {fileID: 287017592}
+  m_Layer: 0
+  m_Name: Step1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &287017591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287017590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2126407061}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &287017592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287017590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: My plan is to distract it like that again, like a raging bull. Think you could grow a flower that <color="yellow">matches what it's attracted to</color>?
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &289631248
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,8 +742,120 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
+--- !u!1 &291128190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291128191}
+  - component: {fileID: 291128192}
+  m_Layer: 0
+  m_Name: Step3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &291128191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291128190}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2126407061}
+  - {fileID: 92825214}
+  m_Father: {fileID: 1202647182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &291128192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291128190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 1
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: This stupid thing's kept me trapped for ages!
+  <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &402912649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402912650}
+  - component: {fileID: 402912651}
+  m_Layer: 0
+  m_Name: Step1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &402912650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402912649}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1202647182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &402912651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402912649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Hey! Hey! Over here!
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1001 &417246039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -772,6 +1052,61 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 45, y: 7.6122646}
   m_EdgeRadius: 0
+--- !u!1 &507327795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 507327796}
+  - component: {fileID: 507327797}
+  m_Layer: 0
+  m_Name: Step1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &507327796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507327795}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 163677771}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &507327797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507327795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: How's it going?
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1001 &566219316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1256,6 +1591,116 @@ MonoBehaviour:
       type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data:
         m_Cache: []
+--- !u!1 &983881522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 983881523}
+  - component: {fileID: 983881524}
+  m_Layer: 0
+  m_Name: Step3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &983881523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983881522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2126407061}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &983881524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983881522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: ...don't make a mistake and use them up, okay? Seriously.
+  <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &1024829732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1024829733}
+  - component: {fileID: 1024829734}
+  m_Layer: 0
+  m_Name: Step3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1024829733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024829732}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 163677771}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1024829734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024829732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: You <i>are</i> working on that, right? You're not gonna leave me here, right??
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1104333886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1809,61 @@ MonoBehaviour:
       type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data:
         m_Cache: []
+--- !u!1 &1139424577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139424578}
+  - component: {fileID: 1139424579}
+  m_Layer: 0
+  m_Name: Step2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1139424578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139424577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2126407061}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1139424579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139424577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Just be careful, these plants are all we have.
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1192208690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1956,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &1202647181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202647182}
+  - component: {fileID: 1202647183}
+  m_Layer: 0
+  m_Name: FirstEncounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1202647182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202647181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 402912650}
+  - {fileID: 1470592167}
+  - {fileID: 291128191}
+  m_Father: {fileID: 1367876668}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202647183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202647181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74f56910e92e95439239df4e6c9df2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentDataDialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 402912651}
+  conditionalEntry: 1
+  boolDataKey: first_met_horti
+  conditionalPolarity: 0
+  writeOnEnter: 1
 --- !u!1 &1294831483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +2291,180 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da834693b7d6b64408fe7b1ba39bc5f8, type: 3}
+--- !u!1 &1367876663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367876668}
+  - component: {fileID: 1367876667}
+  - component: {fileID: 1367876665}
+  - component: {fileID: 1367876664}
+  - component: {fileID: 1367876669}
+  m_Layer: 0
+  m_Name: 0_Horticulturist
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1367876664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367876663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101ef61908556624f91afaa34707341f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogTrigger
+  playerInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerKey: 101
+  defaultPopupText: Talk
+  actionCount: 0
+  popupOffset: {x: 0, y: 4, z: 0}
+--- !u!114 &1367876665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367876663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49865cbc6918d43588525fce96c61fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dialog
+  defaultTitle: Horticulturist
+  defaultIcon: {fileID: 21300000, guid: b21d649efa414f642868649786cd0cf5, type: 3}
+  allowEarlyExit: 1
+  onStepChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinished:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!212 &1367876667
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367876663}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 36c5387ceb1951a40bac25ead1e78fd4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.5, y: 4}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
+--- !u!4 &1367876668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367876663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 19.31, y: -0.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1202647182}
+  - {fileID: 163677771}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1367876669
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367876663}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 2}
+  m_Size: {x: 1.5372639, y: 4}
+  m_Direction: 0
 --- !u!1 &1436555015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +2604,116 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6.5541, y: 0.12354314}
   m_EdgeRadius: 0
+--- !u!1 &1439894300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439894301}
+  - component: {fileID: 1439894302}
+  m_Layer: 0
+  m_Name: Step2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1439894301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439894300}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 163677771}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1439894302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439894300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Made a flower that <color="yellow">matches the colors</color> that attract the kraken?
+  <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &1470592166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470592167}
+  - component: {fileID: 1470592168}
+  m_Layer: 0
+  m_Name: Step2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470592167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470592166}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1202647182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470592168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470592166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Finally... think you could get me out of here?
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1511759252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,7 +2884,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   triggerKey: 101
-  defaultPopupText: Interact
+  defaultPopupText: Combine Plants
   actionCount: 0
   popupOffset: {x: 0, y: 3, z: 0}
 --- !u!114 &1511759257
@@ -2739,18 +3585,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 63383478985310276, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: e545d49d9e10b4ff8b8676d68bc3dc53, type: 2}
     - target: {fileID: 3527234101113035146, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: m_Name
       value: FlowerSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 3955300821654666358, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 774901a7c00814eb697a08822eaa09fc, type: 2}
     - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.155
@@ -2791,26 +3629,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5423124119657579011, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 2d0bdc49b1b2f46a898e19d9e49559b5, type: 2}
-    - target: {fileID: 7346330223944979054, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
-    - target: {fileID: 7396902297009196735, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
-    - target: {fileID: 7787910114740913498, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 3616bda03ba1e40a6b7eb0f3a8917b6c, type: 2}
-    - target: {fileID: 8907680743407801870, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2873,6 +3691,64 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da834693b7d6b64408fe7b1ba39bc5f8, type: 3}
+--- !u!1 &2126407060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2126407061}
+  - component: {fileID: 2126407062}
+  m_Layer: 0
+  m_Name: How am I supposed to do that?
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2126407061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126407060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 287017591}
+  - {fileID: 1139424578}
+  - {fileID: 983881523}
+  m_Father: {fileID: 291128191}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2126407062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126407060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: When this thing was rampaging earlier, it only went after flowers with certain <color="yellow">colors</color>.
+  <NextStepOverride>k__BackingField: {fileID: 287017592}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2880,6 +3756,7 @@ SceneRoots:
   - {fileID: 2091254306}
   - {fileID: 1953020901}
   - {fileID: 808960748}
+  - {fileID: 1367876668}
   - {fileID: 505055496}
   - {fileID: 1192208691}
   - {fileID: 1511759253}

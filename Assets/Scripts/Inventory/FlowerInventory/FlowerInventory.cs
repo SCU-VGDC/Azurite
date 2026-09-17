@@ -1,10 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class FlowerInventory : MonoBehaviour
 {
+    public const int numSlots = 2;
+
     [SerializeField] private Item Beanstalk;
     [SerializeField] private Item MapleSapling;
     [SerializeField] private Item MonkeyCup;
@@ -20,6 +22,28 @@ public class FlowerInventory : MonoBehaviour
         public Item result;
     }
 
+    public int FirstOpenSlot
+    {
+        get
+        {
+            for (int i = 0; i < numSlots; i++)
+                if (items[i] == null)
+                    return i;
+            return -1;
+        }
+    }
+
+    public int FirstFilledSlot
+    {
+        get
+        {
+            for (int i = 0; i < numSlots; i++)
+                if (items[i] != null)
+                    return i;
+            return -1;
+        }
+    }
+
     [SerializeField] private RecipeEntry[] recipes;
     private Dictionary<(Item, Item), Item> _craftMap;
 
@@ -27,8 +51,7 @@ public class FlowerInventory : MonoBehaviour
     private Transform _rightSlotParent;
     private ItemBox _slotPrefab;*/
 
-    public Item Slot1 { get; private set; }
-    public Item Slot2 { get; private set; }
+    private readonly Item[] items = new Item[numSlots];
 
     public UnityEngine.Events.UnityEvent contentChangedEvent = new();
 
@@ -82,93 +105,72 @@ public class FlowerInventory : MonoBehaviour
     [Tooltip("The item given to the player when a combination fails to match a recipe.")]
     [SerializeField] private Item failedCombinationItem;
 
-    public Item Combine()
+    public ItemSlot Combine()
     {
-        if (_craftMap == null || Slot1 == null || Slot2 == null) return null;
+        if (_craftMap == null || FirstOpenSlot != -1)
+            return null;
 
-        if (!_craftMap.TryGetValue((Slot1, Slot2), out Item result) || result == null)
+        if (!_craftMap.TryGetValue((items[0], items[1]), out Item result) || result == null)
         {
             result = failedCombinationItem;
         }
 
-        if (result == null) return null;
+        if (result == null)
+            return null;
 
-        Slot1 = null;
-        Slot2 = null;
+        for (int i = 0; i < numSlots; i++)
+            items[i] = null;
+
         contentChangedEvent?.Invoke();
 
-        if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
-        {
-            GameManager.Instance.Player.Inventory.AddItem(result, 1);
-        }
-        return result;
+        return GameManager.Instance.Player.Inventory.AddItem(result, 1);
     }
 
-    public bool AddFlower(Item item)
+    public int AddFlower(Item item)
     {
-        if (Slot1 != null && Slot2 != null) return false;
+        int slot = FirstOpenSlot;
+        if (slot == -1)
+            return -1;
 
         if (item.Categories == null || Array.IndexOf(item.Categories, Item.Category.FLOWER) < 0)
-        {
-            Debug.Log($"Cannot add {item.DisplayName} to the combiner.");
-            return false;
-        }
+            return -1;
 
-        Inventory playerInv = null;
-        if (GameManager.Instance != null && GameManager.Instance.Player != null)
-        {
-            playerInv = GameManager.Instance.Player.Inventory;
-        }
-        if (playerInv == null || !playerInv.HasItem(item)) return false;
+        var playerInv = GameManager.Instance.Player.Inventory;
+        if (playerInv == null || !playerInv.HasItem(item))
+            return -1;
 
-        if (Slot1 == null) Slot1 = item;
-        else Slot2 = item;
-
+        items[slot] = item;
         playerInv.RemoveItem(item, 1);
         contentChangedEvent?.Invoke();
-        return true;
+
+        return slot;
     }
 
     public ItemSlot RemoveFlower(int slot)
     {
-        Item item = null;
-        if (slot == 0 && Slot1 != null)
-        {
-            item = Slot1;
-            Slot1 = null;
-        }
-        else if (slot == 1 && Slot2 != null)
-        {
-            item = Slot2;
-            Slot2 = null;
-        }
+        Item item = items[slot];
 
         if (item != null)
         {
+            items[slot] = null;
             contentChangedEvent?.Invoke();
             return GameManager.Instance.Player.Inventory.AddItem(item, 1);
         }
+
         return null;
     }
 
     public void ReturnItems()
     {
-        if (Slot1 != null)
+        for (int i = 0; i < numSlots; i++)
         {
-            if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
+            if (items[i] != null)
             {
-                GameManager.Instance.Player.Inventory.AddItem(Slot1, 1);
+                GameManager.Instance.Player.Inventory.AddItem(items[i], 1);
+                items[i] = null;
             }
-            Slot1 = null;
         }
-        if (Slot2 != null)
-        {
-            if (GameManager.Instance != null && GameManager.Instance.Player != null && GameManager.Instance.Player.Inventory != null)
-            {
-                GameManager.Instance.Player.Inventory.AddItem(Slot2, 1);
-            }
-            Slot2 = null;
-        }
+
         contentChangedEvent?.Invoke();
     }
 }

@@ -80,19 +80,35 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         OnClick?.Invoke();
     }
 
-    public Tweener AnimateItemTransfer(RectTransform startReference, Transform targetParent)
+    public void CenterPivot()
+    {
+        var rt = GetComponent<RectTransform>();
+        rt.anchorMin = Vector2.one / 2;
+        rt.anchorMax = Vector2.one / 2;
+        rt.pivot = Vector2.one / 2;
+    }
+
+    public Tweener AnimateItemTransfer(RectTransform start, Transform target)
     {
         transferMotionAlpha = 0;
-        transferStartPos = startReference.position;
-        transferTargetParent = targetParent;
+        transferStartPos = start.position;
+        transferTargetParent = target;
 
         var rt = GetComponent<RectTransform>();
+        rt.anchorMin = start.anchorMin;
+        rt.anchorMax = start.anchorMax;
+        rt.pivot = start.pivot;
         rt.position = transferStartPos;
-        rt.sizeDelta = startReference.rect.size;
+        rt.sizeDelta = start.rect.size;
 
         transferMotion?.Kill();
         transferMotion = DOVirtual.Float(0, 1, 0.55f, value => transferMotionAlpha = value).SetEase(Ease.OutQuart);
         return transferMotion;
+    }
+
+    public Tweener AnimateItemTransfer(Transform target)
+    {
+        return AnimateItemTransfer(GetComponent<RectTransform>(), target);
     }
 
     private void Update()

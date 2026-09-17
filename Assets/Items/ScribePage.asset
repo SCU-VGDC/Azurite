@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
-  m_Name: InfectedRose
-  m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Infected Rose
-  <Description>k__BackingField: "Pretty, but I wouldn\u2019t smell it."
-  <Icon>k__BackingField: {fileID: 21300000, guid: 521948c14a1cfd948b86b87e7f6b77c7, type: 3}
+  m_Name: ScribePage
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  <DisplayName>k__BackingField: Scribe's Page
+  <Description>k__BackingField: What a pain.
+  <Icon>k__BackingField: {fileID: 0}
   <MaxStackSize>k__BackingField: 1
-  <Categories>k__BackingField: 01000000i
+  <Categories>k__BackingField: 

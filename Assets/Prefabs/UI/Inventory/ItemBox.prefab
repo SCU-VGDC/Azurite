@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2315469071860151066}
   - component: {fileID: 3114377607235616881}
   - component: {fileID: 7940001997608045312}
+  - component: {fileID: 5400108686610074782}
   m_Layer: 0
   m_Name: ItemBox
   m_TagString: Untagged
@@ -35,9 +36,9 @@ RectTransform:
   - {fileID: 8314228338970595188}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -960, y: -540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2315469071860151066
@@ -93,6 +94,18 @@ MonoBehaviour:
   itemDisplay: {fileID: 97818638434980604}
   countDisplay: {fileID: 5253575049683827562}
   hoverDisplayPrefab: {fileID: -4990294271814054208, guid: d2f3f86cd2f893e4a90eda9aaca4a22e, type: 3}
+--- !u!225 &5400108686610074782
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476631345982571455}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5614496587906126440
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,12 +117,19 @@ public class DialogMenu : Menu
     {
         bodyText.text = string.Empty;
         nextArrow.Hide();
+
+        bool richTextTag = false;
         foreach (char c in text)
         {
-            await Awaitable.WaitForSecondsAsync(0.02f);
+            if (!richTextTag)
+                await Awaitable.WaitForSecondsAsync(0.02f);
             if (cancellationToken.IsCancellationRequested)
                 return;
             bodyText.text += c;
+            if (c == '<')
+                richTextTag = true;
+            else if (c == '>')
+                richTextTag = false;
         }
 
         OnTextDisplayFinished();

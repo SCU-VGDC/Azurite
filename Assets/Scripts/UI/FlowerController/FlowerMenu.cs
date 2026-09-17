@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class FlowerMenu : Menu
@@ -10,8 +11,7 @@ public class FlowerMenu : Menu
     [SerializeField] protected ItemBox itemBoxPrefab = null;
 
     [SerializeField] protected TextMeshProUGUI itemName = null;
-    [SerializeField] protected RectTransform slot0;
-    [SerializeField] protected RectTransform slot1;
+    [SerializeField] private RectTransform[] slots;
 
     [Tooltip("The flower combiner inventory to transfer items to.")]
     [SerializeField]
@@ -22,6 +22,8 @@ public class FlowerMenu : Menu
     protected Button combineButton = null;
 
     private InventoryMenu invMenu;
+    private bool itemCrafted = false;
+    private readonly ItemBox[] uiBoxes = new ItemBox[FlowerInventory.numSlots];
 
     private void Awake()
     {
@@ -74,19 +76,22 @@ public class FlowerMenu : Menu
 
     private void OnInventoryItemClicked(ItemBox itemBox)
     {
-        if (flowerInventory.Slot1 != null && flowerInventory.Slot2 != null)
+        if (itemCrafted)
             return;
 
         if (!itemBox.Item.Categories.Contains(Item.Category.FLOWER))
             return;
 
-        var targetSlot = flowerInventory.Slot1 == null ? slot0 : slot1;
-        if (flowerInventory.AddFlower(itemBox.Item))
+        var slotIndex = flowerInventory.AddFlower(itemBox.Item);
+        if (slotIndex != -1)
         {
-            var newBox = Instantiate(itemBoxPrefab, targetSlot);
+            var targetSlot = slots[slotIndex];
+            var newBox = Instantiate(itemBoxPrefab, targetSlot.transform);
             newBox.Item = itemBox.Item;
             newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), targetSlot);
-            newBox.OnClick += () => OnFlowerSlotClicked(targetSlot == slot0 ? 0 : 1, newBox);
+            newBox.OnClick += () => OnFlowerSlotClicked(slotIndex, newBox);
+
+            uiBoxes[slotIndex] = newBox;
         }
     }
 
@@ -98,36 +103,56 @@ public class FlowerMenu : Menu
 
         var target = invMenu.GetUIForSlot(playerInvSlot);
         target.Visible = false;
-        var newBox = Instantiate(itemBoxPrefab, itemBox.transform.parent);
+        var newBox = Instantiate(itemBoxPrefab, invMenu.transform);
         newBox.Item = playerInvSlot.item;
-        newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), target.transform).OnComplete(() =>
+        newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), target.transform).onComplete += () =>
         {
             Destroy(newBox.gameObject);
             target.Visible = true;
-        });
+        };
         Destroy(itemBox.gameObject);
         
     }
 
     public void OnCombineButtonClicked()
     {
-        if (flowerInventory == null) return;
+        if (flowerInventory == null || itemCrafted)
+            return;
 
-        Item result = flowerInventory.Combine();
-        if (result != null)
+        var slot = flowerInventory.Combine();
+        if (slot == null)
+            return;
+
+        itemCrafted = true;
+        var craftedItemBox = invMenu.GetUIForSlot(slot);
+        craftedItemBox.Visible = false;
+
+        for (int i = 0; i < uiBoxes.Length; i++)
         {
-            Debug.Log($"Crafted {result.DisplayName} ({result.name})");
-
-            FlowerMenuInteraction controller = FindAnyObjectByType<FlowerMenuInteraction>();
-            if (controller != null)
+            var box = uiBoxes[i];
+            var go = box.gameObject;
+            if (box != null)
             {
-                controller.CloseMenu();
-            }
-            else
-            {
-                Close();
+                box.AnimateItemTransfer(combineButton.transform).onComplete += () => Destroy(go);
+                uiBoxes[i] = null;
             }
         }
+
+        var transferBox = Instantiate(itemBoxPrefab, invMenu.transform);
+        transferBox.CenterPivot();
+        transferBox.Item = slot.item;
+        var boxRt = transferBox.GetComponent<RectTransform>();
+        boxRt.position = combineButton.transform.position;
+        boxRt.DOAnchorPos(boxRt.anchoredPosition + Vector2.up * 150, 0.8f).SetEase(Ease.OutBack).SetDelay(0.55f).onComplete += () =>
+        {
+            transferBox.AnimateItemTransfer(craftedItemBox.transform).onComplete += () =>
+            {
+                if (IsOpen)
+                    Close();
+                Destroy(transferBox.gameObject);
+                craftedItemBox.Visible = true;
+            };
+        };
     }
 
     /*

@@ -112,8 +112,9 @@ MonoBehaviour:
       m_Calls: []
   itemBoxPrefab: {fileID: 7940001997608045312, guid: 1d1887b67baa35748ab5674d4ff0f253, type: 3}
   itemName: {fileID: 1639695688785884674}
-  slot0: {fileID: 8789055945826320345}
-  slot1: {fileID: 8269794286831134370}
+  slots:
+  - {fileID: 8789055945826320345}
+  - {fileID: 8269794286831134370}
   flowerInventory: {fileID: 0}
   combineButton: {fileID: 3776600661929991505}
 --- !u!225 &3314791389483924466

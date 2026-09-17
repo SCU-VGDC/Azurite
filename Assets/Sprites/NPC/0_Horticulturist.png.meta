@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 521948c14a1cfd948b86b87e7f6b77c7
+guid: 36c5387ceb1951a40bac25ead1e78fd4
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3596148272749683799
+    second: 0_Horticulturist_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.41500396, y: -0.9}
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -97,7 +100,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: 0_Horticulturist_0
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 11
+        width: 148
+        height: 387
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abde1bf23ae71ec0800000000000000
+      internalID: -3596148272749683799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -111,7 +136,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      0_Horticulturist_0: -3596148272749683799
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

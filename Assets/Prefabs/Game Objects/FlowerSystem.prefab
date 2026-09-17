@@ -207,7 +207,7 @@ MonoBehaviour:
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 2d0bdc49b1b2f46a898e19d9e49559b5, type: 2}
   amount: 1
   dataKey: dandelion_pickup
 --- !u!1 &2010056519146790881
@@ -686,7 +686,7 @@ MonoBehaviour:
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
   amount: 1
   dataKey: sundew_pickup
 --- !u!1 &3947997025108131922
@@ -858,7 +858,7 @@ MonoBehaviour:
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: e545d49d9e10b4ff8b8676d68bc3dc53, type: 2}
   amount: 1
   dataKey: pitcher_pickup
 --- !u!1 &4174940238516929752
@@ -1007,7 +1007,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 5c785da788fb9c84cbe857842b38e06a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 521948c14a1cfd948b86b87e7f6b77c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1088,11 +1088,11 @@ MonoBehaviour:
   triggerKey: 101
   defaultPopupText: Pick Up
   actionCount: 0
-  popupOffset: {x: 0, y: 5, z: 0}
+  popupOffset: {x: 0, y: 4, z: 0}
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
   amount: 1
   dataKey: rose_pickup
 --- !u!1 &5790414645555043982
@@ -1295,7 +1295,7 @@ MonoBehaviour:
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 3616bda03ba1e40a6b7eb0f3a8917b6c, type: 2}
   amount: 1
   dataKey: nightshade_pickup
 --- !u!1 &8196703693166564768
@@ -1413,7 +1413,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 05ccbb11b0b137042a8b55d040b1b6f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7e178f5441708e488051fe32187e94f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1494,11 +1494,11 @@ MonoBehaviour:
   triggerKey: 101
   defaultPopupText: Pick Up
   actionCount: 0
-  popupOffset: {x: 0, y: 5, z: 0}
+  popupOffset: {x: 0, y: 4.3, z: 0}
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 774901a7c00814eb697a08822eaa09fc, type: 2}
   amount: 1
   dataKey: weed_pickup
 --- !u!1 &9218133914101721937
@@ -1670,6 +1670,6 @@ MonoBehaviour:
   destroyOnPickup: 1
   usePersistentData: 1
   setSpriteToItem: 0
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
   amount: 1
   dataKey: bamboo_pickup
