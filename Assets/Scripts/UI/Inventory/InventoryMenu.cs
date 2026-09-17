@@ -1,12 +1,25 @@
 using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InventoryMenu : Menu
 {
+    public KeyCode toggleKey = KeyCode.Tab;
+
+    public event Action<ItemBox> OnItemClicked;
+
     [SerializeField] private ItemBox itemBoxPrefab;
     [SerializeField] private Transform itemBoxContainer;
-    public KeyCode toggleKey = KeyCode.Tab;
+
+    private readonly Dictionary<ItemSlot, ItemBox> uiMap = new();
+
+    public ItemBox GetUIForSlot(ItemSlot slot)
+    {
+        return uiMap[slot];
+    }
 
     protected override Tween AnimateOnOpen()
     {
@@ -24,6 +37,7 @@ public class InventoryMenu : Menu
     {
         GameManager.Instance.Player.Inventory.onItemAdded.AddListener(OnItemAdded);
         GameManager.Instance.Player.Inventory.onItemRemoved.AddListener(OnItemRemoved);
+        GameManager.Instance.Player.Inventory.onItemCountChanged.AddListener(OnItemCountChanged);
     }
 
     private void Update()
@@ -37,14 +51,27 @@ public class InventoryMenu : Menu
         }
     }
 
-    private void OnItemAdded(Item item)
+    private void OnItemAdded(ItemSlot slot)
     {
-        Instantiate(itemBoxPrefab, itemBoxContainer).Item = item;
+        var box = Instantiate(itemBoxPrefab, itemBoxContainer);
+        box.Item = slot.item;
+        box.Count = slot.count;
+        box.OnClick += () => OnItemClicked?.Invoke(box);
+        uiMap[slot] = box;
     }
 
-    private void OnItemRemoved(Item item)
+    private void OnItemRemoved(ItemSlot slot)
     {
-        foreach (var itemBox in itemBoxContainer.GetComponentsInChildren<ItemBox>().Where(ib => ib.Item == item))
-            Destroy(itemBox.gameObject);
+        if (uiMap.TryGetValue(slot, out var box))
+        {
+            uiMap.Remove(slot);
+            Destroy(box.gameObject);
+        }
+    }
+
+    private void OnItemCountChanged(ItemSlot slot, int count)
+    {
+        if (uiMap.TryGetValue(slot, out var box))
+            box.Count = count;
     }
 }

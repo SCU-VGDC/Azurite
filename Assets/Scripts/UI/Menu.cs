@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
     public bool allowMultipleChildrenOpen = false;
     public bool canBeClosedBySiblings = true;
     public bool destroyOnClose = true;
+    public bool openWhenChildOpens = true;
     public UnityEvent onOpen = new();
     public UnityEvent onClose = new();
 
@@ -49,6 +50,9 @@ public class Menu : MonoBehaviour
         if (!allowMultipleChildrenOpen)
             foreach (var otherChild in GetComponentsInChildren<Menu>().Where(menu => menu != this && menu != child && menu.transform.parent == transform))
                 otherChild.Close();
+
+        if (!IsOpen && openWhenChildOpens)
+            Open();
     }
 
     private void OnChildClose(Menu child)

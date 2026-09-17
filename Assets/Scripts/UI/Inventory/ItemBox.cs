@@ -1,11 +1,19 @@
+using DG.Tweening;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+[RequireComponent(typeof(RectTransform))]
+[RequireComponent(typeof(CanvasGroup))]
+public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] private Image itemDisplay;
+    [SerializeField] private TextMeshProUGUI countDisplay;
     [SerializeField] ItemHoverDisplay hoverDisplayPrefab;
+
+    public event Action OnClick;
 
     private Item item;
     public Item Item
@@ -18,7 +26,36 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    private int count;
+    public int Count
+    {
+        get => count;
+        set
+        {
+            countDisplay.text = value.ToString();
+            countDisplay.enabled = value > 1;
+            count = value;
+        }
+    }
+
+    private bool visible = true;
+    public bool Visible
+    {
+        get => visible;
+        set
+        {
+            var cg = GetComponent<CanvasGroup>();
+            cg.blocksRaycasts = value;
+            cg.alpha = value ? 1 : 0;
+            visible = value;
+        }
+    }
+
     private ItemHoverDisplay hoverDisplay;
+    private Tweener transferMotion;
+    private float transferMotionAlpha = 0;
+    private Vector2 transferStartPos;
+    private Transform transferTargetParent;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -36,5 +73,45 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Destroy(hoverDisplay.gameObject);
             hoverDisplay = null;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnClick?.Invoke();
+    }
+
+    public Tweener AnimateItemTransfer(RectTransform startReference, Transform targetParent)
+    {
+        transferMotionAlpha = 0;
+        transferStartPos = startReference.position;
+        transferTargetParent = targetParent;
+
+        var rt = GetComponent<RectTransform>();
+        rt.position = transferStartPos;
+        rt.sizeDelta = startReference.rect.size;
+
+        transferMotion?.Kill();
+        transferMotion = DOVirtual.Float(0, 1, 0.55f, value => transferMotionAlpha = value).SetEase(Ease.OutQuart);
+        return transferMotion;
+    }
+
+    private void Update()
+    {
+        if (transferMotion == null)
+            return;
+
+        transform.position = Vector2.Lerp(transferStartPos, transferTargetParent.position, transferMotionAlpha);
+        if (!transferMotion.active)
+        {
+            transferMotion = null;
+            transform.SetParent(transferTargetParent, false);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        OnClick = null;
+        transferMotion?.Kill();
+        transferMotion = null;
     }
 }

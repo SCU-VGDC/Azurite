@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: MapleSapling
   m_EditorClassIdentifier: 
-  displayName: Maple Sapling
-  description: Sap is a really tasty thing.
-  icon: {fileID: 21300000, guid: a5b28dd0a5e6c44f69dfd93b376226f7, type: 3}
-  preview: {fileID: 21300000, guid: a5b28dd0a5e6c44f69dfd93b376226f7, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 00000000
+  <DisplayName>k__BackingField: Maple Sapling
+  <Description>k__BackingField: Sap is a really tasty thing.
+  <Icon>k__BackingField: {fileID: 0}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 

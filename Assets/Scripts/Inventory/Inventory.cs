@@ -6,22 +6,22 @@ using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
-    public UnityEvent<Item> onItemAdded = new();
-    public UnityEvent<Item> onItemRemoved = new();
-    public UnityEvent<Item, int> onItemCountChanged = new();
+    public UnityEvent<ItemSlot> onItemAdded = new();
+    public UnityEvent<ItemSlot> onItemRemoved = new();
+    public UnityEvent<ItemSlot, int> onItemCountChanged = new();
 
-    public Item[] Items => items.SelectMany(kv => Enumerable.Repeat(kv.Key, kv.Value)).ToArray();
+    public Item[] Items => slots.SelectMany(slot => Enumerable.Repeat(slot.item, slot.count)).ToArray();
 
-    private readonly Dictionary<Item, int> items = new();
+    private readonly List<ItemSlot> slots = new();
 
     public bool HasItem(Item item)
     {
-        return items.ContainsKey(item);
+        return slots.Any(slot => slot.item == item);
     }
 
     public int GetCount(Item item)
     {
-        return items.GetValueOrDefault(item, 0);
+        return slots.Sum(slot => slot.item == item ? slot.count : 0);
     }
 
     /// <summary>
@@ -29,25 +29,33 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to add.</param>
     /// <param name="amount">The amount to add.</param>
-    /// <returns>The amount of items successfully added to the inventory.</returns>
-    public int AddItem(Item item, int amount = 1)
+    public ItemSlot AddItem(Item item, int amount = 1)
     {
         if (amount <= 0)
+            return null;
+
+        var slot = slots.FirstOrDefault(slot => slot.item == item);
+
+        if (slot == null)
         {
-            return 0;
+            amount = Math.Min(item.MaxStackSize, amount);
+            slot = new ItemSlot()
+            {
+                item = item,
+                count = amount
+            };
+            slots.Add(slot);
+            onItemAdded.Invoke(slot);
+        }
+        else
+        {
+            amount = Math.Max(0, Math.Min(item.MaxStackSize - slot.count, amount));
+            slot.count += amount;
         }
 
-        amount = Math.Max(0, Math.Min(item.MaxStackSize - GetCount(item), amount));
+        onItemCountChanged.Invoke(slot, GetCount(item));
 
-        if (items.TryAdd(item, amount))
-            onItemAdded.Invoke(item);
-        else
-            items[item] += amount;
-
-        if (amount > 0)
-            onItemCountChanged.Invoke(item, GetCount(item));
-
-        return amount;
+        return slot;
     }
 
     /// <summary>
@@ -55,24 +63,25 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to remove.</param>
     /// <param name="amount">The quantity to remove.</param>
-    /// <returns>The amount of items successfully removed from the inventory.</returns>
-    public int RemoveItem(Item item, int amount = 1)
+    public ItemSlot RemoveItem(Item item, int amount = 1)
     {
         if (amount <= 0 || !HasItem(item))
+            return null;
+
+        var slot = slots.First(slot => slot.item == item);
+        amount = Math.Min(amount, slot.count);
+        slot.count -= amount;
+
+        if (slot.count <= 0)
         {
-            return 0;
+            slots.Remove(slot);
+            onItemRemoved.Invoke(slot);
+            return null;
         }
-
-        amount = Math.Min(amount, GetCount(item));
-        items[item] -= amount;
-        onItemCountChanged.Invoke(item, GetCount(item));
-
-        if (items[item] <= 0)
+        else
         {
-            items.Remove(item);
-            onItemRemoved.Invoke(item);
+            onItemCountChanged.Invoke(slot, slot.count);
+            return slot;
         }
-
-        return amount;
     }
 }

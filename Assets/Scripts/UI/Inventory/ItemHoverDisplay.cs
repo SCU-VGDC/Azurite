@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
+[RequireComponent(typeof(Canvas))]
 public class ItemHoverDisplay : MonoBehaviour
 {
     [SerializeField] private Image itemImage;

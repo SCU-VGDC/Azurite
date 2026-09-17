@@ -2054,14 +2054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPrefab: {fileID: 4533616568178099494, guid: 1cbab4725d58b1646814801149fff8bd, type: 3}
-  inventoryToShow: {fileID: 0}
   flowerInventory: {fileID: 1511759258}
-  onMenuOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  onMenuClose:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1511759258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,7 +2407,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -20.05236, y: -1.6018931}
+  m_Offset: {x: 0, y: 2.9392934}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.05491423, y: 0.3569751}
@@ -2424,7 +2417,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.829506, y: 4.2420087}
+  m_Size: {x: 2.829506, y: 6.2570486}
   m_EdgeRadius: 0
 --- !u!1 &1742845943
 GameObject:
@@ -2746,10 +2739,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 63383478985310276, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: e545d49d9e10b4ff8b8676d68bc3dc53, type: 2}
     - target: {fileID: 3527234101113035146, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: m_Name
       value: FlowerSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 3955300821654666358, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 774901a7c00814eb697a08822eaa09fc, type: 2}
     - target: {fileID: 4170586671820335614, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.155
@@ -2790,6 +2791,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5423124119657579011, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d0bdc49b1b2f46a898e19d9e49559b5, type: 2}
+    - target: {fileID: 7346330223944979054, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ac819a3720b04c77ae783ee14119693, type: 2}
+    - target: {fileID: 7396902297009196735, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 6979f3cb81cde413bb4a39d74920c53c, type: 2}
+    - target: {fileID: 7787910114740913498, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 3616bda03ba1e40a6b7eb0f3a8917b6c, type: 2}
+    - target: {fileID: 8907680743407801870, guid: 72c395ab3cb6afa4ea8972e93b243c66, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ae3e36b23b6e41c7a46b9fa58047f22, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

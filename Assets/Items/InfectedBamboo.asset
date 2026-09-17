@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: InfectedBamboo
   m_EditorClassIdentifier: 
-  displayName: Infected Bamboo
-  description: This thing is tough.
-  icon: {fileID: 21300000, guid: 7d81bb0cf4b554556bf48ff25503c9ab, type: 3}
-  preview: {fileID: 21300000, guid: 7d81bb0cf4b554556bf48ff25503c9ab, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 01000000
+  <DisplayName>k__BackingField: Infected Bamboo
+  <Description>k__BackingField: This thing is tough.
+  <Icon>k__BackingField: {fileID: 21300000, guid: eb1b12a73ed7a3d40b93590703b8dc93, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 01000000i

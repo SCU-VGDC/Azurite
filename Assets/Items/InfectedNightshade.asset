@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: InfectedNightshade
   m_EditorClassIdentifier: 
-  displayName: Infected Nightshade
-  description: Better not give this thing to a shark. I am a sheep after all in the
-    eyes of a shark.
-  icon: {fileID: 21300000, guid: a9464f4b9130a474cabd356f6df1aaac, type: 3}
-  preview: {fileID: 21300000, guid: a9464f4b9130a474cabd356f6df1aaac, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 01000000
+  <DisplayName>k__BackingField: Infected Nightshade
+  <Description>k__BackingField: The plant equivalent of battery acid
+  <Icon>k__BackingField: {fileID: 21300000, guid: b0980063e50396b4a852b7e4c11de804, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 01000000i

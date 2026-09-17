@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: InfectedSundew
   m_EditorClassIdentifier: 
-  displayName: Infected Sundew
-  description: What in the alien looking ass plant is this?
-  icon: {fileID: 21300000, guid: 11f84850a4ffd496e9b65d26a9574815, type: 3}
-  preview: {fileID: 21300000, guid: 11f84850a4ffd496e9b65d26a9574815, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 01000000
+  <DisplayName>k__BackingField: Infected Sundew
+  <Description>k__BackingField: Very sticky, it gripped all the mosquitos when I tested it.
+  <Icon>k__BackingField: {fileID: 21300000, guid: c1209382c08ec2744b4e002850c0db71, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 01000000i

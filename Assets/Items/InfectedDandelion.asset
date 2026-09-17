@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: InfectedDandelion
   m_EditorClassIdentifier: 
-  displayName: Infected Dandelion
-  description: I once tried to try these when I was a kid. All those white pieces
-    combusted before I could get it in my mouth.
-  icon: {fileID: 21300000, guid: ce92285ee2f66473ea0e69c21b6c1af3, type: 3}
-  preview: {fileID: 21300000, guid: ce92285ee2f66473ea0e69c21b6c1af3, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 01000000
+  <DisplayName>k__BackingField: Infected Dandelion
+  <Description>k__BackingField: 'I tried to eat these when I was a kid. All those white pieces combusted before I could get it in my mouth. '
+  <Icon>k__BackingField: {fileID: 21300000, guid: 3b648f913d85d714a88e84998f7d391c, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 01000000i

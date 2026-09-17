@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: InfectedWeed
   m_EditorClassIdentifier: 
-  displayName: Infected Weed
-  description: Can I smoke this?
-  icon: {fileID: 21300000, guid: 214c7e096673c4863aee8e91b3d11c5c, type: 3}
-  preview: {fileID: 21300000, guid: 214c7e096673c4863aee8e91b3d11c5c, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 01000000
+  <DisplayName>k__BackingField: Infected Weed
+  <Description>k__BackingField: I only left it for 5 minutes and it already grew this much, how.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 05ccbb11b0b137042a8b55d040b1b6f2, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 01000000i

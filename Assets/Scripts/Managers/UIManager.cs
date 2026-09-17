@@ -16,6 +16,9 @@ public partial class UIManager : MonoBehaviour
     [SerializeField] private DialogMenu dialogMenuPrefab;
     [SerializeField] private Menu notePopupPrefab;
 
+    public bool AnyMenuOpen => openMenus.Count > 0;
+    public Canvas ScreenCanvas => GetComponent<Canvas>();
+
     private readonly HashSet<Menu> openMenus = new();
 
     private void Awake()

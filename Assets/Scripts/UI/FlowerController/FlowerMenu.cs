@@ -1,22 +1,17 @@
 using DG.Tweening;
-using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class FlowerMenu : Menu
 {
-    [Tooltip("The item stack slot prefab.")]
-    [SerializeField]
-    protected ItemStackEntryController itemStackPrefab = null;
+    [SerializeField] protected ItemBox itemBoxPrefab = null;
 
-    [Tooltip("The toggle group containing the item stacks.")]
-    [SerializeField]
-    protected ToggleGroup itemList = null;
-
-    [Tooltip("The item name text box.")]
-    [SerializeField]
-    protected TextMeshProUGUI itemName = null;
+    [SerializeField] protected TextMeshProUGUI itemName = null;
+    [SerializeField] protected RectTransform slot0;
+    [SerializeField] protected RectTransform slot1;
 
     [Tooltip("The flower combiner inventory to transfer items to.")]
     [SerializeField]
@@ -26,79 +21,92 @@ public class FlowerMenu : Menu
     [SerializeField]
     protected Button combineButton = null;
 
-    private readonly Dictionary<Item, ItemStackEntryController> itemStacks = new();
-    private GridLayoutGroup gridLayoutGroup;
+    private InventoryMenu invMenu;
+
+    private void Awake()
+    {
+        invMenu = GetComponentInParent<InventoryMenu>();
+        if (invMenu == null)
+        {
+            Debug.LogError("A FlowerMenu should be a child of an InventoryMenu");
+            return;
+        }
+
+        invMenu.OnItemClicked += OnInventoryItemClicked;
+    }
+
+    protected override void OnDestroy()
+    {
+        if (flowerInventory != null)
+            flowerInventory.ReturnItems();
+        if (invMenu != null)
+            invMenu.OnItemClicked -= OnInventoryItemClicked;
+
+        base.OnDestroy();
+    }
 
     protected override Tween AnimateOnOpen()
     {
-        return null;
+        var cg = GetComponent<CanvasGroup>();
+        cg.blocksRaycasts = true;
+        return cg.DOFade(1, 0.3f);
     }
 
     protected override Tween AnimateOnClose()
     {
-        return null;
+        var cg = GetComponent<CanvasGroup>();
+        cg.blocksRaycasts = false;
+        return cg.DOFade(0, 0.3f);
     }
 
-    public FlowerMenu Init(FlowerInventory combiner = null)
+    public FlowerMenu Init(FlowerInventory combiner)
     {
-        var associatedInventory = GameManager.Instance.Player.Inventory;
-        associatedInventory.onItemAdded.AddListener(AddItemEntry);
-        associatedInventory.onItemRemoved.AddListener(RemoveItemEntry);
-        associatedInventory.onItemCountChanged.AddListener(UpdateItemEntry);
+        flowerInventory = combiner;
 
-        Item[] items = associatedInventory.Items;
-
-        for (int i = 0; i < items.Length; ++i)
+        if (combineButton != null)
         {
-            AddItemEntry(items[i]);
-        }
-
-        if (combiner != null)
-        {
-            flowerInventory = combiner;
-            Transform leftPanel = transform.Find("Left Item Panel");
-            Transform rightPanel = transform.Find("Right Item Panel");
-            if (leftPanel != null && rightPanel != null && itemStackPrefab != null)
-                combiner.BindCombinerSlots(leftPanel, rightPanel, itemStackPrefab);
-
-            if (combineButton != null)
-            {
-                combineButton.onClick.RemoveAllListeners();
-                combineButton.onClick.AddListener(OnCombineButtonClicked);
-            }
+            combineButton.onClick.RemoveAllListeners();
+            combineButton.onClick.AddListener(OnCombineButtonClicked);
         }
 
         return this;
     }
 
-    public void Update()
+    private void OnInventoryItemClicked(ItemBox itemBox)
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            MoveSelection(Vector2Int.down);
-        }
+        if (flowerInventory.Slot1 != null && flowerInventory.Slot2 != null)
+            return;
 
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            MoveSelection(Vector2Int.up);
-        }
+        if (!itemBox.Item.Categories.Contains(Item.Category.FLOWER))
+            return;
 
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        var targetSlot = flowerInventory.Slot1 == null ? slot0 : slot1;
+        if (flowerInventory.AddFlower(itemBox.Item))
         {
-            MoveSelection(Vector2Int.left);
+            var newBox = Instantiate(itemBoxPrefab, targetSlot);
+            newBox.Item = itemBox.Item;
+            newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), targetSlot);
+            newBox.OnClick += () => OnFlowerSlotClicked(targetSlot == slot0 ? 0 : 1, newBox);
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            MoveSelection(Vector2Int.right);
-        }
+    private void OnFlowerSlotClicked(int slot, ItemBox itemBox)
+    {
+        var playerInvSlot = flowerInventory.RemoveFlower(slot);
+        if (playerInvSlot == null)
+            return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        var target = invMenu.GetUIForSlot(playerInvSlot);
+        target.Visible = false;
+        var newBox = Instantiate(itemBoxPrefab, itemBox.transform.parent);
+        newBox.Item = playerInvSlot.item;
+        newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), target.transform).OnComplete(() =>
         {
-            Item selected = GetSelectedItem();
-            if (selected != null && flowerInventory != null)
-                flowerInventory.AddFlower(selected);
-        }
+            Destroy(newBox.gameObject);
+            target.Visible = true;
+        });
+        Destroy(itemBox.gameObject);
+        
     }
 
     public void OnCombineButtonClicked()
@@ -108,9 +116,9 @@ public class FlowerMenu : Menu
         Item result = flowerInventory.Combine();
         if (result != null)
         {
-            Debug.Log($"Crafted {result.DisplayName}");
+            Debug.Log($"Crafted {result.DisplayName} ({result.name})");
 
-            FlowerMenuController controller = FindAnyObjectByType<FlowerMenuController>();
+            FlowerMenuInteraction controller = FindAnyObjectByType<FlowerMenuInteraction>();
             if (controller != null)
             {
                 controller.CloseMenu();
@@ -121,6 +129,8 @@ public class FlowerMenu : Menu
             }
         }
     }
+
+    /*
 
     /// <summary>
     /// Add an item stack to the menu. This does not actually
@@ -327,12 +337,5 @@ public class FlowerMenu : Menu
         }
     }
 
-    protected override void OnDestroy()
-    {
-        if (flowerInventory != null)
-        {
-            flowerInventory.ReturnItems();
-        }
-        base.OnDestroy();
-    }
+    */
 }

@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: InfectedPitcherPlant
   m_EditorClassIdentifier: 
-  displayName: Infected Pitcher Plant
-  description: This thing keeps on slipping out of my pocket.
-  icon: {fileID: 21300000, guid: 24c97dc38e7944714a16a166b99275e0, type: 3}
-  preview: {fileID: 21300000, guid: 24c97dc38e7944714a16a166b99275e0, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 01000000
+  <DisplayName>k__BackingField: Infected Pitcher Plant
+  <Description>k__BackingField: "The inside\u2019s real slippery, I could extract the liquid and use it as a more effective wet floor to shut that squire up."
+  <Icon>k__BackingField: {fileID: 21300000, guid: f4728ba2a01c87842982d7566069bc13, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 01000000i

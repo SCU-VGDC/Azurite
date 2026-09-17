@@ -1665,7 +1665,7 @@ Transform:
   m_GameObject: {fileID: 841984301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.7, y: 3.7, z: 0}
+  m_LocalPosition: {x: -12.7, y: 2.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1709,10 +1709,10 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.06, y: 0}
+  m_Offset: {x: 0.06, y: 1.53}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 3, y: 3}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
@@ -1779,7 +1779,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
 --- !u!114 &841984305
 MonoBehaviour:
@@ -1799,7 +1799,7 @@ MonoBehaviour:
   triggerKey: 101
   defaultPopupText: Terminal
   actionCount: 0
-  popupOffset: {x: 0, y: 2, z: 0}
+  popupOffset: {x: 0, y: 3.3, z: 0}
 --- !u!114 &841984306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,7 +2375,7 @@ Transform:
   m_GameObject: {fileID: 1492454275}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.074, y: 0.533, z: -1.5}
+  m_LocalPosition: {x: 0.074, y: 2.055, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4013,11 +4013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 226566815665939104, guid: 5e321aa8c2f9cd240a73c9b68fe38737, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.53
+      value: 2.055
       objectReference: {fileID: 0}
     - target: {fileID: 226566815665939104, guid: 5e321aa8c2f9cd240a73c9b68fe38737, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.5
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 226566815665939104, guid: 5e321aa8c2f9cd240a73c9b68fe38737, type: 3}
       propertyPath: m_LocalRotation.w

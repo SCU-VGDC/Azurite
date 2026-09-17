@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: PrettyFlower
   m_EditorClassIdentifier: 
-  displayName: New Item
-  description: I am an item!
-  icon: {fileID: 0}
-  preview: {fileID: 0}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 
+  <DisplayName>k__BackingField: Hydrangea
+  <Description>k__BackingField: 'Beautiful. Maybe some being would like this as a gift. '
+  <Icon>k__BackingField: {fileID: 0}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 

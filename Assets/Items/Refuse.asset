@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
   m_Name: Refuse
   m_EditorClassIdentifier: 
-  displayName: Trash
-  description: Basically useless
-  icon: {fileID: 21300000, guid: 870b6addd572f4df9948786535edb693, type: 3}
-  preview: {fileID: 21300000, guid: 870b6addd572f4df9948786535edb693, type: 3}
-  maxStackSize: 99
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 
+  <DisplayName>k__BackingField: Refuse
+  <Description>k__BackingField: Useless garbage.
+  <Icon>k__BackingField: {fileID: 0}
+  <MaxStackSize>k__BackingField: 99
+  <Categories>k__BackingField: 
