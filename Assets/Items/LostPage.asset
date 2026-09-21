@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210679116ea4c3349b382913e795b1e1, type: 3}
+  m_Name: LostPage
+  m_EditorClassIdentifier: Assembly-CSharp::LostPages
+  <DisplayName>k__BackingField: Lost Pages
+  <Description>k__BackingField: What a pain.
+  <Icon>k__BackingField: {fileID: 0}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 
+  menuPrefab: {fileID: 7819142325956354961, guid: 0d0a492d56d5f784cb76e2895fbdb3a8, type: 3}
+  questions:
+  - question: I want to remember how cramped these living quarters are. How many bunk beds are in this room?
+    correctAnswer: 4
+  - question: I want to document the unique flowers that are being grown in the Greenhouse. How many flowers are [COLOR] under [COLOR] light?
+    correctAnswer: 4
+  - question: I want to get a better understanding of the panels in the Mechanical Room. What were the symbols on the [PANEL]?
+    correctAnswer: square
+  - question: I really want to learn about the monsters in the R&D room. How many sharp-teethed creatures are there?
+    correctAnswer: 2

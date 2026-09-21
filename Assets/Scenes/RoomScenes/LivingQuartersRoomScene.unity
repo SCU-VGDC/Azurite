@@ -723,7 +723,7 @@ MonoBehaviour:
   <ActionCount>k__BackingField: 0
   <Body>k__BackingField: Got it all filled out?
   <NextStepOverride>k__BackingField: {fileID: 0}
-  requiredItem: {fileID: 11400000, guid: fc8d25a8147ef7b478aae85adecc60cb, type: 2}
+  requiredItem: {fileID: 11400000, guid: b210377c87a66754a9c07ca48b064f5d, type: 2}
   takeAmount: 0
   giveItem: {fileID: 0}
   giveAmount: 1
@@ -839,6 +839,116 @@ MonoBehaviour:
   <ActionCount>k__BackingField: 0
   <Body>k__BackingField: ...
   <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &557959629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 557959630}
+  - component: {fileID: 557959631}
+  m_Layer: 0
+  m_Name: Entry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &557959630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557959629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 674864614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &557959631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557959629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &582756102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 582756103}
+  - component: {fileID: 582756104}
+  m_Layer: 0
+  m_Name: Wrong
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &582756103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582756102}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 674864614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &582756104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582756102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Hmm... no, this isn't it. This isn't right at all!
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &617743180
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +1006,7 @@ MonoBehaviour:
   <NextStepOverride>k__BackingField: {fileID: 0}
   requiredItem: {fileID: 0}
   takeAmount: 0
-  giveItem: {fileID: 11400000, guid: fc8d25a8147ef7b478aae85adecc60cb, type: 2}
+  giveItem: {fileID: 11400000, guid: b210377c87a66754a9c07ca48b064f5d, type: 2}
   giveAmount: 1
 --- !u!1 &674864613
 GameObject:
@@ -927,7 +1037,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 557959630}
+  - {fileID: 1110426622}
+  - {fileID: 582756103}
   m_Father: {fileID: 410017494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &674864615
@@ -946,13 +1059,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <ChildrenAreOptions>k__BackingField: 0
-  <EndDialog>k__BackingField: 1
+  <EndDialog>k__BackingField: 0
   <SkipDisplay>k__BackingField: 0
   <Title>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
   <ActionCount>k__BackingField: 0
   <Body>k__BackingField: Let me see...
-  <NextStepOverride>k__BackingField: {fileID: 0}
+  <NextStepOverride>k__BackingField: {fileID: 557959631}
 --- !u!1 &789355453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,6 +1313,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1110426621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1110426622}
+  - component: {fileID: 1110426623}
+  m_Layer: 0
+  m_Name: Correct
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1110426622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110426621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1222328456}
+  - {fileID: 1451658974}
+  m_Father: {fileID: 674864614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1110426623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110426621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfaefb1e1b9f77f48a6564ff91a07a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScribePageStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Looks good to me!
+  <NextStepOverride>k__BackingField: {fileID: 1222328457}
 --- !u!1 &1173332715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1570,61 @@ MonoBehaviour:
   <ActionCount>k__BackingField: 0
   <Body>k__BackingField: ........whuh?
   <NextStepOverride>k__BackingField: {fileID: 1634015283}
+--- !u!1 &1222328455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1222328456}
+  - component: {fileID: 1222328457}
+  m_Layer: 0
+  m_Name: Step1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1222328456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222328455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1110426622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1222328457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222328455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Alright, I'll get going. See ya around!
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1237961351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2298,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1451658973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1451658974}
+  - component: {fileID: 1451658975}
+  m_Layer: 0
+  m_Name: Step2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1451658974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451658973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1758239063}
+  m_Father: {fileID: 1110426622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1451658975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451658973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6f697bbc92c241bd1fc46dc94e114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 1
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 0
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: Wait, this place'll be gone soon, so maybe I won't see you later...
+  <NextStepOverride>k__BackingField: {fileID: 0}
 --- !u!1 &1540377473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,6 +2523,67 @@ MonoBehaviour:
   <ActionCount>k__BackingField: 0
   <Body>k__BackingField: ...
   <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &1758239062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1758239063}
+  - component: {fileID: 1758239064}
+  m_Layer: 0
+  m_Name: Just go!
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1758239063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758239062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1866028499}
+  m_Father: {fileID: 1451658974}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758239064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758239062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74f56910e92e95439239df4e6c9df2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentDataDialogStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 0
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 1866028500}
+  conditionalEntry: 0
+  boolDataKey: scribe_saved
+  conditionalPolarity: 1
+  writeOnEnter: 1
+  writeValue: 1
 --- !u!1 &1859335556
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,6 +2639,62 @@ MonoBehaviour:
   <ActionCount>k__BackingField: 0
   <Body>k__BackingField: 
   <NextStepOverride>k__BackingField: {fileID: 0}
+--- !u!1 &1866028498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1866028499}
+  - component: {fileID: 1866028500}
+  m_Layer: 0
+  m_Name: Destroy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1866028499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866028498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1758239063}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1866028500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866028498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc5f68534de50ac49a77bddad4d45eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyObjectStep
+  onEnterStep:
+    m_PersistentCalls:
+      m_Calls: []
+  <ChildrenAreOptions>k__BackingField: 0
+  <EndDialog>k__BackingField: 1
+  <SkipDisplay>k__BackingField: 1
+  <Title>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <ActionCount>k__BackingField: 0
+  <Body>k__BackingField: 
+  <NextStepOverride>k__BackingField: {fileID: 0}
+  toDestroy: {fileID: 8235323031813671973}
 --- !u!1 &1942147555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,6 +3029,7 @@ GameObject:
   - component: {fileID: 8235323031813671975}
   - component: {fileID: 8235323031813671977}
   - component: {fileID: 8235323031813671976}
+  - component: {fileID: 8235323031813671978}
   m_Layer: 0
   m_Name: Scribe
   m_TagString: Untagged
@@ -2775,6 +3174,21 @@ MonoBehaviour:
   onFinished:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8235323031813671978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235323031813671973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70b618384553fc47b84f61dcd927bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentDataDestroyTrigger
+  key: scribe_saved
+  polarity: 1
+  listenForChanges: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

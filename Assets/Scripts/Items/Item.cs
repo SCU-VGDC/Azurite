@@ -11,6 +11,7 @@ public class Item : ScriptableObject
         DOORKEY
     }
 
+    public virtual bool Usable => false;
     [field: SerializeField] public string DisplayName { get; private set; } = "New Item";
 
     [field: SerializeField] public string Description { get; private set; } = "I am an item!";
@@ -20,4 +21,6 @@ public class Item : ScriptableObject
     [field: SerializeField] public int MaxStackSize { get; private set; } = 99;
 
     [field: SerializeField] public Category[] Categories { get; private set; } = null;
+
+    public virtual void Use() { }
 }

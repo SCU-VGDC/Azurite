@@ -10,10 +10,12 @@ using UnityEngine.UI;
 public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] private Image itemDisplay;
+    [SerializeField] private Image flashOverlay;
     [SerializeField] private TextMeshProUGUI countDisplay;
     [SerializeField] ItemHoverDisplay hoverDisplayPrefab;
 
     public event Action OnClick;
+    [NonSerialized] public bool flashing;
 
     private Item item;
     public Item Item
@@ -52,6 +54,7 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     }
 
     private ItemHoverDisplay hoverDisplay;
+    private Sequence flashSequence;
     private Tweener transferMotion;
     private float transferMotionAlpha = 0;
     private Vector2 transferStartPos;
@@ -113,6 +116,22 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     private void Update()
     {
+        UpdateTransferMotion();
+        UpdateFlash();
+    }
+
+    private void UpdateFlash()
+    {
+        if ((flashSequence != null && flashSequence.active) || (!flashing && !Item.Usable))
+            return;
+
+        flashSequence = DOTween.Sequence()
+            .Append(flashOverlay.DOFade(0.08f, 0.9f)).SetEase(Ease.OutQuad)
+            .Append(flashOverlay.DOFade(0, 0.9f)).SetEase(Ease.InQuad);
+    }
+
+    private void UpdateTransferMotion()
+    {
         if (transferMotion == null)
             return;
 
@@ -129,5 +148,7 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         OnClick = null;
         transferMotion?.Kill();
         transferMotion = null;
+        flashSequence?.Kill();
+        flashSequence = null;
     }
 }

@@ -6,6 +6,7 @@ public class PersistentDataDialogStep : DialogStep
     public string boolDataKey;
     public bool conditionalPolarity = true;
     public bool writeOnEnter = false;
+    public bool writeValue = true;
 
     public override bool TransitionAllowed => !conditionalEntry || (!conditionalPolarity ^ (PersistentDataManager.Instance.TryGet(boolDataKey, out bool value) && value));
 
@@ -13,6 +14,6 @@ public class PersistentDataDialogStep : DialogStep
     {
         base.OnEnterStep();
         if (writeOnEnter)
-            PersistentDataManager.Instance.Set(boolDataKey, true);
+            PersistentDataManager.Instance.Set(boolDataKey, writeValue);
     }
 }

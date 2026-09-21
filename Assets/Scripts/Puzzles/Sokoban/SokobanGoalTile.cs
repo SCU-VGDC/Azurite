@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Azurite Objects/Sokoban/Goal")]
 [Serializable]
 public class SokobanGoalTile : TileBase
 {

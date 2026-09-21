@@ -37,5 +37,8 @@ public class ItemHoverDisplay : MonoBehaviour
         itemImage.sprite = item.Icon;
         itemDescription.text = item.Description;
         itemName.text = item.DisplayName;
+
+        if (item.Usable)
+            itemDescription.text += "\n\n<i>Click to use</i>";
     }
 }

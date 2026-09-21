@@ -109,6 +109,7 @@ MonoBehaviour:
   allowMultipleChildrenOpen: 0
   canBeClosedBySiblings: 1
   destroyOnClose: 0
+  openWhenChildOpens: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -121,9 +122,9 @@ MonoBehaviour:
   onChildClose:
     m_PersistentCalls:
       m_Calls: []
+  toggleKey: 9
   itemBoxPrefab: {fileID: 7940001997608045312, guid: 1d1887b67baa35748ab5674d4ff0f253, type: 3}
   itemBoxContainer: {fileID: 3414947351332893288}
-  toggleKey: 9
 --- !u!1 &2170503931755544651
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +257,7 @@ GameObject:
   - component: {fileID: 576164241237580770}
   - component: {fileID: 7432149623288795697}
   m_Layer: 5
-  m_Name: Loading
+  m_Name: Transition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,6 +311,7 @@ MonoBehaviour:
   allowMultipleChildrenOpen: 0
   canBeClosedBySiblings: 0
   destroyOnClose: 0
+  openWhenChildOpens: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -1166,6 +1168,7 @@ MonoBehaviour:
   allowMultipleChildrenOpen: 0
   canBeClosedBySiblings: 1
   destroyOnClose: 0
+  openWhenChildOpens: 1
   onOpen:
     m_PersistentCalls:
       m_Calls: []

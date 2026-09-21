@@ -25,24 +25,17 @@ public class FlowerMenu : Menu
     private bool itemCrafted = false;
     private readonly ItemBox[] uiBoxes = new ItemBox[FlowerInventory.numSlots];
 
-    private void Awake()
-    {
-        invMenu = GetComponentInParent<InventoryMenu>();
-        if (invMenu == null)
-        {
-            Debug.LogError("A FlowerMenu should be a child of an InventoryMenu");
-            return;
-        }
-
-        invMenu.OnItemClicked += OnInventoryItemClicked;
-    }
-
     protected override void OnDestroy()
     {
         if (flowerInventory != null)
             flowerInventory.ReturnItems();
+
         if (invMenu != null)
+        {
             invMenu.OnItemClicked -= OnInventoryItemClicked;
+            foreach (var box in invMenu.Boxes)
+                box.flashing = false;
+        }
 
         base.OnDestroy();
     }
@@ -70,6 +63,15 @@ public class FlowerMenu : Menu
             combineButton.onClick.RemoveAllListeners();
             combineButton.onClick.AddListener(OnCombineButtonClicked);
         }
+
+        invMenu = GetComponentInParent<InventoryMenu>();
+        if (invMenu == null)
+            Debug.LogError("A FlowerMenu should be a child of an InventoryMenu");
+        else
+            invMenu.OnItemClicked += OnInventoryItemClicked;
+
+        foreach (var box in invMenu.Boxes)
+            box.flashing = box.Item.Categories.Contains(Item.Category.FLOWER);
 
         return this;
     }
@@ -103,6 +105,7 @@ public class FlowerMenu : Menu
 
         var target = invMenu.GetUIForSlot(playerInvSlot);
         target.Visible = false;
+        target.flashing = true;
         var newBox = Instantiate(itemBoxPrefab, invMenu.transform);
         newBox.Item = playerInvSlot.item;
         newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), target.transform).onComplete += () =>

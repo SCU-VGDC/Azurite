@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class InventoryMenu : Menu
 {
@@ -13,6 +12,8 @@ public class InventoryMenu : Menu
 
     [SerializeField] private ItemBox itemBoxPrefab;
     [SerializeField] private Transform itemBoxContainer;
+
+    public ItemBox[] Boxes => uiMap.Select(kv => kv.Value).ToArray();
 
     private readonly Dictionary<ItemSlot, ItemBox> uiMap = new();
 
@@ -38,6 +39,7 @@ public class InventoryMenu : Menu
         GameManager.Instance.Player.Inventory.onItemAdded.AddListener(OnItemAdded);
         GameManager.Instance.Player.Inventory.onItemRemoved.AddListener(OnItemRemoved);
         GameManager.Instance.Player.Inventory.onItemCountChanged.AddListener(OnItemCountChanged);
+        OnItemClicked += TriggerItemUse;
     }
 
     private void Update()
@@ -49,6 +51,12 @@ public class InventoryMenu : Menu
             else
                 Open();
         }
+    }
+
+    private void TriggerItemUse(ItemBox box)
+    {
+        if (box.Item.Usable)
+            box.Item.Use();
     }
 
     private void OnItemAdded(ItemSlot slot)

@@ -30,7 +30,6 @@ public partial class PersistentDataManager : MonoBehaviour
 
     public void Set<T>(string key, T value)
     {
-        T oldValue = default;
         if (persistentDict.TryGetValue(key, out var oldValueObj))
         {
             if (oldValueObj is not T)
@@ -38,14 +37,13 @@ public partial class PersistentDataManager : MonoBehaviour
                 Debug.LogError($"'{key}' is not a {typeof(T)}!");
                 return;
             }
-            oldValue = (T)oldValueObj;
         }
 
         persistentDict[key] = value;
 
         if (eventStore.TryGetValue(key, out var func))
         {
-            func.DynamicInvoke(value, oldValue);
+            func.DynamicInvoke(value);
         }
     }
 
@@ -80,7 +78,7 @@ public partial class PersistentDataManager : MonoBehaviour
         return false;
     }
 
-    public void ListenForKeyChanged<T>(string key, Action<T,T> action)
+    public void ListenForKeyChanged<T>(string key, Action<T> action)
     {
         if (eventStore.TryGetValue(key, out var func))
             eventStore[key] = Delegate.Combine(func, action);
@@ -88,7 +86,7 @@ public partial class PersistentDataManager : MonoBehaviour
             eventStore[key] = action;
     }
 
-    public void StopListeningForKeyChanged(string key, Delegate action)
+    public void StopListeningForKeyChanged<T>(string key, Action<T> action)
     {
         if (eventStore.TryGetValue(key, out var func))
         {
