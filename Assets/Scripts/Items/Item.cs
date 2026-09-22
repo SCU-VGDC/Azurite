@@ -7,6 +7,7 @@ public class Item : ScriptableObject
     {
         TOOL,
         FLOWER,
+        CRAFTED,
         MONSTER,
         DOORKEY
     }

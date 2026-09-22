@@ -9,13 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0942b2452329b49df9a5c715d42748d4, type: 3}
+  m_Script: {fileID: 11500000, guid: e49557cfc17c920429fe8838b125e2ac, type: 3}
   m_Name: PlantManual
-  m_EditorClassIdentifier: 
-  displayName: Plant Manual
-  description: Research Lab #20 - Lab Notebook
-  icon: {fileID: 21300000, guid: d0ccb6fa1cc4b420d9d155e48f365cb1, type: 3}
-  preview: {fileID: 21300000, guid: d0ccb6fa1cc4b420d9d155e48f365cb1, type: 3}
-  maxStackSize: 1
-  inspectMenuPrefab: {fileID: 4999652605848861478, guid: 161ff6344f6d842b1ae9a6e079838e30, type: 3}
-  categories: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReadableItem
+  <DisplayName>k__BackingField: Flower Manual
+  <Description>k__BackingField: Research Lab #20 - Lab Notebook
+  <Icon>k__BackingField: {fileID: 21300000, guid: bdb7b7a4201648a4a94094fd610a3231, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Categories>k__BackingField: 
+  noteText: 'rigid + fast-growing --> beanstalk
+
+
+    rigid + sticky --> maple sapling
+
+
+    sticky + sticky -->  monkey cup
+
+
+    sticky + corrosive --> poison oak sapling
+
+
+    pretty + pretty --> hydrangea'

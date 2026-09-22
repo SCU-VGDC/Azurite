@@ -202,9 +202,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   <FullscreenMenuContainer>k__BackingField: {fileID: 4089837707078156584}
+  <Inventory>k__BackingField: {fileID: 7172838217461191120}
   transitionScreen: {fileID: 7432149623288795697}
   dialogMenuPrefab: {fileID: 9016682061199573677, guid: 84dedf2b14f014dbfa79e839aec8e0e2, type: 3}
   notePopupPrefab: {fileID: 5009168513721665747, guid: c422271c5296aa44e9948904e41d040f, type: 3}
+  itemSubmissionPrefab: {fileID: 6543865082350433105, guid: 1f8d357fd21b3c94492463a48166e9c9, type: 3}
 --- !u!114 &1003142340355812946
 MonoBehaviour:
   m_ObjectHideFlags: 0

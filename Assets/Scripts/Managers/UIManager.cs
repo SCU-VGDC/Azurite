@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 [RequireComponent(typeof(Canvas))]
 [AutoStaticsCleanup]
@@ -12,9 +13,11 @@ public partial class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [field: SerializeField] public Menu FullscreenMenuContainer { get; private set; }
+    [field: SerializeField] public InventoryMenu Inventory { get; private set; }
     [SerializeField] private Menu transitionScreen;
     [SerializeField] private DialogMenu dialogMenuPrefab;
     [SerializeField] private Menu notePopupPrefab;
+    [SerializeField] private ItemSubmissionMenu itemSubmissionPrefab;
 
     public bool AnyMenuOpen => openMenus.Count > 0;
     public Canvas ScreenCanvas => GetComponent<Canvas>();
@@ -56,11 +59,18 @@ public partial class UIManager : MonoBehaviour
 
     public Menu CreateNotePopup(string text)
     {
-        var notePopup = Instantiate(notePopupPrefab, FullscreenMenuContainer.transform).GetComponent<Menu>();
+        var notePopup = Instantiate(notePopupPrefab, FullscreenMenuContainer.transform);
         notePopup.GetComponentInChildren<TextMeshProUGUI>().text = text;
         notePopup.Open();
 
         return notePopup;
+    }
+
+    public ItemSubmissionMenu CreateItemSubmission()
+    {
+        var itemSub = Instantiate(itemSubmissionPrefab, Inventory.transform);
+        itemSub.Open();
+        return itemSub;
     }
 
     public Tween SetTransitionVisible(bool active)

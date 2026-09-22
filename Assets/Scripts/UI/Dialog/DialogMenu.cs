@@ -34,7 +34,7 @@ public class DialogMenu : Menu
         dialog.onFinished.AddListener(Close);
         dialog.onStepChanged.AddListener(OnStepChanged);
         Open();
-        dialog.StartDialogSequence();
+        dialog.ToFirstStep();
     }
 
     protected override Tween AnimateOnOpen()

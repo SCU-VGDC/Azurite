@@ -58,7 +58,8 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     private Tweener transferMotion;
     private float transferMotionAlpha = 0;
     private Vector2 transferStartPos;
-    private Transform transferTargetParent;
+    private Transform transferTarget;
+    private bool reparentToTarget;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -91,11 +92,12 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         rt.pivot = Vector2.one / 2;
     }
 
-    public Tweener AnimateItemTransfer(RectTransform start, Transform target)
+    public Tweener AnimateItemTransfer(RectTransform start, Transform end, bool changeParentOnEnd)
     {
         transferMotionAlpha = 0;
         transferStartPos = start.position;
-        transferTargetParent = target;
+        transferTarget = end;
+        reparentToTarget = changeParentOnEnd;
 
         var rt = GetComponent<RectTransform>();
         rt.anchorMin = start.anchorMin;
@@ -109,9 +111,9 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         return transferMotion;
     }
 
-    public Tweener AnimateItemTransfer(Transform target)
+    public Tweener AnimateItemTransfer(Transform end, bool changeParentOnEnd)
     {
-        return AnimateItemTransfer(GetComponent<RectTransform>(), target);
+        return AnimateItemTransfer(GetComponent<RectTransform>(), end, changeParentOnEnd);
     }
 
     private void Update()
@@ -135,11 +137,13 @@ public class ItemBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         if (transferMotion == null)
             return;
 
-        transform.position = Vector2.Lerp(transferStartPos, transferTargetParent.position, transferMotionAlpha);
+        transform.position = Vector2.Lerp(transferStartPos, transferTarget.position, transferMotionAlpha);
         if (!transferMotion.active)
         {
             transferMotion = null;
-            transform.SetParent(transferTargetParent, false);
+
+            if (reparentToTarget)
+                transform.SetParent(transferTarget, false);
         }
     }
 

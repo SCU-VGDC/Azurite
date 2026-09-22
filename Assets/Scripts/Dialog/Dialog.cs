@@ -37,7 +37,7 @@ public class Dialog : MonoBehaviour
         _currentStep = null;
     }
 
-    public void StartDialogSequence()
+    public void ToFirstStep()
     {
         int i = 0;
         while (i < transform.childCount)

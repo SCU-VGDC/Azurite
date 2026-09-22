@@ -9,8 +9,6 @@ using System.Linq;
 [RequireComponent(typeof(CanvasGroup))]
 public class LostPagesMenu : Menu
 {
-    
-
     public KeyCode closeKey = KeyCode.E;
     [SerializeField] private LostPageQuestion questionPrefab;
     [SerializeField] private RectTransform questionContainer;

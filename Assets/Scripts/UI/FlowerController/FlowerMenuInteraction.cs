@@ -12,7 +12,7 @@ public class FlowerMenuInteraction : MonoBehaviour
 
     public void OpenMenu()
     {
-        InventoryMenu inv = UIManager.Instance.GetComponentInChildren<InventoryMenu>();
+        InventoryMenu inv = UIManager.Instance.Inventory;
 
         var flowerMenu = Instantiate(menuPrefab, inv.transform);
         flowerMenu.Init(flowerInventory);

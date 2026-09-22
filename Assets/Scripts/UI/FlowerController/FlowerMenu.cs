@@ -3,7 +3,6 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class FlowerMenu : Menu
@@ -71,17 +70,22 @@ public class FlowerMenu : Menu
             invMenu.OnItemClicked += OnInventoryItemClicked;
 
         foreach (var box in invMenu.Boxes)
-            box.flashing = box.Item.Categories.Contains(Item.Category.FLOWER);
+            box.flashing = CanTakeItem(box.Item);
 
         return this;
     }
 
-    private void OnInventoryItemClicked(ItemBox itemBox)
+    private bool CanTakeItem(Item item)
+    {
+        return item.Categories.Contains(Item.Category.FLOWER) && !item.Categories.Contains(Item.Category.CRAFTED);
+    }
+
+    private void OnInventoryItemClicked(ItemSlot slot, ItemBox itemBox)
     {
         if (itemCrafted)
             return;
 
-        if (!itemBox.Item.Categories.Contains(Item.Category.FLOWER))
+        if (!CanTakeItem(slot.item))
             return;
 
         var slotIndex = flowerInventory.AddFlower(itemBox.Item);
@@ -90,7 +94,7 @@ public class FlowerMenu : Menu
             var targetSlot = slots[slotIndex];
             var newBox = Instantiate(itemBoxPrefab, targetSlot.transform);
             newBox.Item = itemBox.Item;
-            newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), targetSlot);
+            newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), targetSlot, false);
             newBox.OnClick += () => OnFlowerSlotClicked(slotIndex, newBox);
 
             uiBoxes[slotIndex] = newBox;
@@ -108,7 +112,7 @@ public class FlowerMenu : Menu
         target.flashing = true;
         var newBox = Instantiate(itemBoxPrefab, invMenu.transform);
         newBox.Item = playerInvSlot.item;
-        newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), target.transform).onComplete += () =>
+        newBox.AnimateItemTransfer(itemBox.GetComponent<RectTransform>(), target.transform, false).onComplete += () =>
         {
             Destroy(newBox.gameObject);
             target.Visible = true;
@@ -136,7 +140,7 @@ public class FlowerMenu : Menu
             var go = box.gameObject;
             if (box != null)
             {
-                box.AnimateItemTransfer(combineButton.transform).onComplete += () => Destroy(go);
+                box.AnimateItemTransfer(combineButton.transform, false).onComplete += () => Destroy(go);
                 uiBoxes[i] = null;
             }
         }
@@ -148,7 +152,7 @@ public class FlowerMenu : Menu
         boxRt.position = combineButton.transform.position;
         boxRt.DOAnchorPos(boxRt.anchoredPosition + Vector2.up * 150, 0.8f).SetEase(Ease.OutBack).SetDelay(0.55f).onComplete += () =>
         {
-            transferBox.AnimateItemTransfer(craftedItemBox.transform).onComplete += () =>
+            transferBox.AnimateItemTransfer(craftedItemBox.transform, false).onComplete += () =>
             {
                 if (IsOpen)
                     Close();

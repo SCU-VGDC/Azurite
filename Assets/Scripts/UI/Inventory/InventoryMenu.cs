@@ -8,7 +8,7 @@ public class InventoryMenu : Menu
 {
     public KeyCode toggleKey = KeyCode.Tab;
 
-    public event Action<ItemBox> OnItemClicked;
+    public event Action<ItemSlot, ItemBox> OnItemClicked;
 
     [SerializeField] private ItemBox itemBoxPrefab;
     [SerializeField] private Transform itemBoxContainer;
@@ -53,10 +53,10 @@ public class InventoryMenu : Menu
         }
     }
 
-    private void TriggerItemUse(ItemBox box)
+    private void TriggerItemUse(ItemSlot slot, ItemBox _)
     {
-        if (box.Item.Usable)
-            box.Item.Use();
+        if (slot.item.Usable)
+            slot.item.Use();
     }
 
     private void OnItemAdded(ItemSlot slot)
@@ -64,7 +64,7 @@ public class InventoryMenu : Menu
         var box = Instantiate(itemBoxPrefab, itemBoxContainer);
         box.Item = slot.item;
         box.Count = slot.count;
-        box.OnClick += () => OnItemClicked?.Invoke(box);
+        box.OnClick += () => OnItemClicked?.Invoke(slot, box);
         uiMap[slot] = box;
     }
 

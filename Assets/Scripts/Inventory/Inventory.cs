@@ -69,6 +69,14 @@ public class Inventory : MonoBehaviour
             return null;
 
         var slot = slots.First(slot => slot.item == item);
+        return RemoveItem(slot, amount);
+    }
+
+    public ItemSlot RemoveItem(ItemSlot slot, int amount = 1)
+    {
+        if (amount <= 0)
+            return slot;
+
         amount = Math.Min(amount, slot.count);
         slot.count -= amount;
 
