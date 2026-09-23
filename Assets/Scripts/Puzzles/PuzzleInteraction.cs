@@ -1,44 +1,66 @@
-using UnityEngine;
-using Unity.Cinemachine;
-using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using Unity.Scripting.LifecycleManagement;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [AutoStaticsCleanup]
-public partial class PuzzleInteraction : MonoBehaviour
+public partial class PuzzleInteraction : InteractionTrigger
 {
+    public static Camera puzzleCamera;
+    public static Vector3 puzzleLocation = new(100, 0, 0);
+
+    public override bool CanInteract => !Solved;
+    public bool Solved { get; private set; } = false;
+
     private Player playerScript;
     [SerializeField] private List<GameObject> puzzlePrefabs;
-    private GameObject instantiatePuzzlePrefab;
-    public static Vector3 puzzleLocation = new(100, 0, 0);
+    private GameObject activePuzzle;
 
     private Camera mainCamera;
     private CinemachineCamera mainVirtualCamera;
     private UniversalAdditionalCameraData mainCameraUniversalAdditionalCameraData;
     private int mainVirtualCameraPriority;
-    static public Camera puzzleCamera;
 
-    void Start()
+    private void Start()
     {
         mainCamera = Camera.main;
         mainCameraUniversalAdditionalCameraData = Camera.main.GetUniversalAdditionalCameraData();
         mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
-        playerScript = GameManager.Instance.Player.GetComponent<Player>();
+        playerScript = GameManager.Instance.Player;
+        GameManager.Instance.OnPuzzleEnd += EndGame;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameManager.Instance.OnPuzzleEnd -= EndGame;
+        EndGame(false);
+    }
+
+    public override void Trigger(Player interactingPlayer)
+    {
+        StartGame();
     }
 
     public void StartGame()
     {
+        if (activePuzzle != null)
+            return;
+
+        if (puzzleCamera != null)
+            Destroy(puzzleCamera.gameObject);
+
         // select a random puzzle
-        int randomPuzzleIndex = Random.Range(0, puzzlePrefabs.Count);
+        int randomPuzzleIndex = UnityEngine.Random.Range(0, puzzlePrefabs.Count);
         GameObject puzzlePrefab = puzzlePrefabs[randomPuzzleIndex];
 
         // freeze the player
         playerScript.Freeze("PuzzleInteraction");
-        GameManager.Instance.Paused = true;
 
         // instantiate puzzle
-        instantiatePuzzlePrefab = Instantiate(puzzlePrefab, puzzleLocation, Quaternion.identity);
+        activePuzzle = Instantiate(puzzlePrefab, puzzleLocation, Quaternion.identity);
 
         // create new camera at puzzle
         puzzleCamera = new GameObject("TempCamera").AddComponent<Camera>();
@@ -59,23 +81,28 @@ public partial class PuzzleInteraction : MonoBehaviour
         // turn on puzzle camera
         puzzleCamera.enabled = true;
         mainVirtualCamera.Priority = -1;
-
-        GameManager.Instance.OnPuzzleEnd += EndGame;
     }
 
-    public void EndGame()
+    public void EndGame(bool success)
     {
+        Solved = success;
         mainVirtualCamera.Priority = mainVirtualCameraPriority;
 
         // remove puzzle camera
-        mainCameraUniversalAdditionalCameraData.cameraStack.Remove(puzzleCamera);
-        Destroy(puzzleCamera.gameObject);
+        if (puzzleCamera != null)
+        {
+            mainCameraUniversalAdditionalCameraData.cameraStack.Remove(puzzleCamera);
+            Destroy(puzzleCamera.gameObject);
+        }
 
         // remove puzzle prefab
-        Destroy(instantiatePuzzlePrefab);
+        if (activePuzzle != null)
+            Destroy(activePuzzle);
 
         // resume player
         playerScript.Unfreeze("PuzzleInteraction");
-        GameManager.Instance.Paused = false;
+
+        if (success && TryGetComponent<SpriteRenderer>(out var sprite))
+            sprite.color = Color.gray4;
     }
 }

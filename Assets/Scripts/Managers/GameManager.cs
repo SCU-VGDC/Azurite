@@ -35,7 +35,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public event Action OnPuzzleEnd;
+    public event Action<bool> OnPuzzleEnd;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
     private static void CreateManager()
@@ -113,8 +113,8 @@ public partial class GameManager : MonoBehaviour
         action?.Invoke();
     }
 
-    public void EndCurrentPuzzle()
+    public void EndCurrentPuzzle(bool success)
     {
-        OnPuzzleEnd?.Invoke();
+        OnPuzzleEnd?.Invoke(success);
     }
 }

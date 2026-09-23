@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class PipePuzzle : MonoBehaviour
 {
     private bool hasWon;
-    
+
     [SerializeField] private Tilemap tileMap;
 
     [SerializeField] private Sprite tileBackground;
@@ -44,7 +41,7 @@ public class PipePuzzle : MonoBehaviour
         public List<Quaternion> OpenSides { get; set; }
     }
 
-    void Start()
+    private void Start()
     {
         hasWon = false;
 
@@ -56,14 +53,14 @@ public class PipePuzzle : MonoBehaviour
         };
 
         // both start and end pipe defaulted to all sides
-        PipeInfo startPipeInfo = new PipeInfo(new List<Quaternion> {Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f), Quaternion.Euler(0f, 0, 270f)});
-        PipeInfo endPipeInfo = new PipeInfo(new List<Quaternion> {Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f), Quaternion.Euler(0f, 0, 270f)});
-        
+        PipeInfo startPipeInfo = new(new List<Quaternion> { Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f), Quaternion.Euler(0f, 0, 270f) });
+        PipeInfo endPipeInfo = new(new List<Quaternion> { Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f), Quaternion.Euler(0f, 0, 270f) });
+
         // set sides for all types of pipe
-        PipeInfo straightPipeInfo = new PipeInfo(new List<Quaternion> {Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 180f)});
-        PipeInfo TShapePipeInfo = new PipeInfo(new List<Quaternion> {Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f)});
-        PipeInfo PlusShapePipeInfo = new PipeInfo(new List<Quaternion> {Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f), Quaternion.Euler(0f, 0, 270f)});
-        PipeInfo LShapePipeInfo = new PipeInfo(new List<Quaternion> {Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f)});
+        PipeInfo straightPipeInfo = new(new List<Quaternion> { Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 180f) });
+        PipeInfo TShapePipeInfo = new(new List<Quaternion> { Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f) });
+        PipeInfo PlusShapePipeInfo = new(new List<Quaternion> { Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f), Quaternion.Euler(0f, 0, 180f), Quaternion.Euler(0f, 0, 270f) });
+        PipeInfo LShapePipeInfo = new(new List<Quaternion> { Quaternion.Euler(0f, 0, 0f), Quaternion.Euler(0f, 0, 90f) });
 
         // initialize quick look up dicts
         spriteToPipeInfo = new Dictionary<Sprite, PipeInfo> {
@@ -89,7 +86,7 @@ public class PipePuzzle : MonoBehaviour
         visitedPipesToReset = new Dictionary<Vector3Int, Tile>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -104,9 +101,9 @@ public class PipePuzzle : MonoBehaviour
             if (tileSprite)
             {
                 // see if we should rotate the tile
-                List<Sprite> tilesThatCanRotate = new List<Sprite>(){ tileStraight, tileTShape, tilePlusShape, tileLShape };
+                List<Sprite> tilesThatCanRotate = new() { tileStraight, tileTShape, tilePlusShape, tileLShape };
 
-                if (tilesThatCanRotate.Contains(tileSprite)) 
+                if (tilesThatCanRotate.Contains(tileSprite))
                 {
                     Quaternion currentRotation = tileMap.GetTransformMatrix(tilePos).rotation;
 
@@ -141,13 +138,11 @@ public class PipePuzzle : MonoBehaviour
         // propagate through all the pipes!
         if (startPos != null)
         {
-            DFS((Vector3Int) startPos);
+            DFS((Vector3Int)startPos);
 
             if (hasWon)
             {
-                Debug.Log("Won!");
-
-                StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
+                OnSolve();
             }
             else
             {
@@ -174,6 +169,13 @@ public class PipePuzzle : MonoBehaviour
         hasWon = false;
     }
 
+    private async void OnSolve()
+    {
+        Debug.Log("Won!");
+        await Awaitable.WaitForSecondsAsync(1);
+        GameManager.Instance.EndCurrentPuzzle(true);
+    }
+
     private void DFS(Vector3Int tilePos)
     {
         TileBase tile = tileMap.GetTile(tilePos);
@@ -181,7 +183,7 @@ public class PipePuzzle : MonoBehaviour
         if (tile != null)
         {
             // make sure we don't repeat tiles
-            visitedPipes.Add(tilePos);
+            _ = visitedPipes.Add(tilePos);
 
             // get sprite to determine what kind of tile this is
             Sprite tileSprite = tileMap.GetSprite(tilePos);
@@ -194,13 +196,13 @@ public class PipePuzzle : MonoBehaviour
 
             // get tile transform matrix for rotation
             Matrix4x4 transformMatrix = tileMap.GetTransformMatrix(tilePos);
-            
+
             // save current tile (for resetting)
             Tile copyOfCurrentTile = ScriptableObject.CreateInstance<Tile>();
             copyOfCurrentTile.hideFlags = HideFlags.DontSave; // <-- NEED THIS SO UNITY DOESNT REPLACE TILE PAST PLAY SESSION
             copyOfCurrentTile.transform = transformMatrix;
             copyOfCurrentTile.sprite = tileSprite;
-            
+
             visitedPipesToReset[tilePos] = copyOfCurrentTile;
 
             // make wet
@@ -208,26 +210,26 @@ public class PipePuzzle : MonoBehaviour
             newTile.hideFlags = HideFlags.DontSave; // <-- NEED THIS SO UNITY DOESNT REPLACE TILE PAST PLAY SESSION
             newTile.transform = transformMatrix;
             newTile.sprite = spriteToWetSprite[tileSprite];
-            
+
             tileMap.SetTile(tilePos, newTile);
             tileMap.RefreshTile(tilePos);
 
-            PipeInfo currentPipeInfo = spriteToPipeInfo[tileSprite]; 
-            
+            PipeInfo currentPipeInfo = spriteToPipeInfo[tileSprite];
+
             // for every entrance propagate!
             foreach (Quaternion openSide in currentPipeInfo.OpenSides)
             {
-                Vector3Int nextDir = getDir(transformMatrix.rotation * openSide);
+                Vector3Int nextDir = GetDir(transformMatrix.rotation * openSide);
 
                 Vector3Int nextPos = tilePos + nextDir;
                 Sprite nextTileSprite = tileMap.GetSprite(nextPos);
-                
+
                 // only propagate if not visited and if the tile is a pipe
                 if (!visitedPipes.Contains(nextPos) && nextTileSprite != null && spriteToPipeInfo.ContainsKey(nextTileSprite))
                 {
                     foreach (Quaternion nextOpenSide in spriteToPipeInfo[nextTileSprite].OpenSides)
                     {
-                        if (nextDir + getDir(tileMap.GetTransformMatrix(nextPos).rotation * nextOpenSide) == Vector3Int.zero)
+                        if (nextDir + GetDir(tileMap.GetTransformMatrix(nextPos).rotation * nextOpenSide) == Vector3Int.zero)
                         {
                             DFS(nextPos);
                         }
@@ -237,7 +239,7 @@ public class PipePuzzle : MonoBehaviour
         }
     }
 
-    private Vector3Int getDir(Quaternion quaternion)
+    private Vector3Int GetDir(Quaternion quaternion)
     {
         int roundToNearestTen = ((int)Math.Round(quaternion.eulerAngles.z / 10.0)) * 10;
 

@@ -11,7 +11,7 @@ public class LaserPuzzle : MonoBehaviour
 
     private const char tileBackground = '0';
     private const char tileLaserSource = '1';
-    private const char tileOneMirror= '2';
+    private const char tileOneMirror = '2';
     private const char tileTwoMirror = '3';
     private const char tileSplitter = '4';
     private const char tileLaserEnd = '5';
@@ -46,7 +46,7 @@ public class LaserPuzzle : MonoBehaviour
         public List<Tuple<Quaternion, Quaternion>> SidePairs { get; set; }
     }
 
-    void Start()
+    private void Start()
     {
         tileQuaternionToVector = new Dictionary<int, Vector3Int>() {
             {0, new Vector3Int(1, 0, 0)},
@@ -55,19 +55,19 @@ public class LaserPuzzle : MonoBehaviour
             {90, new Vector3Int(0, 1, 0)},
         };
 
-        oneMirrorInfo = new MirrorInfo(new List<Tuple<Quaternion, Quaternion>> 
-            { new Tuple<Quaternion, Quaternion>(Quaternion.Euler(0f, 0, -180f), Quaternion.Euler(0f, 0, -270f))});
-        
-        twoMirrorInfo = new MirrorInfo(new List<Tuple<Quaternion, Quaternion>> 
-            { new Tuple<Quaternion, Quaternion>(Quaternion.Euler(0f, 0f, -180f), Quaternion.Euler(0f, 0f, -270f)),
-              new Tuple<Quaternion, Quaternion>(Quaternion.Euler(0f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f))});
+        oneMirrorInfo = new MirrorInfo(new List<Tuple<Quaternion, Quaternion>>
+            { new(Quaternion.Euler(0f, 0, -180f), Quaternion.Euler(0f, 0, -270f))});
 
-        splitterSides = new Quaternion[3] {Quaternion.Euler(0f, 0f, -180f), Quaternion.Euler(0f, 0f, -270f), Quaternion.Euler(0f, 0f, -90f)};
-    
+        twoMirrorInfo = new MirrorInfo(new List<Tuple<Quaternion, Quaternion>>
+            { new(Quaternion.Euler(0f, 0f, -180f), Quaternion.Euler(0f, 0f, -270f)),
+              new(Quaternion.Euler(0f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f))});
+
+        splitterSides = new Quaternion[3] { Quaternion.Euler(0f, 0f, -180f), Quaternion.Euler(0f, 0f, -270f), Quaternion.Euler(0f, 0f, -90f) };
+
         laserPrefabs = new List<GameObject>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -81,12 +81,12 @@ public class LaserPuzzle : MonoBehaviour
             // if we clicked on a tile
             if (tile)
             {
-                char tileID = tile.name[tile.name.Length - 1];
+                char tileID = tile.name[^1];
 
                 // see if we should rotate the tile
-                List<char> tilesThatCanRotate = new List<char>(){ tileOneMirror, tileTwoMirror, tileSplitter };
+                List<char> tilesThatCanRotate = new() { tileOneMirror, tileTwoMirror, tileSplitter };
 
-                if (tilesThatCanRotate.Contains(tileID)) 
+                if (tilesThatCanRotate.Contains(tileID))
                 {
                     Quaternion currentRotation = tileMap.GetTransformMatrix(tilePos).rotation;
 
@@ -114,12 +114,12 @@ public class LaserPuzzle : MonoBehaviour
 
             if (tile)
             {
-                char tileID = tile.name[tile.name.Length - 1];
+                char tileID = tile.name[^1];
 
                 if (tileID == tileLaserSource)
                 {
                     sourcePos = tilePos;
-                    
+
                     // rotated source to the left 90 degrees because the art display the laser exiting to the left
                     Quaternion rotateBy = Quaternion.Euler(0f, 0, -180f);
                     sourceDir = GetDir(tileMap.GetTransformMatrix(tilePos).rotation * rotateBy);
@@ -130,21 +130,21 @@ public class LaserPuzzle : MonoBehaviour
         }
 
         // its laser time
-        Queue<LaserCursor> laserQueue = new Queue<LaserCursor>(); 
+        Queue<LaserCursor> laserQueue = new();
         MirrorInfo currentMirrorInfo;
         bool wrongSide;
 
         // add OG cursor
-        laserQueue.Enqueue(new LaserCursor((Vector3Int) sourcePos + (Vector3Int) sourceDir, (Vector3Int) sourceDir));
+        laserQueue.Enqueue(new LaserCursor((Vector3Int)sourcePos + (Vector3Int)sourceDir, (Vector3Int)sourceDir));
 
         // double looped just to make it easier to read the cursorPos/cursorDir
-        while (laserQueue.Count != 0) 
+        while (laserQueue.Count != 0)
         {
             // check next tile
             TileBase tile = tileMap.GetTile(laserQueue.Peek().CursorPos);
             if (tile == null)
             {
-                laserQueue.Dequeue();
+                _ = laserQueue.Dequeue();
 
                 // need this bc queues in loops are silly
                 if (laserQueue.Count == 0)
@@ -158,8 +158,8 @@ public class LaserPuzzle : MonoBehaviour
             laserPrefabs.Add(laserPrefab);
 
             tile = tileMap.GetTile(laserQueue.Peek().CursorPos);
-            char tileID = tile.name[tile.name.Length - 1];
-            switch (tileID) 
+            char tileID = tile.name[^1];
+            switch (tileID)
             {
                 case tileBackground:
                     // continue in same direction
@@ -168,8 +168,8 @@ public class LaserPuzzle : MonoBehaviour
                     break;
 
                 case tileLaserSource:
-                    laserQueue.Dequeue();
-                    
+                    _ = laserQueue.Dequeue();
+
                     break;
 
                 case tileOneMirror:
@@ -201,10 +201,10 @@ public class LaserPuzzle : MonoBehaviour
                             break;
                         }
                     }
-                    
+
                     if (wrongSide)
                     {
-                        laserQueue.Dequeue();
+                        _ = laserQueue.Dequeue();
                     }
 
                     break;
@@ -238,12 +238,12 @@ public class LaserPuzzle : MonoBehaviour
                             break;
                         }
                     }
-                    
+
                     if (wrongSide)
                     {
-                        laserQueue.Dequeue();
+                        _ = laserQueue.Dequeue();
                     }
-                    
+
                     break;
 
                 case tileSplitter:
@@ -269,7 +269,7 @@ public class LaserPuzzle : MonoBehaviour
                             }
 
                             // remove the current laser
-                            laserQueue.Dequeue();
+                            _ = laserQueue.Dequeue();
 
                             break;
                         }
@@ -277,27 +277,26 @@ public class LaserPuzzle : MonoBehaviour
 
                     if (wrongSide)
                     {
-                        laserQueue.Dequeue();
+                        _ = laserQueue.Dequeue();
                     }
 
                     break;
 
                 case tileLaserEnd:
                     // you won!
-                    Debug.Log("you won!");
-
-                    StartCoroutine(GameManager.Instance.Sleep(1.0f, () => 
-                    {
-                        DestroyLaserPrefabs(); 
-
-                        GameManager.Instance.EndCurrentPuzzle();
-                    }));
-                    
+                    OnSolve();
                     laserQueue.Dequeue();
-
                     break;
             }
         }
+    }
+
+    private async void OnSolve()
+    {
+        Debug.Log("you won!");
+        await Awaitable.WaitForSecondsAsync(1);
+        DestroyLaserPrefabs();
+        GameManager.Instance.EndCurrentPuzzle(true);
     }
 
     private Vector3Int GetDir(Quaternion quaternion)

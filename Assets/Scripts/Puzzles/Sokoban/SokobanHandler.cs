@@ -100,12 +100,7 @@ public class SokobanHandler : MonoBehaviour
 
         if (CheckSolution())
         {
-            Debug.Log("wow you did it");
-            solved = true;
-            onSolved.Invoke();
-
-            // TODO: add to onSolved
-            StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
+            OnSolve();
         }
     }
 
@@ -121,5 +116,18 @@ public class SokobanHandler : MonoBehaviour
             if (tilemap.GetTile(pos) != boxTile) return false;
         }
         return true;
+    }
+
+    private async void OnSolve()
+    {
+        if (solved)
+            return;
+
+        Debug.Log("wow you did it");
+        solved = true;
+        onSolved.Invoke();
+
+        await Awaitable.WaitForSecondsAsync(1);
+        GameManager.Instance.EndCurrentPuzzle(true);
     }
 }

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,7 +15,7 @@ public class InsightPuzzle : MonoBehaviour
     private Dictionary<Sprite, Sprite> toggledTilesMap;
 
     // runs before start!
-    void Awake()
+    private void Awake()
     {
         // setup:
         toggledTilesMap = new Dictionary<Sprite, Sprite>() {
@@ -51,7 +49,7 @@ public class InsightPuzzle : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         // toggle a tile if toggleable!
         if (Input.GetMouseButtonDown(0))
@@ -80,7 +78,7 @@ public class InsightPuzzle : MonoBehaviour
 
     public void CheckIfWon()
     {
-        List<Vector3Int> solutionTilesCopy = new List<Vector3Int>(solutionTiles);
+        List<Vector3Int> solutionTilesCopy = new(solutionTiles);
 
         foreach (Vector3Int tilePos in tileMap.cellBounds.allPositionsWithin)
         {
@@ -91,7 +89,7 @@ public class InsightPuzzle : MonoBehaviour
             {
                 if (solutionTilesCopy.Contains(tilePos))
                 {
-                    solutionTilesCopy.Remove(tilePos);
+                    _ = solutionTilesCopy.Remove(tilePos);
                 }
                 else
                 {
@@ -106,10 +104,10 @@ public class InsightPuzzle : MonoBehaviour
         }
     }
 
-    public void WonGame()
+    public async void WonGame()
     {
         Debug.Log("wooo you won!");
-
-        StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
+        await Awaitable.WaitForSecondsAsync(1);
+        GameManager.Instance.EndCurrentPuzzle(true);
     }
 }

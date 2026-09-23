@@ -1,4 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
+using System;
 
 public class IcePuzzlePlayerController : MonoBehaviour
 {
@@ -8,20 +10,11 @@ public class IcePuzzlePlayerController : MonoBehaviour
     /// <summary>The goal hitbox.</summary>
     [Tooltip("The goal hitbox.")]
     public Collider2D goalCollider = null;
-    /// <summary>Whether or not the puzzle has been completed.</summary>
-    [Tooltip("Whether or not the puzzle has been completed.")]
-    public bool puzzleComplete = false;
-    public bool runOnceFlag = false;
     /// <summary>The duration of the slide animation in seconds.</summary>
     [Tooltip("The duration of the slide animation in seconds.")]
     public float slideDuration = 0.5f;
 
-    /// <summary>The start offset of the slide animation.</summary>
-    private Vector3 startPos = Vector3.zero;
-    /// <summary>The end offset of the slide animation.</summary>
-    private Vector3 finalPos = Vector3.zero;
-    /// <summary>The animation progress from 0 to 1.</summary>
-    private float animationTime = 1;
+    private Tween slide;
 
     void Start()
     {
@@ -31,39 +24,6 @@ public class IcePuzzlePlayerController : MonoBehaviour
 
     void Update()
     {
-        // Play the slide animation.
-        if (animationTime < 1)
-        {
-            animationTime += Time.deltaTime / slideDuration;
-
-            if (animationTime > 1)
-            {
-                animationTime = 1;
-            }
-
-            // The player's offset is determined by the equation 6x^5 - 15x^4 + 10x^3
-            float interpolatedTime = animationTime * animationTime * animationTime * ((animationTime * ((6f * animationTime) - 15f)) + 10f);
-
-            transform.position = new Vector3(
-                ((finalPos.x - startPos.x) * interpolatedTime) + startPos.x,
-                ((finalPos.y - startPos.y) * interpolatedTime) + startPos.y,
-                0
-            );
-        }
-
-        // Stop further processing if the puzzle has been completed
-        if (puzzleComplete)
-        {
-            if (!runOnceFlag)
-            {
-                StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
-
-                runOnceFlag = true;
-            }
-
-            return;
-        }
-
         // Player movement is controlled by WASD or arrow keys.
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -83,18 +43,20 @@ public class IcePuzzlePlayerController : MonoBehaviour
         }
     }
 
+    private async void OnSolve()
+    {
+        await Awaitable.WaitForSecondsAsync(1);
+        GameManager.Instance.EndCurrentPuzzle(true);
+    }
+
     /// <summary>
     /// Move the player in a straight line.
     /// </summary>
     /// <param name="direction">The unit vector representing the player's driection.</param>
     private void Move(Vector2Int direction)
     {
-        // If the slide animation hasn't completed, teleport the player.
-        if (animationTime < 1)
-        {
-            animationTime = 1;
-            transform.position = finalPos;
-        }
+        if (slide != null && slide.active)
+            return;
 
         Vector2Int position = new((int)transform.position.x, (int)transform.position.y);
         RaycastHit2D[] raycasts = null;
@@ -111,15 +73,13 @@ public class IcePuzzlePlayerController : MonoBehaviour
         {
             if (raycasts[i].collider == goalCollider)
             {
-                puzzleComplete = true;
+                OnSolve();
                 position += direction;
                 break;
             }
         }
 
         // Start the slide animation.
-        animationTime = 0;
-        startPos = transform.position;
-        finalPos = (Vector3Int)position;
+        slide = transform.DOMove((Vector3)(Vector3Int)position, slideDuration).SetEase(Ease.OutQuart);
     }
 }

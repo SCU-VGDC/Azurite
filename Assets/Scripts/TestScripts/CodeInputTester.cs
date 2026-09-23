@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(InteractionTrigger))]
 public class CodeInputTester : MonoBehaviour
 {
     [SerializeField] private CodePanel codePanel;

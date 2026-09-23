@@ -23,24 +23,24 @@ public class TilePlayerController : MonoBehaviour
     private float moveTimer = 0;
     private Vector2Int moveDirection = Vector2Int.zero;
 
-    void Update()
+    private void Update()
     {
-        if (this.animationTime < 1)
+        if (animationTime < 1)
         {
-            this.animationTime += Time.deltaTime / this.slideDuration;
-            if (this.animationTime > 1) this.animationTime = 1;
+            animationTime += Time.deltaTime / slideDuration;
+            if (animationTime > 1) animationTime = 1;
 
-            float interpolatedTime = this.animationTime * this.animationTime * this.animationTime *
-                                     (this.animationTime * (6f * this.animationTime - 15f) + 10f);
+            float interpolatedTime = animationTime * animationTime * animationTime *
+                                     (animationTime * (6f * animationTime - 15f) + 10f);
 
-            this.transform.position = new Vector3(
-                (this.finalPos.x - this.startPos.x) * interpolatedTime + this.startPos.x,
-                (this.finalPos.y - this.startPos.y) * interpolatedTime + this.startPos.y,
+            transform.position = new Vector3(
+                (finalPos.x - startPos.x) * interpolatedTime + startPos.x,
+                (finalPos.y - startPos.y) * interpolatedTime + startPos.y,
                 0
             );
         }
 
-        if (this.puzzleComplete) return;
+        if (puzzleComplete) return;
 
         moveTimer -= Time.deltaTime;
 
@@ -65,37 +65,39 @@ public class TilePlayerController : MonoBehaviour
             moveDirection = Vector2Int.zero;
         }
     }
-    void GoalComplete()
+
+    private async void GoalComplete()
     {
         Debug.Log("Goal Completed!");
-
-        StartCoroutine(GameManager.Instance.Sleep(1.0f, GameManager.Instance.EndCurrentPuzzle));
+        await Awaitable.WaitForSecondsAsync(1);
+        GameManager.Instance.EndCurrentPuzzle(true);
     }
+
     private void Move(Vector2Int direction)
     {
-        if (this.animationTime < 1) return;
+        if (animationTime < 1) return;
 
-        Vector2Int position = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
+        Vector2Int position = new((int)transform.position.x, (int)transform.position.y);
         RaycastHit2D[] raycasts = null;
 
-        for (int i = 0; i < this.maxScanDistance && (raycasts = Physics2D.LinecastAll(position, position + direction)).Length == 0; ++i)
+        for (int i = 0; i < maxScanDistance && (raycasts = Physics2D.LinecastAll(position, position + direction)).Length == 0; ++i)
         {
             position += direction;
         }
 
         for (int i = 0; i < raycasts.Length; ++i)
         {
-            if (raycasts[i].collider == this.goalCollider)
+            if (raycasts[i].collider == goalCollider)
             {
-                this.puzzleComplete = true;
+                puzzleComplete = true;
                 position += direction;
                 GoalComplete();
                 break;
             }
         }
 
-        this.animationTime = 0;
-        this.startPos = this.transform.position;
-        this.finalPos = (Vector3Int)position;
+        animationTime = 0;
+        startPos = transform.position;
+        finalPos = (Vector3Int)position;
     }
 }

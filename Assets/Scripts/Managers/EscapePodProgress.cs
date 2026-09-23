@@ -1,12 +1,12 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EscapePodProgress : MonoBehaviour
 {
     [SerializeField] private Item escapePart;
-    [SerializeField] private List<GameObject> doorObjects = new List<GameObject>();
+    [SerializeField] private List<GameObject> doorObjects = new();
     [SerializeField] private GameObject door;
-    
+
     private int EscapePodParts
     {
         get => PersistentDataManager.Instance.Get<int>("collectedParts");
@@ -22,11 +22,11 @@ public class EscapePodProgress : MonoBehaviour
         {
             // uhhhh, adding one more part to the current amount of parts we have
             EscapePodParts++;
-            player.Inventory.RemoveItem(escapePart, 1);
+            _ = player.Inventory.RemoveItem(escapePart, 1);
             UpdateEscapeDoor();
         }
     }
-    
+
     public void LoadEscapeDoorProgress()
     {
         for (int i = 0; i < EscapePodParts; i++)
@@ -44,16 +44,16 @@ public class EscapePodProgress : MonoBehaviour
     }
 
     private void UpdateEscapeDoor()
-    {        
+    {
         GameObject currentObject = doorObjects[EscapePodParts - 1];
         if (currentObject != null)
         {
             currentObject.SetActive(true);
         }
     }
-    
-    void Start()
-    { 
+
+    private void Start()
+    {
         EscapePodParts = 0;
         LoadEscapeDoorProgress();
     }
