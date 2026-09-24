@@ -24,15 +24,21 @@ public class Inventory : MonoBehaviour
         return slots.Sum(slot => slot.item == item ? slot.count : 0);
     }
 
+    public void Clear()
+    {
+        while (slots.Count > 0)
+            RemoveItem(slots[^1], slots[^1].count);
+    }
+
     /// <summary>
     /// Add a quantity of an item to the inventory.
     /// </summary>
     /// <param name="item">The item to add.</param>
     /// <param name="amount">The amount to add.</param>
-    public ItemSlot AddItem(Item item, int amount = 1)
+    public ItemSlot AddItem(Item item, int amount, out int amountAdded)
     {
         if (amount <= 0)
-            return null;
+            throw new ArgumentOutOfRangeException("amount", "amount must be greater than 0");
 
         var slot = slots.FirstOrDefault(slot => slot.item == item);
 
@@ -55,7 +61,13 @@ public class Inventory : MonoBehaviour
 
         onItemCountChanged.Invoke(slot, GetCount(item));
 
+        amountAdded = amount;
         return slot;
+    }
+
+    public ItemSlot AddItem(Item item, int amount)
+    {
+        return AddItem(item, amount, out _);
     }
 
     /// <summary>

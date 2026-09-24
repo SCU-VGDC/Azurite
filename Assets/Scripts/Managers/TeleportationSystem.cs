@@ -7,9 +7,14 @@ using UnityEngine.SceneManagement;
 public class TeleportationSystem : MonoBehaviour
 {
     public string destinationScene;
+    [SerializeField] private SpriteRenderer indicator;
+
+    private Vector3 indicStartLocal;
 
     private void Start()
     {
+        indicStartLocal = indicator.transform.localPosition;
+
         GetComponent<InteractionTrigger>().playerInteractEvent.AddListener(Teleport);
 
         if (GameManager.Instance == null)
@@ -19,10 +24,20 @@ public class TeleportationSystem : MonoBehaviour
         }
 
         if (!string.IsNullOrEmpty(destinationScene) && GameManager.Instance.PreviousScene == destinationScene)
-        {
-            GameManager.Instance.Player.transform.position = transform.position;
-            GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.Instance.Player.transform.position, Quaternion.identity);
-        }
+            ArrivedFromDestination();
+    }
+
+    private void Update()
+    {
+        indicator.transform.localPosition = indicStartLocal + 0.3f * Mathf.Sin(Time.time * 2f) * indicator.transform.up;
+    }
+
+    private async void ArrivedFromDestination()
+    {
+        GameManager.Instance.Player.transform.position = transform.position;
+        GameManager.Instance.MainCameraContainer.GetComponentInChildren<CinemachineCamera>().ForceCameraPosition(GameManager.Instance.Player.transform.position, Quaternion.identity);
+        await Awaitable.WaitForSecondsAsync(0.4f);
+        UIManager.Instance.SetTransitionVisible(false);
     }
 
     private void OnDestroy()

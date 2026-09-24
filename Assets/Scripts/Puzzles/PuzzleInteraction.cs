@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.Scripting.LifecycleManagement;
@@ -10,12 +11,15 @@ public partial class PuzzleInteraction : InteractionTrigger
     public static Camera puzzleCamera;
     public static Vector3 puzzleLocation = new(100, 0, 0);
 
+    [SerializeField] private List<Puzzle> puzzlePrefabs;
+    public KeyCode quitKey = KeyCode.Q;
+
     public override bool CanInteract => !Solved;
     public bool Solved { get; private set; } = false;
+    public event Action OnSolved;
 
     private Player playerScript;
-    [SerializeField] private List<GameObject> puzzlePrefabs;
-    private GameObject activePuzzle;
+    private Puzzle activePuzzle;
 
     private Camera mainCamera;
     private CinemachineCamera mainVirtualCamera;
@@ -29,7 +33,6 @@ public partial class PuzzleInteraction : InteractionTrigger
         mainVirtualCamera = (CinemachineCamera)Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
         mainVirtualCameraPriority = mainVirtualCamera.Priority;
         playerScript = GameManager.Instance.Player;
-        GameManager.Instance.OnPuzzleEnd += EndGame;
     }
 
     protected override void OnDestroy()
@@ -37,6 +40,14 @@ public partial class PuzzleInteraction : InteractionTrigger
         base.OnDestroy();
         GameManager.Instance.OnPuzzleEnd -= EndGame;
         EndGame(false);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(quitKey))
+            GameManager.Instance.EndCurrentPuzzle(false);
     }
 
     public override void Trigger(Player interactingPlayer)
@@ -52,9 +63,12 @@ public partial class PuzzleInteraction : InteractionTrigger
         if (puzzleCamera != null)
             Destroy(puzzleCamera.gameObject);
 
+        GameManager.Instance.OnPuzzleEnd += EndGame;
+        UIManager.Instance.ControlDisplay.ShowControl(quitKey, "Close");
+
         // select a random puzzle
         int randomPuzzleIndex = UnityEngine.Random.Range(0, puzzlePrefabs.Count);
-        GameObject puzzlePrefab = puzzlePrefabs[randomPuzzleIndex];
+        var puzzlePrefab = puzzlePrefabs[randomPuzzleIndex];
 
         // freeze the player
         playerScript.Freeze("PuzzleInteraction");
@@ -73,7 +87,14 @@ public partial class PuzzleInteraction : InteractionTrigger
         puzzleCamera.GetUniversalAdditionalCameraData().renderType = CameraRenderType.Overlay;
 
         // move puzzle camera to the puzzle
-        puzzleCamera.transform.localPosition = puzzleLocation + new Vector3(0, 0, mainVirtualCamera.transform.position.z);
+        var bounds = activePuzzle.Bounds;
+        float vertFovRads = puzzleCamera.fieldOfView * Mathf.Deg2Rad;
+        float distY = (bounds.size.y / 2) / Mathf.Tan(vertFovRads / 2);
+        float horiFovRads = Camera.VerticalToHorizontalFieldOfView(puzzleCamera.fieldOfView, puzzleCamera.aspect) * Mathf.Deg2Rad;
+        float distX = (bounds.size.x / 2) / Mathf.Tan(horiFovRads / 2);
+        float dist = Mathf.Max(distX, distY);
+        puzzleCamera.orthographicSize = bounds.size.y / 2;
+        puzzleCamera.transform.localPosition = bounds.center + Vector3.back * dist;
 
         // stack main camera into puzzle camera
         mainCameraUniversalAdditionalCameraData.cameraStack.Add(puzzleCamera);
@@ -85,6 +106,8 @@ public partial class PuzzleInteraction : InteractionTrigger
 
     public void EndGame(bool success)
     {
+        GameManager.Instance.OnPuzzleEnd -= EndGame;
+        UIManager.Instance.ControlDisplay.RemoveControl(quitKey);
         Solved = success;
         mainVirtualCamera.Priority = mainVirtualCameraPriority;
 
@@ -97,12 +120,15 @@ public partial class PuzzleInteraction : InteractionTrigger
 
         // remove puzzle prefab
         if (activePuzzle != null)
-            Destroy(activePuzzle);
+            Destroy(activePuzzle.gameObject);
 
         // resume player
         playerScript.Unfreeze("PuzzleInteraction");
 
         if (success && TryGetComponent<SpriteRenderer>(out var sprite))
             sprite.color = Color.gray4;
+
+        if (success)
+            OnSolved?.Invoke();
     }
 }

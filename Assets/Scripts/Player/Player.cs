@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private readonly HashSet<string> freezeReasons = new();
 
-    private void Start()
+    private void Awake()
     {
         Inventory = GetComponent<Inventory>();
         animator = GetComponentInChildren<Animator>();
@@ -43,10 +43,12 @@ public class Player : MonoBehaviour
     public void Freeze(string reason)
     {
         freezeReasons.Add(reason);
+        UIManager.Instance.ControlDisplay.gameObject.SetActive(!Frozen);
     }
 
     public void Unfreeze(string reason)
     {
         freezeReasons.Remove(reason);
+        UIManager.Instance.ControlDisplay.gameObject.SetActive(!Frozen);
     }
 }

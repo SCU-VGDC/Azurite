@@ -17,7 +17,7 @@ public class LostPages : Item
 
     public List<Question> questions;
 
-    public bool AllCorrect => questions.TrueForAll(q => q.correctAnswer == q.savedAnswer.Trim());
+    public bool AllCorrect => questions.TrueForAll(q => !string.IsNullOrEmpty(q.savedAnswer) && q.correctAnswer == q.savedAnswer.Trim());
     public override bool Usable => true;
 
     public override void Use()

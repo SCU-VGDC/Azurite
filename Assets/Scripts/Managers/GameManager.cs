@@ -71,13 +71,6 @@ public partial class GameManager : MonoBehaviour
         DontDestroyOnLoad(playerObj);
         Player = playerObj.GetComponent<Player>();
 
-        CinemachineCamera cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
-        cineCam.Target = new CameraTarget()
-        {
-            TrackingTarget = Player.transform,
-            LookAtTarget = Player.transform,
-        };
-
         SceneManager.sceneUnloaded += OnSceneUnloaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -88,21 +81,41 @@ public partial class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    public void FocusCameraOnPlayer()
+    {
+        CinemachineCamera cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
+        cineCam.Target = new CameraTarget()
+        {
+            TrackingTarget = Player.transform,
+            LookAtTarget = Player.transform,
+        };
+    }
+
+    public void FocusCameraOn(Transform tr)
+    {
+        CinemachineCamera cineCam = MainCameraContainer.GetComponentInChildren<CinemachineCamera>();
+        cineCam.Target = new CameraTarget()
+        {
+            TrackingTarget = tr,
+            LookAtTarget = tr,
+        };
+    }
+
     private void OnSceneUnloaded(Scene scene)
     {
         PreviousScene = scene.name;
     }
 
-    private async void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
     {
         var bounds = GameObject.FindWithTag("Camera Bounds");
         if (bounds != null && bounds.TryGetComponent(out Collider2D collider))
             MainCameraContainer.GetComponentInChildren<CinemachineConfiner2D>().BoundingShape2D = collider;
-        else
-            Debug.LogWarning($"Scene '{SceneManager.GetActiveScene().name}' is missing a Collider2D tagged as 'Camera Bounds'!");
+        else if (scene.name != "Title")
+            Debug.LogWarning($"Scene '{scene.name}' is missing a Collider2D tagged as 'Camera Bounds'!");
 
-        await Awaitable.WaitForSecondsAsync(0.3f);
-        UIManager.Instance.SetTransitionVisible(false);
+        if (scene.name != "Title")
+            FocusCameraOnPlayer();
     }
 
 

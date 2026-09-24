@@ -26,16 +26,15 @@ public class ItemPickup : InteractionTrigger
     {
         base.Trigger(interactingPlayer);
 
-        GameManager.Instance.Player.Inventory.AddItem(item, amount);
-
-        if (usePersistentData)
+        GameManager.Instance.Player.Inventory.AddItem(item, amount, out var added);
+        amount -= added;
+        if (amount <= 0)
         {
-            PersistentDataManager.Instance.Set(dataKey, true);
-        }
+            if (usePersistentData)
+                PersistentDataManager.Instance.Set(dataKey, true);
 
-        if (destroyOnPickup)
-        {
-            Destroy(gameObject);
+            if (destroyOnPickup)
+                Destroy(gameObject);
         }
     }
 }

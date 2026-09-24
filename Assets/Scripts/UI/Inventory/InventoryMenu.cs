@@ -40,6 +40,8 @@ public class InventoryMenu : Menu
         GameManager.Instance.Player.Inventory.onItemRemoved.AddListener(OnItemRemoved);
         GameManager.Instance.Player.Inventory.onItemCountChanged.AddListener(OnItemCountChanged);
         OnItemClicked += TriggerItemUse;
+
+        UIManager.Instance.ControlDisplay.ShowControl(toggleKey, "Inventory");
     }
 
     private void Update()

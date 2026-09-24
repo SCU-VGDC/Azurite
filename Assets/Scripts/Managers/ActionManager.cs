@@ -46,10 +46,17 @@ public partial class ActionManager : MonoBehaviour
 
     private void Start()
     {
+        SetRequiredKeys();
+        PersistentDataManager.Instance.OnClear += SetRequiredKeys;
+    }
+
+    private void SetRequiredKeys()
+    {
         // initialize persistent data
         ActionCounter = 0;
         ActionThreshold = 10;
         ActionThresholdIncrease = new int[] { 10, 10, 10, 10, 10 };
+        WorldState = 0;
     }
 
     private void IncrementRoomState()

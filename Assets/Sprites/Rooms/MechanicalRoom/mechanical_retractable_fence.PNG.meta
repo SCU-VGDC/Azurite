@@ -5,12 +5,6 @@ TextureImporter:
   - first:
       213: 766703810071794601
     second: mechanical_retractable_fence_0
-  - first:
-      213: 3190660627662963172
-    second: mechanical_retractable_fence_1
-  - first:
-      213: -6753551655167434045
-    second: mechanical_retractable_fence_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -111,10 +105,10 @@ TextureImporter:
       name: mechanical_retractable_fence_0
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 1041
-        width: 22
-        height: 378
+        x: 0
+        y: 0
+        width: 20
+        height: 376
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,50 +119,6 @@ TextureImporter:
       bones: []
       spriteID: 9a394479d01e3aa00800000000000000
       internalID: 766703810071794601
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mechanical_retractable_fence_1
-      rect:
-        serializedVersion: 2
-        x: 2113
-        y: 1041
-        width: 22
-        height: 378
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4e10dae9fe0874c20800000000000000
-      internalID: 3190660627662963172
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mechanical_retractable_fence_2
-      rect:
-        serializedVersion: 2
-        x: 3035
-        y: 1041
-        width: 22
-        height: 378
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c26e7d2d809642a0800000000000000
-      internalID: -6753551655167434045
       vertices: []
       indices: 
       edges: []
@@ -188,8 +138,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       mechanical_retractable_fence_0: 766703810071794601
-      mechanical_retractable_fence_1: 3190660627662963172
-      mechanical_retractable_fence_2: -6753551655167434045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

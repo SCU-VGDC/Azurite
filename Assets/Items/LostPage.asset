@@ -14,16 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LostPages
   <DisplayName>k__BackingField: Lost Pages
   <Description>k__BackingField: What a pain.
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 43f18e36427358644ab8859cb4025d2b, type: 3}
   <MaxStackSize>k__BackingField: 1
   <Categories>k__BackingField: 
   menuPrefab: {fileID: 7819142325956354961, guid: 0d0a492d56d5f784cb76e2895fbdb3a8, type: 3}
   questions:
   - question: I want to remember how cramped these living quarters are. How many bunk beds are in this room?
     correctAnswer: 4
-  - question: I want to document the unique flowers that are being grown in the Greenhouse. How many flowers are [COLOR] under [COLOR] light?
+  - question: I want to document the unique flowers that are being grown in the Greenhouse. How many are in the greenhouse?
     correctAnswer: 4
-  - question: I want to get a better understanding of the panels in the Mechanical Room. What were the symbols on the [PANEL]?
+  - question: I want to get a better understanding of the panels in the Mechanical Room. What shape are the panels arranged in?
     correctAnswer: square
-  - question: I really want to learn about the monsters in the R&D room. How many sharp-teethed creatures are there?
-    correctAnswer: 2

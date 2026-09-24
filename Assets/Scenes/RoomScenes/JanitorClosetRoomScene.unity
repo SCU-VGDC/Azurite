@@ -1624,13 +1624,25 @@ PrefabInstance:
       propertyPath: defaultPopupText
       value: Main Hub
       objectReference: {fileID: 0}
+    - target: {fileID: 963623433631399918, guid: 822da2db82c760e4381f2e396904983f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 963623433631399918, guid: 822da2db82c760e4381f2e396904983f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 963623433631399918, guid: 822da2db82c760e4381f2e396904983f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.02
+      value: 6.93
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.33
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2883432510080611362, guid: 822da2db82c760e4381f2e396904983f, type: 3}
       propertyPath: m_LocalPosition.z

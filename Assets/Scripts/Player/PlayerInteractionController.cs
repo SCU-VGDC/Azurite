@@ -32,6 +32,7 @@ public class PlayerInteractionController : MonoBehaviour
                 triggers.Add(interaction.InteractionKey, new List<InteractionTrigger>());
 
             triggers[interaction.InteractionKey].Add(interaction);
+            UIManager.Instance.ControlDisplay.ShowControl(interaction.InteractionKey, interaction.PopupText);
         }
     }
 
@@ -41,6 +42,7 @@ public class PlayerInteractionController : MonoBehaviour
         {
             ilist.Remove(interaction);
             interaction.ToggleTextPopup(false);
+            UIManager.Instance.ControlDisplay.RemoveControl(interaction.InteractionKey);
         }
     }
 

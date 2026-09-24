@@ -4,7 +4,6 @@ using TMPro;
 using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 [RequireComponent(typeof(Canvas))]
 [AutoStaticsCleanup]
@@ -14,7 +13,9 @@ public partial class UIManager : MonoBehaviour
 
     [field: SerializeField] public Menu FullscreenMenuContainer { get; private set; }
     [field: SerializeField] public InventoryMenu Inventory { get; private set; }
-    [SerializeField] private Menu transitionScreen;
+    [field: SerializeField] public ControlDisplay ControlDisplay { get; private set; }
+    [SerializeField] private TitleScreen title;
+    [SerializeField] private FadeMenu transitionScreen;
     [SerializeField] private DialogMenu dialogMenuPrefab;
     [SerializeField] private Menu notePopupPrefab;
     [SerializeField] private ItemSubmissionMenu itemSubmissionPrefab;
@@ -73,14 +74,31 @@ public partial class UIManager : MonoBehaviour
         return itemSub;
     }
 
-    public Tween SetTransitionVisible(bool active)
+    public Tween SetTransitionVisible(bool active, float fadeTime = 0.3f)
     {
+        transitionScreen.fadeTime = fadeTime;
+
         if (active)
             transitionScreen.Open();
         else
             transitionScreen.Close();
 
         return transitionScreen.CurrentTween;
+    }
+
+    public Tween SetTitleVisible(bool active)
+    {
+        if (active)
+        {
+            while (openMenus.Count > 0)
+                openMenus.First().Close();
+            GameManager.Instance.Player.Inventory.Clear();
+            title.Open();
+        }
+        else
+            title.Close();
+
+        return title.CurrentTween;
     }
 
     public void OnMenuOpened(Menu menu)

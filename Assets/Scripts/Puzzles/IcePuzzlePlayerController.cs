@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using System;
 
 public class IcePuzzlePlayerController : MonoBehaviour
 {
@@ -15,14 +14,15 @@ public class IcePuzzlePlayerController : MonoBehaviour
     public float slideDuration = 0.5f;
 
     private Tween slide;
+    private bool solved = false;
 
-    void Start()
+    private void Start()
     {
         // snap the player to the grid! round, not truncate
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
     }
 
-    void Update()
+    private void Update()
     {
         // Player movement is controlled by WASD or arrow keys.
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -43,8 +43,17 @@ public class IcePuzzlePlayerController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        slide?.Kill();
+    }
+
     private async void OnSolve()
     {
+        if (solved)
+            return;
+        solved = true;
+
         await Awaitable.WaitForSecondsAsync(1);
         GameManager.Instance.EndCurrentPuzzle(true);
     }
@@ -56,6 +65,9 @@ public class IcePuzzlePlayerController : MonoBehaviour
     private void Move(Vector2Int direction)
     {
         if (slide != null && slide.active)
+            return;
+
+        if (solved)
             return;
 
         Vector2Int position = new((int)transform.position.x, (int)transform.position.y);

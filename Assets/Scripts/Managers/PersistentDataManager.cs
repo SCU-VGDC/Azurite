@@ -7,7 +7,9 @@ using UnityEngine;
 public partial class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance;
-    
+
+    public event Action OnClear;
+
     private readonly Dictionary<string, object> persistentDict = new();
     private readonly Dictionary<string, Delegate> eventStore = new();
 
@@ -22,10 +24,10 @@ public partial class PersistentDataManager : MonoBehaviour
         Instance = this;
     }
 
-    public void Start()
+    public void Clear()
     {
-        // Initialize any persistent data
-        Instance.Set("worldState", 0);
+        persistentDict.Clear();
+        OnClear?.Invoke();
     }
 
     public void Set<T>(string key, T value)

@@ -100,7 +100,7 @@ public class ItemSubmissionMenu : Menu
         if (currentItemBox == null)
             return;
 
-        var slot = GameManager.Instance.Player.Inventory.AddItem(currentItemBox.Item);
+        var slot = GameManager.Instance.Player.Inventory.AddItem(currentItemBox.Item, 1);
         var targetItemBox = invMenu.GetUIForSlot(slot);
         var newItemBox = Instantiate(itemBoxPrefab, invMenu.transform);
         targetItemBox.Visible = false;
